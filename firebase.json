@@ -1,0 +1,9 @@
+{
+  "hosting": [
+    {
+      "target": "MacioRenthouse",
+      "source": ".",
+      "frameworksBackend": {}
+    }
+  ]
+}

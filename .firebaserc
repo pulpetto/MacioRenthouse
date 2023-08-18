@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "macio-renthouse": {
+      "hosting": {
+        "MacioRenthouse": [
+          "macio-renthouse"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "macio-renthouse"
+  }
+}
