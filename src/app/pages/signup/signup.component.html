@@ -1,1 +1,91 @@
-<p>signup works!</p>
+<div class="h-screen flex justify-center items-center">
+    <div
+        class="flex flex-col justify-center items-center gap-6 bg-neutral-950 rounded-md bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-30 shadow-md p-12"
+    >
+        <div class="text-6xl font-semibold">Create Account</div>
+
+        <form
+            [formGroup]="signinForm"
+            (ngSubmit)="onSignIn()"
+            class="flex flex-col justify-center items-center gap-6"
+        >
+            <!-- <app-input [control]="loginForm.get('name')"></app-input> -->
+            <div class="flex gap-8">
+                <app-input
+                    label="name"
+                    type="text"
+                    [control]="signinForm.controls.name"
+                ></app-input>
+                <app-input
+                    label="last name"
+                    type="text"
+                    [control]="signinForm.controls.lastName"
+                ></app-input>
+            </div>
+
+            <div class="flex gap-8 w-full">
+                <app-input
+                    class="w-full"
+                    label="email"
+                    type="email"
+                    [control]="signinForm.controls.email"
+                ></app-input>
+                <app-input
+                    class="w-12"
+                    label="age"
+                    type="number"
+                    [control]="signinForm.controls.age"
+                ></app-input>
+            </div>
+
+            <app-input
+                class="w-full"
+                label="password"
+                type="password"
+                [control]="signinForm.controls.password"
+            ></app-input>
+            <app-input
+                class="w-full"
+                label="repeat password"
+                type="password"
+                [control]="signinForm.controls.repeatPassword"
+            ></app-input>
+
+            <div class="w-full mt-4">
+                <button
+                    type="submit"
+                    [disabled]="signinForm.invalid"
+                    class="w-full py-3 bg-indigo-700 hover:bg-indigo-800 rounded-md text-lg mb-2"
+                >
+                    Sign In
+                </button>
+                <div class="text-xs text-center">
+                    <span class="text-neutral-300"> Already a member? </span>
+                    <a
+                        routerLink="/login"
+                        class="hover:underline text-indigo-700"
+                    >
+                        Log in!
+                    </a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div
+    *ngIf="loginPromptVisibility"
+    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full flex justify-center items-center backdrop-blur-8"
+>
+    <div
+        class="p-16 text-center border-2 border-solid border-indigo-700 bg-neutral-950 rounded-md bg-clip-padding backdrop-filter backdrop-blur-2xl bg-opacity-30 shadow-md"
+    >
+        <div class="mb-4 text-3xl">Looks like you already have an account.</div>
+
+        Do you want to
+        <a routerLink="/login" class="hover:underline text-indigo-700 text-lg">
+            Log in
+        </a>
+        ?
+    </div>
+</div>
