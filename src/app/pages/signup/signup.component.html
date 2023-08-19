@@ -5,8 +5,8 @@
         <div class="text-6xl font-semibold">Create Account</div>
 
         <form
-            [formGroup]="signinForm"
-            (ngSubmit)="onSignIn()"
+            [formGroup]="signupForm"
+            (ngSubmit)="onSignup()"
             class="flex flex-col justify-center items-center gap-6"
         >
             <!-- <app-input [control]="loginForm.get('name')"></app-input> -->
@@ -14,12 +14,12 @@
                 <app-input
                     label="name"
                     type="text"
-                    [control]="signinForm.controls.name"
+                    [control]="signupForm.controls.name"
                 ></app-input>
                 <app-input
                     label="last name"
                     type="text"
-                    [control]="signinForm.controls.lastName"
+                    [control]="signupForm.controls.lastName"
                 ></app-input>
             </div>
 
@@ -28,13 +28,13 @@
                     class="w-full"
                     label="email"
                     type="email"
-                    [control]="signinForm.controls.email"
+                    [control]="signupForm.controls.email"
                 ></app-input>
                 <app-input
                     class="w-12"
                     label="age"
                     type="number"
-                    [control]="signinForm.controls.age"
+                    [control]="signupForm.controls.age"
                 ></app-input>
             </div>
 
@@ -42,19 +42,19 @@
                 class="w-full"
                 label="password"
                 type="password"
-                [control]="signinForm.controls.password"
+                [control]="signupForm.controls.password"
             ></app-input>
             <app-input
                 class="w-full"
                 label="repeat password"
                 type="password"
-                [control]="signinForm.controls.repeatPassword"
+                [control]="signupForm.controls.repeatPassword"
             ></app-input>
 
             <div class="w-full mt-4">
                 <button
                     type="submit"
-                    [disabled]="signinForm.invalid"
+                    [disabled]="signupForm.invalid"
                     class="w-full py-3 bg-indigo-700 hover:bg-indigo-800 rounded-md text-lg mb-2"
                 >
                     Sign In

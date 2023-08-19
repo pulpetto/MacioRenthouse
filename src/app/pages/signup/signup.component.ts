@@ -62,7 +62,7 @@ export class SignupComponent {
         return null;
     };
 
-    signinForm = new FormGroup({
+    signupForm = new FormGroup({
         name: new FormControl('', [Validators.required]),
         lastName: new FormControl('', [Validators.required]),
         email: new FormControl('', [Validators.required, Validators.email]),
@@ -83,7 +83,7 @@ export class SignupComponent {
     matchingPasswordValidator(
         control: AbstractControl
     ): ValidationErrors | null {
-        const password = this.signinForm?.get('password')?.value;
+        const password = this.signupForm?.get('password')?.value;
         const repeatPassword = control.value;
 
         if (password !== repeatPassword) {
@@ -93,28 +93,28 @@ export class SignupComponent {
         return null;
     }
 
-    onSignIn() {
+    onSignup() {
         // if (
         //     this.userService
         //         .getUsers()
         //         .some(
         //             (user) =>
-        //                 user.email === this.signinForm.get('email')?.value!
+        //                 user.email === this.signupForm.get('email')?.value!
         //         )
         // ) {
         //     this.loginPromptVisibility = true;
         //     return;
         // } else {
         //     const newUser: User = {
-        //         // name: this.signinForm.controls.name.value!,
+        //         // name: this.signupForm.controls.name.value!,
         //         username:
-        //             this.signinForm?.get('name')?.value! +
-        //             this.signinForm?.get('lastName')?.value!,
-        //         name: this.signinForm?.get('name')?.value!,
-        //         lastname: this.signinForm.get('lastName')?.value!,
-        //         email: this.signinForm.get('email')?.value!,
-        //         age: parseInt(this.signinForm.get('age')?.value!),
-        //         password: this.signinForm.get('password')?.value!,
+        //             this.signupForm?.get('name')?.value! +
+        //             this.signupForm?.get('lastName')?.value!,
+        //         name: this.signupForm?.get('name')?.value!,
+        //         lastname: this.signupForm.get('lastName')?.value!,
+        //         email: this.signupForm.get('email')?.value!,
+        //         age: parseInt(this.signupForm.get('age')?.value!),
+        //         password: this.signupForm.get('password')?.value!,
         //         userOffers: [],
         //     };
 
@@ -122,9 +122,9 @@ export class SignupComponent {
         //     this.router.navigate(['/home']);
         // }
 
-        const email = this.signinForm.get('email')?.value!;
+        const email = this.signupForm.get('email')?.value!;
 
-        const password = this.signinForm.get('password')?.value!;
+        const password = this.signupForm.get('password')?.value!;
 
         const observable = from(
             this.fireAuth.createUserWithEmailAndPassword(email, password)
@@ -135,13 +135,13 @@ export class SignupComponent {
                 switchMap((userCredential) => {
                     const newUser = {
                         username:
-                            this.signinForm?.get('name')?.value! +
-                            this.signinForm?.get('lastName')?.value!,
-                        name: this.signinForm?.get('name')?.value!,
-                        lastname: this.signinForm.get('lastName')?.value!,
-                        email: this.signinForm.get('email')?.value!,
-                        age: parseInt(this.signinForm.get('age')?.value!),
-                        password: this.signinForm.get('password')?.value!,
+                            this.signupForm?.get('name')?.value! +
+                            this.signupForm?.get('lastName')?.value!,
+                        name: this.signupForm?.get('name')?.value!,
+                        lastname: this.signupForm.get('lastName')?.value!,
+                        email: this.signupForm.get('email')?.value!,
+                        age: parseInt(this.signupForm.get('age')?.value!),
+                        password: this.signupForm.get('password')?.value!,
                         userOffers: [],
                     };
 
@@ -152,7 +152,7 @@ export class SignupComponent {
                     return this.fireStore.collection('users').add(newUser);
                 }),
                 catchError((error) => {
-                    console.error('Error signing up:', error);
+                    console.error('Error signup:', error);
                     return throwError(error);
                 })
             )

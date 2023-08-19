@@ -9,10 +9,10 @@ import { UserService } from 'src/app/services/user.service';
     styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
-    signinPromptVisibility!: boolean;
+    signupPromptVisibility!: boolean;
 
     constructor(private userService: UserService, private router: Router) {
-        this.signinPromptVisibility = false;
+        this.signupPromptVisibility = false;
     }
 
     loginForm = new FormGroup({
@@ -43,7 +43,7 @@ export class LoginComponent {
         ) {
             this.router.navigate(['/home']);
         } else {
-            this.signinPromptVisibility = true;
+            this.signupPromptVisibility = true;
         }
     }
 }
