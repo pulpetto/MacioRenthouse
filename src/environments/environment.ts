@@ -1,4 +1,5 @@
 export const environment = {
+    production: false,
     firebase: {
         projectId: 'macio-renthouse',
         appId: '1:246621205762:web:dc4b45dfcffe5af9757e1b',

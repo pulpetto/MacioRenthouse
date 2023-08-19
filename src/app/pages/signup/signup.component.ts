@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { switchMap, catchError, throwError, from } from 'rxjs';
+import { User } from 'src/app/interfaces/user';
 
 @Component({
     selector: 'app-signup',
@@ -22,9 +23,7 @@ export class SignupComponent {
 
     constructor(
         private userService: UserService,
-        private router: Router,
-        private fireAuth: AngularFireAuth,
-        private fireStore: AngularFirestore
+        private router: Router // private fireAuth: AngularFireAuth, // private fireStore: AngularFirestore
     ) {
         this.loginPromptVisibility = false;
     }
@@ -94,71 +93,71 @@ export class SignupComponent {
     }
 
     onSignup() {
-        // if (
-        //     this.userService
-        //         .getUsers()
-        //         .some(
-        //             (user) =>
-        //                 user.email === this.signupForm.get('email')?.value!
-        //         )
-        // ) {
-        //     this.loginPromptVisibility = true;
-        //     return;
-        // } else {
-        //     const newUser: User = {
-        //         // name: this.signupForm.controls.name.value!,
-        //         username:
-        //             this.signupForm?.get('name')?.value! +
-        //             this.signupForm?.get('lastName')?.value!,
-        //         name: this.signupForm?.get('name')?.value!,
-        //         lastname: this.signupForm.get('lastName')?.value!,
-        //         email: this.signupForm.get('email')?.value!,
-        //         age: parseInt(this.signupForm.get('age')?.value!),
-        //         password: this.signupForm.get('password')?.value!,
-        //         userOffers: [],
-        //     };
+        if (
+            this.userService
+                .getUsers()
+                .some(
+                    (user) =>
+                        user.email === this.signupForm.get('email')?.value!
+                )
+        ) {
+            this.loginPromptVisibility = true;
+            return;
+        } else {
+            const newUser: User = {
+                // name: this.signupForm.controls.name.value!,
+                username:
+                    this.signupForm?.get('name')?.value! +
+                    this.signupForm?.get('lastName')?.value!,
+                name: this.signupForm?.get('name')?.value!,
+                lastname: this.signupForm.get('lastName')?.value!,
+                email: this.signupForm.get('email')?.value!,
+                age: parseInt(this.signupForm.get('age')?.value!),
+                password: this.signupForm.get('password')?.value!,
+                userOffers: [],
+            };
 
-        //     this.userService.addUser(newUser);
-        //     this.router.navigate(['/home']);
-        // }
+            this.userService.addUser(newUser);
+            this.router.navigate(['/home']);
+        }
 
-        const email = this.signupForm.get('email')?.value!;
+        // const email = this.signupForm.get('email')?.value!;
 
-        const password = this.signupForm.get('password')?.value!;
+        // const password = this.signupForm.get('password')?.value!;
 
-        const observable = from(
-            this.fireAuth.createUserWithEmailAndPassword(email, password)
-        );
+        // const observable = from(
+        //     this.fireAuth.createUserWithEmailAndPassword(email, password)
+        // );
 
-        observable
-            .pipe(
-                switchMap((userCredential) => {
-                    const newUser = {
-                        username:
-                            this.signupForm?.get('name')?.value! +
-                            this.signupForm?.get('lastName')?.value!,
-                        name: this.signupForm?.get('name')?.value!,
-                        lastname: this.signupForm.get('lastName')?.value!,
-                        email: this.signupForm.get('email')?.value!,
-                        age: parseInt(this.signupForm.get('age')?.value!),
-                        password: this.signupForm.get('password')?.value!,
-                        userOffers: [],
-                    };
+        // observable
+        //     .pipe(
+        //         switchMap((userCredential) => {
+        //             const newUser = {
+        //                 username:
+        //                     this.signupForm?.get('name')?.value! +
+        //                     this.signupForm?.get('lastName')?.value!,
+        //                 name: this.signupForm?.get('name')?.value!,
+        //                 lastname: this.signupForm.get('lastName')?.value!,
+        //                 email: this.signupForm.get('email')?.value!,
+        //                 age: parseInt(this.signupForm.get('age')?.value!),
+        //                 password: this.signupForm.get('password')?.value!,
+        //                 userOffers: [],
+        //             };
 
-                    console.log(newUser);
-                    console.log(userCredential);
-                    console.log(this.fireStore.collection('users'));
+        //             console.log(newUser);
+        //             console.log(userCredential);
+        //             console.log(this.fireStore.collection('users'));
 
-                    return this.fireStore.collection('users').add(newUser);
-                }),
-                catchError((error) => {
-                    console.error('Error signup:', error);
-                    return throwError(error);
-                })
-            )
-            .subscribe(() => {
-                console.log('ev spk');
-                this.router.navigate(['/home']);
-            });
+        //             return this.fireStore.collection('users').add(newUser);
+        //         }),
+        //         catchError((error) => {
+        //             console.error('Error signup:', error);
+        //             return throwError(error);
+        //         })
+        //     )
+        //     .subscribe(() => {
+        //         console.log('ev spk');
+        //         this.router.navigate(['/home']);
+        //     });
     }
 }

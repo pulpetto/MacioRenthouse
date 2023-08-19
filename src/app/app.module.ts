@@ -13,7 +13,11 @@ import {
 } from '@angular/fire/analytics';
 import { provideAuth, getAuth } from '@angular/fire/auth';
 import { provideDatabase, getDatabase } from '@angular/fire/database';
-import { provideFirestore, getFirestore } from '@angular/fire/firestore';
+import {
+    provideFirestore,
+    getFirestore,
+    FirestoreModule,
+} from '@angular/fire/firestore';
 import { provideFunctions, getFunctions } from '@angular/fire/functions';
 import { provideMessaging, getMessaging } from '@angular/fire/messaging';
 import { providePerformance, getPerformance } from '@angular/fire/performance';
@@ -29,6 +33,9 @@ import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 
 @NgModule({
     declarations: [
@@ -54,6 +61,10 @@ import { ReactiveFormsModule } from '@angular/forms';
         providePerformance(() => getPerformance()),
         provideRemoteConfig(() => getRemoteConfig()),
         provideStorage(() => getStorage()),
+        FirestoreModule,
+        AngularFireModule,
+        AngularFireAuthModule,
+        AngularFirestoreModule,
     ],
     providers: [ScreenTrackingService, UserTrackingService],
     bootstrap: [AppComponent],
