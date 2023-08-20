@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
     FormGroup,
     FormControl,
@@ -10,7 +10,8 @@ import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { switchMap, catchError, throwError, from } from 'rxjs';
+import { Firestore } from '@angular/fire/firestore';
+import { switchMap, catchError, throwError, from, Observable } from 'rxjs';
 import { User } from 'src/app/interfaces/user';
 
 @Component({
@@ -19,12 +20,13 @@ import { User } from 'src/app/interfaces/user';
     styleUrls: ['./signup.component.css'],
 })
 export class SignupComponent {
+    firestore: Firestore = inject(Firestore);
+    angularFirestore: AngularFirestore = inject(AngularFirestore);
+    users$!: Observable<User[]>;
+
     loginPromptVisibility!: boolean;
 
-    constructor(
-        private userService: UserService,
-        private router: Router // private fireAuth: AngularFireAuth, // private fireStore: AngularFirestore
-    ) {
+    constructor(private userService: UserService, private router: Router) {
         this.loginPromptVisibility = false;
     }
 
