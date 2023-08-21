@@ -36,6 +36,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { FIREBASE_OPTIONS } from '@angular/fire/compat';
 
 @NgModule({
     declarations: [
@@ -52,10 +53,6 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
         AppRoutingModule,
         ReactiveFormsModule,
         provideFirebaseApp(() => initializeApp(environment.firebase)),
-        FirestoreModule,
-        AngularFireModule,
-        AngularFireAuthModule,
-        AngularFirestoreModule,
         provideAnalytics(() => getAnalytics()),
         provideAuth(() => getAuth()),
         provideDatabase(() => getDatabase()),
@@ -65,8 +62,16 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
         providePerformance(() => getPerformance()),
         provideRemoteConfig(() => getRemoteConfig()),
         provideStorage(() => getStorage()),
+        FirestoreModule,
+        AngularFireModule,
+        AngularFireAuthModule,
+        AngularFirestoreModule,
     ],
-    providers: [ScreenTrackingService, UserTrackingService],
+    providers: [
+        ScreenTrackingService,
+        UserTrackingService,
+        { provide: FIREBASE_OPTIONS, useValue: environment.firebase },
+    ],
     bootstrap: [AppComponent],
 })
 export class AppModule {}
