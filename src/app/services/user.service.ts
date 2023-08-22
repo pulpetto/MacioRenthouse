@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { User } from '../interfaces/user';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { AngularFireDatabase } from '@angular/fire/compat/database';
 
 @Injectable({
     providedIn: 'root',
@@ -7,7 +9,10 @@ import { User } from '../interfaces/user';
 export class UserService {
     private users: User[] = [];
 
-    constructor() {
+    constructor(
+        private angularFireAuth: AngularFireAuth,
+        private angularFireDatabase: AngularFireDatabase
+    ) {
         const localStoredUsers = localStorage.getItem('users');
         this.users = localStoredUsers ? JSON.parse(localStoredUsers) : [];
     }
@@ -23,5 +28,13 @@ export class UserService {
 
     private updateLocalStorage() {
         localStorage.setItem('users', JSON.stringify(this.users));
+    }
+
+    login() {
+        console.log('logged in');
+    }
+
+    signup(userEmail: string, userPassword: string) {
+        console.log('signed in');
     }
 }
