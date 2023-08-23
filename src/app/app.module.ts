@@ -37,6 +37,7 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { FIREBASE_OPTIONS } from '@angular/fire/compat';
+import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 
 @NgModule({
     declarations: [
@@ -66,6 +67,7 @@ import { FIREBASE_OPTIONS } from '@angular/fire/compat';
         AngularFireModule,
         AngularFireAuthModule,
         AngularFirestoreModule,
+        AngularFireDatabaseModule,
     ],
     providers: [
         ScreenTrackingService,

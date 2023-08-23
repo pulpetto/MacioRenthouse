@@ -118,15 +118,24 @@ export class SignupComponent {
         //     this.router.navigate(['/home']);
         // }
 
-        const email = this.signupForm.get('email')?.value!;
-
-        const password = this.signupForm.get('password')?.value!;
+        const newUser: User = {
+            // name: this.signupForm.controls.name.value!,
+            username:
+                this.signupForm?.get('name')?.value! +
+                this.signupForm?.get('lastName')?.value!,
+            name: this.signupForm?.get('name')?.value!,
+            lastname: this.signupForm.get('lastName')?.value!,
+            email: this.signupForm.get('email')?.value!,
+            age: parseInt(this.signupForm.get('age')?.value!),
+            password: this.signupForm.get('password')?.value!,
+            userOffers: [],
+        };
 
         // const observable = from(
         //     this.angularFireAuth.createUserWithEmailAndPassword(email, password)
         // );
 
-        this.userService.signup(email, password);
+        this.userService.signup(newUser);
 
         // observable
         //     .pipe(
