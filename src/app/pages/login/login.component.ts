@@ -22,28 +22,9 @@ export class LoginComponent {
     });
 
     onLogIn() {
-        if (
-            this.userService
-                .getUsers()
-                .some(
-                    (user) =>
-                        user.username === this.loginForm.get('username')?.value!
-                ) &&
-            this.userService
-                .getUsers()
-                .some(
-                    (user) => user.email === this.loginForm.get('email')?.value!
-                ) &&
-            this.userService
-                .getUsers()
-                .some(
-                    (user) =>
-                        user.password === this.loginForm.get('password')?.value!
-                )
-        ) {
-            this.router.navigate(['/home']);
-        } else {
-            this.signupPromptVisibility = true;
-        }
+        // check if user has account already
+        // toggle singup prompt visibility
+        // navigate to user dashboard
+        // use .some() method
     }
 }
