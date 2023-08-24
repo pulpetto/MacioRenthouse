@@ -35,6 +35,7 @@ export class SignupComponent {
     signupForm = new FormGroup({
         name: new FormControl('', [Validators.required]),
         lastName: new FormControl('', [Validators.required]),
+        username: new FormControl('', [Validators.required]),
         email: new FormControl('', [Validators.required, Validators.email]),
         age: new FormControl('', [
             Validators.required,
@@ -109,11 +110,9 @@ export class SignupComponent {
         const newUser: User = {
             // name: this.signupForm.controls.name.value!,
             // FIX USERNAMES -> MAKE USER ABLE TO MAKE HIS OWN
-            username:
-                this.signupForm?.get('name')?.value! +
-                this.signupForm?.get('lastName')?.value!,
             name: this.signupForm?.get('name')?.value!,
             lastname: this.signupForm.get('lastName')?.value!,
+            username: this.signupForm?.get('username')?.value!,
             email: this.signupForm.get('email')?.value!,
             age: parseInt(this.signupForm.get('age')?.value!),
             password: this.signupForm.get('password')?.value!,
