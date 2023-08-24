@@ -31,13 +31,9 @@ export class UserService {
     login() {}
 
     signup(newUser: User) {
-        // this.$users = this.angularFireDatabase.list('users').valueChanges();
-        // this.$users.subscribe((usersArr) => {
-        //     console.log(usersArr);
-        // });
-        // set(
-        //     ref(this.angularFireDatabase.database, 'users/' + newUser.username),
-        //     newUser
-        // );
+        set(
+            ref(this.angularFireDatabase.database, 'users/' + newUser.username),
+            newUser
+        );
     }
 }
