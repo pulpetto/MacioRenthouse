@@ -10,6 +10,8 @@ import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
 import { switchMap, catchError, throwError, from, Observable } from 'rxjs';
 import { User } from 'src/app/interfaces/user';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { AngularFireDatabase } from '@angular/fire/compat/database';
 
 @Component({
     selector: 'app-signup',
@@ -17,17 +19,38 @@ import { User } from 'src/app/interfaces/user';
     styleUrls: ['./signup.component.css'],
 })
 export class SignupComponent {
-    // users$!: Observable<User[]>;
+    $users!: Observable<any[]>;
 
     loginPromptVisibility!: boolean;
 
-    constructor(private userService: UserService, private router: Router) {
+    constructor(
+        private userService: UserService,
+        private router: Router,
+        private angularFireDatabase: AngularFireDatabase,
+        private angularFireAuth: AngularFireAuth
+    ) {
         this.loginPromptVisibility = false;
     }
 
-    passwordValidator = function (
-        control: AbstractControl
-    ): ValidationErrors | null {
+    signupForm = new FormGroup({
+        name: new FormControl('', [Validators.required]),
+        lastName: new FormControl('', [Validators.required]),
+        email: new FormControl('', [Validators.required, Validators.email]),
+        age: new FormControl('', [
+            Validators.required,
+            Validators.pattern('^[0-9]*$'),
+        ]),
+        password: new FormControl('', [
+            Validators.required,
+            this.passwordValidator.bind(this),
+        ]),
+        repeatPassword: new FormControl('', [
+            Validators.required,
+            this.matchingPasswordValidator.bind(this),
+        ]),
+    });
+
+    passwordValidator(control: AbstractControl): ValidationErrors | null {
         const value: string = control.value;
 
         // Check for at least one uppercase letter
@@ -56,25 +79,7 @@ export class SignupComponent {
         }
 
         return null;
-    };
-
-    signupForm = new FormGroup({
-        name: new FormControl('', [Validators.required]),
-        lastName: new FormControl('', [Validators.required]),
-        email: new FormControl('', [Validators.required, Validators.email]),
-        age: new FormControl('', [
-            Validators.required,
-            Validators.pattern('^[0-9]*$'),
-        ]),
-        password: new FormControl('', [
-            Validators.required,
-            this.passwordValidator.bind(this),
-        ]),
-        repeatPassword: new FormControl('', [
-            Validators.required,
-            this.matchingPasswordValidator.bind(this),
-        ]),
-    });
+    }
 
     matchingPasswordValidator(
         control: AbstractControl
@@ -90,36 +95,20 @@ export class SignupComponent {
     }
 
     onSignup() {
-        // if (
-        //     this.userService
-        //         .getUsers()
-        //         .some(
-        //             (user) =>
-        //                 user.email === this.signupForm.get('email')?.value!
-        //         )
-        // ) {
-        //     this.loginPromptVisibility = true;
-        //     return;
-        // } else {
-        //     const newUser: User = {
-        //         // name: this.signupForm.controls.name.value!,
-        //         username:
-        //             this.signupForm?.get('name')?.value! +
-        //             this.signupForm?.get('lastName')?.value!,
-        //         name: this.signupForm?.get('name')?.value!,
-        //         lastname: this.signupForm.get('lastName')?.value!,
-        //         email: this.signupForm.get('email')?.value!,
-        //         age: parseInt(this.signupForm.get('age')?.value!),
-        //         password: this.signupForm.get('password')?.value!,
-        //         userOffers: [],
-        //     };
-
-        //     this.userService.addUser(newUser);
-        //     this.router.navigate(['/home']);
-        // }
+        this.$users = this.angularFireDatabase.list('users').valueChanges();
+        this.$users.subscribe((usersArr) => {
+            console.log(usersArr);
+        });
+        // ASYNC VALIDATORS
+        // check if user doesnt already exist
+        // if yes show login prompt
+        // if not push user to usersArr
+        // check is username is available
+        // navigate to usersDashboard
 
         const newUser: User = {
             // name: this.signupForm.controls.name.value!,
+            // FIX USERNAMES -> MAKE USER ABLE TO MAKE HIS OWN
             username:
                 this.signupForm?.get('name')?.value! +
                 this.signupForm?.get('lastName')?.value!,
