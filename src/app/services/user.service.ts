@@ -13,20 +13,28 @@ import { Observable } from 'rxjs/internal/Observable';
     providedIn: 'root',
 })
 export class UserService {
-    $users!: Observable<any[]>;
+    users: any[] = [];
+
     constructor(
         private angularFireDatabase: AngularFireDatabase,
         private angularFireAuth: AngularFireAuth
-    ) {}
+    ) {
+        this.angularFireDatabase
+            .list('users')
+            .valueChanges()
+            .subscribe((usersArr) => {
+                console.log(usersArr);
+                this.users = usersArr;
+            });
+    }
 
     login() {}
 
     signup(newUser: User) {
-        this.$users = this.angularFireDatabase.list('users').valueChanges();
-        this.$users.subscribe((usersArr) => {
-            console.log(usersArr);
-        });
-
+        // this.$users = this.angularFireDatabase.list('users').valueChanges();
+        // this.$users.subscribe((usersArr) => {
+        //     console.log(usersArr);
+        // });
         // set(
         //     ref(this.angularFireDatabase.database, 'users/' + newUser.username),
         //     newUser

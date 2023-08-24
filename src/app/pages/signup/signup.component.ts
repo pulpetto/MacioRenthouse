@@ -5,6 +5,7 @@ import {
     Validators,
     AbstractControl,
     ValidationErrors,
+    AsyncValidatorFn,
 } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
@@ -35,7 +36,11 @@ export class SignupComponent {
     signupForm = new FormGroup({
         name: new FormControl('', [Validators.required]),
         lastName: new FormControl('', [Validators.required]),
-        username: new FormControl('', [Validators.required]),
+        username: new FormControl(
+            '',
+            [Validators.required],
+            this.usernameValidator.bind(this)
+        ),
         email: new FormControl('', [Validators.required, Validators.email]),
         age: new FormControl('', [
             Validators.required,
@@ -50,6 +55,31 @@ export class SignupComponent {
             this.matchingPasswordValidator.bind(this),
         ]),
     });
+
+    usernameValidator(
+        control: AbstractControl
+    ): Promise<ValidationErrors | null> {
+        return new Promise((resolve, reject) => {
+            this.userService.users.some((user) => {
+                if (user.username === control.value) {
+                    resolve({ usernameAlreadyTaken: true });
+                } else {
+                    resolve(null);
+                }
+            });
+        });
+    }
+
+    emailValidator(control: AbstractControl): ValidationErrors | null {
+        const password = this.signupForm?.get('password')?.value;
+        const repeatPassword = control.value;
+
+        if (password !== repeatPassword) {
+            return { accountAlreadyExists: true };
+        }
+
+        return null;
+    }
 
     passwordValidator(control: AbstractControl): ValidationErrors | null {
         const value: string = control.value;

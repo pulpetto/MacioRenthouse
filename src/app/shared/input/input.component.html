@@ -12,6 +12,12 @@
             <div *ngIf="control.errors?.['required']" class="text-red-600">
                 this field is required
             </div>
+            <div
+                *ngIf="control.errors?.['usernameAlreadyTaken']"
+                class="text-red-600"
+            >
+                this username is already taken, try another one
+            </div>
             <div *ngIf="control.errors?.['email']" class="text-red-600">
                 this field requires an email address
             </div>
