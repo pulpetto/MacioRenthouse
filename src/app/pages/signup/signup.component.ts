@@ -41,7 +41,11 @@ export class SignupComponent {
             [Validators.required],
             this.usernameValidator.bind(this)
         ),
-        email: new FormControl('', [Validators.required, Validators.email]),
+        email: new FormControl(
+            '',
+            [Validators.required, Validators.email],
+            this.emailValidator.bind(this)
+        ),
         age: new FormControl('', [
             Validators.required,
             Validators.pattern('^[0-9]*$'),
@@ -70,15 +74,16 @@ export class SignupComponent {
         });
     }
 
-    emailValidator(control: AbstractControl): ValidationErrors | null {
-        const password = this.signupForm?.get('password')?.value;
-        const repeatPassword = control.value;
-
-        if (password !== repeatPassword) {
-            return { accountAlreadyExists: true };
-        }
-
-        return null;
+    emailValidator(control: AbstractControl): Promise<ValidationErrors | null> {
+        return new Promise((resolve, reject) => {
+            this.userService.users.some((user) => {
+                if (user.email === control.value) {
+                    resolve({ emailAlreadyRegistered: true });
+                } else {
+                    resolve(null);
+                }
+            });
+        });
     }
 
     passwordValidator(control: AbstractControl): ValidationErrors | null {

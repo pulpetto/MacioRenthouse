@@ -21,6 +21,15 @@
             <div *ngIf="control.errors?.['email']" class="text-red-600">
                 this field requires an email address
             </div>
+            <div
+                *ngIf="control.errors?.['emailAlreadyRegistered']"
+                class="text-red-600"
+            >
+                email already registered, did you mean to
+                <a routerLink="/login" class="hover:underline text-indigo-700">
+                    log in
+                </a>
+            </div>
 
             <!-- sign in -->
             <div
