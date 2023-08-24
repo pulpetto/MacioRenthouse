@@ -131,20 +131,8 @@ export class SignupComponent {
     }
 
     onSignup() {
-        this.$users = this.angularFireDatabase.list('users').valueChanges();
-        this.$users.subscribe((usersArr) => {
-            console.log(usersArr);
-        });
-        // ASYNC VALIDATORS
-        // check if user doesnt already exist
-        // if yes show login prompt
-        // if not push user to usersArr
-        // check is username is available
-        // navigate to usersDashboard
-
         const newUser: User = {
             // name: this.signupForm.controls.name.value!,
-            // FIX USERNAMES -> MAKE USER ABLE TO MAKE HIS OWN
             name: this.signupForm?.get('name')?.value!,
             lastname: this.signupForm.get('lastName')?.value!,
             username: this.signupForm?.get('username')?.value!,
