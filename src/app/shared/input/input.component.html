@@ -22,6 +22,15 @@
                 </a>
             </div>
             <div
+                *ngIf="control.errors?.['emailNotRegistered']"
+                class="text-red-600"
+            >
+                this email is not registered, did you mean to
+                <a routerLink="/signup" class="hover:underline text-indigo-700">
+                    sign up
+                </a>
+            </div>
+            <div
                 *ngIf="control.errors?.['usernameAlreadyTaken']"
                 class="text-red-600"
             >

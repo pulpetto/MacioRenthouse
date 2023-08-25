@@ -27,7 +27,11 @@ export class LoginComponent {
             [Validators.required],
             this.usernameValidator.bind(this)
         ),
-        email: new FormControl('', [Validators.required, Validators.email]),
+        email: new FormControl(
+            '',
+            [Validators.required, Validators.email],
+            this.emailValidator.bind(this)
+        ),
         password: new FormControl('', [Validators.required]),
     });
 
@@ -41,6 +45,20 @@ export class LoginComponent {
                 })
             ) {
                 resolve({ usernameDoestExist: true });
+            } else {
+                resolve(null);
+            }
+        });
+    }
+
+    emailValidator(control: AbstractControl): Promise<ValidationErrors | null> {
+        return new Promise((resolve, reject) => {
+            if (
+                !this.userService.users.some((user) => {
+                    return user.email === control.value;
+                })
+            ) {
+                resolve({ emailNotRegistered: true });
             } else {
                 resolve(null);
             }
