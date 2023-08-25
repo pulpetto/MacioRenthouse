@@ -64,25 +64,29 @@ export class SignupComponent {
         control: AbstractControl
     ): Promise<ValidationErrors | null> {
         return new Promise((resolve, reject) => {
-            this.userService.users.some((user) => {
-                if (user.username === control.value) {
-                    resolve({ usernameAlreadyTaken: true });
-                } else {
-                    resolve(null);
-                }
-            });
+            if (
+                this.userService.users.some((user) => {
+                    return user.username === control.value;
+                })
+            ) {
+                resolve({ usernameAlreadyTaken: true });
+            } else {
+                resolve(null);
+            }
         });
     }
 
     emailValidator(control: AbstractControl): Promise<ValidationErrors | null> {
         return new Promise((resolve, reject) => {
-            this.userService.users.some((user) => {
-                if (user.email === control.value) {
-                    resolve({ emailAlreadyRegistered: true });
-                } else {
-                    resolve(null);
-                }
-            });
+            if (
+                this.userService.users.some((user) => {
+                    return user.email === control.value;
+                })
+            ) {
+                resolve({ emailAlreadyRegistered: true });
+            } else {
+                resolve(null);
+            }
         });
     }
 
@@ -146,7 +150,16 @@ export class SignupComponent {
         //     this.angularFireAuth.createUserWithEmailAndPassword(email, password)
         // );
 
-        this.userService.signup(newUser);
+        this.angularFireAuth
+            .createUserWithEmailAndPassword(newUser.email, newUser.password)
+            .then(() => {
+                this.userService.signup(newUser);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+
+        // this.angularFireAuth.signInWithEmailAndPassword
 
         // observable
         //     .pipe(
