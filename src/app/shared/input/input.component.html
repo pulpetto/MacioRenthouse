@@ -13,6 +13,15 @@
                 this field is required
             </div>
             <div
+                *ngIf="control.errors?.['usernameDoestExist']"
+                class="text-red-600"
+            >
+                this username does not exist, did you mean to
+                <a routerLink="/signup" class="hover:underline text-indigo-700">
+                    sign up
+                </a>
+            </div>
+            <div
                 *ngIf="control.errors?.['usernameAlreadyTaken']"
                 class="text-red-600"
             >
