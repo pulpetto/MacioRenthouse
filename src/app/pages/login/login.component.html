@@ -24,12 +24,19 @@
                 [control]="loginForm.controls.email"
             ></app-input>
 
-            <app-input
-                class="w-full"
-                label="password"
-                type="password"
-                [control]="loginForm.controls.password"
-            ></app-input>
+            <div class="w-full">
+                <app-input
+                    label="password"
+                    type="password"
+                    [control]="loginForm.controls.password"
+                ></app-input>
+                <div
+                    *ngIf="wrongPasswordErrorVisibility"
+                    class="text-red-600 text-center text-xl mt-5"
+                >
+                    Incorrect password!
+                </div>
+            </div>
 
             <div class="w-full mt-4">
                 <button

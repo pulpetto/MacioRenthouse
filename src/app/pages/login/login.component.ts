@@ -16,6 +16,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class LoginComponent {
     signupPromptVisibility!: boolean;
+    wrongPasswordErrorVisibility: boolean = false;
 
     constructor(private userService: UserService, private router: Router) {
         this.signupPromptVisibility = false;
@@ -66,9 +67,20 @@ export class LoginComponent {
     }
 
     onLogIn() {
-        // check if user has account already
-        // toggle singup prompt visibility
-        // navigate to user dashboard
-        // use .some() method
+        if (
+            this.userService.users.some((user) => {
+                return (
+                    user.username === this.loginForm?.get('username')?.value! &&
+                    user.email === this.loginForm?.get('email')?.value! &&
+                    user.password === this.loginForm?.get('password')?.value!
+                );
+            })
+        ) {
+            this.wrongPasswordErrorVisibility = false;
+            this.userService.login();
+        } else {
+            this.loginForm.reset();
+            this.wrongPasswordErrorVisibility = true;
+        }
     }
 }
