@@ -146,14 +146,16 @@ export class SignupComponent {
             userOffers: [],
         };
 
-        this.angularFireAuth
-            .createUserWithEmailAndPassword(newUser.email, newUser.password)
-            .then(() => {
-                this.userService.signup(newUser);
-            })
-            .catch((error) => {
-                console.error(error);
-            });
+        // this.angularFireAuth
+        //     .createUserWithEmailAndPassword(newUser.email, newUser.password)
+        //     .then(() => {
+        //         this.userService.signup(newUser);
+        //     })
+        //     .catch((error) => {
+        //         console.error(error);
+        //     });
+
+        this.userService.signup(newUser);
 
         // const observable = from(
         //     this.angularFireAuth.createUserWithEmailAndPassword(email, password)

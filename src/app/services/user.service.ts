@@ -31,9 +31,24 @@ export class UserService {
     login() {}
 
     signup(newUser: User) {
-        set(
-            ref(this.angularFireDatabase.database, 'users/' + newUser.username),
-            newUser
-        );
+        this.angularFireAuth
+            .createUserWithEmailAndPassword(newUser.email, newUser.password)
+            .then(() => {
+                set(
+                    ref(
+                        this.angularFireDatabase.database,
+                        'users/' + newUser.username
+                    ),
+                    newUser
+                );
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+
+        // set(
+        //     ref(this.angularFireDatabase.database, 'users/' + newUser.username),
+        //     newUser
+        // );
     }
 }
