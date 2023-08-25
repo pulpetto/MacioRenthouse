@@ -3,15 +3,27 @@
 >
     <div class="flex items-center gap-4">
         <div class="w-10 h-10">
-            <img src="assets/svgs/key.svg" class="w-full h-full" alt="logo" />
+            <img
+                src="assets/svgs/key.svg"
+                class="w-full h-full hover:rotate-180 transition-transform"
+                alt="logo"
+            />
         </div>
         <div class="text-2xl font-semibold">Macio Wearhouse</div>
     </div>
-    <div class="flex gap-16 text-lg">
-        <a routerLink="/about" class="hover:underline">About Us</a>
-        <a routerLink="/pricing" class="hover:underline">Pricing</a>
-        <a routerLink="/work" class="hover:underline">Work For Us</a>
-        <a routerLink="/contact" class="hover:underline">Contact</a>
+    <div class="flex items-center relative w-1/4">
+        <input
+            type="text"
+            placeholder="Search for a specific car..."
+            class="p-4 bg-neutral-800 rounded-md bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-30 w-full focus:outline focus:outline-indigo-700"
+        />
+        <button class="w-10 h-10 absolute right-2">
+            <img
+                src="assets/svgs/search.svg"
+                class="w-full h-full"
+                alt="search icon"
+            />
+        </button>
     </div>
     <div>
         <a routerLink="login" class="mx-8 text-lg hover:text-indigo-700">
