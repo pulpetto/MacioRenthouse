@@ -27,7 +27,11 @@ export class AppComponent {
                 const routePath =
                     this.activatedRoute.snapshot.firstChild?.routeConfig?.path;
 
-                if (routePath === 'login' || routePath === 'signup') {
+                if (
+                    routePath === 'login' ||
+                    routePath === 'signup' ||
+                    routePath === 'account'
+                ) {
                     this.visibilityService.setHeaderVisibility(false);
                 } else {
                     this.visibilityService.setHeaderVisibility(true);
