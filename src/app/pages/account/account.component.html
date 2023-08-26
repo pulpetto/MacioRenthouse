@@ -13,26 +13,41 @@
             <div class="text-2xl font-semibold">Macio Wearhouse</div>
         </a>
         <div class="border-2 border-white border-solid rounded-md"></div>
-        <button class="flex items-center gap-6 hover:underline">
-            <div class="w-8 h-8">
-                <img
-                    src="assets/svgs/car-loan-svgrepo-com.svg"
-                    class="w-full h-full"
-                    alt="car icon"
-                />
+        <div class="flex flex-col justify-between h-full">
+            <div class="flex flex-col gap-6">
+                <button class="flex items-center gap-6 hover:underline">
+                    <div class="w-8 h-8">
+                        <img
+                            src="assets/svgs/car-loan-svgrepo-com.svg"
+                            class="w-full h-full"
+                            alt="car icon"
+                        />
+                    </div>
+                    <div>Your offers</div>
+                </button>
+                <button class="flex items-center gap-6 hover:underline">
+                    <div class="w-8 h-8">
+                        <img
+                            src="assets/svgs/cog-svgrepo-com.svg"
+                            class="w-full h-full"
+                            alt="settings icon"
+                        />
+                    </div>
+                    <div>Settings</div>
+                </button>
             </div>
-            <div>Your offers</div>
-        </button>
-        <button class="flex items-center gap-6 hover:underline">
-            <div class="w-8 h-8">
-                <img
-                    src="assets/svgs/cog-svgrepo-com.svg"
-                    class="w-full h-full"
-                    alt="settings icon"
-                />
-            </div>
-            <div>Settings</div>
-        </button>
+
+            <button class="flex items-center gap-6">
+                <div class="w-8 h-8">
+                    <img
+                        src="assets/svgs/x-svgrepo-com.svg"
+                        class="w-full h-full"
+                        alt="settings icon"
+                    />
+                </div>
+                <a routerLink="/home" class="text-red-600">Log out</a>
+            </button>
+        </div>
     </div>
     <div></div>
 </div>
