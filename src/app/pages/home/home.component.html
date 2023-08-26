@@ -1,33 +1,61 @@
-<div class="pt-28 grid grid-cols-2 max-w-screen-2xl mx-auto">
-    <div class="mt-48">
-        <div class="text-8xl tracking-tighter font-semibold leading-tight">
-            Do you want to, <br />
-            <span class="text-indigo-800">rent</span>
-            a car?
+<div class="py-28 max-w-screen-2xl mx-auto">
+    <div class="grid grid-cols-2">
+        <div class="mt-48">
+            <div class="text-8xl tracking-tighter font-semibold leading-tight">
+                Do you want to, <br />
+                <span class="text-indigo-800">rent</span>
+                a car?
+            </div>
+            <div class="mt-8 text-lg opacity-90">
+                Macio Wearhouse, is a company operating in the industry, for
+                over 20 years<br />
+                aspernatur modi aut architecto magni accusamus atque maiores
+                reiciendis <br />
+                eum earum! Molestiae explicabo accusamus voluptas et laboriosam
+                sequi tenetur!
+            </div>
         </div>
-        <div class="mt-8 text-lg opacity-90">
-            Macio Wearhouse, is a company operating in the industry, for over 20
-            years<br />
-            aspernatur modi aut architecto magni accusamus atque maiores
-            reiciendis <br />
-            eum earum! Molestiae explicabo accusamus voluptas et laboriosam
-            sequi tenetur!
+        <div
+            class="mx-24 bg-gradient-to-b from-indigo-800 to-indigo-700 rounded-2xl pb-56 shadow-md"
+        >
+            <img
+                src="assets/images/BMW-black.png"
+                class="mt-44 scale-125"
+                alt="BMW photo"
+            />
         </div>
     </div>
-    <div
-        class="mx-24 bg-gradient-to-b from-indigo-800 to-indigo-700 rounded-2xl pb-56"
-    >
-        <img
-            src="assets/images/BMW-black.png"
-            class="mt-44 scale-125"
-            alt="BMW photo"
-        />
+    <div class="mt-32 text-center">
+        <div class="text-6xl tracking-tighter font-semibold leading-tight">
+            Don't wait, start
+            <span class="text-indigo-800">renting</span>
+            now.
+        </div>
+        <div class="flex flex-col items-center gap-12 mt-8">
+            <div class="flex items-center relative w-2/5">
+                <input
+                    type="text"
+                    placeholder="Search for a specific car..."
+                    class="py-6 px-4 bg-neutral-950 rounded-md bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-30 w-full focus:outline focus:outline-indigo-700 text-xl shadow-md"
+                />
+                <button class="w-10 h-10 absolute right-2">
+                    <img
+                        src="assets/svgs/search.svg"
+                        class="w-full h-full"
+                        alt="search icon"
+                    />
+                </button>
+            </div>
+            <div class="text-4xl tracking-tighter font-semibold leading-tight">
+                or,
+            </div>
+            <!-- if user is logged in redirect to adding offer panel -->
+            <a
+                routerLink="/login"
+                class="px-4 py-6 bg-indigo-700 hover:bg-indigo-800 rounded-md text-lg w-1/5 shadow-md"
+            >
+                Add your offer
+            </a>
+        </div>
     </div>
-    <!-- <div class="mx-24 metal rounded-2xl pb-56">
-        <img
-            src="assets/images/BMW-black.png"
-            class="mt-44 scale-125"
-            alt="BMW photo"
-        />
-    </div> -->
 </div>
