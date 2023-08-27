@@ -77,7 +77,11 @@ export class LoginComponent {
             })
         ) {
             this.wrongPasswordErrorVisibility = false;
-            this.userService.login();
+            this.userService.login(
+                this.loginForm?.get('username')?.value!,
+                this.loginForm?.get('email')?.value!,
+                this.loginForm?.get('password')?.value!
+            );
         } else {
             this.loginForm.reset();
             this.wrongPasswordErrorVisibility = true;

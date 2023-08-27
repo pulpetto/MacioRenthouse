@@ -8,6 +8,7 @@ import {
 } from '@angular/fire/compat/database';
 import { getDatabase, ref, set } from '@angular/fire/database';
 import { Observable } from 'rxjs/internal/Observable';
+import { map } from 'rxjs';
 
 @Injectable({
     providedIn: 'root',
@@ -28,7 +29,13 @@ export class UserService {
             });
     }
 
-    login() {}
+    login(username: string, email: string, password: string) {
+        // this.angularFireAuth.signInWithEmailAndPassword(email, password);
+        this.angularFireAuth.authState.subscribe((data) => {
+            const routeUrl = `/account/${username}/${data?.uid}`;
+            console.log(routeUrl);
+        });
+    }
 
     signup(newUser: User) {
         this.angularFireAuth
@@ -41,6 +48,22 @@ export class UserService {
                     ),
                     newUser
                 );
+
+                // signin user with singinwithemailandpasssword
+                // navigate to user dashboard with protected route using userid
+                //
+
+                this.angularFireAuth.authState.subscribe((data) => {
+                    console.log(data);
+                });
+
+                this.angularFireAuth.idToken.subscribe((data) => {
+                    console.log(data);
+                });
+
+                this.angularFireAuth.idTokenResult.subscribe((data) => {
+                    console.log(data);
+                });
             })
             .catch((error) => {
                 console.error(error);
