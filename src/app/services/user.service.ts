@@ -68,10 +68,5 @@ export class UserService {
             .catch((error) => {
                 console.error(error);
             });
-
-        // set(
-        //     ref(this.angularFireDatabase.database, 'users/' + newUser.username),
-        //     newUser
-        // );
     }
 }
