@@ -31,6 +31,9 @@ export class UserService {
 
     login(username: string, email: string, password: string) {
         // this.angularFireAuth.signInWithEmailAndPassword(email, password);
+
+        // header is subscribed to subject which here gets changed to isuserlogged = true, then display user icon
+
         this.angularFireAuth.authState.subscribe((data) => {
             const routeUrl = `/account/${username}/${data?.uid}`;
             console.log(routeUrl);
