@@ -51,22 +51,9 @@ export class UserService {
                     ),
                     newUser
                 );
-
-                // signin user with singinwithemailandpasssword
-                // navigate to user dashboard with protected route using userid
-                //
-
-                this.angularFireAuth.authState.subscribe((data) => {
-                    console.log(data);
-                });
-
-                this.angularFireAuth.idToken.subscribe((data) => {
-                    console.log(data);
-                });
-
-                this.angularFireAuth.idTokenResult.subscribe((data) => {
-                    console.log(data);
-                });
+            })
+            .then(() => {
+                this.login(newUser.username, newUser.email, newUser.password);
             })
             .catch((error) => {
                 console.error(error);
