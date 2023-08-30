@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { User } from '../interfaces/user';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { Router } from '@angular/router';
 import {
     AngularFireDatabase,
     AngularFireList,
@@ -18,7 +19,8 @@ export class UserService {
 
     constructor(
         private angularFireDatabase: AngularFireDatabase,
-        private angularFireAuth: AngularFireAuth
+        private angularFireAuth: AngularFireAuth,
+        private router: Router
     ) {
         this.angularFireDatabase
             .list('users')
@@ -30,13 +32,14 @@ export class UserService {
     }
 
     login(username: string, email: string, password: string) {
-        // this.angularFireAuth.signInWithEmailAndPassword(email, password);
+        // should i do everything separetly or in .then() sequence
+        this.angularFireAuth.signInWithEmailAndPassword(email, password);
 
         // header is subscribed to subject which here gets changed to isuserlogged = true, then display user icon
 
         this.angularFireAuth.authState.subscribe((data) => {
             const routeUrl = `/account/${username}/${data?.uid}`;
-            console.log(routeUrl);
+            this.router.navigate([routeUrl]);
         });
     }
 
