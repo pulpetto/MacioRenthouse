@@ -1,17 +1,27 @@
-import { CanActivateFn } from '@angular/router';
+import { CanActivateFn, Router } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { inject } from '@angular/core';
 
 export const authenticationGuard: CanActivateFn = (route, state) => {
-    // check if user exists
-    // check if user is authenticated
-
     const userService = inject(UserService);
-    // if (userService.users) {
-    // }
+    const router = inject(Router);
 
-    console.log(route);
-    console.log(state);
+    // check if user is authenticated -- if user with username from route and uid from route is authenticated then allow
+    // check if user with given username and uid exists in database and if he is currently logged in
+    // how to check is given user is logged in || check via username or find user with this username and check via user{}
+    // if access denied redirect to 404 same as if user didnt exist
+    console.log(route.params['username']);
+    console.log(route.params['userId']);
 
-    return true;
+    // check if user exists in database
+    if (
+        userService.users.some((user) => {
+            return user.username === route.params['username'];
+        })
+    ) {
+        return true;
+    } else {
+        router.navigate(['/home']);
+        return false;
+    }
 };
