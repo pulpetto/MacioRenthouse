@@ -5,6 +5,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { AccountComponent } from './pages/account/account.component';
 import { authenticationGuard } from './guards/authentication.guard';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 const routes: Routes = [
     {
@@ -25,6 +26,7 @@ const routes: Routes = [
         canActivate: [authenticationGuard],
     },
     { path: '', redirectTo: 'home', pathMatch: 'full' },
+    { path: '**', pathMatch: 'full', component: NotFoundComponent },
 ];
 
 @NgModule({

@@ -38,6 +38,7 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { FIREBASE_OPTIONS } from '@angular/fire/compat';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
     declarations: [
@@ -48,6 +49,7 @@ import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
         HomeComponent,
         LoginComponent,
         SignupComponent,
+        NotFoundComponent,
     ],
     imports: [
         BrowserModule,
