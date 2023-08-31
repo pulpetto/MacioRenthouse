@@ -21,6 +21,7 @@ export const authenticationGuard: CanActivateFn = (route, state) => {
     ) {
         return true;
     } else {
+        router.navigate(['usernotfound404']);
         return false;
     }
 };
