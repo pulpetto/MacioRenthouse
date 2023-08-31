@@ -21,7 +21,6 @@ export const authenticationGuard: CanActivateFn = (route, state) => {
     ) {
         return true;
     } else {
-        router.navigate(['/home']);
         return false;
     }
 };
