@@ -15,24 +15,11 @@ import { map } from 'rxjs';
     providedIn: 'root',
 })
 export class UserService {
-    // users: any[] = [];
-
     constructor(
         private angularFireDatabase: AngularFireDatabase,
         private angularFireAuth: AngularFireAuth,
         private router: Router
-    ) {
-        // this.angularFireDatabase
-        //     .list('users')
-        //     .valueChanges()
-        //     .subscribe((usersArr) => {
-        //         console.log(usersArr);
-        //         this.users = usersArr;
-        //     });
-        // angularFireAuth.authState.subscribe((data) => {
-        //     console.log(data);
-        // });
-    }
+    ) {}
 
     getUsers(): Observable<any[]> {
         return this.angularFireDatabase.list('users').valueChanges();
@@ -40,7 +27,7 @@ export class UserService {
 
     login(username: string, email: string, password: string) {
         // should i do everything separetly or in .then() sequence
-        // this.angularFireAuth.signInWithEmailAndPassword(email, password);
+        this.angularFireAuth.signInWithEmailAndPassword(email, password);
 
         // header is subscribed to subject which here gets changed to isuserlogged = true, then display user icon
 
@@ -59,11 +46,11 @@ export class UserService {
         //     }
         // });
 
-        console.log(this.angularFireAuth.user, 'FIREAUTH USER');
-        console.log(this.angularFireAuth.currentUser);
-        this.angularFireAuth.user.subscribe((user) => {
-            console.log(user);
-        });
+        // console.log(this.angularFireAuth.user, 'FIREAUTH USER');
+        // console.log(this.angularFireAuth.currentUser);
+        // this.angularFireAuth.user.subscribe((user) => {
+        //     console.log(user);
+        // });
 
         // this.angularFireAuth.authState.subscribe((data) => {
         //     if (data) {
@@ -73,24 +60,22 @@ export class UserService {
         //     }
         // });
 
-        this.login(newUser.username, newUser.email, newUser.password);
-
-        // this.angularFireAuth
-        //     .createUserWithEmailAndPassword(newUser.email, newUser.password)
-        //     .then(() => {
-        //         set(
-        //             ref(
-        //                 this.angularFireDatabase.database,
-        //                 'users/' + newUser.username
-        //             ),
-        //             newUser
-        //         );
-        //     })
-        //     .then(() => {
-        //         this.login(newUser.username, newUser.email, newUser.password);
-        //     })
-        //     .catch((error) => {
-        //         console.error(error);
-        //     });
+        this.angularFireAuth
+            .createUserWithEmailAndPassword(newUser.email, newUser.password)
+            .then(() => {
+                set(
+                    ref(
+                        this.angularFireDatabase.database,
+                        'users/' + newUser.username
+                    ),
+                    newUser
+                );
+            })
+            .then(() => {
+                this.login(newUser.username, newUser.email, newUser.password);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
     }
 }
