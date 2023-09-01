@@ -30,7 +30,7 @@ export class AppComponent {
                 if (
                     routePath === 'login' ||
                     routePath === 'signup' ||
-                    routePath === 'account'
+                    routePath?.includes('account')
                 ) {
                     this.visibilityService.setHeaderVisibility(false);
                 } else {
