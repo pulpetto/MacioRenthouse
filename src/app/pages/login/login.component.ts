@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
     FormGroup,
     FormControl,
@@ -7,6 +7,7 @@ import {
     ValidationErrors,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { User } from 'src/app/interfaces/user';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -14,12 +15,19 @@ import { UserService } from 'src/app/services/user.service';
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.css'],
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
+    users: User[] = [];
     signupPromptVisibility!: boolean;
     wrongPasswordErrorVisibility: boolean = false;
 
     constructor(private userService: UserService, private router: Router) {
         this.signupPromptVisibility = false;
+    }
+
+    ngOnInit(): void {
+        this.userService.getUsers().subscribe((users) => {
+            this.users = users;
+        });
     }
 
     loginForm = new FormGroup({
@@ -41,7 +49,7 @@ export class LoginComponent {
     ): Promise<ValidationErrors | null> {
         return new Promise((resolve, reject) => {
             if (
-                !this.userService.users.some((user) => {
+                !this.users.some((user) => {
                     return user.username === control.value;
                 })
             ) {
@@ -55,7 +63,7 @@ export class LoginComponent {
     emailValidator(control: AbstractControl): Promise<ValidationErrors | null> {
         return new Promise((resolve, reject) => {
             if (
-                !this.userService.users.some((user) => {
+                !this.users.some((user) => {
                     return user.email === control.value;
                 })
             ) {
@@ -68,7 +76,7 @@ export class LoginComponent {
 
     onLogIn() {
         if (
-            this.userService.users.some((user) => {
+            this.users.some((user) => {
                 return (
                     user.username === this.loginForm?.get('username')?.value! &&
                     user.email === this.loginForm?.get('email')?.value! &&

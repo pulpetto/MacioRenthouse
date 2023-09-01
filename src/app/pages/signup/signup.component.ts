@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
     FormGroup,
     FormControl,
@@ -19,9 +19,8 @@ import { AngularFireDatabase } from '@angular/fire/compat/database';
     templateUrl: './signup.component.html',
     styleUrls: ['./signup.component.css'],
 })
-export class SignupComponent {
-    $users!: Observable<any[]>;
-
+export class SignupComponent implements OnInit {
+    users: User[] = [];
     loginPromptVisibility!: boolean;
 
     constructor(
@@ -31,6 +30,12 @@ export class SignupComponent {
         private angularFireAuth: AngularFireAuth
     ) {
         this.loginPromptVisibility = false;
+    }
+
+    ngOnInit(): void {
+        this.userService.getUsers().subscribe((users) => {
+            this.users = users;
+        });
     }
 
     signupForm = new FormGroup({
@@ -65,7 +70,7 @@ export class SignupComponent {
     ): Promise<ValidationErrors | null> {
         return new Promise((resolve, reject) => {
             if (
-                this.userService.users.some((user) => {
+                this.users.some((user) => {
                     return user.username === control.value;
                 })
             ) {
@@ -79,7 +84,7 @@ export class SignupComponent {
     emailValidator(control: AbstractControl): Promise<ValidationErrors | null> {
         return new Promise((resolve, reject) => {
             if (
-                this.userService.users.some((user) => {
+                this.users.some((user) => {
                     return user.email === control.value;
                 })
             ) {

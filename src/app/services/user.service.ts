@@ -15,20 +15,27 @@ import { map } from 'rxjs';
     providedIn: 'root',
 })
 export class UserService {
-    users: any[] = [];
+    // users: any[] = [];
 
     constructor(
         private angularFireDatabase: AngularFireDatabase,
         private angularFireAuth: AngularFireAuth,
         private router: Router
     ) {
-        this.angularFireDatabase
-            .list('users')
-            .valueChanges()
-            .subscribe((usersArr) => {
-                console.log(usersArr);
-                this.users = usersArr;
-            });
+        // this.angularFireDatabase
+        //     .list('users')
+        //     .valueChanges()
+        //     .subscribe((usersArr) => {
+        //         console.log(usersArr);
+        //         this.users = usersArr;
+        //     });
+        // angularFireAuth.authState.subscribe((data) => {
+        //     console.log(data);
+        // });
+    }
+
+    getUsers(): Observable<any[]> {
+        return this.angularFireDatabase.list('users').valueChanges();
     }
 
     login(username: string, email: string, password: string) {
