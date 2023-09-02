@@ -20,15 +20,26 @@ export const authenticationGuard = (
                 return user.username === route.params['username'];
             })
         ) {
-            return true;
+            const userFromUrl = users.filter(
+                (user) => user.username === route.params['username']
+            );
+
+            return userService.getUser().subscribe((loggedUser) => {
+                if (
+                    JSON.stringify(loggedUser) ===
+                    JSON.stringify(userFromUrl[0])
+                ) {
+                    return true;
+                } else {
+                    router.navigate(['usernotauthenticated404']);
+                    return false;
+                }
+            });
         } else {
             router.navigate(['usernotfound404']);
             return false;
         }
     });
-    // if user with username from route and uid from route is authenticated (currently logged in) then allow
-    // how to check is given user is logged in || check via username or find user with this username and check via user{}
-    // in USER SERVICE make an observable or subject which will get user credentials assigned to it when someone logs in
-    // compare it with the credentials from route and if they match then allow
+
     // after authenticationGuard there was : CanActivateFn
 };

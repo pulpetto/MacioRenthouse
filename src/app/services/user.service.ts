@@ -9,7 +9,7 @@ import {
 } from '@angular/fire/compat/database';
 import { getDatabase, ref, set } from '@angular/fire/database';
 import { Observable } from 'rxjs/internal/Observable';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, map } from 'rxjs';
 
 @Injectable({
     providedIn: 'root',
@@ -29,6 +29,12 @@ export class UserService {
 
     getUsers(): Observable<any[]> {
         return this.angularFireDatabase.list('users').valueChanges();
+    }
+
+    isLoggedIn(): Observable<boolean> {
+        return this.userSubject
+            .asObservable()
+            .pipe(map((user: User | null) => !!user));
     }
 
     login(username: string, email: string, password: string) {
