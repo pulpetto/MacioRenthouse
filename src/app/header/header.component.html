@@ -11,6 +11,7 @@
         </div>
         <a routerLink="/home" class="text-2xl font-semibold">Macio Wearhouse</a>
     </div>
+
     <!-- <div class="flex items-center relative w-1/4">
         <input
             type="text"
@@ -25,7 +26,8 @@
             />
         </button>
     </div> -->
-    <div>
+
+    <div *ngIf="!userFirstName">
         <a routerLink="login" class="mx-8 text-lg hover:text-indigo-700">
             Log in
         </a>
@@ -37,8 +39,12 @@
         </a>
     </div>
 
-    <!-- <div class="flex items-center gap-2">
-        <div class="text-xl">Macio</div>
+    <button
+        *ngIf="userFirstName"
+        (click)="navigateToDashboard()"
+        class="flex items-center gap-2"
+    >
+        <div class="text-xl">{{ userFirstName }}</div>
         <div class="w-12 h-12">
             <img
                 src="assets/svgs/user-svgrepo-com.svg"
@@ -46,5 +52,5 @@
                 alt="user icon"
             />
         </div>
-    </div> -->
+    </button>
 </div>

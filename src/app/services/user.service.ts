@@ -37,6 +37,13 @@ export class UserService {
             .pipe(map((user: User | null) => !!user));
     }
 
+    navigateToDashboard() {
+        this.angularFireAuth.authState.subscribe((data) => {
+            const routeUrl = `/account/${this.userSubject.value?.username}/${data?.uid}`;
+            this.router.navigate([routeUrl]);
+        });
+    }
+
     login(username: string, email: string, password: string) {
         this.getUsers().subscribe((users) => {
             const loggedUser = users.filter(
@@ -49,12 +56,7 @@ export class UserService {
         // should i do everything separetly or in .then() sequence
         this.angularFireAuth.signInWithEmailAndPassword(email, password);
 
-        // header subscribes to the getUser() if data inst null then display user icon and hello, _USERNAME_
-
-        this.angularFireAuth.authState.subscribe((data) => {
-            const routeUrl = `/account/${username}/${data?.uid}`;
-            this.router.navigate([routeUrl]);
-        });
+        this.navigateToDashboard();
     }
 
     signup(newUser: User) {
