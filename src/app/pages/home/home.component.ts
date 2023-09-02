@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -9,20 +10,20 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class HomeComponent implements OnInit {
     constructor(private userService: UserService, private router: Router) {}
-    isLoggedIn!: boolean;
+    isLoggedIn$!: Observable<boolean>;
 
     ngOnInit() {
-        this.userService.isLoggedIn().subscribe((isLoggedIn) => {
-            this.isLoggedIn = isLoggedIn;
-        });
+        this.isLoggedIn$ = this.userService.isLoggedIn();
     }
 
     onOfferAdd() {
-        if (this.isLoggedIn === false) {
-            this.router.navigate(['/login']);
-        } else {
-            // or navigate directly to offer creator panel
-            this.userService.navigateToDashboard();
-        }
+        this.isLoggedIn$.subscribe((isLoggedIn) => {
+            if (isLoggedIn === false) {
+                this.router.navigate(['/login']);
+            } else {
+                // or navigate directly to offer creator panel
+                this.userService.navigateToDashboard();
+            }
+        });
     }
 }
