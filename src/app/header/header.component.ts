@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
+import { Observable, map } from 'rxjs';
 
 @Component({
     selector: 'app-header',
@@ -7,14 +8,14 @@ import { UserService } from '../services/user.service';
     styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
-    userFirstName!: string;
+    userFirstName$!: Observable<string | null>;
 
     constructor(private userService: UserService) {}
 
     ngOnInit() {
-        this.userService.getUser().subscribe((user) => {
-            this.userFirstName = user?.name!;
-        });
+        this.userFirstName$ = this.userService
+            .getUser()
+            .pipe(map((user) => user?.name || null));
     }
 
     navigateToDashboard() {
