@@ -9,27 +9,41 @@ import {
 } from '@angular/fire/compat/database';
 import { getDatabase, ref, set } from '@angular/fire/database';
 import { Observable } from 'rxjs/internal/Observable';
-import { map } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
     providedIn: 'root',
 })
 export class UserService {
+    private userSubject = new BehaviorSubject<User | null>(null);
+
     constructor(
         private angularFireDatabase: AngularFireDatabase,
         private angularFireAuth: AngularFireAuth,
         private router: Router
     ) {}
 
+    getUser(): Observable<User | null> {
+        return this.userSubject.asObservable();
+    }
+
     getUsers(): Observable<any[]> {
         return this.angularFireDatabase.list('users').valueChanges();
     }
 
     login(username: string, email: string, password: string) {
+        this.getUsers().subscribe((users) => {
+            const loggedUser = users.filter(
+                (user) => user.username === username
+            );
+
+            this.userSubject.next(loggedUser[0]);
+        });
+
         // should i do everything separetly or in .then() sequence
         this.angularFireAuth.signInWithEmailAndPassword(email, password);
 
-        // header is subscribed to subject which here gets changed to isuserlogged = true, then display user icon
+        // header subscribes to the getUser() if data inst null then display user icon and hello, _USERNAME_
 
         this.angularFireAuth.authState.subscribe((data) => {
             const routeUrl = `/account/${username}/${data?.uid}`;
@@ -38,28 +52,6 @@ export class UserService {
     }
 
     signup(newUser: User) {
-        // this.angularFireAuth.onAuthStateChanged((user) => {
-        //     if (user) {
-        //         console.log(true, 'ON AUTH STATE CHANGED');
-        //     } else {
-        //         console.log(false, 'ON AUTH STATE CHANGED');
-        //     }
-        // });
-
-        // console.log(this.angularFireAuth.user, 'FIREAUTH USER');
-        // console.log(this.angularFireAuth.currentUser);
-        // this.angularFireAuth.user.subscribe((user) => {
-        //     console.log(user);
-        // });
-
-        // this.angularFireAuth.authState.subscribe((data) => {
-        //     if (data) {
-        //         console.log(true, 'AUTH STATE');
-        //     } else {
-        //         console.log(false, 'AUTH STATE');
-        //     }
-        // });
-
         this.angularFireAuth
             .createUserWithEmailAndPassword(newUser.email, newUser.password)
             .then(() => {
