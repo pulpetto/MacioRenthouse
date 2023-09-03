@@ -151,52 +151,6 @@ export class SignupComponent implements OnInit {
             userOffers: [],
         };
 
-        // this.angularFireAuth
-        //     .createUserWithEmailAndPassword(newUser.email, newUser.password)
-        //     .then(() => {
-        //         this.userService.signup(newUser);
-        //     })
-        //     .catch((error) => {
-        //         console.error(error);
-        //     });
-
         this.userService.signup(newUser);
-
-        // const observable = from(
-        //     this.angularFireAuth.createUserWithEmailAndPassword(email, password)
-        // );
-
-        // observable
-        //     .pipe(
-        //         switchMap((userCredential) => {
-        //             const newUser = {
-        //                 username:
-        //                     this.signupForm?.get('name')?.value! +
-        //                     this.signupForm?.get('lastName')?.value!,
-        //                 name: this.signupForm?.get('name')?.value!,
-        //                 lastname: this.signupForm.get('lastName')?.value!,
-        //                 email: this.signupForm.get('email')?.value!,
-        //                 age: parseInt(this.signupForm.get('age')?.value!),
-        //                 password: this.signupForm.get('password')?.value!,
-        //                 userOffers: [],
-        //             };
-
-        //             console.log(newUser);
-        //             console.log(userCredential);
-        //             console.log(this.angularFirestore.collection('users'));
-
-        //             return this.angularFirestore
-        //                 .collection('users')
-        //                 .add(newUser);
-        //         }),
-        //         catchError((error) => {
-        //             console.error('Error signup:', error);
-        //             return throwError(error);
-        //         })
-        //     )
-        //     .subscribe(() => {
-        //         console.log('ev spk');
-        //         this.router.navigate(['/home']);
-        //     });
     }
 }
