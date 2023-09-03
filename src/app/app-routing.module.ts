@@ -6,6 +6,7 @@ import { SignupComponent } from './pages/signup/signup.component';
 import { AccountComponent } from './pages/account/account.component';
 import { authenticationGuard } from './guards/authentication.guard';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { OffersComponent } from './pages/offers/offers.component';
 
 const routes: Routes = [
     {
@@ -24,6 +25,10 @@ const routes: Routes = [
         path: 'account/:username/:userId',
         component: AccountComponent,
         canActivate: [authenticationGuard],
+    },
+    {
+        path: 'offers',
+        component: OffersComponent,
     },
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: '**', pathMatch: 'full', component: NotFoundComponent },
