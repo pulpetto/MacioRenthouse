@@ -83,4 +83,11 @@ export class UserService {
                 console.error(error);
             });
     }
+
+    logout() {
+        localStorage.removeItem('loggedUser');
+        this.userSubject.next(null);
+
+        this.angularFireAuth.signOut();
+    }
 }
