@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, DestroyRef, OnInit, inject } from '@angular/core';
 import {
     FormGroup,
     FormControl,
@@ -9,6 +9,7 @@ import {
 import { Router } from '@angular/router';
 import { User } from 'src/app/interfaces/user';
 import { UserService } from 'src/app/services/user.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
     selector: 'app-login',
@@ -16,6 +17,7 @@ import { UserService } from 'src/app/services/user.service';
     styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
+    destroyRef = inject(DestroyRef);
     users: User[] = [];
     signupPromptVisibility!: boolean;
     wrongPasswordErrorVisibility: boolean = false;
@@ -25,9 +27,12 @@ export class LoginComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.userService.getUsers().subscribe((users) => {
-            this.users = users;
-        });
+        this.userService
+            .getUsers()
+            .pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe((users) => {
+                this.users = users;
+            });
     }
 
     loginForm = new FormGroup({

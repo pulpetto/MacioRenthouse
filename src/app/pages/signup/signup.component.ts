@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, DestroyRef, OnInit, inject } from '@angular/core';
 import {
     FormGroup,
     FormControl,
@@ -13,6 +13,7 @@ import { switchMap, catchError, throwError, from, Observable } from 'rxjs';
 import { User } from 'src/app/interfaces/user';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
     selector: 'app-signup',
@@ -20,6 +21,7 @@ import { AngularFireDatabase } from '@angular/fire/compat/database';
     styleUrls: ['./signup.component.css'],
 })
 export class SignupComponent implements OnInit {
+    destroyRef = inject(DestroyRef);
     users: User[] = [];
     loginPromptVisibility!: boolean;
 
@@ -33,9 +35,12 @@ export class SignupComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.userService.getUsers().subscribe((users) => {
-            this.users = users;
-        });
+        this.userService
+            .getUsers()
+            .pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe((users) => {
+                this.users = users;
+            });
     }
 
     signupForm = new FormGroup({

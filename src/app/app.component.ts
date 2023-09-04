@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, DestroyRef, inject } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { VisibilityService } from './services/visibility.service';
 import { filter } from 'rxjs/internal/operators/filter';
 import { Observable } from 'rxjs/internal/Observable';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
     selector: 'app-root',
@@ -11,6 +12,7 @@ import { Observable } from 'rxjs/internal/Observable';
 })
 export class AppComponent {
     isHeaderVisible$!: Observable<boolean>;
+    destroyRef = inject(DestroyRef);
 
     constructor(
         private visibilityService: VisibilityService,
@@ -22,7 +24,10 @@ export class AppComponent {
         this.isHeaderVisible$ = this.visibilityService.getHeaderVisibility();
 
         this.router.events
-            .pipe(filter((event) => event instanceof NavigationEnd))
+            .pipe(
+                filter((event) => event instanceof NavigationEnd),
+                takeUntilDestroyed(this.destroyRef)
+            )
             .subscribe(() => {
                 const routePath =
                     this.activatedRoute.snapshot.firstChild?.routeConfig?.path;
