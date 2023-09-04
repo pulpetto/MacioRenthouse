@@ -23,6 +23,10 @@ export class UserService {
         private router: Router
     ) {}
 
+    setUser(user: User) {
+        this.userSubject.next(user);
+    }
+
     getUser(): Observable<User | null> {
         return this.userSubject.asObservable();
     }
@@ -50,6 +54,7 @@ export class UserService {
                 (user) => user.username === username
             );
 
+            localStorage.setItem('loggedUser', JSON.stringify(loggedUser));
             this.userSubject.next(loggedUser[0]);
         });
 

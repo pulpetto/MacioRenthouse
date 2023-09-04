@@ -4,6 +4,7 @@ import { VisibilityService } from './services/visibility.service';
 import { filter } from 'rxjs/internal/operators/filter';
 import { Observable } from 'rxjs/internal/Observable';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { UserService } from './services/user.service';
 
 @Component({
     selector: 'app-root',
@@ -16,11 +17,18 @@ export class AppComponent {
 
     constructor(
         private visibilityService: VisibilityService,
+        private userService: UserService,
         private router: Router,
         private activatedRoute: ActivatedRoute
     ) {}
 
     ngOnInit() {
+        const storedUser = localStorage.getItem('loggedUser');
+        if (storedUser) {
+            const user = JSON.parse(storedUser);
+            this.userService.setUser(user[0]);
+        }
+
         this.isHeaderVisible$ = this.visibilityService.getHeaderVisibility();
 
         this.router.events
