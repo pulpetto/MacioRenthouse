@@ -26,7 +26,7 @@ export class AppComponent {
         const storedUser = localStorage.getItem('loggedUser');
         if (storedUser) {
             const user = JSON.parse(storedUser);
-            this.userService.setUser(user[0]);
+            this.userService.setUser(user);
         }
 
         this.isHeaderVisible$ = this.visibilityService.getHeaderVisibility();

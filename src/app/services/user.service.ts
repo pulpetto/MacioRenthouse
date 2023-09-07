@@ -9,7 +9,7 @@ import {
 } from '@angular/fire/compat/database';
 import { getDatabase, ref, set } from '@angular/fire/database';
 import { Observable } from 'rxjs/internal/Observable';
-import { BehaviorSubject, map } from 'rxjs';
+import { BehaviorSubject, map, take } from 'rxjs';
 
 @Injectable({
     providedIn: 'root',
@@ -50,12 +50,10 @@ export class UserService {
 
     login(username: string, email: string, password: string) {
         this.getUsers().subscribe((users) => {
-            const loggedUser = users.filter(
-                (user) => user.username === username
-            );
+            const loggedUser = users.find((user) => user.username === username);
 
             localStorage.setItem('loggedUser', JSON.stringify(loggedUser));
-            this.userSubject.next(loggedUser[0]);
+            this.userSubject.next(loggedUser);
         });
 
         // should i do everything separetly or in .then() sequence
@@ -85,11 +83,44 @@ export class UserService {
     }
 
     logout() {
+        console.log('navigating home', true);
         this.router.navigate(['home']);
 
-        localStorage.removeItem('loggedUser');
-        this.userSubject.next(null);
+        setTimeout(() => {
+            console.log('clearing localstorage', true);
+            localStorage.removeItem('loggedUser');
+        }, 5000);
 
-        this.angularFireAuth.signOut();
+        setTimeout(() => {
+            ////////////////////////////////////////////
+            console.log('making usersubject null', true);
+            this.userSubject.next(null);
+        }, 10000);
+
+        setTimeout(() => {
+            // makes the path undefined/undefined
+            console.log('signing out of firebase', true);
+            this.angularFireAuth.signOut();
+        }, 15000);
+
+        // setTimeout(() => {
+        //     console.log('navigating home', true);
+        //     this.router.navigate(['home']);
+        // }, 20000);
+
+        // // Sign out the user
+        // this.angularFireAuth.signOut().then(() => {
+        //     // Remove local storage
+        //     localStorage.removeItem('loggedUser');
+
+        //     // Set the userSubject to null
+        //     this.userSubject.next(null);
+        // });
+
+        // // Ensure the navigation happens after the userSubject.next(null) completes
+        // this.userSubject.pipe(take(1)).subscribe(() => {
+        //     // Redirect to the home page
+        //     this.router.navigate(['home']);
+        // });
     }
 }
