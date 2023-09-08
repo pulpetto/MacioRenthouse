@@ -7,6 +7,7 @@ import { AccountComponent } from './pages/account/account.component';
 import { authenticationGuard } from './guards/authentication.guard';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { OffersComponent } from './pages/offers/offers.component';
+import { isLoggedGuard } from './guards/is-logged.guard';
 
 const routes: Routes = [
     {
@@ -16,10 +17,12 @@ const routes: Routes = [
     {
         path: 'login',
         component: LoginComponent,
+        canActivate: [isLoggedGuard],
     },
     {
         path: 'signup',
         component: SignupComponent,
+        canActivate: [isLoggedGuard],
     },
     {
         path: 'account/:username/:userId',
