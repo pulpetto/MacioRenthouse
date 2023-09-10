@@ -4,10 +4,10 @@ import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { AccountComponent } from './pages/account/account.component';
-import { authenticationGuard } from './guards/authentication.guard';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { OffersComponent } from './pages/offers/offers.component';
 import { isLoggedGuard } from './guards/is-logged.guard';
+import { authGuard } from './guards/auth.guard';
 
 const routes: Routes = [
     {
@@ -25,9 +25,26 @@ const routes: Routes = [
         canActivate: [isLoggedGuard],
     },
     {
-        path: 'account/:username/:userId',
-        component: AccountComponent,
-        canActivate: [authenticationGuard],
+        path: 'account',
+        // can there be no component show up
+        // component: AccountComponent,
+        canActivateChild: [authGuard],
+        children: [
+            {
+                path: 'account',
+                redirectTo: ':username/:userId/user-offers',
+                pathMatch: 'full',
+            },
+            {
+                path: ':username/:userId',
+                component: AccountComponent,
+                children: [
+                    // { path: 'user-offers', component: UserOffersComponent },
+                    // { path: 'settings', component: UserSettingsComponent },
+                    // { path: 'favourites', component: UserFavouritesComponent },
+                ],
+            },
+        ],
     },
     {
         path: 'offers',

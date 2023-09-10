@@ -83,44 +83,53 @@ export class UserService {
     }
 
     logout() {
-        console.log('navigating home', true);
-        this.router.navigate(['home']);
+        // console.log('navigating home', true);
+        // this.router.navigate(['home']);
 
-        setTimeout(() => {
-            console.log('clearing localstorage', true);
-            localStorage.removeItem('loggedUser');
-        }, 5000);
-
-        setTimeout(() => {
-            ////////////////////////////////////////////
-            console.log('making usersubject null', true);
-            this.userSubject.next(null);
-        }, 10000);
-
-        setTimeout(() => {
-            // makes the path undefined/undefined
-            console.log('signing out of firebase', true);
-            this.angularFireAuth.signOut();
-        }, 15000);
-
+        // setTimeout(() => {
+        //     console.log('clearing localstorage', true);
+        //     localStorage.removeItem('loggedUser');
+        // }, 5000);
+        // setTimeout(() => {
+        //     ////////////////////////////////////////////
+        //     console.log('making usersubject null', true);
+        //     this.userSubject.next(null);
+        // }, 10000);
+        // setTimeout(() => {
+        //     // // makes the path undefined/undefined
+        //     console.log('signing out of firebase', true);
+        //     this.angularFireAuth.signOut();
+        // }, 15000);
+        //=============================================================
         // setTimeout(() => {
         //     console.log('navigating home', true);
         //     this.router.navigate(['home']);
         // }, 20000);
-
         // // Sign out the user
         // this.angularFireAuth.signOut().then(() => {
         //     // Remove local storage
         //     localStorage.removeItem('loggedUser');
-
         //     // Set the userSubject to null
         //     this.userSubject.next(null);
         // });
-
         // // Ensure the navigation happens after the userSubject.next(null) completes
         // this.userSubject.pipe(take(1)).subscribe(() => {
         //     // Redirect to the home page
         //     this.router.navigate(['home']);
         // });
+        //================================================================
+
+        // what order, and this resolve thing
+        this.angularFireAuth
+            .signOut()
+            .then(() => {
+                localStorage.removeItem('loggedUser');
+                this.userSubject.next(null);
+                this.router.navigate(['home']);
+                console.log('SINGED OUT', true);
+            })
+            .catch((error) => {
+                console.error('Sign-out error:', error);
+            });
     }
 }
