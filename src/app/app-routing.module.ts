@@ -39,7 +39,7 @@ const routes: Routes = [
                 path: ':username/:userId',
                 component: AccountComponent,
                 children: [
-                    // { path: 'user-offers', component: UserOffersComponent },
+                    { path: 'user-offers', component: OffersComponent },
                     // { path: 'settings', component: UserSettingsComponent },
                     // { path: 'favourites', component: UserFavouritesComponent },
                 ],
