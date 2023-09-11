@@ -39,8 +39,8 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { FIREBASE_OPTIONS } from '@angular/fire/compat';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { NotFoundComponent } from './not-found/not-found.component';
-import { OffersComponent } from './pages/offers/offers.component';
 import { OfferComponent } from './shared/offer/offer.component';
+import { OffersComponent } from './pages/account/offers/offers.component';
 
 @NgModule({
     declarations: [
@@ -52,8 +52,8 @@ import { OfferComponent } from './shared/offer/offer.component';
         LoginComponent,
         SignupComponent,
         NotFoundComponent,
-        OffersComponent,
         OfferComponent,
+        OffersComponent,
     ],
     imports: [
         BrowserModule,
