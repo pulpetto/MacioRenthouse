@@ -41,6 +41,8 @@ import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { OfferComponent } from './shared/offer/offer.component';
 import { OffersComponent } from './pages/account/offers/offers.component';
+import { SettingsComponent } from './pages/account/settings/settings.component';
+import { FavouritesComponent } from './pages/account/favourites/favourites.component';
 
 @NgModule({
     declarations: [
@@ -54,6 +56,8 @@ import { OffersComponent } from './pages/account/offers/offers.component';
         NotFoundComponent,
         OfferComponent,
         OffersComponent,
+        SettingsComponent,
+        FavouritesComponent,
     ],
     imports: [
         BrowserModule,
