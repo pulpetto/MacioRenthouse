@@ -24,43 +24,42 @@ const routes: Routes = [
         component: SignupComponent,
         canActivate: [isLoggedGuard],
     },
-    // {
-    //     path: 'account',
-    //     // can there be no component show up
-    //     // component: AccountComponent,
-    //     canActivateChild: [authGuard],
-    //     children: [
-    //         {
-    //             path: 'account',
-    //             redirectTo: ':username/:userId/user-offers',
-    //             pathMatch: 'full',
-    //         },
-    //         {
-    //             path: ':username/:userId',
-    //             component: AccountComponent,
-    //             children: [
-    //                 { path: 'user-offers', component: OffersComponent },
-    //                 // { path: 'settings', component: UserSettingsComponent },
-    //                 // { path: 'favourites', component: UserFavouritesComponent },
-    //             ],
-    //         },
-    //     ],
-    // },
     {
-        path: 'account/:username/:userId',
+        path: 'account',
         component: AccountComponent,
-        // canActivateChild: [authGuard],
+        canActivateChild: [authGuard],
         children: [
             {
                 path: '',
-                redirectTo: 'offers',
+                redirectTo: ':username/:userId/offers',
                 pathMatch: 'full',
             },
-            { path: 'offers', component: OffersComponent },
-            // { path: 'settings', component: UserSettingsComponent },
-            // { path: 'favourites', component: UserFavouritesComponent },
+            {
+                path: ':username/:userId',
+                component: AccountComponent, // use a different component for the user profile
+                children: [
+                    { path: 'offers', component: OffersComponent },
+                    // { path: 'settings', component: UserSettingsComponent },
+                    // { path: 'favourites', component: UserFavouritesComponent },
+                ],
+            },
         ],
     },
+    // {
+    //     path: 'account/:username/:userId',
+    //     component: AccountComponent,
+    //     canActivateChild: [authGuard],
+    //     children: [
+    //         {
+    //             path: '',
+    //             redirectTo: 'offers',
+    //             pathMatch: 'full',
+    //         },
+    //         { path: 'offers', component: OffersComponent },
+    //         // { path: 'settings', component: UserSettingsComponent },
+    //         // { path: 'favourites', component: UserFavouritesComponent },
+    //     ],
+    // },
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: '**', pathMatch: 'full', component: NotFoundComponent },
 ];

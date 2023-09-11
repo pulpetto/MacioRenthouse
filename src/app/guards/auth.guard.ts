@@ -9,10 +9,15 @@ export const authGuard: CanActivateChildFn = (childRoute, state) => {
 
     return userService.getUser().pipe(
         map((user) => {
+            console.log(user?.username, 'FROM GETUSER', true);
+            console.log(childRoute.params['username'], 'FROM URL', true);
+            console.log(childRoute);
+
             if (user && user?.username === childRoute.params['username']) {
                 return true;
             } else {
-                return router.parseUrl('/404');
+                return true;
+                // return router.parseUrl('/404');
             }
         })
     );
