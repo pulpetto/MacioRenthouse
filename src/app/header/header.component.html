@@ -28,12 +28,15 @@
     </div> -->
 
     <div *ngIf="!(userFirstName$ | async)">
-        <a routerLink="login" class="mx-8 text-lg hover:text-indigo-700">
+        <a
+            routerLink="login"
+            class="transition-colors mx-8 text-lg hover:text-indigo-700"
+        >
             Log in
         </a>
         <a
             routerLink="signup"
-            class="px-8 py-2 bg-indigo-700 hover:bg-indigo-800 rounded-md text-lg"
+            class="transition-colors px-8 py-2 bg-indigo-700 hover:bg-indigo-800 rounded-md text-lg"
         >
             Sign up
         </a>
