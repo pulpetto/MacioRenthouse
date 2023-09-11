@@ -26,27 +26,6 @@ const routes: Routes = [
         component: SignupComponent,
         canActivate: [isLoggedGuard],
     },
-    // {
-    //     path: 'account',
-    //     component: AccountComponent,
-    //     canActivateChild: [authGuard],
-    //     children: [
-    //         {
-    //             path: '',
-    //             redirectTo: ':username/:userId/offers',
-    //             pathMatch: 'full',
-    //         },
-    //         {
-    //             path: ':username/:userId',
-    //             component: AccountComponent, // use a different component for the user profile
-    //             children: [
-    //                 { path: 'offers', component: OffersComponent },
-    //                 { path: 'favourites', component: FavouritesComponent },
-    //                 { path: 'settings', component: SettingsComponent },
-    //             ],
-    //         },
-    //     ],
-    // },
     {
         path: 'account/:username/:userId',
         component: AccountComponent,
