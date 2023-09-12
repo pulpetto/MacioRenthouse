@@ -13,12 +13,14 @@
     </div>
     <div class="flex flex-col justify-between text-neutral-300">
         <div class="flex justify-between items-start gap-32">
-            <div class="text-2xl">BMW X6</div>
+            <div class="text-2xl">
+                {{ offerData.car.carBrand }} {{ offerData.car.brandModel }}
+            </div>
             <div class="text-right flex gap-1">
                 <div
                     class="text-6xl text-white font-semibold flex justify-center items-center"
                 >
-                    290
+                    {{ offerData.priceForDay }}
                 </div>
                 <div class="flex flex-col items-start mt-1">
                     <div class="text-xl text-white font-semibold">ZŁ</div>
@@ -28,7 +30,8 @@
         </div>
         <div class="self-center flex flex-col items-center gap-1">
             <div class="text-xl font-semibold">
-                Available for <span class="font-bold">4</span> days
+                Available for
+                <span class="font-bold">{{ offerData.availableFor }}</span> days
             </div>
             <div class="text-sm">in</div>
             <div class="flex items-center gap-2">
@@ -39,7 +42,7 @@
                         alt="location icon"
                     />
                 </div>
-                <div class="font-semibold">Warsaw</div>
+                <div class="font-semibold">{{ offerData.pickupLocation }}</div>
             </div>
         </div>
         <div
@@ -66,7 +69,7 @@
                         </g>
                     </svg>
                 </div>
-                <div>4 seats</div>
+                <div>{{ offerData.car.availableSeats }}</div>
             </div>
             <div class="flex items-center gap-2 p-4">
                 <div class="w-6 h-6 ml-1">
@@ -96,7 +99,7 @@
                         </g>
                     </svg>
                 </div>
-                <div>Petrol</div>
+                <div>{{ offerData.car.fuelType }}</div>
             </div>
             <div class="flex items-center gap-2 p-4">
                 <div class="w-6 h-6">
@@ -113,13 +116,13 @@
                         />
                     </svg>
                 </div>
-                <div>Manual</div>
+                <div>{{ offerData.car.gearboxType }}</div>
             </div>
             <div class="flex items-center gap-2 p-4">
                 <div class="w-8 h-8">
                     <img src="assets/svgs/date-svgrepo-com.svg" alt="" />
                 </div>
-                <div>2008</div>
+                <div>{{ offerData.car.carProductionDate }}</div>
             </div>
         </div>
     </div>
