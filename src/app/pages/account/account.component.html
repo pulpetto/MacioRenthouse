@@ -20,7 +20,8 @@
         <div class="border-2 border-white border-solid rounded-md"></div>
         <div class="flex flex-col justify-between h-full">
             <div class="flex flex-col gap-4">
-                <button
+                <a
+                    routerLink="offers"
                     class="flex items-center gap-6 p-2 transition-all rounded-md hover:bg-indigo-700 opacity-80 hover:opacity-100"
                 >
                     <div class="w-8 h-8">
@@ -35,9 +36,10 @@
                             alt="car icon"
                         />
                     </div>
-                    <a routerLink="offers">Your offers</a>
-                </button>
-                <button
+                    <div routerLink="offers">Your offers</div>
+                </a>
+                <a
+                    routerLink="favourites"
                     class="flex items-center gap-6 p-2 transition-all rounded-md hover:bg-indigo-700 opacity-80 hover:opacity-100"
                 >
                     <div class="w-8 h-8">
@@ -47,9 +49,10 @@
                             alt="car icon"
                         />
                     </div>
-                    <a routerLink="favourites">Favourites</a>
-                </button>
-                <button
+                    <div routerLink="favourites">Favourites</div>
+                </a>
+                <a
+                    routerLink="settings"
                     class="flex items-center gap-6 p-2 transition-all rounded-md hover:bg-indigo-700 opacity-80 hover:opacity-100"
                 >
                     <div class="w-9 h-9">
@@ -59,8 +62,8 @@
                             alt="settings icon"
                         />
                     </div>
-                    <a routerLink="settings">Settings</a>
-                </button>
+                    <div routerLink="settings">Settings</div>
+                </a>
             </div>
 
             <button
