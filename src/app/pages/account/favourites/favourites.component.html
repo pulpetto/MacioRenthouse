@@ -1,6 +1,15 @@
-<div class="self-center text-center opacity-80 mt-12">
-    <h1 class="text-4xl font-semibold mb-2">
-        You don't have any favourite offers yet!
-    </h1>
-    <div>Click the star button on the offers you like, to add them</div>
+<div class="flex flex-col items-center gap-16 w-full mt-12">
+    <app-offer
+        *ngFor="let offer of userFavouriteOffers"
+        [offerData]="offer"
+    ></app-offer>
+    <div
+        *ngIf="!userFavouriteOffers"
+        class="self-center text-center opacity-80 mt-12"
+    >
+        <h1 class="text-4xl font-semibold mb-2">
+            You don't have any favourite offers yet!
+        </h1>
+        <div>Click the star button on the offers you like, to add them</div>
+    </div>
 </div>

@@ -154,6 +154,7 @@ export class SignupComponent implements OnInit {
             age: parseInt(this.signupForm.get('age')?.value!),
             password: this.signupForm.get('password')?.value!,
             userOffers: [],
+            favouriteOffers: [],
         };
 
         this.userService.signup(newUser);

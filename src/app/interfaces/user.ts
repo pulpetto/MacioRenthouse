@@ -8,4 +8,5 @@ export interface User {
     age: number;
     password: string;
     userOffers: Offer[];
+    favouriteOffers: Offer[];
 }
