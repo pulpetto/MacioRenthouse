@@ -1,14 +1,19 @@
-<div class="h-full flex">
+<div class="flex h-full">
     <div
-        class="w-96 bg-black rounded-md bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-50 p-6 h-screen flex flex-col gap-6 text-lg sticky top-0"
+        class="sticky top-0 flex flex-col h-screen gap-6 p-6 text-lg bg-black bg-opacity-50 rounded-md w-96 bg-clip-padding backdrop-filter backdrop-blur-md"
     >
-        <a routerLink="/home" class="flex items-center gap-4 self-center">
+        <a routerLink="/home" class="flex items-center self-center gap-4">
             <div class="w-10 h-10">
                 <img
-                    src="assets/svgs/key.svg"
-                    class="w-full h-full hover:rotate-180 transition-transform"
+                    src="assets/svgs/key-svgrepo-com.svg"
+                    class="w-full h-full transition-transform hover:rotate-180"
                     alt="logo"
                 />
+                <!-- <img
+                    src="assets/svgs/key.svg"
+                    class="w-full h-full transition-transform hover:rotate-180"
+                    alt="logo"
+                /> -->
             </div>
             <div class="text-2xl font-semibold">Macio Wearhouse</div>
         </a>
@@ -16,7 +21,7 @@
         <div class="flex flex-col justify-between h-full">
             <div class="flex flex-col gap-4">
                 <button
-                    class="flex items-center gap-6 hover:bg-indigo-700 rounded-md p-2 transition-all opacity-80 hover:opacity-100"
+                    class="flex items-center gap-6 p-2 transition-all rounded-md hover:bg-indigo-700 opacity-80 hover:opacity-100"
                 >
                     <div class="w-8 h-8">
                         <!-- <img
@@ -33,7 +38,7 @@
                     <a routerLink="offers">Your offers</a>
                 </button>
                 <button
-                    class="flex items-center gap-6 hover:bg-indigo-700 rounded-md p-2 transition-all opacity-80 hover:opacity-100"
+                    class="flex items-center gap-6 p-2 transition-all rounded-md hover:bg-indigo-700 opacity-80 hover:opacity-100"
                 >
                     <div class="w-8 h-8">
                         <img
@@ -45,7 +50,7 @@
                     <a routerLink="favourites">Favourites</a>
                 </button>
                 <button
-                    class="flex items-center gap-6 hover:bg-indigo-700 rounded-md p-2 transition-all opacity-80 hover:opacity-100"
+                    class="flex items-center gap-6 p-2 transition-all rounded-md hover:bg-indigo-700 opacity-80 hover:opacity-100"
                 >
                     <div class="w-9 h-9">
                         <img
@@ -59,7 +64,7 @@
             </div>
 
             <button
-                class="flex items-center gap-6 hover:bg-indigo-700 rounded-md p-2 transition-all opacity-80 hover:opacity-100"
+                class="flex items-center gap-6 p-2 transition-all rounded-md hover:bg-indigo-700 opacity-80 hover:opacity-100"
             >
                 <div class="w-8 h-8">
                     <img
@@ -84,7 +89,7 @@
         <router-outlet></router-outlet>
     </div>
     <button
-        class="absolute flex justify-center items-center bottom-4 right-4 transition-all w-12 h-12 bg-indigo-800 hover:bg-indigo-700 rounded-full"
+        class="absolute flex items-center justify-center w-12 h-12 transition-all bg-indigo-800 rounded-full bottom-4 right-4 hover:bg-indigo-700"
     >
         <img src="assets/svgs/plus.svg" class="w-full h-full" alt="plus icon" />
     </button>
