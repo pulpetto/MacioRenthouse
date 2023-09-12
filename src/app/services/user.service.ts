@@ -10,6 +10,7 @@ import {
 import { getDatabase, ref, set } from '@angular/fire/database';
 import { Observable } from 'rxjs/internal/Observable';
 import { BehaviorSubject, map, take } from 'rxjs';
+import { Offer } from '../interfaces/offer';
 
 @Injectable({
     providedIn: 'root',

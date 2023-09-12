@@ -1,3 +1,12 @@
 <div class="flex flex-col items-center gap-16 w-full mt-12">
-    <app-offer></app-offer>
+    <!-- <ng-container *ngIf="userService.getUser() | async as user">
+        <app-offer *ngFor="let offer of user.userOffers"></app-offer>
+    </ng-container> -->
+    <app-offer *ngFor="let offer of userOffers"></app-offer>
+    <div *ngIf="!userOffers" class="self-center text-center opacity-80">
+        <h1 class="text-4xl font-semibold mb-2">
+            You dont have any offers yet!
+        </h1>
+        <div>Click add offer button, to add one</div>
+    </div>
 </div>
