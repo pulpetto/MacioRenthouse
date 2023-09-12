@@ -14,31 +14,42 @@
         </a>
         <div class="border-2 border-white border-solid rounded-md"></div>
         <div class="flex flex-col justify-between h-full">
-            <div class="flex flex-col gap-6">
-                <button class="flex items-center gap-6 hover:underline">
+            <div class="flex flex-col gap-4">
+                <button
+                    class="flex items-center gap-6 hover:bg-indigo-700 rounded-md p-2 transition-all opacity-80 hover:opacity-100"
+                >
                     <div class="w-8 h-8">
+                        <!-- <img
+                            src="assets/svgs/BMW front.svg"
+                            class="w-full h-full"
+                            alt="car icon"
+                        /> -->
                         <img
-                            src="assets/svgs/car-loan-svgrepo-com.svg"
+                            src="assets/svgs/car-svgrepo-com.svg"
                             class="w-full h-full"
                             alt="car icon"
                         />
                     </div>
                     <a routerLink="offers">Your offers</a>
                 </button>
-                <button class="flex items-center gap-6 hover:underline">
+                <button
+                    class="flex items-center gap-6 hover:bg-indigo-700 rounded-md p-2 transition-all opacity-80 hover:opacity-100"
+                >
                     <div class="w-8 h-8">
                         <img
-                            src="assets/svgs/favorite-svgrepo-com.svg"
+                            src="assets/svgs/bookmark-svgrepo-com.svg"
                             class="w-full h-full"
                             alt="car icon"
                         />
                     </div>
                     <a routerLink="favourites">Favourites</a>
                 </button>
-                <button class="flex items-center gap-6 hover:underline">
-                    <div class="w-8 h-8">
+                <button
+                    class="flex items-center gap-6 hover:bg-indigo-700 rounded-md p-2 transition-all opacity-80 hover:opacity-100"
+                >
+                    <div class="w-9 h-9">
                         <img
-                            src="assets/svgs/cog-svgrepo-com.svg"
+                            src="assets/svgs/setting-svgrepo-com.svg"
                             class="w-full h-full"
                             alt="settings icon"
                         />
@@ -47,21 +58,34 @@
                 </button>
             </div>
 
-            <button class="flex items-center gap-6">
+            <button
+                class="flex items-center gap-6 hover:bg-indigo-700 rounded-md p-2 transition-all opacity-80 hover:opacity-100"
+            >
                 <div class="w-8 h-8">
                     <img
-                        src="assets/svgs/x-svgrepo-com.svg"
+                        src="assets/svgs/left-arrow-alt-svgrepo-com.svg"
                         class="w-full h-full"
                         alt="settings icon"
                     />
+                    <!-- <img
+                        src="assets/svgs/x-svgrepo-com.svg"
+                        class="w-full h-full"
+                        alt="settings icon"
+                    /> -->
                 </div>
-                <button (click)="onLogout()" class="text-red-600">
+                <!-- <button (click)="onLogout()" class="text-red-600">
                     Log out
-                </button>
+                </button> -->
+                <button (click)="onLogout()">Log out</button>
             </button>
         </div>
     </div>
     <div class="w-full">
         <router-outlet></router-outlet>
     </div>
+    <button
+        class="absolute flex justify-center items-center bottom-4 right-4 transition-all w-12 h-12 bg-indigo-800 hover:bg-indigo-700 rounded-full"
+    >
+        <img src="assets/svgs/plus.svg" class="w-full h-full" alt="plus icon" />
+    </button>
 </div>
