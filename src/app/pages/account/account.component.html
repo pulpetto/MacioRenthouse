@@ -128,7 +128,7 @@
     >
         <div class="col-span-3 row-span-3 bg-green-400">IMAGE SELECTOR</div>
 
-        <div class="flex flex-col col-span-1 row-span-3 gap-4">
+        <!-- <div class="flex flex-col col-span-1 row-span-2 gap-4">
             <div class="flex justify-between gap-2">
                 <app-input
                     class="w-1/2"
@@ -171,7 +171,7 @@
                     [control]="offerForm.controls.productionYear"
                 ></app-input>
             </div>
-        </div>
+        </div> -->
 
         <div class="col-span-3 row-span-2">
             <textarea
@@ -183,6 +183,110 @@
                 class="w-full h-full px-4 py-6 text-xl rounded-md shadow-md resize-none bg-neutral-900 bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-30 focus:outline focus:outline-indigo-700"
             ></textarea>
         </div>
-        <div class="col-span-1 row-span-2 bg-blue-400">OFFER INPUT</div>
+
+        <!-- <div class="flex flex-col col-span-1 row-span-3 gap-4">
+            <app-input
+                class=""
+                label="pickup location"
+                type="text"
+                [control]="offerForm.controls.carBrand"
+            ></app-input>
+            <div class="flex justify-between gap-2">
+                <app-input
+                    class="w-1/2"
+                    label="available for (days)"
+                    type="text"
+                    [control]="offerForm.controls.carBrand"
+                ></app-input>
+                <app-input
+                    class="w-1/2"
+                    label="price for day"
+                    type="text"
+                    [control]="offerForm.controls.carModel"
+                ></app-input>
+            </div>
+
+            <button
+                type="submit"
+                [disabled]="offerForm.invalid"
+                class="px-2 py-4 text-xl font-semibold transition-colors bg-indigo-800 rounded-md hover:bg-indigo-700"
+            >
+                Submit & Add offer
+            </button>
+        </div> -->
+
+        <div class="flex flex-col col-start-4 row-start-1">
+            <div class="flex justify-between gap-2">
+                <app-input
+                    class="w-1/2"
+                    label="car name"
+                    type="text"
+                    [control]="offerForm.controls.carBrand"
+                ></app-input>
+                <app-input
+                    class="w-1/2"
+                    label="car model"
+                    type="text"
+                    [control]="offerForm.controls.carModel"
+                ></app-input>
+            </div>
+            <div class="flex justify-between gap-2">
+                <app-input
+                    class="w-1/2"
+                    label="gerbox type"
+                    type="text"
+                    [control]="offerForm.controls.gearboxType"
+                ></app-input>
+                <app-input
+                    class="w-1/2"
+                    label="available seats"
+                    type="text"
+                    [control]="offerForm.controls.availableSeats"
+                ></app-input>
+            </div>
+            <div class="flex justify-between gap-2">
+                <app-input
+                    class="w-1/2"
+                    label="fuel type"
+                    type="text"
+                    [control]="offerForm.controls.fuelType"
+                ></app-input>
+                <app-input
+                    class="w-1/2"
+                    label="production year"
+                    type="text"
+                    [control]="offerForm.controls.productionYear"
+                ></app-input>
+            </div>
+
+            <app-input
+                class=""
+                label="pickup location"
+                type="text"
+                [control]="offerForm.controls.carBrand"
+            ></app-input>
+            <div class="flex justify-between gap-2">
+                <app-input
+                    class="w-1/2"
+                    label="available for (days)"
+                    type="text"
+                    [control]="offerForm.controls.carBrand"
+                ></app-input>
+                <app-input
+                    class="w-1/2"
+                    label="price for day"
+                    type="text"
+                    [control]="offerForm.controls.carModel"
+                ></app-input>
+            </div>
+
+            <button
+                type="submit"
+                [disabled]="offerForm.invalid"
+                class="px-2 py-4 text-xl font-semibold transition-colors bg-indigo-800 rounded-md hover:bg-indigo-700"
+            >
+                Submit & Add offer
+            </button>
+        </div>
     </form>
 </div>
