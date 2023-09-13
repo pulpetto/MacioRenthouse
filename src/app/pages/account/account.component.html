@@ -214,7 +214,12 @@
             <button
                 type="submit"
                 [disabled]="offerForm.invalid"
-                class="w-full px-2 py-4 text-xl font-semibold transition-colors bg-indigo-800 rounded-md shadow-md hover:bg-indigo-700 justify-self-end"
+                class="w-full px-2 py-4 text-xl font-semibold transition-colors bg-indigo-800 rounded-md shadow-md justify-self-end"
+                [ngClass]="{
+                    'hover:bg-indigo-700': offerForm.valid,
+                    'cursor-not-allowed': offerForm.invalid,
+                    'opacity-70': offerForm.invalid,
+                }"
             >
                 Submit & Add offer
             </button>
