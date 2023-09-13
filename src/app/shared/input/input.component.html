@@ -1,11 +1,11 @@
-<div class="flex flex-col gap-2">
-    <label class="text-white">{{ label }}:</label>
+<div class="flex flex-col gap-1">
+    <label class="self-start text-white">{{ label }}:</label>
     <input
         [type]="type"
         [formControl]="control"
-        class="px-3 py-4 rounded-md bg-neutral-900 focus:outline focus:outline-indigo-700"
+        class="px-3 py-4 rounded-md shadow-md bg-neutral-900 focus:outline focus:outline-indigo-700 bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-30"
     />
-    <div class="h-4">
+    <div class="self-start h-4">
         <ng-container
             *ngIf="control.touched && control.dirty && control.errors"
         >
@@ -17,7 +17,7 @@
                 class="text-red-600"
             >
                 this username does not exist, did you mean to
-                <a routerLink="/signup" class="hover:underline text-indigo-700">
+                <a routerLink="/signup" class="text-indigo-700 hover:underline">
                     sign up
                 </a>
             </div>
@@ -26,7 +26,7 @@
                 class="text-red-600"
             >
                 this email is not registered, did you mean to
-                <a routerLink="/signup" class="hover:underline text-indigo-700">
+                <a routerLink="/signup" class="text-indigo-700 hover:underline">
                     sign up
                 </a>
             </div>
@@ -44,7 +44,7 @@
                 class="text-red-600"
             >
                 email already registered, did you mean to
-                <a routerLink="/login" class="hover:underline text-indigo-700">
+                <a routerLink="/login" class="text-indigo-700 hover:underline">
                     log in
                 </a>
             </div>
@@ -52,7 +52,7 @@
             <!-- sign in -->
             <div
                 *ngIf="control.errors?.['pattern']"
-                class="text-red-600 text-xs"
+                class="text-xs text-red-600"
             >
                 only numbers are allowed
             </div>

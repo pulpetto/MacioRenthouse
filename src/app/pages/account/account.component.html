@@ -119,14 +119,14 @@
 </div>
 
 <div
-    class="absolute flex items-center justify-center w-full h-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 backdrop-blur-xl"
+    class="absolute flex items-center justify-center w-full h-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 backdrop-blur-3xl bg-opacity-90"
 >
     <form
         [formGroup]="offerForm"
         (ngSubmit)="onOfferSubmit()"
-        class="grid w-3/4 grid-cols-4 grid-rows-5 gap-2 p-8 text-center border-2 border-indigo-700 border-solid rounded-md shadow-md h-5/6 bg-neutral-950 bg-clip-padding backdrop-filter backdrop-blur-2xl bg-opacity-80"
+        class="grid w-3/4 grid-cols-4 grid-rows-5 gap-8 p-8 text-center border-2 border-indigo-700 border-solid rounded-md shadow-md h-5/6 bg-neutral-950"
     >
-        <div class="col-span-3 row-span-3 bg-green-400">IMAGE SELECTOR</div>
+        <div class="col-span-3 row-span-3">IMAGE SELECTOR</div>
 
         <!-- <div class="flex flex-col col-span-1 row-span-2 gap-4">
             <div class="flex justify-between gap-2">
@@ -215,7 +215,7 @@
             </button>
         </div> -->
 
-        <div class="flex flex-col col-start-4 row-start-1">
+        <div class="flex flex-col col-start-4 row-start-1 gap-4">
             <div class="flex justify-between gap-2">
                 <app-input
                     class="w-1/2"
@@ -233,7 +233,7 @@
             <div class="flex justify-between gap-2">
                 <app-input
                     class="w-1/2"
-                    label="gerbox type"
+                    label="gearbox type"
                     type="text"
                     [control]="offerForm.controls.gearboxType"
                 ></app-input>
@@ -260,30 +260,29 @@
             </div>
 
             <app-input
-                class=""
                 label="pickup location"
                 type="text"
-                [control]="offerForm.controls.carBrand"
+                [control]="offerForm.controls.pickupLocation"
             ></app-input>
             <div class="flex justify-between gap-2">
                 <app-input
                     class="w-1/2"
                     label="available for (days)"
-                    type="text"
-                    [control]="offerForm.controls.carBrand"
+                    type="number"
+                    [control]="offerForm.controls.availableFor"
                 ></app-input>
                 <app-input
                     class="w-1/2"
                     label="price for day"
-                    type="text"
-                    [control]="offerForm.controls.carModel"
+                    type="number"
+                    [control]="offerForm.controls.price"
                 ></app-input>
             </div>
 
             <button
                 type="submit"
                 [disabled]="offerForm.invalid"
-                class="px-2 py-4 text-xl font-semibold transition-colors bg-indigo-800 rounded-md hover:bg-indigo-700"
+                class="w-full px-2 py-4 text-xl font-semibold transition-colors bg-indigo-800 rounded-md hover:bg-indigo-700"
             >
                 Submit & Add offer
             </button>
