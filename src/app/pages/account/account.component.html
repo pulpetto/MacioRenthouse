@@ -124,12 +124,42 @@
     <form
         [formGroup]="offerForm"
         (ngSubmit)="onOfferSubmit()"
-        class="grid w-3/4 grid-cols-4 grid-rows-5 gap-8 p-8 text-center rounded-md shadow-2xl drop-shadow-2xl shadow-black h-5/6 backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter"
+        class="grid w-3/4 grid-cols-4 grid-rows-5 gap-8 px-8 pt-16 pb-8 text-center rounded-md shadow-2xl drop-shadow-2xl shadow-black h-5/6 backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter"
     >
+        <div
+            class="absolute flex items-center justify-between w-full px-6 top-2"
+        >
+            <div class="flex">
+                <div class="w-11 h-11">
+                    <img
+                        src="assets/svgs/tick-svgrepo-com.svg"
+                        class="w-full h-full"
+                        alt="fullscreen icon"
+                    />
+                </div>
+                <div class="w-11 h-11">
+                    <img
+                        src="assets/svgs/cross-svgrepo-com(1).svg"
+                        class="w-full h-full"
+                        alt="close icon"
+                    />
+                </div>
+            </div>
+
+            <div class="text-xl font-semibold">- Offer Creator -</div>
+
+            <div class="w-8 h-8 ml-1">
+                <img
+                    src="assets/svgs/expand-svgrepo-com.svg"
+                    class="w-full h-full"
+                    alt="fullscreen icon"
+                />
+            </div>
+        </div>
         <div class="col-span-3 row-span-3">
             <label
                 for="dropzone-file"
-                class="flex flex-col items-center justify-center w-full h-full transition-all duration-500 ease-out rounded-md shadow-md cursor-pointer drop-shadow-md shadow-black backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter hover:scale-105"
+                class="flex flex-col items-center justify-center w-full h-full transition-all duration-300 ease-out rounded-md shadow-md cursor-pointer drop-shadow-md shadow-black backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter hover:shadow-sm"
             >
                 <div
                     class="flex flex-col items-center justify-center pt-5 pb-6"
