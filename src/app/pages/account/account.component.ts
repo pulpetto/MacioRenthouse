@@ -14,13 +14,25 @@ export class AccountComponent {
         carBrand: new FormControl('', [Validators.required]),
         carModel: new FormControl('', [Validators.required]),
         gearboxType: new FormControl('', [Validators.required]),
-        availableSeats: new FormControl('', [Validators.required]),
+        availableSeats: new FormControl('', [
+            Validators.required,
+            Validators.pattern('^[0-9]*$'),
+        ]),
         fuelType: new FormControl('', [Validators.required]),
-        productionYear: new FormControl('', [Validators.required]),
+        productionYear: new FormControl('', [
+            Validators.required,
+            Validators.pattern('^[0-9]*$'),
+        ]),
         // imgs: new FormControl('', [Validators.required]),
         pickupLocation: new FormControl('', [Validators.required]),
-        availableFor: new FormControl('', [Validators.required]),
-        price: new FormControl('', [Validators.required]),
+        availableFor: new FormControl('', [
+            Validators.required,
+            Validators.pattern('^[0-9]*$'),
+        ]),
+        price: new FormControl('', [
+            Validators.required,
+            Validators.pattern('^[0-9]*$'),
+        ]),
     });
 
     onOfferSubmit() {}
