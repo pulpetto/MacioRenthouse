@@ -8,6 +8,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
     styleUrls: ['./account.component.css'],
 })
 export class AccountComponent {
+    creatorOpenState = false;
+
     constructor(private userService: UserService) {}
 
     offerForm = new FormGroup({
@@ -36,6 +38,14 @@ export class AccountComponent {
             Validators.pattern('^[0-9]*$'),
         ]),
     });
+
+    onOpenOfferCreator() {
+        this.creatorOpenState = true;
+    }
+
+    onCloseOfferCreator() {
+        this.creatorOpenState = false;
+    }
 
     onOfferSubmit() {}
 

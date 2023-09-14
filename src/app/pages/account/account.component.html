@@ -84,6 +84,7 @@
         <router-outlet></router-outlet>
     </div>
     <button
+        (click)="onOpenOfferCreator()"
         class="absolute transition-transform w-14 h-14 hover:rotate-180 bottom-4 right-4"
     >
         <img
@@ -119,6 +120,7 @@
 </div>
 
 <div
+    *ngIf="creatorOpenState"
     class="absolute flex items-center justify-center w-full h-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter"
 >
     <form
@@ -137,7 +139,10 @@
                         alt="fullscreen icon"
                     />
                 </button>
-                <button class="transition-all w-11 h-11 hover:scale-105">
+                <button
+                    (click)="onCloseOfferCreator()"
+                    class="transition-all w-11 h-11 hover:scale-105"
+                >
                     <img
                         src="assets/svgs/cross-svgrepo-com(1).svg"
                         class="w-full h-full"
