@@ -84,7 +84,7 @@
         <router-outlet></router-outlet>
     </div>
     <button
-        (click)="onOpenOfferCreator()"
+        (click)="onToggleOfferCreator()"
         class="absolute transition-transform w-14 h-14 hover:rotate-180 bottom-4 right-4"
     >
         <img
@@ -144,7 +144,7 @@
                     />
                 </button>
                 <button
-                    (click)="onCloseOfferCreator()"
+                    (click)="onToggleOfferCreator()"
                     class="transition-all w-11 h-11 hover:scale-105"
                 >
                     <img

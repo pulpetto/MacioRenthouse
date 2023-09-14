@@ -41,6 +41,10 @@ export class AccountComponent {
         ]),
     });
 
+    onToggleOfferCreator() {
+        this.creatorOpenState = !this.creatorOpenState;
+    }
+
     onOpenOfferCreator() {
         this.creatorOpenState = true;
     }
