@@ -22,6 +22,8 @@ export class AccountComponent {
         productionYear: new FormControl('', [
             Validators.required,
             Validators.pattern('^[0-9]*$'),
+            Validators.max(2023),
+            Validators.min(1886),
         ]),
         // imgs: new FormControl('', [Validators.required]),
         pickupLocation: new FormControl('', [Validators.required]),

@@ -126,7 +126,9 @@
         (ngSubmit)="onOfferSubmit()"
         class="grid w-3/4 grid-cols-4 grid-rows-5 gap-8 p-8 text-center rounded-md shadow-2xl drop-shadow-2xl shadow-black h-5/6 backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter"
     >
-        <div class="col-span-3 row-span-3">IMAGE SELECTOR</div>
+        <div class="col-span-3 row-span-3 border border-white border-dashed">
+            IMAGE SELECTOR
+        </div>
 
         <div class="relative col-span-3 row-span-2">
             <label
@@ -171,7 +173,7 @@
                     <app-input
                         class="w-1/2"
                         label="available seats"
-                        type="text"
+                        type="number"
                         [control]="offerForm.controls.availableSeats"
                     ></app-input>
                 </div>
@@ -185,7 +187,7 @@
                     <app-input
                         class="w-1/2"
                         label="production year"
-                        type="text"
+                        type="number"
                         [control]="offerForm.controls.productionYear"
                     ></app-input>
                 </div>
