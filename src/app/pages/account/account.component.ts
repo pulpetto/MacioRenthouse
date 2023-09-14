@@ -45,14 +45,6 @@ export class AccountComponent {
         this.creatorOpenState = !this.creatorOpenState;
     }
 
-    onOpenOfferCreator() {
-        this.creatorOpenState = true;
-    }
-
-    onCloseOfferCreator() {
-        this.creatorOpenState = false;
-    }
-
     onToggleCreatorFullscreen() {
         this.creatorFullscreenState = !this.creatorFullscreenState;
         if (this.fullscreenImageSrc === 'assets/svgs/expand-svgrepo-com.svg') {
