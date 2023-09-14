@@ -126,8 +126,31 @@
         (ngSubmit)="onOfferSubmit()"
         class="grid w-3/4 grid-cols-4 grid-rows-5 gap-8 p-8 text-center rounded-md shadow-2xl drop-shadow-2xl shadow-black h-5/6 backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter"
     >
-        <div class="col-span-3 row-span-3 border border-white border-dashed">
-            IMAGE SELECTOR
+        <div class="col-span-3 row-span-3">
+            <label
+                for="dropzone-file"
+                class="flex flex-col items-center justify-center w-full h-full transition-all duration-500 ease-out rounded-md shadow-md cursor-pointer drop-shadow-md shadow-black backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter hover:scale-105"
+            >
+                <div
+                    class="flex flex-col items-center justify-center pt-5 pb-6"
+                >
+                    <div class="w-24 h-24">
+                        <img
+                            src="assets/svgs/upload-svgrepo-com.svg"
+                            class="w-full h-full"
+                            alt="upload file icon"
+                        />
+                    </div>
+                    <p class="mb-2">
+                        <span class="font-semibold">Click to upload</span>
+                        or drag and drop
+                    </p>
+                    <p class="opacity-60">
+                        PNG, JPG or JPEG (horizontal orientation)
+                    </p>
+                </div>
+                <input id="dropzone-file" required type="file" class="hidden" />
+            </label>
         </div>
 
         <div class="relative col-span-3 row-span-2">
