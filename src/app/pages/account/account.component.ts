@@ -9,6 +9,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class AccountComponent {
     creatorOpenState = false;
+    creatorFullscreenState = false;
+    fullscreenImageSrc = 'assets/svgs/expand-svgrepo-com.svg';
 
     constructor(private userService: UserService) {}
 
@@ -45,6 +47,15 @@ export class AccountComponent {
 
     onCloseOfferCreator() {
         this.creatorOpenState = false;
+    }
+
+    onToggleCreatorFullscreen() {
+        this.creatorFullscreenState = !this.creatorFullscreenState;
+        if (this.fullscreenImageSrc === 'assets/svgs/expand-svgrepo-com.svg') {
+            this.fullscreenImageSrc = 'assets/svgs/compress-2-svgrepo-com.svg';
+        } else {
+            this.fullscreenImageSrc = 'assets/svgs/expand-svgrepo-com.svg';
+        }
     }
 
     onOfferSubmit() {}

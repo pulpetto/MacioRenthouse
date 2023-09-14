@@ -126,7 +126,11 @@
     <form
         [formGroup]="offerForm"
         (ngSubmit)="onOfferSubmit()"
-        class="grid w-3/4 grid-cols-4 grid-rows-5 gap-8 px-8 pt-16 pb-8 text-center rounded-md shadow-2xl drop-shadow-2xl shadow-black h-5/6 backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter"
+        [ngClass]="{
+            'w-full': creatorFullscreenState,
+            'h-full': creatorFullscreenState,
+        }"
+        class="grid w-3/4 grid-cols-4 grid-rows-5 gap-8 px-8 pt-16 pb-8 text-center transition-all rounded-md shadow-2xl drop-shadow-2xl shadow-black h-5/6 backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter"
     >
         <div
             class="absolute flex items-center justify-between w-full pl-6 pr-7 top-2"
@@ -153,9 +157,12 @@
 
             <div class="text-xl font-semibold">- Offer Creator -</div>
 
-            <button class="w-8 h-8 ml-1 transition-all hover:scale-105">
+            <button
+                (click)="onToggleCreatorFullscreen()"
+                class="w-8 h-8 ml-1 transition-all hover:scale-105"
+            >
                 <img
-                    src="assets/svgs/expand-svgrepo-com.svg"
+                    [src]="fullscreenImageSrc"
                     class="w-full h-full"
                     alt="fullscreen icon"
                 />
