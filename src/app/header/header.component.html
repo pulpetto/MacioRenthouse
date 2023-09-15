@@ -1,24 +1,24 @@
 <div
-    class="bg-neutral-950 rounded-md bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-30 p-4 flex justify-between items-center fixed w-full z-10"
+    class="fixed z-10 flex items-center justify-between w-full p-4 rounded-md bg-neutral-950 bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-30"
 >
-    <div class="flex items-center gap-4">
-        <div class="w-10 h-10">
+    <div class="flex items-center gap-2">
+        <div class="w-14 h-14">
             <img
-                src="assets/svgs/key.svg"
-                class="w-full h-full hover:rotate-180 transition-transform"
+                src="assets/svgs/key-svgrepo-com.svg"
+                class="w-full h-full transition-transform hover:rotate-180"
                 alt="logo"
             />
         </div>
         <a routerLink="/home" class="text-2xl font-semibold">Macio Wearhouse</a>
     </div>
 
-    <!-- <div class="flex items-center relative w-1/4">
+    <!-- <div class="relative flex items-center w-1/4">
         <input
             type="text"
             placeholder="Search for a specific car..."
-            class="p-4 bg-neutral-800 rounded-md bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-30 w-full focus:outline focus:outline-indigo-700"
+            class="w-full p-4 rounded-md bg-neutral-800 bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-30 focus:outline focus:outline-indigo-700"
         />
-        <button class="w-10 h-10 absolute right-2">
+        <button class="absolute w-10 h-10 right-2">
             <img
                 src="assets/svgs/search.svg"
                 class="w-full h-full"
@@ -30,13 +30,13 @@
     <div *ngIf="!(userFirstName$ | async)">
         <a
             routerLink="login"
-            class="transition-colors mx-8 text-lg hover:text-indigo-700"
+            class="mx-8 text-lg transition-colors hover:text-indigo-700"
         >
             Log in
         </a>
         <a
             routerLink="signup"
-            class="transition-colors px-8 py-2 bg-indigo-700 hover:bg-indigo-800 rounded-md text-lg"
+            class="px-8 py-2 text-lg transition-colors bg-indigo-700 rounded-md hover:bg-indigo-800"
         >
             Sign up
         </a>
@@ -48,9 +48,9 @@
         class="flex items-center gap-2"
     >
         <div class="text-xl">{{ userFirstName }}</div>
-        <div class="w-12 h-12">
+        <div class="w-14 h-14">
             <img
-                src="assets/svgs/user-svgrepo-com.svg"
+                src="assets/svgs/user-5-svgrepo-com.svg"
                 class="w-full h-full"
                 alt="user icon"
             />
