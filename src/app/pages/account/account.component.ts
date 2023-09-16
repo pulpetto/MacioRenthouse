@@ -65,4 +65,23 @@ export class AccountComponent {
     onLogout() {
         this.userService.logout();
     }
+
+    /////////////////////////////////
+    previewUrls: string[] = [];
+
+    onFileSelected(event: Event): void {
+        const input = event.target as HTMLInputElement;
+        const files = input.files;
+
+        if (files && files.length) {
+            this.previewUrls = [];
+            for (const file of Array.from(files)) {
+                const reader = new FileReader();
+                reader.onload = (e: any) => {
+                    this.previewUrls.push(e.target.result);
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+    }
 }

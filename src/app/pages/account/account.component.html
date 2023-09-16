@@ -201,10 +201,10 @@
             </button>
         </div>
 
-        <div class="col-span-3 row-span-3">
+        <div class="grid grid-cols-4 col-span-3 grid-rows-3 row-span-3 gap-2">
             <label
                 for="dropzone-file"
-                class="flex flex-col items-center justify-center w-full h-full transition-all duration-300 ease-out rounded-md shadow-md cursor-pointer drop-shadow-md shadow-black backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter hover:shadow-sm"
+                class="flex flex-col items-center justify-center w-full h-full col-span-3 transition-all duration-300 ease-out rounded-md shadow-md cursor-pointer row-span-full drop-shadow-md shadow-black backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter"
             >
                 <div
                     class="flex flex-col items-center justify-center pt-5 pb-6"
@@ -222,11 +222,60 @@
                     </p>
                     <p class="opacity-60">
                         PNG, JPG or JPEG (horizontal orientation), <br />
-                        up to 5 images
+                        up to 4 images
                     </p>
                 </div>
-                <input id="dropzone-file" required type="file" class="hidden" />
+                <input
+                    id="dropzone-file"
+                    required
+                    type="file"
+                    class="hidden"
+                    (change)="onFileSelected($event)"
+                    multiple
+                />
             </label>
+
+            <div
+                class="flex items-center justify-center col-start-4 row-start-1 row-end-2 rounded-md shadow-md drop-shadow-md shadow-black backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter"
+            >
+                <div class="w-16 h-16">
+                    <img
+                        src="assets/svgs/add-svgrepo-com.svg"
+                        class="w-full h-full"
+                        alt="add icon"
+                    />
+                </div>
+            </div>
+
+            <div
+                class="flex items-center justify-center col-start-4 row-start-2 rounded-md shadow-md drop-shadow-md shadow-black backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter"
+            >
+                <div class="w-16 h-16">
+                    <img
+                        src="assets/svgs/add-svgrepo-com.svg"
+                        class="w-full h-full"
+                        alt="add icon"
+                    />
+                </div>
+            </div>
+
+            <div
+                class="flex items-center justify-center col-start-4 row-start-3 rounded-md shadow-md drop-shadow-md shadow-black backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter"
+            >
+                <div class="w-16 h-16">
+                    <img
+                        src="assets/svgs/add-svgrepo-com.svg"
+                        class="w-full h-full"
+                        alt="add icon"
+                    />
+                </div>
+            </div>
+
+            <!-- <div class="preview-container" *ngIf="previewUrls.length > 0">
+                    <div class="preview-item" *ngFor="let url of previewUrls">
+                        <img [src]="url" alt="Preview" />
+                    </div>
+                </div> -->
         </div>
 
         <div class="relative col-span-3 row-span-2">
