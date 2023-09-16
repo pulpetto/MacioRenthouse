@@ -9,6 +9,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class AccountComponent {
     creatorOpenState = false;
+    creatorLeavingPrompt = false;
     creatorFullscreenState = false;
     fullscreenImageSrc = 'assets/svgs/expand-svgrepo-com.svg';
 
@@ -42,7 +43,12 @@ export class AccountComponent {
     });
 
     onToggleOfferCreator() {
+        this.creatorLeavingPrompt = false;
         this.creatorOpenState = !this.creatorOpenState;
+    }
+
+    onToggleLeavingConfirmation() {
+        this.creatorLeavingPrompt = !this.creatorLeavingPrompt;
     }
 
     onToggleCreatorFullscreen() {
