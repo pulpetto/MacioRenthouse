@@ -67,21 +67,50 @@ export class AccountComponent {
     }
 
     /////////////////////////////////
-    previewUrls: string[] = [];
+    // previewUrls: string[] = [];
 
-    onFileSelected(event: Event): void {
-        const input = event.target as HTMLInputElement;
-        const files = input.files;
+    // onFileSelected(event: Event): void {
+    //     const input = event.target as HTMLInputElement;
+    //     const files = input.files;
 
-        if (files && files.length) {
-            this.previewUrls = [];
-            for (const file of Array.from(files)) {
-                const reader = new FileReader();
-                reader.onload = (e: any) => {
-                    this.previewUrls.push(e.target.result);
-                };
-                reader.readAsDataURL(file);
-            }
-        }
-    }
+    //     if (files && files.length) {
+    //         for (const file of Array.from(files)) {
+    //             const reader = new FileReader();
+    //             reader.onload = (e: any) => {
+    //                 this.previewUrls.push(e.target.result);
+    //             };
+    //             reader.readAsDataURL(file);
+    //         }
+    //     }
+    // }
+    //////////////////////////////
+    // maxAllowedFiles = 4;
+    // previewUrls: string[] = [];
+
+    // getImagePosition(index: number): { col: number; row: number } {
+    //     const col = (index % 4) + 1;
+    //     const row = Math.floor(index / 4) + 1;
+    //     return { col, row };
+    // }
+
+    // onFileSelected(event: Event): void {
+    //     const input = event.target as HTMLInputElement;
+    //     const files = input?.files;
+
+    //     if (files) {
+    //         for (let i = 0; i < files.length; i++) {
+    //             const reader = new FileReader();
+
+    //             reader.onload = () => {
+    //                 if (reader.result) {
+    //                     this.previewUrls.push(reader.result as string);
+    //                 }
+    //             };
+
+    //             reader.readAsDataURL(files[i]);
+    //         }
+    //     }
+    // }
+
+    testArr = [1, 2, 3];
 }
