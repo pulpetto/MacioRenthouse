@@ -12,6 +12,7 @@ export class AccountComponent {
     creatorLeavingPrompt = false;
     creatorFullscreenState = false;
     uploadedImages: string[] = [];
+    imageLimitPrompt = false;
     fullscreenImageSrc = 'assets/svgs/expand-svgrepo-com.svg';
 
     constructor(private userService: UserService) {}
@@ -71,7 +72,7 @@ export class AccountComponent {
         const input = event.target as HTMLInputElement;
         const files = input?.files;
 
-        if (files && files.length < 5) {
+        if (files && this.uploadedImages.length + files.length < 5) {
             for (let i = 0; i < files.length; i++) {
                 const reader = new FileReader();
 
@@ -86,7 +87,13 @@ export class AccountComponent {
 
                 reader.readAsDataURL(files[i]);
             }
+        } else {
+            this.imageLimitPrompt = true;
         }
+    }
+
+    onToggleImageLimitPrompt() {
+        this.imageLimitPrompt = false;
     }
 
     onMainImageRemove() {
