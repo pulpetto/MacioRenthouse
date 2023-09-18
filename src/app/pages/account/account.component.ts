@@ -11,6 +11,7 @@ export class AccountComponent {
     creatorOpenState = false;
     creatorLeavingPrompt = false;
     creatorFullscreenState = false;
+    uploadedImages: string[] = [];
     fullscreenImageSrc = 'assets/svgs/expand-svgrepo-com.svg';
 
     constructor(private userService: UserService) {}
@@ -65,60 +66,6 @@ export class AccountComponent {
     onLogout() {
         this.userService.logout();
     }
-
-    /////////////////////////////////
-    // previewUrls: string[] = [];
-
-    // onFileSelected(event: Event): void {
-    //     const input = event.target as HTMLInputElement;
-    //     const files = input.files;
-
-    //     if (files && files.length) {
-    //         for (const file of Array.from(files)) {
-    //             const reader = new FileReader();
-    //             reader.onload = (e: any) => {
-    //                 this.previewUrls.push(e.target.result);
-    //             };
-    //             reader.readAsDataURL(file);
-    //         }
-    //     }
-    // }
-    //////////////////////////////
-    // maxAllowedFiles = 4;
-    // previewUrls: string[] = [];
-
-    // getImagePosition(index: number): { col: number; row: number } {
-    //     const col = (index % 4) + 1;
-    //     const row = Math.floor(index / 4) + 1;
-    //     return { col, row };
-    // }
-
-    // onFileSelected(event: Event): void {
-    //     const input = event.target as HTMLInputElement;
-    //     const files = input?.files;
-
-    //     if (files) {
-    //         for (let i = 0; i < files.length; i++) {
-    //             const reader = new FileReader();
-
-    //             reader.onload = () => {
-    //                 if (reader.result) {
-    //                     this.previewUrls.push(reader.result as string);
-    //                 }
-    //             };
-
-    //             reader.readAsDataURL(files[i]);
-    //         }
-    //     }
-    // }
-
-    // uploadedImages = [
-    //     'assets/images/TEST-1.png',
-    //     'assets/images/TEST-1.png',
-    //     'assets/images/TEST-1.png',
-    // ];
-
-    uploadedImages: string[] = [];
 
     onImageSelect(event: Event) {
         const input = event.target as HTMLInputElement;
