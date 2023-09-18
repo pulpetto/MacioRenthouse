@@ -112,5 +112,33 @@ export class AccountComponent {
     //     }
     // }
 
-    testArr = [1, 2, 3];
+    // uploadedImages = [
+    //     'assets/images/TEST-1.png',
+    //     'assets/images/TEST-1.png',
+    //     'assets/images/TEST-1.png',
+    // ];
+
+    uploadedImages: string[] = [];
+
+    onImageSelect(event: Event) {
+        const input = event.target as HTMLInputElement;
+        const files = input?.files;
+
+        if (files && files.length < 5) {
+            for (let i = 0; i < files.length; i++) {
+                const reader = new FileReader();
+
+                console.log(reader);
+                console.log(reader.result);
+                reader.onload = () => {
+                    if (reader.result) {
+                        console.log(reader.result);
+                        this.uploadedImages.push(reader.result as string);
+                    }
+                };
+
+                reader.readAsDataURL(files[i]);
+            }
+        }
+    }
 }

@@ -202,7 +202,8 @@
         </div>
 
         <div class="grid grid-cols-4 col-span-3 grid-rows-3 row-span-3 gap-2">
-            <!-- <label
+            <label
+                *ngIf="uploadedImages.length === 0"
                 for="dropzone-file"
                 class="flex flex-col items-center justify-center w-full h-full col-span-3 transition-all duration-300 ease-out rounded-md shadow-md cursor-pointer row-span-full drop-shadow-md shadow-black backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter"
             >
@@ -230,16 +231,18 @@
                     required
                     type="file"
                     class="hidden"
+                    (change)="onImageSelect($event)"
                     multiple
                 />
-            </label> -->
+            </label>
 
             <div
+                *ngIf="uploadedImages.length > 0"
                 class="w-full h-full col-span-3 rounded-md shadow-2xl row-span-full drop-shadow-2xl shadow-black backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter"
             >
                 <div class="relative flex justify-center w-full h-full">
                     <img
-                        src="assets/images/TEST-1.png"
+                        [src]="uploadedImages[0]"
                         class="h-full rounded-md"
                         alt=""
                     />
@@ -256,14 +259,17 @@
             </div>
 
             <div
-                *ngFor="let item of testArr; let i = index"
+                *ngFor="
+                    let uploadedImage of uploadedImages | slice : 1;
+                    let i = index
+                "
                 class="relative w-full col-start-4 drop-shadow-2xl shadow-black backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter"
                 [class]="'row-start-' + i"
                 [class]="'row-end-' + (i + 1)"
             >
                 <div class="relative flex justify-center w-full h-full">
                     <img
-                        src="assets/images/TEST-1.png"
+                        [src]="uploadedImage"
                         class="h-full rounded-md"
                         alt=""
                     />
