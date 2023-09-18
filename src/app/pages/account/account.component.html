@@ -201,6 +201,11 @@
             </button>
         </div>
 
+        <!-- ng if na label jeśli arrayka z obrazami jest < 0 (czyli false) -->
+        <!-- ng if na element z obrazem jeśli arrayka jest > 0 i [src] = arrayceObrazów[0] -->
+        <!-- ng for na arrayke[1-3] użyć slice pipea a klasy z gridem dać po indexie -->
+        <!-- ng if na te 3 pozostałe że albo kontener z plusem albo obraz -->
+
         <div class="grid grid-cols-4 col-span-3 grid-rows-3 row-span-3 gap-2">
             <label
                 *ngIf="uploadedImages.length === 0"
@@ -247,6 +252,7 @@
                         alt=""
                     />
                     <button
+                        (click)="onMainImageRemove()"
                         class="absolute w-8 h-8 transition-all rounded-full shadow-2xl top-1 right-1 drop-shadow-2xl shadow-black backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter hover:scale-105"
                     >
                         <img
@@ -274,6 +280,7 @@
                         alt=""
                     />
                     <button
+                        (click)="onImageRemove(i)"
                         class="absolute w-6 h-6 transition-all rounded-full shadow-2xl top-1 right-1 drop-shadow-2xl shadow-black backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter hover:scale-105"
                     >
                         <img

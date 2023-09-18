@@ -141,4 +141,12 @@ export class AccountComponent {
             }
         }
     }
+
+    onMainImageRemove() {
+        this.uploadedImages.shift();
+    }
+
+    onImageRemove(i: number) {
+        this.uploadedImages.splice(i + 1, 1);
+    }
 }
