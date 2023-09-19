@@ -68,9 +68,19 @@ export class AccountComponent {
         this.userService.logout();
     }
 
+    placeholdersAmount = new Array(3);
+
+    updatePlaceholdersAmount() {
+        this.placeholdersAmount = new Array(
+            4 - (this.uploadedImages.length + 1)
+        );
+    }
+
     onImageSelect(event: Event) {
         const input = event.target as HTMLInputElement;
         const files = input?.files;
+
+        this.updatePlaceholdersAmount();
 
         if (files && this.uploadedImages.length + files.length < 5) {
             for (let i = 0; i < files.length; i++) {
@@ -98,9 +108,13 @@ export class AccountComponent {
 
     onMainImageRemove() {
         this.uploadedImages.shift();
+
+        this.updatePlaceholdersAmount();
     }
 
     onImageRemove(i: number) {
         this.uploadedImages.splice(i + 1, 1);
+
+        this.updatePlaceholdersAmount();
     }
 }
