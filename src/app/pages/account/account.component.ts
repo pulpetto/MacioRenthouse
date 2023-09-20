@@ -1,6 +1,12 @@
 import { Component } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import {
+    FormGroup,
+    FormControl,
+    Validators,
+    AbstractControl,
+    ValidationErrors,
+} from '@angular/forms';
 
 @Component({
     selector: 'app-account',
@@ -32,7 +38,7 @@ export class AccountComponent {
             Validators.max(2023),
             Validators.min(1886),
         ]),
-        // imgs: new FormControl('', [Validators.required]),
+        images: new FormControl<string[]>([], [Validators.required]),
         pickupLocation: new FormControl('', [Validators.required]),
         availableFor: new FormControl('', [
             Validators.required,
@@ -86,16 +92,27 @@ export class AccountComponent {
             for (let i = 0; i < files.length; i++) {
                 const reader = new FileReader();
 
-                console.log(reader);
-                console.log(reader.result);
-                reader.onload = () => {
-                    if (reader.result) {
-                        console.log(reader.result);
-                        this.uploadedImages.push(reader.result as string);
-                    }
-                };
+                const file = files[i];
+                const isImageValid =
+                    file.type === 'image/jpeg' ||
+                    file.type === 'image/jpg' ||
+                    file.type === 'image/png';
 
-                reader.readAsDataURL(files[i]);
+                if (isImageValid) {
+                    reader.onload = () => {
+                        if (reader.result) {
+                            this.uploadedImages.push(reader.result as string);
+
+                            this.offerForm
+                                .get('images')
+                                ?.setValue(this.uploadedImages);
+                        }
+                    };
+
+                    reader.readAsDataURL(files[i]);
+                } else {
+                    console.error('WRONG FILE TYPE');
+                }
             }
         } else {
             this.imageLimitPrompt = true;
