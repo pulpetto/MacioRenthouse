@@ -120,10 +120,6 @@ export class AccountComponent {
         }
     }
 
-    onToggleImageLimitPrompt() {
-        this.imageLimitPrompt = false;
-    }
-
     onMainImageRemove() {
         this.uploadedImages.shift();
 
