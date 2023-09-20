@@ -19,6 +19,7 @@ export class AccountComponent {
     creatorFullscreenState = false;
     uploadedImages: string[] = [];
     imageLimitPrompt = false;
+    fileTypePrompt = false;
     fullscreenImageSrc = 'assets/svgs/expand-svgrepo-com.svg';
 
     constructor(private userService: UserService) {}
@@ -111,7 +112,7 @@ export class AccountComponent {
 
                     reader.readAsDataURL(files[i]);
                 } else {
-                    console.error('WRONG FILE TYPE');
+                    this.fileTypePrompt = true;
                 }
             }
         } else {
