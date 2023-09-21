@@ -60,13 +60,7 @@ export class AccountComponent {
         }
     }
 
-    onOfferSubmit() {
-        this.offerForm.reset();
-    }
-
-    onLogout() {
-        this.userService.logout();
-    }
+    // images logic
 
     placeholdersAmount = new Array(3);
 
@@ -123,5 +117,15 @@ export class AccountComponent {
         this.uploadedImages.splice(i + 1, 1);
 
         this.updatePlaceholdersAmount();
+    }
+
+    // other actions
+
+    onOfferSubmit() {
+        this.offerForm.reset();
+    }
+
+    onLogout() {
+        this.userService.logout();
     }
 }
