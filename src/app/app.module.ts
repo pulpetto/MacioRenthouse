@@ -36,6 +36,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { FIREBASE_OPTIONS } from '@angular/fire/compat';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { NotFoundComponent } from './not-found/not-found.component';
@@ -78,6 +79,7 @@ import { FavouritesComponent } from './pages/account/favourites/favourites.compo
         AngularFireAuthModule,
         AngularFirestoreModule,
         AngularFireDatabaseModule,
+        AngularFireStorageModule,
     ],
     providers: [
         ScreenTrackingService,

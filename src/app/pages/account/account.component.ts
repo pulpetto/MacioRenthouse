@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 import {
     FormGroup,
     FormControl,
@@ -22,7 +23,10 @@ export class AccountComponent {
     fileTypePrompt = false;
     fullscreenImageSrc = 'assets/svgs/expand-svgrepo-com.svg';
 
-    constructor(private userService: UserService) {}
+    constructor(
+        private userService: UserService,
+        private angularFireStorage: AngularFireStorage
+    ) {}
 
     offerForm = new FormGroup({
         carBrand: new FormControl('', [Validators.required]),
@@ -94,6 +98,8 @@ export class AccountComponent {
                             this.offerForm
                                 .get('images')
                                 ?.setValue(this.uploadedImages);
+
+                            console.log(this.offerForm.get('images')?.value);
                         }
                     };
 
