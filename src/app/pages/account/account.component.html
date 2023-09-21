@@ -84,7 +84,7 @@
         <router-outlet></router-outlet>
     </div>
     <button
-        (click)="onToggleOfferCreator()"
+        (click)="creatorOpenState = true"
         class="absolute transition-transform w-14 h-14 hover:rotate-180 bottom-4 right-4"
     >
         <img
@@ -140,13 +140,16 @@
             <div class="mb-10 text-3xl">Do you want to leave?</div>
             <div class="flex gap-2 text-xl font-semibold">
                 <button
-                    (click)="onToggleLeavingConfirmation()"
+                    (click)="creatorLeavingPrompt = false"
                     class="px-6 py-2 rounded-md hover:text-indigo-700"
                 >
                     Cancel
                 </button>
                 <button
-                    (click)="onToggleOfferCreator()"
+                    (click)="
+                        creatorLeavingPrompt = false;
+                        this.creatorOpenState = false
+                    "
                     class="px-6 py-2 bg-indigo-700 rounded-md hover:bg-indigo-800"
                 >
                     Leave
@@ -233,7 +236,7 @@
                     />
                 </button>
                 <button
-                    (click)="onToggleLeavingConfirmation()"
+                    (click)="creatorLeavingPrompt = true"
                     class="transition-all w-11 h-11 hover:scale-105"
                 >
                     <img

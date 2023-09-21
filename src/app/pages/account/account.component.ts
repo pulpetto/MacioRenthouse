@@ -51,15 +51,6 @@ export class AccountComponent {
         ]),
     });
 
-    onToggleOfferCreator() {
-        this.creatorLeavingPrompt = false;
-        this.creatorOpenState = !this.creatorOpenState;
-    }
-
-    onToggleLeavingConfirmation() {
-        this.creatorLeavingPrompt = !this.creatorLeavingPrompt;
-    }
-
     onToggleCreatorFullscreen() {
         this.creatorFullscreenState = !this.creatorFullscreenState;
         if (this.fullscreenImageSrc === 'assets/svgs/expand-svgrepo-com.svg') {
@@ -69,7 +60,9 @@ export class AccountComponent {
         }
     }
 
-    onOfferSubmit() {}
+    onOfferSubmit() {
+        this.offerForm.reset();
+    }
 
     onLogout() {
         this.userService.logout();
