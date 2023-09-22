@@ -5,6 +5,7 @@ export interface Offer {
     availableFor: number;
     pickupLocation: string;
     offerDescription: string;
+    images: string[];
     car: {
         carBrand: string;
         brandModel: string;
