@@ -66,8 +66,6 @@ export class AccountComponent {
         }
     }
 
-    // images logic
-
     placeholdersAmount = new Array(3);
 
     updatePlaceholdersAmount() {
@@ -93,49 +91,49 @@ export class AccountComponent {
                     file.type === 'image/png';
 
                 if (isImageValid) {
-                    // reader.onload = () => {
-                    //     if (reader.result) {
-                    //         this.uploadedImages.push(reader.result as string);
+                    reader.onload = () => {
+                        if (reader.result) {
+                            this.uploadedImages.push(reader.result as string);
 
-                    //         this.offerForm
-                    //             .get('images')
-                    //             ?.setValue(this.uploadedImages);
-                    //     }
-                    // };
+                            this.offerForm
+                                .get('images')
+                                ?.setValue(this.uploadedImages);
+                        }
+                    };
 
-                    // reader.readAsDataURL(files[i]);
+                    reader.readAsDataURL(files[i]);
 
                     /////////////////////////////////////////////////////////////
                     /////////////////////////////////////////////////////////////
                     /////////////////////////////////////////////////////////////
 
-                    // Generate a unique name for the image
-                    const imageName = `${new Date().getTime()}_${file.name}`;
+                    // // Generate a unique name for the image
+                    // const imageName = `${new Date().getTime()}_${file.name}`;
 
-                    console.log(imageName);
+                    // console.log(imageName);
 
-                    // Upload the file to Firebase Storage
-                    const storageRef = this.angularFireStorage.ref(
-                        `images/${imageName}`
-                    );
-                    await storageRef.put(file);
+                    // // Upload the file to Firebase Storage
+                    // const storageRef = this.angularFireStorage.ref(
+                    //     `images/${imageName}`
+                    // );
+                    // await storageRef.put(file);
 
-                    storageRef.getDownloadURL().subscribe((url: string) => {
-                        // The URL is available here
-                        const downloadURL = url;
-                        this.uploadedImages.push(downloadURL);
-                        this.offerForm
-                            .get('images')
-                            ?.setValue(this.uploadedImages);
-                    });
+                    // storageRef.getDownloadURL().subscribe((url: string) => {
+                    //     // The URL is available here
+                    //     const downloadURL = url;
+                    //     this.uploadedImages.push(downloadURL);
+                    //     this.offerForm
+                    //         .get('images')
+                    //         ?.setValue(this.uploadedImages);
+                    // });
 
-                    // // Get the download URL for the image
-                    // const downloadURL = await storageRef.getDownloadURL();
+                    // // // Get the download URL for the image
+                    // // const downloadURL = await storageRef.getDownloadURL();
 
-                    // // Store the download URL in your uploadedImages array
-                    // this.uploadedImages.push(downloadURL);
+                    // // // Store the download URL in your uploadedImages array
+                    // // this.uploadedImages.push(downloadURL);
 
-                    // this.offerForm.get('images')?.setValue(this.uploadedImages);
+                    // // this.offerForm.get('images')?.setValue(this.uploadedImages);
                 } else {
                     this.fileTypePrompt = true;
                 }
@@ -157,8 +155,6 @@ export class AccountComponent {
         this.updatePlaceholdersAmount();
     }
 
-    // other actions
-
     onOfferSubmit() {
         const newOffer: Offer = {
             publishDate: new Date(),
@@ -178,6 +174,17 @@ export class AccountComponent {
             },
         };
 
+        this.userService.getUser().subscribe((user) => {
+            // user?.userOffers.push(newOffer);
+            console.log(user);
+        });
+
+        // upload images to firebase
+        for (const imageUrl of this.uploadedImages) {
+            // ... (upload image to Firebase Storage using the image URL)
+        }
+
+        this.uploadedImages = [];
         this.offerForm.reset();
     }
 
