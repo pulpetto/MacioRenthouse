@@ -8,6 +8,7 @@ import {
     AbstractControl,
     ValidationErrors,
 } from '@angular/forms';
+import { Offer } from 'src/app/interfaces/offer';
 
 @Component({
     selector: 'app-account',
@@ -53,6 +54,7 @@ export class AccountComponent {
             Validators.required,
             Validators.pattern('^[0-9]*$'),
         ]),
+        description: new FormControl('', [Validators.required]),
     });
 
     onToggleCreatorFullscreen() {
@@ -158,6 +160,24 @@ export class AccountComponent {
     // other actions
 
     onOfferSubmit() {
+        const newOffer: Offer = {
+            publishDate: new Date(),
+            priceForDay: +this.offerForm?.get('price')?.value!,
+            availableFor: +this.offerForm?.get('availableFor')?.value!,
+            pickupLocation: this.offerForm?.get('pickupLocation')?.value!,
+            offerDescription: this.offerForm?.get('description')?.value!,
+            images: this.uploadedImages,
+            car: {
+                carBrand: this.offerForm?.get('carBrand')?.value!,
+                brandModel: this.offerForm?.get('carModel')?.value!,
+                carProductionDate:
+                    +this.offerForm?.get('productionYear')?.value!,
+                availableSeats: +this.offerForm?.get('availableSeats')?.value!,
+                gearboxType: this.offerForm?.get('gearboxType')?.value!,
+                fuelType: this.offerForm?.get('fuelType')?.value!,
+            },
+        };
+
         this.offerForm.reset();
     }
 

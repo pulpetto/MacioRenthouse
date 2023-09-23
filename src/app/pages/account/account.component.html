@@ -380,7 +380,7 @@
             ></div>
         </div>
 
-        <div class="relative col-span-3 row-span-2">
+        <div class="relative flex flex-col items-start col-span-3 row-span-2">
             <label
                 for="description"
                 class="absolute z-10 overflow-hidden -top-4 left-12"
@@ -388,12 +388,27 @@
             >
             <textarea
                 required
+                [formControl]="offerForm.controls.description"
                 name="description"
                 id="description"
                 cols="30"
                 rows="10"
                 class="w-full h-full px-4 py-6 text-xl rounded-md shadow-md resize-none bg-neutral-900 focus:outline focus:outline-indigo-700"
             ></textarea>
+            <ng-container
+                *ngIf="
+                    offerForm.controls.description.touched &&
+                    offerForm.controls.description.dirty &&
+                    offerForm.controls.description.errors
+                "
+            >
+                <div
+                    *ngIf="offerForm.controls.description.errors?.['required']"
+                    class="text-red-600"
+                >
+                    this field is required
+                </div>
+            </ng-container>
         </div>
 
         <div

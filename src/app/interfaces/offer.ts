@@ -1,6 +1,6 @@
 export interface Offer {
     // time of date in unix timestamp format
-    publishDate: number;
+    publishDate: Date;
     priceForDay: number;
     availableFor: number;
     pickupLocation: string;
