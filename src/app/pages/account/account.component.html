@@ -230,7 +230,10 @@
             class="absolute flex items-center justify-between w-full pl-6 pr-7 top-2"
         >
             <div class="flex">
-                <button class="transition-all w-11 h-11 hover:scale-105">
+                <button
+                    type="button"
+                    class="transition-all w-11 h-11 hover:scale-105"
+                >
                     <img
                         src="assets/svgs/tick-svgrepo-com.svg"
                         class="w-full h-full"
@@ -238,6 +241,7 @@
                     />
                 </button>
                 <button
+                    type="button"
                     (click)="creatorLeavingPrompt = true"
                     class="transition-all w-11 h-11 hover:scale-105"
                 >
@@ -252,6 +256,7 @@
             <div class="text-xl font-semibold">- Offer Creator -</div>
 
             <button
+                type="button"
                 (click)="onToggleCreatorFullscreen()"
                 class="w-8 h-8 ml-1 transition-all hover:scale-105"
             >
