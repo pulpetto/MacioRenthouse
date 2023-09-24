@@ -19,7 +19,7 @@ export class AccountComponent {
     creatorOpenState = false;
     creatorLeavingPrompt = false;
     creatorFullscreenState = false;
-    uploadedImages: string[] = [];
+    uploadedImages: any[] = [];
     imageLimitPrompt = false;
     fileTypePrompt = false;
     fullscreenImageSrc = 'assets/svgs/expand-svgrepo-com.svg';
@@ -44,7 +44,7 @@ export class AccountComponent {
             Validators.max(2023),
             Validators.min(1886),
         ]),
-        images: new FormControl<string[]>([], [Validators.required]),
+        images: new FormControl<any[]>([], [Validators.required]),
         pickupLocation: new FormControl('', [Validators.required]),
         availableFor: new FormControl('', [
             Validators.required,
@@ -69,6 +69,8 @@ export class AccountComponent {
     placeholdersAmount = new Array(3);
 
     updatePlaceholdersAmount() {
+        this.offerForm.get('images')?.setValue(this.uploadedImages);
+
         this.placeholdersAmount = new Array(
             4 - (this.uploadedImages.length + 1)
         );
@@ -83,16 +85,18 @@ export class AccountComponent {
         if (files && this.uploadedImages.length + files.length < 5) {
             for (let i = 0; i < files.length; i++) {
                 const reader = new FileReader();
-
                 const file = files[i];
-                const isImageValid =
+
+                if (
                     file.type === 'image/jpeg' ||
                     file.type === 'image/jpg' ||
-                    file.type === 'image/png';
-
-                if (isImageValid) {
+                    file.type === 'image/png'
+                ) {
                     reader.onload = () => {
                         if (reader.result) {
+                            console.log(reader);
+                            console.log(reader.result);
+                            console.log(reader.result as string);
                             this.uploadedImages.push(reader.result as string);
 
                             this.offerForm
@@ -110,8 +114,6 @@ export class AccountComponent {
                     // // Generate a unique name for the image
                     // const imageName = `${new Date().getTime()}_${file.name}`;
 
-                    // console.log(imageName);
-
                     // // Upload the file to Firebase Storage
                     // const storageRef = this.angularFireStorage.ref(
                     //     `images/${imageName}`
@@ -121,19 +123,12 @@ export class AccountComponent {
                     // storageRef.getDownloadURL().subscribe((url: string) => {
                     //     // The URL is available here
                     //     const downloadURL = url;
+                    //     console.log(url);
                     //     this.uploadedImages.push(downloadURL);
                     //     this.offerForm
                     //         .get('images')
                     //         ?.setValue(this.uploadedImages);
                     // });
-
-                    // // // Get the download URL for the image
-                    // // const downloadURL = await storageRef.getDownloadURL();
-
-                    // // // Store the download URL in your uploadedImages array
-                    // // this.uploadedImages.push(downloadURL);
-
-                    // // this.offerForm.get('images')?.setValue(this.uploadedImages);
                 } else {
                     this.fileTypePrompt = true;
                 }
@@ -175,17 +170,26 @@ export class AccountComponent {
         };
 
         this.userService.getUser().subscribe((user) => {
-            // user?.userOffers.push(newOffer);
-            console.log(user);
+            user?.userOffers.push(newOffer);
         });
 
         // upload images to firebase
-        for (const imageUrl of this.uploadedImages) {
-            // ... (upload image to Firebase Storage using the image URL)
-        }
+        this.uploadImagesToFirestorage().then(() => {
+            this.uploadedImages = [];
+            this.offerForm.reset();
+        });
+    }
 
-        this.uploadedImages = [];
-        this.offerForm.reset();
+    async uploadImagesToFirestorage() {
+        for (const imageFile of this.uploadedImages) {
+            const imageName = `${new Date().getTime()}_${imageFile.name}`;
+            const storageRef = this.angularFireStorage.ref(
+                `images/${imageName}`
+            );
+            await storageRef.put(imageFile);
+
+            // await storageRef.putString(imageUrl, 'data_url');
+        }
     }
 
     onLogout() {
