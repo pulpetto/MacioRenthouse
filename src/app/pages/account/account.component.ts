@@ -94,9 +94,6 @@ export class AccountComponent {
                 ) {
                     reader.onload = () => {
                         if (reader.result) {
-                            console.log(reader);
-                            console.log(reader.result);
-                            console.log(reader.result as string);
                             this.uploadedImages.push(reader.result as string);
 
                             this.offerForm
@@ -175,8 +172,7 @@ export class AccountComponent {
 
         // upload images to firebase
         this.uploadImagesToFirestorage().then(() => {
-            this.uploadedImages = [];
-            this.offerForm.reset();
+            this.creatorReset();
         });
     }
 
@@ -190,6 +186,11 @@ export class AccountComponent {
 
             // await storageRef.putString(imageUrl, 'data_url');
         }
+    }
+
+    creatorReset() {
+        this.uploadedImages = [];
+        this.offerForm.reset();
     }
 
     onLogout() {
