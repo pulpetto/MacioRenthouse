@@ -92,40 +92,34 @@ export class AccountComponent {
                     file.type === 'image/jpg' ||
                     file.type === 'image/png'
                 ) {
-                    reader.onload = () => {
-                        if (reader.result) {
-                            this.uploadedImages.push(reader.result as string);
+                    // reader.onload = () => {
+                    //     if (reader.result) {
+                    //         this.uploadedImages.push(reader.result as string);
 
-                            this.offerForm
-                                .get('images')
-                                ?.setValue(this.uploadedImages);
-                        }
-                    };
+                    //         this.offerForm
+                    //             .get('images')
+                    //             ?.setValue(this.uploadedImages);
+                    //     }
+                    // };
 
-                    reader.readAsDataURL(files[i]);
+                    // reader.readAsDataURL(files[i]);
 
                     /////////////////////////////////////////////////////////////
                     /////////////////////////////////////////////////////////////
                     /////////////////////////////////////////////////////////////
 
-                    // // Generate a unique name for the image
-                    // const imageName = `${new Date().getTime()}_${file.name}`;
+                    const storageRef = this.angularFireStorage.ref(
+                        `images/${new Date().getTime()}_${file.name}`
+                    );
+                    await storageRef.put(file);
 
-                    // // Upload the file to Firebase Storage
-                    // const storageRef = this.angularFireStorage.ref(
-                    //     `images/${imageName}`
-                    // );
-                    // await storageRef.put(file);
-
-                    // storageRef.getDownloadURL().subscribe((url: string) => {
-                    //     // The URL is available here
-                    //     const downloadURL = url;
-                    //     console.log(url);
-                    //     this.uploadedImages.push(downloadURL);
-                    //     this.offerForm
-                    //         .get('images')
-                    //         ?.setValue(this.uploadedImages);
-                    // });
+                    storageRef.getDownloadURL().subscribe((url: string) => {
+                        const downloadURL = url;
+                        this.uploadedImages.push(downloadURL);
+                        this.offerForm
+                            .get('images')
+                            ?.setValue(this.uploadedImages);
+                    });
                 } else {
                     this.fileTypePrompt = true;
                 }
@@ -170,23 +164,54 @@ export class AccountComponent {
             user?.userOffers.push(newOffer);
         });
 
-        // upload images to firebase
-        this.uploadImagesToFirestorage().then(() => {
-            this.creatorReset();
-        });
+        // // upload images to firebase
+        // this.uploadImagesToFirestorage().then(() => {
+        //     this.creatorReset();
+        // });
+
+        // this.uploadImagesToFirestorage2().then((imageUrls) => {
+        //     // Update the offer with the image URLs
+        //     newOffer.images = imageUrls;
+
+        //     this.userService.getUser().subscribe((user) => {
+        //         user?.userOffers?.push(newOffer);
+        //     });
+
+        //     this.creatorReset();
+        // });
     }
 
-    async uploadImagesToFirestorage() {
-        for (const imageFile of this.uploadedImages) {
-            const imageName = `${new Date().getTime()}_${imageFile.name}`;
-            const storageRef = this.angularFireStorage.ref(
-                `images/${imageName}`
-            );
-            await storageRef.put(imageFile);
+    // async uploadImagesToFirestorage() {
+    //     for (const imageFile of this.uploadedImages) {
+    //         const imageName = `${new Date().getTime()}_${imageFile.name}`;
+    //         const storageRef = this.angularFireStorage.ref(
+    //             `images/${imageName}`
+    //         );
+    //         await storageRef.put(imageFile);
 
-            // await storageRef.putString(imageUrl, 'data_url');
-        }
-    }
+    //         // await storageRef.putString(imageUrl, 'data_url');
+    //     }
+    // }
+
+    // async uploadImagesToFirestorage2(): Promise<string[]> {
+    //     const imageUrls: string[] = [];
+
+    //     for (const imageFile of this.uploadedImages) {
+    //         const imageName = `${new Date().getTime()}_${imageFile.name}`;
+    //         const storageRef = this.angularFireStorage.ref(
+    //             `images/${imageName}`
+    //         );
+    //         const uploadTask = storageRef.put(imageFile);
+
+    //         await uploadTask.then(async (snapshot) => {
+    //             // Get the download URL for the image
+    //             const downloadURL = await snapshot.ref.getDownloadURL();
+    //             imageUrls.push(downloadURL);
+    //         });
+    //     }
+
+    //     return imageUrls;
+    // }
 
     creatorReset() {
         this.uploadedImages = [];
