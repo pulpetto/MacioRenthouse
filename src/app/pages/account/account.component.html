@@ -149,8 +149,7 @@
                     (click)="
                         creatorLeavingPrompt = false;
                         this.creatorOpenState = false;
-                        this.offerForm.reset();
-                        uploadedImages = []
+                        this.offerForm.reset()
                     "
                     class="px-6 py-2 bg-indigo-700 rounded-md hover:bg-indigo-800"
                 >
@@ -309,7 +308,7 @@
             >
                 <div class="relative flex justify-center w-full h-full">
                     <img
-                        [src]="uploadedImages[0]"
+                        [src]="uploadedImages.at(0).value"
                         class="h-full rounded-md"
                         alt=""
                     />
@@ -329,7 +328,7 @@
 
             <div
                 *ngFor="
-                    let uploadedImage of uploadedImages | slice : 1;
+                    let uploadedImage of uploadedImages.controls | slice : 1;
                     let i = index
                 "
                 class="relative w-full col-start-4 drop-shadow-2xl shadow-black backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter"
@@ -338,7 +337,7 @@
             >
                 <div class="relative flex justify-center w-full h-full">
                     <img
-                        [src]="uploadedImage"
+                        [src]="uploadedImage.value"
                         class="h-full rounded-md"
                         alt=""
                     />

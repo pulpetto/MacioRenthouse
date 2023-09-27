@@ -7,6 +7,8 @@ import {
     Validators,
     AbstractControl,
     ValidationErrors,
+    FormArray,
+    FormBuilder,
 } from '@angular/forms';
 import { Offer } from 'src/app/interfaces/offer';
 
@@ -17,17 +19,48 @@ import { Offer } from 'src/app/interfaces/offer';
 })
 export class AccountComponent {
     creatorOpenState = false;
-    creatorLeavingPrompt = false;
     creatorFullscreenState = false;
-    uploadedImages: any[] = [];
+    fullscreenImageSrc = 'assets/svgs/expand-svgrepo-com.svg';
+
+    creatorLeavingPrompt = false;
     imageLimitPrompt = false;
     fileTypePrompt = false;
-    fullscreenImageSrc = 'assets/svgs/expand-svgrepo-com.svg';
+
+    // files read by file reader
+    // uploadedImages: string[] = [];
+
+    // file NOT read by file reader
+    imagesFiles: File[] = [];
 
     constructor(
         private userService: UserService,
-        private angularFireStorage: AngularFireStorage
+        private angularFireStorage: AngularFireStorage,
+        private formBuilder: FormBuilder
     ) {}
+
+    // offerForm2 = this.formBuilder.group({
+    //     carBrand: ['', Validators.required],
+    //     carModel: ['', Validators.required],
+    //     gearboxType: ['', Validators.required],
+    //     availableSeats: [
+    //         '',
+    //         Validators.required,
+    //         Validators.pattern('^[0-9]*$'),
+    //     ],
+    //     fuelType: ['', Validators.required],
+    //     productionYear: [
+    //         '',
+    //         Validators.required,
+    //         Validators.pattern('^[0-9]*$'),
+    //         Validators.max(2023),
+    //         Validators.min(1886),
+    //     ],
+    //     imagesUrls: this.formBuilder.array([], [Validators.required]),
+    //     pickupLocation: ['', Validators.required],
+    //     availableFor: ['', Validators.required, Validators.pattern('^[0-9]*$')],
+    //     price: ['', Validators.required, Validators.pattern('^[0-9]*$')],
+    //     description: ['', Validators.required],
+    // });
 
     offerForm = new FormGroup({
         carBrand: new FormControl('', [Validators.required]),
@@ -44,7 +77,8 @@ export class AccountComponent {
             Validators.max(2023),
             Validators.min(1886),
         ]),
-        images: new FormControl<any[]>([], [Validators.required]),
+        // images: new FormControl<string[]>([], [Validators.required]),
+        imagesUrls: new FormArray([], [Validators.required]),
         pickupLocation: new FormControl('', [Validators.required]),
         availableFor: new FormControl('', [
             Validators.required,
@@ -57,6 +91,9 @@ export class AccountComponent {
         description: new FormControl('', [Validators.required]),
     });
 
+    // HOW TO MAKE LIVE CONNECTION
+    uploadedImages = this.offerForm.get('imagesUrls') as FormArray;
+
     onToggleCreatorFullscreen() {
         this.creatorFullscreenState = !this.creatorFullscreenState;
         if (this.fullscreenImageSrc === 'assets/svgs/expand-svgrepo-com.svg') {
@@ -64,12 +101,18 @@ export class AccountComponent {
         } else {
             this.fullscreenImageSrc = 'assets/svgs/expand-svgrepo-com.svg';
         }
+
+        console.log(this.uploadedImages.value);
+        console.log(this.offerForm?.get('imagesUrls')?.value);
+        this.offerForm.setControl('imagesUrls', new FormArray([]));
+        console.log(this.offerForm?.get('imagesUrls')?.value);
+        console.log(this.uploadedImages.value);
     }
 
     placeholdersAmount = new Array(3);
 
     updatePlaceholdersAmount() {
-        this.offerForm.get('images')?.setValue(this.uploadedImages);
+        // this.offerForm.get('images')?.setValue(this.uploadedImages);
 
         this.placeholdersAmount = new Array(
             4 - (this.uploadedImages.length + 1)
@@ -92,34 +135,25 @@ export class AccountComponent {
                     file.type === 'image/jpg' ||
                     file.type === 'image/png'
                 ) {
-                    // reader.onload = () => {
-                    //     if (reader.result) {
-                    //         this.uploadedImages.push(reader.result as string);
+                    this.imagesFiles.push(file);
 
-                    //         this.offerForm
-                    //             .get('images')
-                    //             ?.setValue(this.uploadedImages);
-                    //     }
-                    // };
+                    reader.onload = () => {
+                        if (reader.result) {
+                            // this.uploadedImages.push(
+                            //     new FormControl(reader.result as string)
+                            // );
 
-                    // reader.readAsDataURL(files[i]);
+                            (
+                                this.offerForm.get('imagesUrls') as FormArray
+                            ).push(new FormControl(reader.result as string));
 
-                    /////////////////////////////////////////////////////////////
-                    /////////////////////////////////////////////////////////////
-                    /////////////////////////////////////////////////////////////
+                            console.log(
+                                this.offerForm.get('imagesUrls')?.value.length
+                            );
+                        }
+                    };
 
-                    const storageRef = this.angularFireStorage.ref(
-                        `images/${new Date().getTime()}_${file.name}`
-                    );
-                    await storageRef.put(file);
-
-                    storageRef.getDownloadURL().subscribe((url: string) => {
-                        const downloadURL = url;
-                        this.uploadedImages.push(downloadURL);
-                        this.offerForm
-                            .get('images')
-                            ?.setValue(this.uploadedImages);
-                    });
+                    reader.readAsDataURL(files[i]);
                 } else {
                     this.fileTypePrompt = true;
                 }
@@ -130,55 +164,63 @@ export class AccountComponent {
     }
 
     onMainImageRemove() {
-        this.uploadedImages.shift();
-
+        this.uploadedImages.removeAt(0);
+        this.imagesFiles.shift();
         this.updatePlaceholdersAmount();
     }
 
     onImageRemove(i: number) {
-        this.uploadedImages.splice(i + 1, 1);
-
+        // this.uploadedImages.splice(i + 1, 1);
+        this.uploadedImages.removeAt(i + 1);
+        this.imagesFiles.splice(i + 1, 1);
         this.updatePlaceholdersAmount();
     }
 
     onOfferSubmit() {
-        const newOffer: Offer = {
-            publishDate: new Date(),
-            priceForDay: +this.offerForm?.get('price')?.value!,
-            availableFor: +this.offerForm?.get('availableFor')?.value!,
-            pickupLocation: this.offerForm?.get('pickupLocation')?.value!,
-            offerDescription: this.offerForm?.get('description')?.value!,
-            images: this.uploadedImages,
-            car: {
-                carBrand: this.offerForm?.get('carBrand')?.value!,
-                brandModel: this.offerForm?.get('carModel')?.value!,
-                carProductionDate:
-                    +this.offerForm?.get('productionYear')?.value!,
-                availableSeats: +this.offerForm?.get('availableSeats')?.value!,
-                gearboxType: this.offerForm?.get('gearboxType')?.value!,
-                fuelType: this.offerForm?.get('fuelType')?.value!,
-            },
-        };
+        this.userService.getUser().subscribe(async (user) => {
+            console.log(user);
 
-        this.userService.getUser().subscribe((user) => {
-            user?.userOffers.push(newOffer);
+            await this.uploadImagesToFirebaseStorage();
+
+            const newOffer: Offer = {
+                publishDate: new Date(),
+                priceForDay: +this.offerForm?.get('price')?.value!,
+                availableFor: +this.offerForm?.get('availableFor')?.value!,
+                pickupLocation: this.offerForm?.get('pickupLocation')?.value!,
+                offerDescription: this.offerForm?.get('description')?.value!,
+                images: this.offerForm?.get('imagesUrls')?.value!,
+                car: {
+                    carBrand: this.offerForm?.get('carBrand')?.value!,
+                    brandModel: this.offerForm?.get('carModel')?.value!,
+                    carProductionDate:
+                        +this.offerForm?.get('productionYear')?.value!,
+                    availableSeats:
+                        +this.offerForm?.get('availableSeats')?.value!,
+                    gearboxType: this.offerForm?.get('gearboxType')?.value!,
+                    fuelType: this.offerForm?.get('fuelType')?.value!,
+                },
+            };
+
+            user?.userOffers?.push(newOffer);
+
+            this.creatorReset();
         });
+    }
 
-        // // upload images to firebase
-        // this.uploadImagesToFirestorage().then(() => {
-        //     this.creatorReset();
-        // });
+    async uploadImagesToFirebaseStorage() {
+        this.offerForm.setControl('imagesUrls', new FormArray([]));
 
-        // this.uploadImagesToFirestorage2().then((imageUrls) => {
-        //     // Update the offer with the image URLs
-        //     newOffer.images = imageUrls;
+        for (const file of this.imagesFiles) {
+            const storageRef = this.angularFireStorage.ref(
+                `images/${new Date().getTime()}_${file.name}`
+            );
+            await storageRef.put(file);
 
-        //     this.userService.getUser().subscribe((user) => {
-        //         user?.userOffers?.push(newOffer);
-        //     });
-
-        //     this.creatorReset();
-        // });
+            storageRef.getDownloadURL().subscribe((url: string) => {
+                const downloadURL = url;
+                this.uploadedImages.push(downloadURL);
+            });
+        }
     }
 
     // async uploadImagesToFirestorage() {
@@ -214,7 +256,7 @@ export class AccountComponent {
     // }
 
     creatorReset() {
-        this.uploadedImages = [];
+        this.imagesFiles = [];
         this.offerForm.reset();
     }
 
