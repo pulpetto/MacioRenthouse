@@ -121,8 +121,6 @@ export class AccountComponent {
             return;
         } else {
             this.userService.getUser().subscribe(async (user) => {
-                console.log(user);
-
                 await this.uploadImagesToFirebaseStorage();
 
                 // NEEDS TO RUN AFTER THE uploadImagesToFirebaseStorage()
@@ -134,7 +132,7 @@ export class AccountComponent {
                         this.offerForm?.get('pickupLocation')?.value!,
                     offerDescription:
                         this.offerForm?.get('description')?.value!,
-                    images: this.offerForm?.get('imagesUrls')?.value!,
+                    images: this.imagesUrls,
                     car: {
                         carBrand: this.offerForm?.get('carBrand')?.value!,
                         brandModel: this.offerForm?.get('carModel')?.value!,
