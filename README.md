@@ -1,7 +1,6 @@
-## Macio Renthouse
-# car renting service
+# Macio Renthouse
 
-## Tech stack:
+### Tech stack:
 - Angular
 - Tailwind
 - Firebase
