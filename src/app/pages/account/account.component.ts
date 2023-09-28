@@ -1,14 +1,7 @@
 import { Component } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
-import {
-    FormGroup,
-    FormControl,
-    Validators,
-    AbstractControl,
-    ValidationErrors,
-    FormArray,
-} from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Offer } from 'src/app/interfaces/offer';
 
 @Component({
@@ -24,7 +17,9 @@ export class AccountComponent {
     creatorLeavingPrompt = false;
     imageLimitPrompt = false;
     fileTypePrompt = false;
+    noImagesPrompt = false;
 
+    imagesUrls: string[] = [];
     imagesFiles: File[] = [];
 
     constructor(
@@ -47,7 +42,6 @@ export class AccountComponent {
             Validators.max(2023),
             Validators.min(1886),
         ]),
-        // imagesUrls: new FormControl<string[]>([]),
         pickupLocation: new FormControl('', [Validators.required]),
         availableFor: new FormControl('', [
             Validators.required,
@@ -59,8 +53,6 @@ export class AccountComponent {
         ]),
         description: new FormControl('', [Validators.required]),
     });
-
-    imagesUrls: string[] = [];
 
     onToggleCreatorFullscreen() {
         this.creatorFullscreenState = !this.creatorFullscreenState;
@@ -124,6 +116,8 @@ export class AccountComponent {
 
     onOfferSubmit() {
         if (this.imagesUrls.length === 0) {
+            // maybe pulse animation on image upload label
+            this.noImagesPrompt = true;
             return;
         } else {
             this.userService.getUser().subscribe(async (user) => {
@@ -177,6 +171,7 @@ export class AccountComponent {
     }
 
     creatorReset() {
+        this.imagesUrls = [];
         this.imagesFiles = [];
         this.offerForm.reset();
     }
