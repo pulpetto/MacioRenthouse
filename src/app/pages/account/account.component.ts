@@ -8,7 +8,6 @@ import {
     AbstractControl,
     ValidationErrors,
     FormArray,
-    FormBuilder,
 } from '@angular/forms';
 import { Offer } from 'src/app/interfaces/offer';
 
@@ -26,41 +25,12 @@ export class AccountComponent {
     imageLimitPrompt = false;
     fileTypePrompt = false;
 
-    // files read by file reader
-    // uploadedImages: string[] = [];
-
-    // file NOT read by file reader
     imagesFiles: File[] = [];
 
     constructor(
         private userService: UserService,
-        private angularFireStorage: AngularFireStorage,
-        private formBuilder: FormBuilder
+        private angularFireStorage: AngularFireStorage
     ) {}
-
-    // offerForm2 = this.formBuilder.group({
-    //     carBrand: ['', Validators.required],
-    //     carModel: ['', Validators.required],
-    //     gearboxType: ['', Validators.required],
-    //     availableSeats: [
-    //         '',
-    //         Validators.required,
-    //         Validators.pattern('^[0-9]*$'),
-    //     ],
-    //     fuelType: ['', Validators.required],
-    //     productionYear: [
-    //         '',
-    //         Validators.required,
-    //         Validators.pattern('^[0-9]*$'),
-    //         Validators.max(2023),
-    //         Validators.min(1886),
-    //     ],
-    //     imagesUrls: this.formBuilder.array([], [Validators.required]),
-    //     pickupLocation: ['', Validators.required],
-    //     availableFor: ['', Validators.required, Validators.pattern('^[0-9]*$')],
-    //     price: ['', Validators.required, Validators.pattern('^[0-9]*$')],
-    //     description: ['', Validators.required],
-    // });
 
     offerForm = new FormGroup({
         carBrand: new FormControl('', [Validators.required]),
@@ -77,8 +47,7 @@ export class AccountComponent {
             Validators.max(2023),
             Validators.min(1886),
         ]),
-        // images: new FormControl<string[]>([], [Validators.required]),
-        imagesUrls: new FormArray([], [Validators.required]),
+        // imagesUrls: new FormControl<string[]>([]),
         pickupLocation: new FormControl('', [Validators.required]),
         availableFor: new FormControl('', [
             Validators.required,
@@ -91,8 +60,7 @@ export class AccountComponent {
         description: new FormControl('', [Validators.required]),
     });
 
-    // HOW TO MAKE LIVE CONNECTION
-    uploadedImages = this.offerForm.get('imagesUrls') as FormArray;
+    imagesUrls: string[] = [];
 
     onToggleCreatorFullscreen() {
         this.creatorFullscreenState = !this.creatorFullscreenState;
@@ -101,22 +69,12 @@ export class AccountComponent {
         } else {
             this.fullscreenImageSrc = 'assets/svgs/expand-svgrepo-com.svg';
         }
-
-        console.log(this.uploadedImages.value);
-        console.log(this.offerForm?.get('imagesUrls')?.value);
-        this.offerForm.setControl('imagesUrls', new FormArray([]));
-        console.log(this.offerForm?.get('imagesUrls')?.value);
-        console.log(this.uploadedImages.value);
     }
 
     placeholdersAmount = new Array(3);
 
     updatePlaceholdersAmount() {
-        // this.offerForm.get('images')?.setValue(this.uploadedImages);
-
-        this.placeholdersAmount = new Array(
-            4 - (this.uploadedImages.length + 1)
-        );
+        this.placeholdersAmount = new Array(4 - (this.imagesUrls.length + 1));
     }
 
     async onImageSelect(event: Event) {
@@ -125,7 +83,7 @@ export class AccountComponent {
 
         this.updatePlaceholdersAmount();
 
-        if (files && this.uploadedImages.length + files.length < 5) {
+        if (files && this.imagesUrls.length + files.length < 5) {
             for (let i = 0; i < files.length; i++) {
                 const reader = new FileReader();
                 const file = files[i];
@@ -135,21 +93,10 @@ export class AccountComponent {
                     file.type === 'image/jpg' ||
                     file.type === 'image/png'
                 ) {
-                    this.imagesFiles.push(file);
-
                     reader.onload = () => {
                         if (reader.result) {
-                            // this.uploadedImages.push(
-                            //     new FormControl(reader.result as string)
-                            // );
-
-                            (
-                                this.offerForm.get('imagesUrls') as FormArray
-                            ).push(new FormControl(reader.result as string));
-
-                            console.log(
-                                this.offerForm.get('imagesUrls')?.value.length
-                            );
+                            this.imagesFiles.push(file);
+                            this.imagesUrls.push(reader.result as string);
                         }
                     };
 
@@ -164,51 +111,58 @@ export class AccountComponent {
     }
 
     onMainImageRemove() {
-        this.uploadedImages.removeAt(0);
+        this.imagesUrls.shift();
         this.imagesFiles.shift();
         this.updatePlaceholdersAmount();
     }
 
     onImageRemove(i: number) {
-        // this.uploadedImages.splice(i + 1, 1);
-        this.uploadedImages.removeAt(i + 1);
+        this.imagesUrls.splice(i + 1, 1);
         this.imagesFiles.splice(i + 1, 1);
         this.updatePlaceholdersAmount();
     }
 
     onOfferSubmit() {
-        this.userService.getUser().subscribe(async (user) => {
-            console.log(user);
+        if (this.imagesUrls.length === 0) {
+            return;
+        } else {
+            this.userService.getUser().subscribe(async (user) => {
+                console.log(user);
 
-            await this.uploadImagesToFirebaseStorage();
+                await this.uploadImagesToFirebaseStorage();
 
-            const newOffer: Offer = {
-                publishDate: new Date(),
-                priceForDay: +this.offerForm?.get('price')?.value!,
-                availableFor: +this.offerForm?.get('availableFor')?.value!,
-                pickupLocation: this.offerForm?.get('pickupLocation')?.value!,
-                offerDescription: this.offerForm?.get('description')?.value!,
-                images: this.offerForm?.get('imagesUrls')?.value!,
-                car: {
-                    carBrand: this.offerForm?.get('carBrand')?.value!,
-                    brandModel: this.offerForm?.get('carModel')?.value!,
-                    carProductionDate:
-                        +this.offerForm?.get('productionYear')?.value!,
-                    availableSeats:
-                        +this.offerForm?.get('availableSeats')?.value!,
-                    gearboxType: this.offerForm?.get('gearboxType')?.value!,
-                    fuelType: this.offerForm?.get('fuelType')?.value!,
-                },
-            };
+                // NEEDS TO RUN AFTER THE uploadImagesToFirebaseStorage()
+                const newOffer: Offer = {
+                    publishDate: new Date(),
+                    priceForDay: +this.offerForm?.get('price')?.value!,
+                    availableFor: +this.offerForm?.get('availableFor')?.value!,
+                    pickupLocation:
+                        this.offerForm?.get('pickupLocation')?.value!,
+                    offerDescription:
+                        this.offerForm?.get('description')?.value!,
+                    images: this.offerForm?.get('imagesUrls')?.value!,
+                    car: {
+                        carBrand: this.offerForm?.get('carBrand')?.value!,
+                        brandModel: this.offerForm?.get('carModel')?.value!,
+                        carProductionDate:
+                            +this.offerForm?.get('productionYear')?.value!,
+                        availableSeats:
+                            +this.offerForm?.get('availableSeats')?.value!,
+                        gearboxType: this.offerForm?.get('gearboxType')?.value!,
+                        fuelType: this.offerForm?.get('fuelType')?.value!,
+                    },
+                };
 
-            user?.userOffers?.push(newOffer);
+                user?.userOffers?.push(newOffer);
 
-            this.creatorReset();
-        });
+                this.creatorReset();
+            });
+        }
     }
 
     async uploadImagesToFirebaseStorage() {
-        this.offerForm.setControl('imagesUrls', new FormArray([]));
+        // reset old urls for preview to now use the actual url for firestorage
+        this.imagesUrls = [];
 
         for (const file of this.imagesFiles) {
             const storageRef = this.angularFireStorage.ref(
@@ -217,43 +171,10 @@ export class AccountComponent {
             await storageRef.put(file);
 
             storageRef.getDownloadURL().subscribe((url: string) => {
-                const downloadURL = url;
-                this.uploadedImages.push(downloadURL);
+                this.imagesUrls.push(url);
             });
         }
     }
-
-    // async uploadImagesToFirestorage() {
-    //     for (const imageFile of this.uploadedImages) {
-    //         const imageName = `${new Date().getTime()}_${imageFile.name}`;
-    //         const storageRef = this.angularFireStorage.ref(
-    //             `images/${imageName}`
-    //         );
-    //         await storageRef.put(imageFile);
-
-    //         // await storageRef.putString(imageUrl, 'data_url');
-    //     }
-    // }
-
-    // async uploadImagesToFirestorage2(): Promise<string[]> {
-    //     const imageUrls: string[] = [];
-
-    //     for (const imageFile of this.uploadedImages) {
-    //         const imageName = `${new Date().getTime()}_${imageFile.name}`;
-    //         const storageRef = this.angularFireStorage.ref(
-    //             `images/${imageName}`
-    //         );
-    //         const uploadTask = storageRef.put(imageFile);
-
-    //         await uploadTask.then(async (snapshot) => {
-    //             // Get the download URL for the image
-    //             const downloadURL = await snapshot.ref.getDownloadURL();
-    //             imageUrls.push(downloadURL);
-    //         });
-    //     }
-
-    //     return imageUrls;
-    // }
 
     creatorReset() {
         this.imagesFiles = [];

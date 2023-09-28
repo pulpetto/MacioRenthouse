@@ -175,7 +175,8 @@
             </div>
             <div class="mb-10 text-3xl">
                 You can only select up to
-                {{ 4 - uploadedImages.length }} images!
+                {{ 4 - this.imagesUrls.length }}
+                images!
             </div>
             <div class="flex gap-2 text-xl font-semibold">
                 <button
@@ -269,7 +270,7 @@
 
         <div class="grid grid-cols-4 col-span-3 grid-rows-3 row-span-3 gap-2">
             <label
-                *ngIf="uploadedImages.length === 0"
+                *ngIf="this.imagesUrls.length === 0"
                 for="dropzone-file"
                 class="flex flex-col items-center justify-center w-full h-full col-span-3 transition-all duration-300 ease-out rounded-md shadow-md cursor-pointer row-span-full drop-shadow-md shadow-black backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter"
             >
@@ -303,15 +304,20 @@
             </label>
 
             <div
-                *ngIf="uploadedImages.length > 0"
+                *ngIf="this.imagesUrls.length > 0"
                 class="w-full h-full col-span-3 rounded-md shadow-2xl row-span-full drop-shadow-2xl shadow-black backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter"
             >
                 <div class="relative flex justify-center w-full h-full">
                     <img
-                        [src]="uploadedImages.at(0).value"
+                        [src]="this.imagesUrls[0]"
                         class="h-full rounded-md"
                         alt=""
                     />
+                    <!-- <img
+                        [src]="uploadedImages.at(0).value"
+                        class="h-full rounded-md"
+                        alt=""
+                    /> -->
                     <button
                         type="button"
                         (click)="onMainImageRemove()"
@@ -328,7 +334,7 @@
 
             <div
                 *ngFor="
-                    let uploadedImage of uploadedImages.controls | slice : 1;
+                    let uploadedImage of this.imagesUrls | slice : 1;
                     let i = index
                 "
                 class="relative w-full col-start-4 drop-shadow-2xl shadow-black backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter"
@@ -337,7 +343,7 @@
             >
                 <div class="relative flex justify-center w-full h-full">
                     <img
-                        [src]="uploadedImage.value"
+                        [src]="uploadedImage"
                         class="h-full rounded-md"
                         alt=""
                     />
@@ -356,7 +362,7 @@
             </div>
 
             <label
-                *ngIf="uploadedImages.length > 0 && uploadedImages.length < 4"
+                *ngIf="this.imagesUrls.length > 0 && this.imagesUrls.length < 4"
                 for="dropzone-file-2"
                 class="flex flex-col items-center justify-center w-full h-full col-start-4 row-span-1 transition-all duration-300 ease-out rounded-md shadow-md cursor-pointer drop-shadow-md shadow-black backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter"
             >
