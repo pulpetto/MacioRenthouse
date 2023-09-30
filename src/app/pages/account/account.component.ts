@@ -3,7 +3,7 @@ import { UserService } from 'src/app/services/user.service';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Offer } from 'src/app/interfaces/offer';
-
+import { firstValueFrom } from 'rxjs';
 @Component({
     selector: 'app-account',
     templateUrl: './account.component.html',
@@ -123,7 +123,6 @@ export class AccountComponent {
             this.userService.getUser().subscribe(async (user) => {
                 await this.uploadImagesToFirebaseStorage();
 
-                // NEEDS TO RUN AFTER THE uploadImagesToFirebaseStorage()
                 const newOffer: Offer = {
                     publishDate: new Date(),
                     priceForDay: +this.offerForm?.get('price')?.value!,
@@ -146,6 +145,7 @@ export class AccountComponent {
                 };
 
                 user?.userOffers?.push(newOffer);
+                // firebase user service add offer method
 
                 this.creatorReset();
             });
@@ -155,17 +155,15 @@ export class AccountComponent {
     async uploadImagesToFirebaseStorage() {
         this.imagesUrls = [];
 
-        const urlPromises = this.imagesFiles.map(async (file) => {
+        for (const file of this.imagesFiles) {
             const storageRef = this.angularFireStorage.ref(
                 `images/${new Date().getTime()}_${file.name}`
             );
             await storageRef.put(file);
 
-            return storageRef.getDownloadURL().toPromise();
-        });
-
-        const urls = await Promise.all(urlPromises);
-        this.imagesUrls.push(...urls);
+            const url = await firstValueFrom(storageRef.getDownloadURL());
+            this.imagesUrls.push(`${url}`);
+        }
     }
 
     creatorReset() {
@@ -178,3 +176,5 @@ export class AccountComponent {
         this.userService.logout();
     }
 }
+
+// FIX THAT USER CAN USE TAB KEY TO NAVIGATE THROUGH DASHBOARD EVEN WHEN OFFER CREATOR IS TOGGLED
