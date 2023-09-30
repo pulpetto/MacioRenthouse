@@ -153,19 +153,19 @@ export class AccountComponent {
     }
 
     async uploadImagesToFirebaseStorage() {
-        // reset old urls for preview to now use the actual url for firestorage
         this.imagesUrls = [];
 
-        for (const file of this.imagesFiles) {
+        const urlPromises = this.imagesFiles.map(async (file) => {
             const storageRef = this.angularFireStorage.ref(
                 `images/${new Date().getTime()}_${file.name}`
             );
             await storageRef.put(file);
 
-            storageRef.getDownloadURL().subscribe((url: string) => {
-                this.imagesUrls.push(url);
-            });
-        }
+            return storageRef.getDownloadURL().toPromise();
+        });
+
+        const urls = await Promise.all(urlPromises);
+        this.imagesUrls.push(...urls);
     }
 
     creatorReset() {
