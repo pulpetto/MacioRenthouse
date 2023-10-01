@@ -44,6 +44,7 @@ import { OfferComponent } from './shared/offer/offer.component';
 import { OffersComponent } from './pages/account/offers/offers.component';
 import { SettingsComponent } from './pages/account/settings/settings.component';
 import { FavouritesComponent } from './pages/account/favourites/favourites.component';
+import { OfferCreatorComponent } from './pages/account/offer-creator/offer-creator.component';
 
 @NgModule({
     declarations: [
@@ -59,6 +60,7 @@ import { FavouritesComponent } from './pages/account/favourites/favourites.compo
         OffersComponent,
         SettingsComponent,
         FavouritesComponent,
+        OfferCreatorComponent,
     ],
     imports: [
         BrowserModule,
