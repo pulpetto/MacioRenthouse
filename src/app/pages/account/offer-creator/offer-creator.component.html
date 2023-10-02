@@ -1,119 +1,15 @@
-<div
-    *ngIf="creatorLeavingPrompt"
-    class="absolute z-20 flex items-center justify-center w-full h-full backdrop-brightness-30 backdrop-blur-3xl"
->
-    <div
-        class="flex flex-col items-center px-24 py-12 text-center border-2 border-indigo-600 border-solid rounded-md shadow-md backdrop-brightness-200 drop-shadow-md shadow-black backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter"
-    >
-        <div class="w-64 h-64">
-            <img
-                src="assets/svgs/mark-svgrepo-com.svg"
-                class="w-full h-full"
-                alt="danger icon"
-            />
-        </div>
-        <div class="mb-10 text-3xl">Do you want to leave?</div>
-        <div class="flex gap-2 text-xl font-semibold">
-            <button
-                (click)="creatorLeavingPrompt = false"
-                class="px-6 py-2 rounded-md hover:text-indigo-700"
-            >
-                Cancel
-            </button>
-            <!-- event emmitter when leaving -->
-            <button
-                (click)="creatorLeavingPrompt = false; offerForm.reset()"
-                class="px-6 py-2 bg-indigo-700 rounded-md hover:bg-indigo-800"
-            >
-                Leave
-            </button>
-        </div>
-    </div>
-</div>
-
-<div
-    *ngIf="imageLimitPrompt"
-    class="absolute z-20 flex items-center justify-center w-full h-full backdrop-brightness-30 backdrop-blur-3xl"
->
-    <div
-        class="flex flex-col items-center px-24 py-12 text-center border-2 border-indigo-600 border-solid rounded-md shadow-md backdrop-brightness-200 drop-shadow-md shadow-black backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter"
-    >
-        <div class="w-64 h-64">
-            <img
-                src="assets/svgs/mark-svgrepo-com.svg"
-                class="w-full h-full"
-                alt="danger icon"
-            />
-        </div>
-        <div class="mb-10 text-3xl">
-            You can only select up to
-            {{ 4 - imagesUrls.length }}
-            images!
-        </div>
-        <div class="flex gap-2 text-xl font-semibold">
-            <button
-                (click)="imageLimitPrompt = false"
-                class="px-6 py-2 bg-indigo-700 rounded-md hover:bg-indigo-800"
-            >
-                Got it!
-            </button>
-        </div>
-    </div>
-</div>
-
-<div
-    *ngIf="fileTypePrompt"
-    class="absolute z-20 flex items-center justify-center w-full h-full backdrop-brightness-30 backdrop-blur-3xl"
->
-    <div
-        class="flex flex-col items-center px-24 py-12 text-center border-2 border-indigo-600 border-solid rounded-md shadow-md backdrop-brightness-200 drop-shadow-md shadow-black backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter"
-    >
-        <div class="w-64 h-64">
-            <img
-                src="assets/svgs/mark-svgrepo-com.svg"
-                class="w-full h-full"
-                alt="danger icon"
-            />
-        </div>
-        <div class="mb-10 text-3xl">
-            You can only use PNG, JPG or JPEG file type
-        </div>
-        <div class="flex gap-2 text-xl font-semibold">
-            <button
-                (click)="fileTypePrompt = false"
-                class="px-6 py-2 bg-indigo-700 rounded-md hover:bg-indigo-800"
-            >
-                Got it!
-            </button>
-        </div>
-    </div>
-</div>
-
-<div
-    *ngIf="noImagesPrompt"
-    class="absolute z-20 flex items-center justify-center w-full h-full backdrop-brightness-30 backdrop-blur-3xl"
->
-    <div
-        class="flex flex-col items-center px-24 py-12 text-center border-2 border-indigo-600 border-solid rounded-md shadow-md backdrop-brightness-200 drop-shadow-md shadow-black backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter"
-    >
-        <div class="w-64 h-64">
-            <img
-                src="assets/svgs/mark-svgrepo-com.svg"
-                class="w-full h-full"
-                alt="danger icon"
-            />
-        </div>
-        <div class="mb-10 text-3xl">Please select at least 1 image</div>
-        <div class="flex gap-2 text-xl font-semibold">
-            <button
-                (click)="noImagesPrompt = false"
-                class="px-6 py-2 bg-indigo-700 rounded-md hover:bg-indigo-800"
-            >
-                Got it!
-            </button>
-        </div>
-    </div>
-</div>
+<ng-container *ngFor="let modal of modals; let i = index">
+    <app-modal
+        *ngIf="modal.visibility"
+        [index]="i"
+        [message]="modal.message"
+        [iconSrc]="modal.iconSrc"
+        [oneOption]="modal.oneOption"
+        [optionNames]="modal.options"
+        (modalToCloseIndex)="closeModalByIndex($event)"
+        class="absolute z-20 flex items-center justify-center w-full h-full backdrop-brightness-30 backdrop-blur-3xl"
+    ></app-modal>
+</ng-container>
 
 <form
     [formGroup]="offerForm"
@@ -140,7 +36,7 @@
             </button>
             <button
                 type="button"
-                (click)="creatorLeavingPrompt = true"
+                (click)="openModalByName('creatorLeave')"
                 class="transition-all w-11 h-11 hover:scale-105"
             >
                 <img

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { firstValueFrom } from 'rxjs';
+import { Modal } from 'src/app/interfaces/modal';
 import { Offer } from 'src/app/interfaces/offer';
 import { UserService } from 'src/app/services/user.service';
 
@@ -14,18 +15,69 @@ export class OfferCreatorComponent {
     creatorFullscreenState = false;
     fullscreenImageSrc = 'assets/svgs/expand-svgrepo-com.svg';
 
-    creatorLeavingPrompt = false;
-    imageLimitPrompt = false;
-    fileTypePrompt = false;
-    noImagesPrompt = false;
-
     imagesUrls: string[] = [];
     imagesFiles: File[] = [];
+
+    modals: Modal[] = [
+        {
+            name: 'creatorLeave',
+            visibility: false,
+            message: 'Do you want to leave?',
+            iconSrc: 'assets/svgs/mark-svgrepo-com.svg',
+            oneOption: false,
+            options: ['Cancel', 'Leave'],
+        },
+        {
+            name: 'imageLimit',
+            visibility: false,
+            message: `You can only select up to ${
+                4 - this.imagesUrls.length
+            } images!`,
+            iconSrc: 'assets/svgs/mark-svgrepo-com.svg',
+            oneOption: true,
+        },
+        {
+            name: 'fileType',
+            visibility: false,
+            message: 'You can only use PNG, JPG or JPEG file type',
+            iconSrc: 'assets/svgs/mark-svgrepo-com.svg',
+            oneOption: true,
+        },
+        {
+            name: 'noImages',
+            visibility: false,
+            message: 'Please select at least 1 image',
+            iconSrc: 'assets/svgs/mark-svgrepo-com.svg',
+            oneOption: true,
+        },
+    ];
 
     constructor(
         private userService: UserService,
         private angularFireStorage: AngularFireStorage
     ) {}
+
+    closeModalByIndex($event: number) {
+        const modal = this.modals[$event];
+        modal.visibility = false;
+
+        // form closing modal needs to be first in modals array
+        if ($event === 0) {
+            this.creatorReset();
+        }
+    }
+
+    openModalByName(name: string) {
+        const modal = this.modals.find((modal) => modal.name === name);
+
+        if (!modal) {
+            console.error(
+                'Dev error: name specified for getModalByName function argument is wrong or doesnt exist'
+            );
+        }
+
+        modal!.visibility = true;
+    }
 
     offerForm = new FormGroup({
         carBrand: new FormControl('', [Validators.required]),
@@ -94,11 +146,11 @@ export class OfferCreatorComponent {
 
                     reader.readAsDataURL(files[i]);
                 } else {
-                    this.fileTypePrompt = true;
+                    this.openModalByName('fileType');
                 }
             }
         } else {
-            this.imageLimitPrompt = true;
+            this.openModalByName('imageLimit');
         }
     }
 
@@ -117,7 +169,7 @@ export class OfferCreatorComponent {
     onOfferSubmit() {
         if (this.imagesUrls.length === 0) {
             // maybe pulse animation on image upload label
-            this.noImagesPrompt = true;
+            this.openModalByName('noImages');
             return;
         } else {
             this.userService.getUser().subscribe(async (user) => {
@@ -170,5 +222,6 @@ export class OfferCreatorComponent {
         this.imagesUrls = [];
         this.imagesFiles = [];
         this.offerForm.reset();
+        // event emmiter when form is reseted
     }
 }
