@@ -11,6 +11,10 @@ export class AccountComponent {
 
     constructor(private userService: UserService) {}
 
+    closeCreator() {
+        this.creatorOpenState = false;
+    }
+
     onLogout() {
         this.userService.logout();
     }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { firstValueFrom } from 'rxjs';
@@ -12,6 +12,7 @@ import { UserService } from 'src/app/services/user.service';
     styleUrls: ['./offer-creator.component.css'],
 })
 export class OfferCreatorComponent {
+    @Output() creatorState = new EventEmitter<void>();
     creatorFullscreenState = false;
     fullscreenImageSrc = 'assets/svgs/expand-svgrepo-com.svg';
 
@@ -222,6 +223,6 @@ export class OfferCreatorComponent {
         this.imagesUrls = [];
         this.imagesFiles = [];
         this.offerForm.reset();
-        // event emmiter when form is reseted
+        this.creatorState.emit();
     }
 }
