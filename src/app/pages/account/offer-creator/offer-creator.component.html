@@ -1,6 +1,7 @@
 <ng-container *ngFor="let modal of modals; let i = index">
     <app-modal
         appTrapFocus
+        appFocusOn
         *ngIf="modal.visibility"
         [index]="i"
         [message]="modal.message"
@@ -13,6 +14,7 @@
 </ng-container>
 
 <form
+    appTrapFocus
     [formGroup]="offerForm"
     (ngSubmit)="onOfferSubmit()"
     [ngClass]="{
@@ -26,6 +28,7 @@
     >
         <div class="flex">
             <button
+                appFocusOn
                 type="button"
                 class="transition-all w-11 h-11 hover:scale-105"
             >
@@ -250,11 +253,6 @@
                 ></app-input>
             </div>
 
-            <app-input
-                label="pickup location"
-                type="text"
-                [control]="offerForm.controls.pickupLocation"
-            ></app-input>
             <div class="flex justify-between gap-2">
                 <app-input
                     class="w-1/2"
@@ -263,12 +261,18 @@
                     [control]="offerForm.controls.availableFor"
                 ></app-input>
                 <app-input
-                    class="w-1/2 appearance-none"
+                    class="w-1/2"
                     label="price for day"
                     type="number"
                     [control]="offerForm.controls.price"
                 ></app-input>
             </div>
+
+            <app-input
+                label="pickup location"
+                type="text"
+                [control]="offerForm.controls.pickupLocation"
+            ></app-input>
         </div>
 
         <button
