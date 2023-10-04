@@ -1,5 +1,6 @@
 <ng-container *ngFor="let modal of modals; let i = index">
     <app-modal
+        appTrapFocus
         *ngIf="modal.visibility"
         [index]="i"
         [message]="modal.message"
