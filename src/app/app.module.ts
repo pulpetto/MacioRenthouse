@@ -47,6 +47,7 @@ import { FavouritesComponent } from './pages/account/favourites/favourites.compo
 import { OfferCreatorComponent } from './pages/account/offer-creator/offer-creator.component';
 import { ModalComponent } from './shared/modal/modal.component';
 import { TrapFocusDirective } from './directives/trap-focus.directive';
+import { FocusOnDirective } from './directives/focus-on.directive';
 
 @NgModule({
     declarations: [
@@ -65,6 +66,7 @@ import { TrapFocusDirective } from './directives/trap-focus.directive';
         OfferCreatorComponent,
         ModalComponent,
         TrapFocusDirective,
+        FocusOnDirective,
     ],
     imports: [
         BrowserModule,
