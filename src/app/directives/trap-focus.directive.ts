@@ -1,23 +1,46 @@
-import { AfterViewInit, Directive, ElementRef } from '@angular/core';
+import {
+    AfterViewInit,
+    OnChanges,
+    Directive,
+    ElementRef,
+    Input,
+    SimpleChanges,
+    ChangeDetectorRef,
+} from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 @Directive({
     selector: '[appTrapFocus]',
 })
-export class TrapFocusDirective implements AfterViewInit {
-    constructor(private el: ElementRef) {}
+export class TrapFocusDirective implements AfterViewInit, OnChanges {
+    @Input() offerForm!: FormGroup;
+    constructor(private el: ElementRef, private cdr: ChangeDetectorRef) {}
 
     ngAfterViewInit() {
         this.trapFocus(this.el.nativeElement);
     }
 
+    ngOnChanges(changes: SimpleChanges) {
+        if (changes['offerForm'] && this.offerForm) {
+            this.offerForm.valueChanges.subscribe(() => {
+                if (this.offerForm.valid) {
+                    this.cdr.detectChanges();
+                    this.trapFocus(this.el.nativeElement);
+                }
+            });
+        }
+    }
+
     trapFocus(element: any) {
         const focusableEls1 = element.querySelectorAll(
-            'a[href], button, textarea, input[type="text"],' +
+            'a[href], button, textarea, input[type="text"], input[type="number"],' +
                 'input[type="radio"], input[type="checkbox"], select'
         );
+
         const focusableEls = Array.from(focusableEls1).filter(
-            (el: any) => !el.disabled
+            (el: any) => el.disabled === false
         );
+
         const firstFocusableEl: any = focusableEls[0];
         const lastFocusableEl: any = focusableEls[focusableEls.length - 1];
 
