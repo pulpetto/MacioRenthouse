@@ -49,6 +49,7 @@ import { ModalComponent } from './shared/modal/modal.component';
 import { TrapFocusDirective } from './directives/trap-focus.directive';
 import { FocusOnDirective } from './directives/focus-on.directive';
 import { A11yModule } from '@angular/cdk/a11y';
+import { TooltipDirective } from './directives/tooltip.directive';
 
 @NgModule({
     declarations: [
@@ -68,6 +69,7 @@ import { A11yModule } from '@angular/cdk/a11y';
         ModalComponent,
         TrapFocusDirective,
         FocusOnDirective,
+        TooltipDirective,
     ],
     imports: [
         A11yModule,

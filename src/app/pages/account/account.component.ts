@@ -7,7 +7,6 @@ import { UserService } from 'src/app/services/user.service';
     styleUrls: ['./account.component.css'],
 })
 export class AccountComponent {
-    showTooltip = false;
     creatorOpenState = false;
 
     constructor(private userService: UserService) {}
