@@ -58,12 +58,14 @@ export class OfferCreatorComponent {
         private angularFireStorage: AngularFireStorage
     ) {}
 
-    closeModalByIndex($event: number) {
-        const modal = this.modals[$event];
-        modal.visibility = false;
+    closeModalByIndex($event: number | boolean) {
+        if (typeof $event === 'number') {
+            const modal = this.modals[$event];
+            modal.visibility = false;
+        }
 
-        // form closing modal needs to be first in modals array
-        if ($event === 0) {
+        if (typeof $event === 'boolean' && $event === true) {
+            // additional functionality block
             this.creatorReset();
         }
     }
