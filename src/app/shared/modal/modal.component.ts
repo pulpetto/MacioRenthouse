@@ -1,4 +1,10 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+    Component,
+    EventEmitter,
+    HostListener,
+    Input,
+    Output,
+} from '@angular/core';
 
 @Component({
     selector: 'app-modal',
@@ -12,6 +18,13 @@ export class ModalComponent {
     @Input() iconSrc: string = '';
     @Input() oneOption: boolean = true;
     @Input() optionNames: string[] | undefined = [];
+
+    @HostListener('document:keydown', ['$event'])
+    handleKeyboardEvent(event: KeyboardEvent) {
+        if (event.key === 'Escape') {
+            this.modalClose(false);
+        }
+    }
 
     modalClose(additionalAction: boolean) {
         this.modalToCloseIndex.emit(this.index);
