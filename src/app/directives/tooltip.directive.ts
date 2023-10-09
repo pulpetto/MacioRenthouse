@@ -4,12 +4,13 @@ import {
     HostListener,
     Input,
     Renderer2,
+    OnDestroy,
 } from '@angular/core';
 
 @Directive({
     selector: '[tooltip]',
 })
-export class TooltipDirective {
+export class TooltipDirective implements OnDestroy {
     @Input('tooltip') tooltipTitle!: string;
     @Input() placement!: 'top' | 'right' | 'bottom' | 'left';
     @Input() delay!: string;
@@ -37,6 +38,12 @@ export class TooltipDirective {
     }
 
     @HostListener('blur') onBlur() {
+        if (this.tooltip) {
+            this.hide();
+        }
+    }
+
+    @HostListener('click') onClick() {
         if (this.tooltip) {
             this.hide();
         }
@@ -124,6 +131,12 @@ export class TooltipDirective {
 
         this.renderer.setStyle(this.tooltip, 'top', `${top + scrollPos}px`);
         this.renderer.setStyle(this.tooltip, 'left', `${left}px`);
+    }
+
+    ngOnDestroy() {
+        if (this.tooltip) {
+            this.hide();
+        }
     }
 }
 
