@@ -46,8 +46,6 @@ import { SettingsComponent } from './pages/account/settings/settings.component';
 import { FavouritesComponent } from './pages/account/favourites/favourites.component';
 import { OfferCreatorComponent } from './pages/account/offer-creator/offer-creator.component';
 import { ModalComponent } from './shared/modal/modal.component';
-import { TrapFocusDirective } from './directives/trap-focus.directive';
-import { FocusOnDirective } from './directives/focus-on.directive';
 import { A11yModule } from '@angular/cdk/a11y';
 import { TooltipDirective } from './directives/tooltip.directive';
 
@@ -67,8 +65,6 @@ import { TooltipDirective } from './directives/tooltip.directive';
         FavouritesComponent,
         OfferCreatorComponent,
         ModalComponent,
-        TrapFocusDirective,
-        FocusOnDirective,
         TooltipDirective,
     ],
     imports: [

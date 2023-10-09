@@ -7,98 +7,125 @@ import {
 } from '@angular/core';
 
 @Directive({
-    selector: '[appTooltip]',
+    selector: '[tooltip]',
 })
 export class TooltipDirective {
-    @Input() appTooltip: string = '';
-    @Input() tooltipPosition: 'top' | 'right' | 'bottom' | 'left' = 'top';
-
-    private tooltipElement!: HTMLElement | null;
+    @Input('tooltip') tooltipTitle!: string;
+    @Input() placement!: 'top' | 'right' | 'bottom' | 'left';
+    @Input() delay!: string;
+    tooltip!: HTMLElement | null;
+    offset = 10;
 
     constructor(private el: ElementRef, private renderer: Renderer2) {}
 
     @HostListener('mouseenter') onMouseEnter() {
-        this.showTooltip();
+        if (!this.tooltip) {
+            this.show();
+        }
     }
 
     @HostListener('mouseleave') onMouseLeave() {
-        this.hideTooltip();
+        if (this.tooltip) {
+            this.hide();
+        }
     }
 
     @HostListener('focus') onFocus() {
-        this.showTooltip();
+        if (!this.tooltip) {
+            this.show();
+        }
     }
 
     @HostListener('blur') onBlur() {
-        this.hideTooltip();
+        if (this.tooltip) {
+            this.hide();
+        }
     }
 
-    private showTooltip() {
-        if (!this.tooltipElement) {
-            this.tooltipElement = this.renderer.createElement('div');
-            const tailwindClasses = [
-                'absolute',
-                'px-4',
-                'py-2',
-                'font-semibold',
-                'text-white',
-                'rounded-md',
-                'shadow-2xl',
-                'bg-neutral-950',
-                'drop-shadow-2xl',
-                'shadow-black',
-                'backdrop-blur-xl',
-                'bg-opacity-90',
-                'bg-clip-padding',
-                'backdrop-filter',
-            ];
-            tailwindClasses.forEach((className) => {
-                this.renderer.addClass(this.tooltipElement, className);
-            });
-            // this.renderer.addClass(this.tooltipElement, 'tooltip');
-            this.renderer.appendChild(
-                this.tooltipElement,
-                this.renderer.createText(this.appTooltip)
-            );
-            this.renderer.appendChild(document.body, this.tooltipElement);
-        }
+    show() {
+        this.create();
+        this.setPosition();
+        // this.renderer.addClass(this.tooltip, 'opacity-100');
+        this.renderer.setStyle(this.tooltip, 'opacity', '1');
+    }
 
-        const hostRect = this.el.nativeElement.getBoundingClientRect();
-        const tooltipRect = this.tooltipElement!.getBoundingClientRect();
+    hide() {
+        // this.renderer.addClass(this.tooltip, 'opacity-100');
+        this.renderer.removeStyle(this.tooltip, 'opacity');
+        window.setTimeout(() => {
+            this.renderer.removeChild(document.body, this.tooltip);
+            this.tooltip = null;
+        }, +this.delay);
+    }
+
+    create() {
+        this.tooltip = this.renderer.createElement('span');
+
+        this.renderer.appendChild(
+            this.tooltip,
+            this.renderer.createText(this.tooltipTitle)
+        );
+
+        this.renderer.appendChild(document.body, this.tooltip);
+
+        const tailwindClasses = [
+            'absolute',
+            'z-50',
+            'px-4',
+            'py-2',
+            'text-center',
+            'text-white',
+            'rounded-md',
+            'opacity-0',
+            'bg-neutral-950',
+            'transition-opacity',
+            'duration-300',
+        ];
+        tailwindClasses.forEach((className) => {
+            this.renderer.addClass(this.tooltip, className);
+        });
+
+        // top left right bottom traingle
+        // this.renderer.addClass(this.tooltip, `ng-tooltip-${this.placement}`);
+    }
+
+    setPosition() {
+        const hostPos = this.el.nativeElement.getBoundingClientRect();
+
+        const tooltipPos = this.tooltip!.getBoundingClientRect();
+
+        const scrollPos =
+            window.pageYOffset ||
+            document.documentElement.scrollTop ||
+            document.body.scrollTop ||
+            0;
 
         let top, left;
 
-        switch (this.tooltipPosition) {
-            case 'top':
-                top = hostRect.top - tooltipRect.height;
-                left =
-                    hostRect.left + hostRect.width / 2 - tooltipRect.width / 2;
-                break;
-            case 'right':
-                top =
-                    hostRect.top + hostRect.height / 2 - tooltipRect.height / 2;
-                left = hostRect.right;
-                break;
-            case 'bottom':
-                top = hostRect.bottom;
-                left =
-                    hostRect.left + hostRect.width / 2 - tooltipRect.width / 2;
-                break;
-            case 'left':
-                top =
-                    hostRect.top + hostRect.height / 2 - tooltipRect.height / 2;
-                left = hostRect.left - tooltipRect.width;
-                break;
+        if (this.placement === 'top') {
+            top = hostPos.top - tooltipPos.height - this.offset;
+            left = hostPos.left + (hostPos.width - tooltipPos.width) / 2;
         }
 
-        this.renderer.setStyle(this.tooltipElement, 'top', `${top}px`);
-        this.renderer.setStyle(this.tooltipElement, 'left', `${left}px`);
-    }
-
-    private hideTooltip() {
-        if (this.tooltipElement) {
-            this.renderer.removeChild(document.body, this.tooltipElement);
-            this.tooltipElement = null;
+        if (this.placement === 'bottom') {
+            top = hostPos.bottom + this.offset;
+            left = hostPos.left + (hostPos.width - tooltipPos.width) / 2;
         }
+
+        if (this.placement === 'left') {
+            top = hostPos.top + (hostPos.height - tooltipPos.height) / 2;
+            left = hostPos.left - tooltipPos.width - this.offset;
+        }
+
+        if (this.placement === 'right') {
+            top = hostPos.top + (hostPos.height - tooltipPos.height) / 2;
+            left = hostPos.right + this.offset;
+        }
+
+        this.renderer.setStyle(this.tooltip, 'top', `${top + scrollPos}px`);
+        this.renderer.setStyle(this.tooltip, 'left', `${left}px`);
     }
 }
+
+// FIX
+// WHEN TOOLTIP IS ON SOME LINK AND gets CLICKED THE TOOLTIP IS STILL VISIBLE ON THE OTHER PAGE
