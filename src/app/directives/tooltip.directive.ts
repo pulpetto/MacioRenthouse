@@ -13,7 +13,6 @@ import {
 export class TooltipDirective implements OnDestroy {
     @Input('tooltip') tooltipTitle!: string;
     @Input() placement!: 'top' | 'right' | 'bottom' | 'left';
-    @Input() delay!: string;
     tooltip!: HTMLElement | null;
     offset = 10;
 
@@ -59,10 +58,8 @@ export class TooltipDirective implements OnDestroy {
     hide() {
         // this.renderer.addClass(this.tooltip, 'opacity-100');
         this.renderer.removeStyle(this.tooltip, 'opacity');
-        window.setTimeout(() => {
-            this.renderer.removeChild(document.body, this.tooltip);
-            this.tooltip = null;
-        }, +this.delay);
+        this.renderer.removeChild(document.body, this.tooltip);
+        this.tooltip = null;
     }
 
     create() {
@@ -139,6 +136,3 @@ export class TooltipDirective implements OnDestroy {
         }
     }
 }
-
-// FIX
-// WHEN TOOLTIP IS ON SOME LINK AND gets CLICKED THE TOOLTIP IS STILL VISIBLE ON THE OTHER PAGE
