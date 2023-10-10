@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Output } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { firstValueFrom } from 'rxjs';
@@ -12,6 +12,13 @@ import { UserService } from 'src/app/services/user.service';
     styleUrls: ['./offer-creator.component.css'],
 })
 export class OfferCreatorComponent {
+    @HostListener('document:keydown', ['$event'])
+    handleKeyboardEvent(event: KeyboardEvent) {
+        if (event.key === 'f') {
+            this.creatorFullscreenState = !this.creatorFullscreenState;
+        }
+    }
+
     @Output() creatorState = new EventEmitter<void>();
     creatorFullscreenState = false;
     fullscreenImageSrc = 'assets/svgs/expand-svgrepo-com.svg';
