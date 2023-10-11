@@ -1,5 +1,5 @@
 export interface Offer {
-    // time of date in unix timestamp format
+    offerId: string;
     publishDate: Date;
     priceForDay: number;
     availableFor: number;

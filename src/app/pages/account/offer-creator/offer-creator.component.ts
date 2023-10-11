@@ -182,6 +182,20 @@ export class OfferCreatorComponent {
         this.updatePlaceholdersAmount();
     }
 
+    generateRandomString(): string {
+        const characters =
+            'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        const charactersLength = characters.length;
+        let result = '';
+
+        for (let i = 0; i < 20; i++) {
+            const randomIndex = Math.floor(Math.random() * charactersLength);
+            result += characters.charAt(randomIndex);
+        }
+
+        return result;
+    }
+
     onOfferSubmit() {
         if (this.imagesUrls.length === 0) {
             // maybe pulse animation on image upload label
@@ -191,7 +205,10 @@ export class OfferCreatorComponent {
             this.userService.getUser().subscribe(async (user) => {
                 await this.uploadImagesToFirebaseStorage();
 
+                const offerId = this.generateRandomString();
+
                 const newOffer: Offer = {
+                    offerId: offerId,
                     publishDate: new Date(),
                     priceForDay: +this.offerForm?.get('price')?.value!,
                     availableFor: +this.offerForm?.get('availableFor')?.value!,
@@ -214,6 +231,7 @@ export class OfferCreatorComponent {
 
                 user?.userOffers?.push(newOffer);
                 // firebase user service add offer method
+                // store offer in userOffers array and also in global offers array
 
                 this.creatorReset();
             });
