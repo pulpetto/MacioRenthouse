@@ -14,6 +14,12 @@ import { UserService } from 'src/app/services/user.service';
 export class OfferCreatorComponent {
     @HostListener('document:keydown', ['$event'])
     handleKeyboardEvent(event: KeyboardEvent) {
+        if (this.modals.some((modal) => modal.visibility)) return;
+
+        if (event.key === 'Escape') {
+            this.openModalByName('creatorLeave');
+        }
+
         if (event.key === 'f') {
             this.creatorFullscreenState = !this.creatorFullscreenState;
         }
