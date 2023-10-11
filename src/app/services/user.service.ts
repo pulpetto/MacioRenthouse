@@ -49,6 +49,27 @@ export class UserService {
         });
     }
 
+    addOffer(newOffer: Offer) {
+        set(
+            ref(
+                this.angularFireDatabase.database,
+                'offers/' + newOffer.offerId
+            ),
+            newOffer
+        );
+
+        set(
+            ref(
+                this.angularFireDatabase.database,
+                'users/' +
+                    this.userSubject.value?.username +
+                    '/offers/' +
+                    newOffer.offerId
+            ),
+            newOffer
+        );
+    }
+
     login(username: string, email: string, password: string) {
         this.getUsers().subscribe((users) => {
             const loggedUser = users.find((user) => user.username === username);

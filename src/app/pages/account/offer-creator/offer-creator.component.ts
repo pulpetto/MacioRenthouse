@@ -229,9 +229,8 @@ export class OfferCreatorComponent {
                     },
                 };
 
+                this.userService.addOffer(newOffer);
                 user?.userOffers?.push(newOffer);
-                // firebase user service add offer method
-                // store offer in userOffers array and also in global offers array
 
                 this.creatorReset();
             });
