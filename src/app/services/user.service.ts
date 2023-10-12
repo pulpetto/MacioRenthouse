@@ -11,6 +11,7 @@ import { getDatabase, ref, set } from '@angular/fire/database';
 import { Observable } from 'rxjs/internal/Observable';
 import { BehaviorSubject, map, take } from 'rxjs';
 import { Offer } from '../interfaces/offer';
+import { user } from '@angular/fire/auth';
 
 @Injectable({
     providedIn: 'root',
@@ -34,6 +35,12 @@ export class UserService {
 
     getUsers(): Observable<any[]> {
         return this.angularFireDatabase.list('users').valueChanges();
+    }
+
+    getUserOffers(): Observable<any> {
+        return this.angularFireDatabase
+            .object(`users/${this.userSubject.value?.username}/offers`)
+            .valueChanges();
     }
 
     isLoggedIn(): Observable<boolean> {
@@ -84,24 +91,52 @@ export class UserService {
         this.navigateToDashboard();
     }
 
-    signup(newUser: User) {
-        this.angularFireAuth
-            .createUserWithEmailAndPassword(newUser.email, newUser.password)
-            .then(() => {
-                set(
-                    ref(
-                        this.angularFireDatabase.database,
-                        'users/' + newUser.username
-                    ),
-                    newUser
-                );
-            })
-            .then(() => {
-                this.login(newUser.username, newUser.email, newUser.password);
-            })
-            .catch((error) => {
-                console.error(error);
-            });
+    async signup(newUser: User) {
+        // this.angularFireAuth
+        //     .createUserWithEmailAndPassword(newUser.email, newUser.password)
+        //     .then(() => {
+        //         set(
+        //             ref(
+        //                 this.angularFireDatabase.database,
+        //                 'users/' + newUser.username
+        //             ),
+        //             newUser
+        //         );
+        //     })
+        //     .then(() => {
+        //         this.login(newUser.username, newUser.email, newUser.password);
+        //     })
+        //     .catch((error) => {
+        //         console.error(error);
+        //     });
+
+        try {
+            await this.angularFireAuth.createUserWithEmailAndPassword(
+                newUser.email,
+                newUser.password
+            );
+
+            await set(
+                ref(
+                    this.angularFireDatabase.database,
+                    'users/' + newUser.username
+                ),
+                newUser
+            );
+
+            // foreach offer set, and also for fav
+            await set(
+                ref(
+                    this.angularFireDatabase.database,
+                    'users/' + newUser.username + '/offers'
+                ),
+                []
+            );
+
+            this.login(newUser.username, newUser.email, newUser.password);
+        } catch (error) {
+            console.error('Error registering user:', error);
+        }
     }
 
     logout() {
@@ -110,6 +145,7 @@ export class UserService {
             .then(() => {
                 localStorage.removeItem('loggedUser');
                 this.userSubject.next(null);
+                this.router.navigate(['home']);
             })
             .catch((error) => {
                 console.error('Sign-out error:', error);
