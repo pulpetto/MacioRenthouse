@@ -98,11 +98,17 @@ export class OfferCreatorComponent {
     offerForm = new FormGroup({
         carBrand: new FormControl('', [Validators.required]),
         carModel: new FormControl('', [Validators.required]),
-        gearboxType: new FormControl('', [Validators.required]),
+        productionYear: new FormControl('', [
+            Validators.required,
+            Validators.pattern('^[0-9]*$'),
+            Validators.max(2023),
+            Validators.min(1886),
+        ]),
         availableSeats: new FormControl('', [
             Validators.required,
             Validators.pattern('^[0-9]*$'),
         ]),
+        gearboxType: new FormControl('', [Validators.required]),
         fuelType: new FormControl('', [Validators.required]),
         engineCapacity: new FormControl('', [
             Validators.required,
@@ -116,17 +122,7 @@ export class OfferCreatorComponent {
             Validators.required,
             Validators.pattern('^[0-9]*$'),
         ]),
-        productionYear: new FormControl('', [
-            Validators.required,
-            Validators.pattern('^[0-9]*$'),
-            Validators.max(2023),
-            Validators.min(1886),
-        ]),
         pickupLocation: new FormControl('', [Validators.required]),
-        // availableFor: new FormControl('', [
-        //     Validators.required,
-        //     Validators.pattern('^[0-9]*$'),
-        // ]),
         price: new FormControl('', [
             Validators.required,
             Validators.pattern('^[0-9]*$'),
@@ -223,7 +219,6 @@ export class OfferCreatorComponent {
                     offerId: offerId,
                     publishDate: new Date(),
                     price: +this.offerForm?.get('price')?.value!,
-                    // availableFor: +this.offerForm?.get('availableFor')?.value!,
                     pickupLocation:
                         this.offerForm?.get('pickupLocation')?.value!,
                     offerDescription:
