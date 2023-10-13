@@ -17,10 +17,10 @@ export class OffersComponent implements OnInit {
 
     ngOnInit() {
         this.userService
-            .getUser()
+            .getUserOffers()
             .pipe(takeUntilDestroyed(this.destroyRef))
-            .subscribe((user) => {
-                this.userOffers = user?.userOffers;
+            .subscribe((offers) => {
+                this.userOffers = offers;
             });
     }
 }

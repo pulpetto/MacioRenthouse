@@ -9,9 +9,8 @@ import {
 } from '@angular/fire/compat/database';
 import { getDatabase, ref, set } from '@angular/fire/database';
 import { Observable } from 'rxjs/internal/Observable';
-import { BehaviorSubject, map, take } from 'rxjs';
+import { BehaviorSubject, map } from 'rxjs';
 import { Offer } from '../interfaces/offer';
-import { user } from '@angular/fire/auth';
 
 @Injectable({
     providedIn: 'root',
@@ -39,7 +38,7 @@ export class UserService {
 
     getUserOffers(): Observable<any> {
         return this.angularFireDatabase
-            .object(`users/${this.userSubject.value?.username}/offers`)
+            .list(`users/${this.userSubject.value?.username}/offers`)
             .valueChanges();
     }
 
