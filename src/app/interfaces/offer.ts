@@ -2,7 +2,6 @@ export interface Offer {
     offerId: string;
     publishDate: Date;
     price: number;
-    // availableFor: number;
     pickupLocation: string;
     offerDescription: string;
     images: string[];
