@@ -23,7 +23,7 @@
                 <div
                     class="flex items-center justify-center text-6xl font-semibold text-white"
                 >
-                    {{ offerData.priceForDay }}
+                    {{ offerData.price }}
                 </div>
                 <div class="flex flex-col items-start mt-1">
                     <div class="text-xl font-semibold text-white">ZŁ</div>
@@ -34,7 +34,7 @@
         <div class="flex flex-col items-center self-center gap-1">
             <div class="text-xl font-semibold">
                 Available for
-                <span class="font-bold">{{ offerData.availableFor }}</span> days
+                <!-- <span class="font-bold">{{ offerData.availableFor }}</span> days -->
             </div>
             <div class="text-sm">in</div>
             <div class="flex items-center gap-2">
@@ -72,7 +72,7 @@
                         </g>
                     </svg>
                 </div>
-                <div>{{ offerData.car.availableSeats }}</div>
+                <div>{{ offerData.car.seats }}</div>
             </div>
             <div class="flex items-center gap-2 p-4">
                 <div class="w-6 h-6 ml-1">

@@ -104,6 +104,18 @@ export class OfferCreatorComponent {
             Validators.pattern('^[0-9]*$'),
         ]),
         fuelType: new FormControl('', [Validators.required]),
+        engineCapacity: new FormControl('', [
+            Validators.required,
+            Validators.pattern('^[0-9]*$'),
+        ]),
+        mileage: new FormControl('', [
+            Validators.required,
+            Validators.pattern('^[0-9]*$'),
+        ]),
+        horsePower: new FormControl('', [
+            Validators.required,
+            Validators.pattern('^[0-9]*$'),
+        ]),
         productionYear: new FormControl('', [
             Validators.required,
             Validators.pattern('^[0-9]*$'),
@@ -111,10 +123,10 @@ export class OfferCreatorComponent {
             Validators.min(1886),
         ]),
         pickupLocation: new FormControl('', [Validators.required]),
-        availableFor: new FormControl('', [
-            Validators.required,
-            Validators.pattern('^[0-9]*$'),
-        ]),
+        // availableFor: new FormControl('', [
+        //     Validators.required,
+        //     Validators.pattern('^[0-9]*$'),
+        // ]),
         price: new FormControl('', [
             Validators.required,
             Validators.pattern('^[0-9]*$'),
@@ -210,8 +222,8 @@ export class OfferCreatorComponent {
                 const newOffer: Offer = {
                     offerId: offerId,
                     publishDate: new Date(),
-                    priceForDay: +this.offerForm?.get('price')?.value!,
-                    availableFor: +this.offerForm?.get('availableFor')?.value!,
+                    price: +this.offerForm?.get('price')?.value!,
+                    // availableFor: +this.offerForm?.get('availableFor')?.value!,
                     pickupLocation:
                         this.offerForm?.get('pickupLocation')?.value!,
                     offerDescription:
@@ -222,10 +234,13 @@ export class OfferCreatorComponent {
                         brandModel: this.offerForm?.get('carModel')?.value!,
                         carProductionDate:
                             +this.offerForm?.get('productionYear')?.value!,
-                        availableSeats:
-                            +this.offerForm?.get('availableSeats')?.value!,
+                        seats: +this.offerForm?.get('availableSeats')?.value!,
                         gearboxType: this.offerForm?.get('gearboxType')?.value!,
                         fuelType: this.offerForm?.get('fuelType')?.value!,
+                        engineCapacity:
+                            +this.offerForm?.get('engineCapacity')?.value!,
+                        mileage: +this.offerForm?.get('mileage')?.value!,
+                        horsePower: +this.offerForm?.get('horsePower')?.value!,
                     },
                 };
 

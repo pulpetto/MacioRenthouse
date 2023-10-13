@@ -1,8 +1,8 @@
 export interface Offer {
     offerId: string;
     publishDate: Date;
-    priceForDay: number;
-    availableFor: number;
+    price: number;
+    // availableFor: number;
     pickupLocation: string;
     offerDescription: string;
     images: string[];
@@ -10,8 +10,11 @@ export interface Offer {
         carBrand: string;
         brandModel: string;
         carProductionDate: number;
-        availableSeats: number;
+        seats: number;
         gearboxType: string;
         fuelType: string;
+        engineCapacity: number;
+        mileage: number;
+        horsePower: number;
     };
 }

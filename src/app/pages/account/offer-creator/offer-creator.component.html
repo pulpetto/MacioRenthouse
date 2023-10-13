@@ -224,55 +224,73 @@
                     [control]="offerForm.controls.carModel"
                 ></app-input>
             </div>
+
             <div class="flex justify-between gap-2">
-                <app-input
-                    class="w-1/2"
-                    label="gearbox type"
-                    type="text"
-                    [control]="offerForm.controls.gearboxType"
-                ></app-input>
-                <app-input
-                    class="w-1/2"
-                    label="available seats"
-                    type="number"
-                    [control]="offerForm.controls.availableSeats"
-                ></app-input>
-            </div>
-            <div class="flex justify-between gap-2">
-                <app-input
-                    class="w-1/2"
-                    label="fuel type"
-                    type="text"
-                    [control]="offerForm.controls.fuelType"
-                ></app-input>
                 <app-input
                     class="w-1/2"
                     label="production year"
                     type="number"
                     [control]="offerForm.controls.productionYear"
                 ></app-input>
+
+                <app-input
+                    class="w-1/2"
+                    label="mileage"
+                    type="number"
+                    [control]="offerForm.controls.mileage"
+                ></app-input>
+            </div>
+
+            <div class="flex justify-between gap-2">
+                <app-input
+                    class="w-1/5"
+                    label="seats"
+                    type="number"
+                    [control]="offerForm.controls.availableSeats"
+                ></app-input>
+                <app-input
+                    class="w-2/5"
+                    label="fuel type"
+                    type="text"
+                    [control]="offerForm.controls.fuelType"
+                ></app-input>
+                <app-input
+                    class="w-2/5"
+                    label="gearbox type"
+                    type="text"
+                    [control]="offerForm.controls.gearboxType"
+                ></app-input>
             </div>
 
             <div class="flex justify-between gap-2">
                 <app-input
                     class="w-1/2"
-                    label="available for (days)"
+                    label="engine capacity"
                     type="number"
-                    [control]="offerForm.controls.availableFor"
+                    [control]="offerForm.controls.engineCapacity"
                 ></app-input>
                 <app-input
                     class="w-1/2"
-                    label="price for day"
+                    label="horse power"
                     type="number"
-                    [control]="offerForm.controls.price"
+                    [control]="offerForm.controls.horsePower"
                 ></app-input>
             </div>
 
-            <app-input
-                label="pickup location"
-                type="text"
-                [control]="offerForm.controls.pickupLocation"
-            ></app-input>
+            <div class="flex justify-between gap-2">
+                <app-input
+                    class="w-1/2"
+                    label="pickup location"
+                    type="text"
+                    [control]="offerForm.controls.pickupLocation"
+                ></app-input>
+                <app-input
+                    class="w-1/2"
+                    label="price"
+                    type="text"
+                    [control]="offerForm.controls.price"
+                ></app-input>
+            </div>
         </div>
 
         <button
