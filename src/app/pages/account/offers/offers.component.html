@@ -2,7 +2,11 @@
     <!-- <ng-container *ngIf="userService.getUser() | async as user">
         <app-offer *ngFor="let offer of user.userOffers"></app-offer>
     </ng-container> -->
-    <app-offer *ngFor="let offer of userOffers" [offerData]="offer"></app-offer>
+    <app-offer
+        *ngFor="let offer of userOffers"
+        [offerData]="offer"
+        class="w-3/4"
+    ></app-offer>
     <div *ngIf="!userOffers" class="self-center text-center opacity-80">
         <h1 class="mb-2 text-4xl font-semibold">
             You dont have any offers yet!
