@@ -48,6 +48,7 @@ import { OfferCreatorComponent } from './pages/account/offer-creator/offer-creat
 import { ModalComponent } from './shared/modal/modal.component';
 import { A11yModule } from '@angular/cdk/a11y';
 import { TooltipDirective } from './directives/tooltip.directive';
+import { NumberFormatPipe } from './pipes/number-format.pipe';
 
 @NgModule({
     declarations: [
@@ -66,6 +67,7 @@ import { TooltipDirective } from './directives/tooltip.directive';
         OfferCreatorComponent,
         ModalComponent,
         TooltipDirective,
+        NumberFormatPipe,
     ],
     imports: [
         A11yModule,
