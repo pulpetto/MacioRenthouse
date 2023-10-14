@@ -5,7 +5,7 @@
     <app-offer
         *ngFor="let offer of userOffers"
         [offerData]="offer"
-        class="w-3/4"
+        class="w-3/4 max-w-7xl"
     ></app-offer>
     <div *ngIf="!userOffers" class="self-center text-center opacity-80">
         <h1 class="mb-2 text-4xl font-semibold">
