@@ -12,11 +12,11 @@
     </button> -->
 
     <div
-        class="flex items-center justify-center object-cover w-1/4 h-40 overflow-hidden rounded-md"
+        class="flex items-center justify-center w-1/4 h-40 overflow-hidden rounded-md"
     >
         <img
             [src]="offerData.images[0]"
-            class="rounded-md"
+            class="object-cover w-full h-full rounded-md"
             [alt]="offerData.car.carBrand + offerData.car.brandModel + 'photo'"
         />
     </div>
