@@ -8,7 +8,7 @@ export interface Offer {
     car: {
         carBrand: string;
         brandModel: string;
-        carProductionDate: number;
+        productionYear: number;
         seats: number;
         gearboxType: string;
         fuelType: string;
