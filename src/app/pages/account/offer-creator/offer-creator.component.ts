@@ -95,13 +95,15 @@ export class OfferCreatorComponent {
         modal!.visibility = true;
     }
 
+    currentYear = new Date().getFullYear();
+
     offerForm = new FormGroup({
         carBrand: new FormControl('', [Validators.required]),
         carModel: new FormControl('', [Validators.required]),
         productionYear: new FormControl('', [
             Validators.required,
             Validators.pattern('^[0-9]*$'),
-            Validators.max(2023),
+            Validators.max(this.currentYear),
             Validators.min(1886),
         ]),
         availableSeats: new FormControl('', [
