@@ -1,1 +1,127 @@
-<p>offer-full-view works!</p>
+<div class="h-screen pt-36">
+    <div
+        class="flex gap-4 p-4 mx-auto rounded-md shadow-md max-w-7xl shadow-black backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter bg-neutral-950"
+    >
+        <div class="flex flex-col w-8/12 gap-2">
+            <div class="relative w-full">
+                <button
+                    type="button"
+                    class="absolute left-0 w-12 h-12 transition-all duration-300 -translate-y-1/2 top-1/2 hover:-translate-x-1 hover:scale-105"
+                >
+                    <img
+                        src="assets/svgs/arrow-left-5-svgrepo-com.svg"
+                        class="w-full h-full"
+                        alt="left arrow icon"
+                    />
+                </button>
+                <button
+                    type="button"
+                    class="absolute right-0 w-12 h-12 transition-all duration-300 -translate-y-1/2 top-1/2 hover:translate-x-1 hover:scale-105"
+                >
+                    <img
+                        src="assets/svgs/right-arrow-svgrepo-com.svg"
+                        class="w-full h-full"
+                        alt="right arrow icon"
+                    />
+                </button>
+                <img
+                    src="https://www.bmw-m.com/content/dam/bmw/marketBMW_M/common/topics/magazine-article-pool/2018/bmw-m2-coupe-edition-black-shadow/bmw-m2-coup%C3%A9-black-shadow-stage-teaser-si.jpg"
+                    class="w-full rounded-md"
+                    alt=""
+                />
+            </div>
+            <div class="flex gap-2">
+                <div *ngFor="let image of images">
+                    <img
+                        src="https://www.bmw-m.com/content/dam/bmw/marketBMW_M/common/topics/magazine-article-pool/2018/bmw-m2-coupe-edition-black-shadow/bmw-m2-coup%C3%A9-black-shadow-stage-teaser-si.jpg"
+                        class="border-2 border-indigo-700 border-solid rounded-md"
+                        alt=""
+                    />
+                </div>
+            </div>
+        </div>
+        <div class="flex flex-col justify-between w-4/12">
+            <div class="flex flex-col items-center gap-4">
+                <div class="flex items-center self-center gap-1">
+                    <div class="text-3xl font-semibold">BMW M3</div>
+                    <div class="w-4 h-4">
+                        <img
+                            src="assets/svgs/dot-small-svgrepo-com.svg"
+                            class="w-full h-full"
+                            alt="dot icon"
+                        />
+                    </div>
+                    <div class="text-2xl font-medium">2019</div>
+                </div>
+                <div
+                    class="w-full border border-white border-solid rounded-md"
+                ></div>
+                <div class="flex flex-col items-center gap-2">
+                    <div class="flex gap-1">
+                        <div class="text-6xl font-semibold">300 000</div>
+                        <div class="flex flex-col items-start mt-1">
+                            <div class="text-lg">ZŁ</div>
+                        </div>
+                    </div>
+                    <div class="text-lg font-light">or</div>
+                    <div class="flex flex-col items-center">
+                        <div class="flex gap-1 opacity-95">
+                            <div class="text-4xl font-medium">25 000</div>
+                            <div class="mt-0.5 text-lg">ZŁ</div>
+                            <div class="flex font-light">
+                                <div class="mt-0.5 text-3xl">/</div>
+                                <div class="self-end text-2xl">month</div>
+                            </div>
+                        </div>
+                        <div class="text-sm font-extralight opacity-80">
+                            for 3 years
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex flex-col items-center gap-4">
+                <div class="flex items-center gap-2 opacity-90">
+                    <div
+                        class="w-10 h-10 border-2 border-white border-solid rounded-full"
+                    >
+                        <img
+                            src="assets/svgs/user-5-svgrepo-com.svg"
+                            class="w-full h-full"
+                            alt=""
+                        />
+                    </div>
+                    <div class="text-2xl font-medium">User</div>
+                    <div class="w-4 h-4">
+                        <img
+                            src="assets/svgs/dot-small-svgrepo-com.svg"
+                            class="w-full h-full"
+                            alt="dot icon"
+                        />
+                    </div>
+                    <div class="text-2xl">Seller from 2019</div>
+                </div>
+
+                <div class="flex flex-col items-center">
+                    <button
+                        class="text-lg font-medium transition-colors duration-300 hover:text-indigo-600"
+                    >
+                        see profile
+                    </button>
+                    <div class="mb-2 text-lg font-light opacity-80">or</div>
+                    <button
+                        class="flex items-center gap-1 px-6 py-3 text-xl font-semibold transition-colors duration-300 bg-indigo-700 rounded-md cursor-pointer hover:bg-indigo-600"
+                    >
+                        <div class="w-8 h-8 mt-1">
+                            <img
+                                src="assets/svgs/comment-alt-lines-svgrepo-com.svg"
+                                class="w-full h-full"
+                                alt="message icon"
+                            />
+                        </div>
+                        <div>Contact the seller</div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
