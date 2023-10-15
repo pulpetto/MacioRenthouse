@@ -73,7 +73,7 @@ export class TooltipDirective implements OnDestroy {
         this.renderer.appendChild(document.body, this.tooltip);
 
         const tailwindClasses = [
-            'absolute',
+            'fixed',
             'z-50',
             'px-4',
             'py-2',
