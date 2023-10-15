@@ -1,4 +1,10 @@
-import { Component, EventEmitter, HostListener, Output } from '@angular/core';
+import {
+    Component,
+    EventEmitter,
+    HostListener,
+    Output,
+    Renderer2,
+} from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { firstValueFrom } from 'rxjs';
@@ -68,7 +74,8 @@ export class OfferCreatorComponent {
 
     constructor(
         private userService: UserService,
-        private angularFireStorage: AngularFireStorage
+        private angularFireStorage: AngularFireStorage,
+        private renderer: Renderer2
     ) {}
 
     closeModalByIndex($event: number | boolean) {
@@ -80,6 +87,7 @@ export class OfferCreatorComponent {
         if (typeof $event === 'boolean' && $event === true) {
             // additional functionality block
             this.creatorReset();
+            this.renderer.removeClass(document.body, 'overflow-hidden');
         }
     }
 

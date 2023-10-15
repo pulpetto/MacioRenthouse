@@ -1,7 +1,7 @@
 <app-offer-creator
     *ngIf="creatorOpenState"
     (creatorState)="closeCreator()"
-    class="absolute z-50 flex items-center justify-center w-full h-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 from-neutral-950 to-neutral-900 bg-gradient-to-br"
+    class="fixed z-50 flex items-center justify-center w-full h-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 from-neutral-950 to-neutral-900 bg-gradient-to-br"
 ></app-offer-creator>
 
 <div class="flex h-full">
@@ -96,7 +96,7 @@
     <button
         tooltip="Add offer"
         placement="left"
-        (click)="creatorOpenState = true"
+        (click)="openCreator()"
         class="fixed transition-transform duration-300 w-14 h-14 hover:rotate-180 bottom-4 right-4 focus:rotate-180"
     >
         <img
