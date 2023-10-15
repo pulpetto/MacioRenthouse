@@ -224,6 +224,15 @@ export class OfferCreatorComponent {
                 await this.uploadImagesToFirebaseStorage();
 
                 const offerId = this.generateRandomString();
+                const carBrand = this.offerForm?.get('carBrand')?.value!;
+                const capitalizedCarBrand =
+                    carBrand.charAt(0).toUpperCase() +
+                    carBrand.slice(1).toLowerCase();
+
+                const carModel = this.offerForm?.get('carModel')?.value!;
+                const capitalizedBrandModel =
+                    carModel.charAt(0).toUpperCase() +
+                    carModel.slice(1).toLowerCase();
 
                 const newOffer: Offer = {
                     offerId: offerId,
@@ -235,8 +244,8 @@ export class OfferCreatorComponent {
                         this.offerForm?.get('description')?.value!,
                     images: this.imagesUrls,
                     car: {
-                        carBrand: this.offerForm?.get('carBrand')?.value!,
-                        brandModel: this.offerForm?.get('carModel')?.value!,
+                        carBrand: capitalizedCarBrand,
+                        brandModel: capitalizedBrandModel,
                         productionYear:
                             +this.offerForm?.get('productionYear')?.value!,
                         seats: +this.offerForm?.get('availableSeats')?.value!,
