@@ -10,6 +10,8 @@ import { isLoggedGuard } from './guards/is-logged.guard';
 import { authGuard } from './guards/auth.guard';
 import { SettingsComponent } from './pages/account/settings/settings.component';
 import { FavouritesComponent } from './pages/account/favourites/favourites.component';
+import { OfferComponent } from './shared/offer/offer.component';
+import { OfferFullViewComponent } from './shared/offer-full-view/offer-full-view.component';
 
 const routes: Routes = [
     {
@@ -25,6 +27,10 @@ const routes: Routes = [
         path: 'signup',
         component: SignupComponent,
         canActivate: [isLoggedGuard],
+    },
+    {
+        path: ':offer',
+        component: OfferFullViewComponent,
     },
     {
         path: 'account/:username/:userId',

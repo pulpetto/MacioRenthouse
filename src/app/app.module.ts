@@ -49,6 +49,7 @@ import { ModalComponent } from './shared/modal/modal.component';
 import { A11yModule } from '@angular/cdk/a11y';
 import { TooltipDirective } from './directives/tooltip.directive';
 import { NumberFormatPipe } from './pipes/number-format.pipe';
+import { OfferFullViewComponent } from './shared/offer-full-view/offer-full-view.component';
 
 @NgModule({
     declarations: [
@@ -68,6 +69,7 @@ import { NumberFormatPipe } from './pipes/number-format.pipe';
         ModalComponent,
         TooltipDirective,
         NumberFormatPipe,
+        OfferFullViewComponent,
     ],
     imports: [
         A11yModule,
