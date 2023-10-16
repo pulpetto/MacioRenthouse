@@ -7,4 +7,5 @@ import { Component } from '@angular/core';
 })
 export class OfferFullViewComponent {
     images = [1, 2, 3, 4];
+    images2 = [1, 2, 3, 4, 5];
 }
