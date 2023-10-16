@@ -51,6 +51,7 @@ import { TooltipDirective } from './directives/tooltip.directive';
 import { NumberFormatPipe } from './pipes/number-format.pipe';
 import { OfferFullViewComponent } from './shared/offer-full-view/offer-full-view.component';
 import { FooterComponent } from './footer/footer.component';
+import { NumberSeparatorDirective } from './directives/number-separator.directive';
 
 @NgModule({
     declarations: [
@@ -72,6 +73,7 @@ import { FooterComponent } from './footer/footer.component';
         NumberFormatPipe,
         OfferFullViewComponent,
         FooterComponent,
+        NumberSeparatorDirective,
     ],
     imports: [
         A11yModule,
