@@ -50,6 +50,7 @@ import { A11yModule } from '@angular/cdk/a11y';
 import { TooltipDirective } from './directives/tooltip.directive';
 import { NumberFormatPipe } from './pipes/number-format.pipe';
 import { OfferFullViewComponent } from './shared/offer-full-view/offer-full-view.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
     declarations: [
@@ -70,6 +71,7 @@ import { OfferFullViewComponent } from './shared/offer-full-view/offer-full-view
         TooltipDirective,
         NumberFormatPipe,
         OfferFullViewComponent,
+        FooterComponent,
     ],
     imports: [
         A11yModule,
