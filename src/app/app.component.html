@@ -1,6 +1,108 @@
 <main
-    class="from-neutral-950 to-neutral-900 bg-gradient-to-br h-full text-white"
+    class="h-full text-white from-neutral-950 to-neutral-900 bg-gradient-to-br"
 >
     <app-header *ngIf="isHeaderVisible$ | async"></app-header>
     <router-outlet></router-outlet>
+    <div
+        class="rounded-md shadow-2xl bg-neutral-950 shadow-black backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter"
+    >
+        <div class="flex flex-col w-10/12 gap-20 pt-20 pb-12 mx-auto">
+            <div class="flex items-center justify-between mx-12">
+                <div class="flex items-center gap-2">
+                    <div class="w-20 h-20">
+                        <img
+                            src="assets/svgs/key-svgrepo-com.svg"
+                            class="w-full h-full transition-transform hover:rotate-180"
+                            alt="logo"
+                        />
+                    </div>
+                    <a routerLink="/home" class="text-4xl font-semibold"
+                        >Macio Wearhouse</a
+                    >
+                </div>
+                <div class="flex flex-col items-center gap-2">
+                    <div class="flex gap-2">
+                        <a
+                            routerLink=""
+                            class="w-12 h-12 border-2 border-white border-solid rounded-full"
+                        >
+                            <img
+                                src="assets/svgs/cross-svgrepo-com(1).svg"
+                                class="w-full h-full"
+                                alt=""
+                            />
+                        </a>
+                        <a
+                            routerLink=""
+                            class="w-12 h-12 border-2 border-white border-solid rounded-full"
+                        >
+                            <img
+                                src="assets/svgs/cross-svgrepo-com(1).svg"
+                                class="w-full h-full"
+                                alt=""
+                            />
+                        </a>
+                        <a
+                            routerLink=""
+                            class="w-12 h-12 border-2 border-white border-solid rounded-full"
+                        >
+                            <img
+                                src="assets/svgs/cross-svgrepo-com(1).svg"
+                                class="w-full h-full"
+                                alt=""
+                            />
+                        </a>
+                        <a
+                            routerLink=""
+                            class="w-12 h-12 border-2 border-white border-solid rounded-full"
+                        >
+                            <img
+                                src="assets/svgs/cross-svgrepo-com(1).svg"
+                                class="w-full h-full"
+                                alt=""
+                            />
+                        </a>
+                        <a
+                            routerLink=""
+                            class="w-12 h-12 border-2 border-white border-solid rounded-full"
+                        >
+                            <img
+                                src="assets/svgs/cross-svgrepo-com(1).svg"
+                                class="w-full h-full"
+                                alt=""
+                            />
+                        </a>
+                    </div>
+                    <div class="text-xs opacity-80">
+                        ©Macio Wearhouse 2023 All Rights Reserved
+                    </div>
+                </div>
+
+                <div class="flex gap-12">
+                    <div class="flex flex-col gap-2">
+                        <a routerLink="">Terms of Use</a>
+                        <a routerLink="">Privacy Policy</a>
+                        <a routerLink="">Cookies</a>
+                        <a routerLink="">Security</a>
+                        <a routerLink="">Payments</a>
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <a routerLink="">Help</a>
+                        <a routerLink="">Advertisement</a>
+                        <a routerLink="">Blog</a>
+                        <a routerLink="">Newsletter</a>
+                        <a routerLink="">Meetings</a>
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <a routerLink="">About Us</a>
+                        <a routerLink="">Contact Us</a>
+                        <a routerLink="">Works for Us</a>
+                        <a routerLink="">Our partners</a>
+                        <a routerLink="">Our headquarters</a>
+                    </div>
+                </div>
+            </div>
+            <div class="border border-white border-solid"></div>
+        </div>
+    </div>
 </main>
