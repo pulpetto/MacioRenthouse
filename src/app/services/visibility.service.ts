@@ -7,19 +7,23 @@ import { Observable } from 'rxjs/internal/Observable';
 })
 export class VisibilityService {
     private isHeaderAndFooterVisible = new BehaviorSubject<boolean>(true);
+    private isHeaderSearchBarVisible = new BehaviorSubject<boolean>(false);
 
     setHeaderAndFooterVisibility(visibility: boolean) {
         this.isHeaderAndFooterVisible.next(visibility);
         console.log('Setting header and footer visibility to: ' + visibility);
     }
 
-    // propably to delete later
-    // navigateTo(path: string) {
-    //     this.router.navigate([path]);
-    //     console.log('Navigating to: ' + path);
-    // }
+    setHeaderSearchBarVisibility(visibility: boolean) {
+        this.isHeaderSearchBarVisible.next(visibility);
+        console.log('Setting header search bar visibility to: ' + visibility);
+    }
 
-    getHeaderVisibility(): Observable<boolean> {
+    getHeaderAndFooterVisibility(): Observable<boolean> {
         return this.isHeaderAndFooterVisible.asObservable();
+    }
+
+    getHeaderSearchBarVisibility(): Observable<boolean> {
+        return this.isHeaderSearchBarVisible.asObservable();
     }
 }

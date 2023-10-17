@@ -30,7 +30,7 @@ export class AppComponent {
         }
 
         this.headerAndFooterVisibility$ =
-            this.visibilityService.getHeaderVisibility();
+            this.visibilityService.getHeaderAndFooterVisibility();
 
         this.router.events
             .pipe(
@@ -49,6 +49,13 @@ export class AppComponent {
                     this.visibilityService.setHeaderAndFooterVisibility(false);
                 } else {
                     this.visibilityService.setHeaderAndFooterVisibility(true);
+                }
+
+                // maybe add condition if header is not visible then return
+                if (routePath === 'home') {
+                    this.visibilityService.setHeaderSearchBarVisibility(false);
+                } else {
+                    this.visibilityService.setHeaderSearchBarVisibility(true);
                 }
             });
     }

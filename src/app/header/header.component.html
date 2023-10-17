@@ -12,7 +12,10 @@
         <a routerLink="/home" class="text-2xl font-semibold">Macio Wearhouse</a>
     </div>
 
-    <div class="absolute flex items-center w-1/4 translate-x-1/2 right-1/2">
+    <div
+        *ngIf="searchBarVisibility$ | async"
+        class="absolute flex items-center w-1/4 translate-x-1/2 right-1/2"
+    >
         <input
             type="text"
             placeholder="Search for a specific car..."
