@@ -1,7 +1,7 @@
 <main
     class="h-full text-white from-neutral-950 to-neutral-900 bg-gradient-to-br"
 >
-    <app-header *ngIf="isHeaderVisible$ | async"></app-header>
+    <app-header *ngIf="headerAndFooterVisibility$ | async"></app-header>
     <router-outlet></router-outlet>
-    <app-footer *ngIf="isHeaderVisible$ | async"></app-footer>
+    <app-footer *ngIf="headerAndFooterVisibility$ | async"></app-footer>
 </main>

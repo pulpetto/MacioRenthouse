@@ -12,7 +12,7 @@ import { UserService } from './services/user.service';
     styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-    isHeaderVisible$!: Observable<boolean>;
+    headerAndFooterVisibility$!: Observable<boolean>;
     destroyRef = inject(DestroyRef);
 
     constructor(
@@ -29,7 +29,8 @@ export class AppComponent {
             this.userService.setUser(user);
         }
 
-        this.isHeaderVisible$ = this.visibilityService.getHeaderVisibility();
+        this.headerAndFooterVisibility$ =
+            this.visibilityService.getHeaderVisibility();
 
         this.router.events
             .pipe(
@@ -45,9 +46,9 @@ export class AppComponent {
                     routePath === 'signup' ||
                     routePath?.includes('account')
                 ) {
-                    this.visibilityService.setHeaderVisibility(false);
+                    this.visibilityService.setHeaderAndFooterVisibility(false);
                 } else {
-                    this.visibilityService.setHeaderVisibility(true);
+                    this.visibilityService.setHeaderAndFooterVisibility(true);
                 }
             });
     }
