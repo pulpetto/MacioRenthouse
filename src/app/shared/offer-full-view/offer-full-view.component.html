@@ -1,4 +1,4 @@
-<div class="h-full pb-24 pt-36">
+<div *ngIf="offer$ | async as offer" class="h-full pb-24 pt-36">
     <div
         class="flex flex-col gap-16 p-4 mx-auto rounded-md shadow-2xl drop-shadow-xl max-w-7xl shadow-black backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter bg-neutral-950"
     >
@@ -44,7 +44,10 @@
             <div class="flex flex-col justify-between w-4/12">
                 <div class="flex flex-col items-center gap-4">
                     <div class="flex items-center self-center gap-1">
-                        <div class="text-3xl font-semibold">BMW M3</div>
+                        <div class="text-3xl font-semibold">
+                            {{ offer.car.carBrand }}
+                            {{ offer.car.brandModel }}
+                        </div>
                         <div class="w-4 h-4">
                             <img
                                 src="assets/svgs/dot-small-svgrepo-com.svg"
@@ -52,14 +55,18 @@
                                 alt="dot icon"
                             />
                         </div>
-                        <div class="text-2xl font-medium">2019</div>
+                        <div class="text-2xl font-medium">
+                            {{ offer.car.productionYear }}
+                        </div>
                     </div>
                     <div
                         class="w-full border border-white border-solid rounded-md"
                     ></div>
                     <div class="flex flex-col items-center gap-2">
                         <div class="flex gap-1">
-                            <div class="text-6xl font-semibold">300 000</div>
+                            <div class="text-6xl font-semibold">
+                                {{ offer.price | numberFormat }}
+                            </div>
                             <div class="flex flex-col items-start mt-1">
                                 <div class="text-lg">ZŁ</div>
                             </div>
@@ -67,7 +74,12 @@
                         <div class="text-lg font-light">or</div>
                         <div class="flex flex-col items-center">
                             <div class="flex gap-1 opacity-95">
-                                <div class="text-4xl font-medium">25 000</div>
+                                <div class="text-4xl font-medium">
+                                    {{
+                                        math.trunc(offer.price / 36)
+                                            | numberFormat
+                                    }}
+                                </div>
                                 <div class="mt-0.5 text-lg">ZŁ</div>
                                 <div class="flex font-light">
                                     <div class="mt-0.5 text-3xl">/</div>
@@ -143,45 +155,47 @@
                 <div class="flex flex-col self-start gap-4">
                     <div class="flex gap-1">
                         <div>Car brand:</div>
-                        <div>0000</div>
+                        <div>{{ offer.car.carBrand }}</div>
                     </div>
                     <div class="flex gap-1">
                         <div>Brand model:</div>
-                        <div>0000</div>
+                        <div>{{ offer.car.brandModel }}</div>
                     </div>
                     <div class="flex gap-1">
                         <div>Production year:</div>
-                        <div>0000</div>
+                        <div>{{ offer.car.productionYear }}</div>
                     </div>
                     <div class="flex gap-1">
                         <div>Mileage:</div>
-                        <div>0000</div>
+                        <div>{{ offer.car.mileage | numberFormat }} km</div>
                     </div>
                     <div class="flex gap-1">
                         <div>Gearbox Type:</div>
-                        <div>0000</div>
+                        <div>{{ offer.car.gearboxType }}</div>
                     </div>
                 </div>
                 <div class="flex flex-col self-start gap-4">
                     <div class="flex gap-1">
                         <div>Fuel type:</div>
-                        <div>0000</div>
+                        <div>{{ offer.car.fuelType }}</div>
                     </div>
                     <div class="flex gap-1">
                         <div>Seats:</div>
-                        <div>0000</div>
+                        <div>{{ offer.car.seats }}</div>
                     </div>
                     <div class="flex gap-1">
                         <div>Engine capacity:</div>
-                        <div>0000</div>
+                        <div>
+                            {{ offer.car.engineCapacity | numberFormat }} cm³
+                        </div>
                     </div>
                     <div class="flex gap-1">
                         <div>Horse power:</div>
-                        <div>0000</div>
+                        <div>{{ offer.car.horsePower | numberFormat }} hp</div>
                     </div>
                     <div class="flex gap-1">
                         <div>Offer id:</div>
-                        <div>0000</div>
+                        <div>{{ offer.offerId }}</div>
                     </div>
                 </div>
             </div>
@@ -199,17 +213,7 @@
                 ></div>
             </div>
             <div class="self-center w-1/2">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque
-                labore sunt possimus quae vero architecto illum cumque odio
-                fugiat nesciunt ad vel nostrum debitis ratione, harum itaque
-                voluptas sint amet. Lorem ipsum dolor sit amet consectetur
-                adipisicing elit. Unde in nostrum, omnis voluptatem nisi
-                architecto et, placeat harum, maiores voluptatum nesciunt
-                similique ex sed itaque optio ea provident nobis accusamus.
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                Maxime, vitae aliquam incidunt cumque, aliquid hic quo libero
-                excepturi nulla vero repellendus dolores suscipit quos laborum
-                alias repellat consequatur totam quod.
+                {{ offer.offerDescription }}
             </div>
             <div class="flex items-center justify-between w-full gap-4">
                 <div

@@ -24,6 +24,15 @@ export class UserService {
         private router: Router
     ) {}
 
+    getOfferById(offerId: string): any {
+        return this.angularFireDatabase
+            .list<Offer>('offers', (ref) =>
+                ref.orderByChild('offerId').equalTo(offerId)
+            )
+            .valueChanges()
+            .pipe(map((offers) => (offers.length ? offers[0] : null)));
+    }
+
     setUser(user: User) {
         this.userSubject.next(user);
     }

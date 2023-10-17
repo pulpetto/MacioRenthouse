@@ -29,7 +29,7 @@ const routes: Routes = [
         canActivate: [isLoggedGuard],
     },
     {
-        path: ':offer',
+        path: 'offer/:id',
         component: OfferFullViewComponent,
     },
     {
