@@ -10,10 +10,10 @@ import { ActivatedRoute } from '@angular/router';
     styleUrls: ['./offer-full-view.component.css'],
 })
 export class OfferFullViewComponent implements OnInit {
-    offer: Offer | undefined;
+    offer!: Offer;
     math = Math;
-
     activeImageIndex: number = 0;
+    placeholdersAmount = new Array(4);
 
     constructor(
         private route: ActivatedRoute,
@@ -45,8 +45,14 @@ export class OfferFullViewComponent implements OnInit {
         }
     }
 
-    placeholdersAmount = new Array(4);
+    @HostListener('document:keydown', ['$event'])
+    handleKeyboardEvent(event: KeyboardEvent) {
+        if (event.key === 'ArrowRight')
+            this.nextImage(4 - this.offer?.images.length);
 
-    images = [1, 2, 3, 4];
+        if (event.key === 'ArrowLeft')
+            this.previousImage(4 - this.offer?.images.length);
+    }
+
     images2 = [1, 2, 3, 4, 5];
 }
