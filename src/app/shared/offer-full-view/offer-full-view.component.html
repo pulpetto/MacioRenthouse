@@ -40,15 +40,16 @@
                     />
                 </div>
                 <div class="flex gap-2">
-                    <div
+                    <button
+                        type="button"
                         *ngFor="let image of offer.images; let i = index"
+                        (click)="clickedImageChange(i)"
                         class="w-1/4 rounded-md shadow-md max-h-min drop-shadow-md shadow-black backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter bg-neutral-950"
                         [ngClass]="{
                             'border-indigo-700 border-solid border-2': activeImageIndex === i,
                         }"
                     >
                         <img
-                            (click)="clickedImageChange(i)"
                             [src]="image"
                             class="object-cover w-full h-40 rounded-md"
                             [alt]="
@@ -57,7 +58,7 @@
                                 'photo'
                             "
                         />
-                    </div>
+                    </button>
 
                     <ng-container *ngIf="offer.images.length < 4">
                         <div
