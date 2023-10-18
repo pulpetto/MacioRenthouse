@@ -21,6 +21,7 @@ export class AccountComponent {
     }
 
     closeCreator() {
+        this.renderer.removeClass(document.body, 'overflow-hidden');
         this.creatorOpenState = false;
     }
 
