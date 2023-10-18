@@ -8,6 +8,7 @@
                     class="relative flex items-center justify-center w-full rounded-md shadow-md drop-shadow-md shadow-black backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter bg-neutral-950"
                 >
                     <button
+                        (click)="previousImage(offer.images.length)"
                         *ngIf="offer.images.length > 1"
                         type="button"
                         class="absolute left-0 w-12 h-12 transition-all duration-300 -translate-y-1/2 top-1/2 hover:-translate-x-1 hover:scale-105"
@@ -19,6 +20,7 @@
                         />
                     </button>
                     <button
+                        (click)="nextImage(offer.images.length)"
                         *ngIf="offer.images.length > 1"
                         type="button"
                         class="absolute right-0 w-12 h-12 transition-all duration-300 -translate-y-1/2 top-1/2 hover:translate-x-1 hover:scale-105"

@@ -27,6 +27,22 @@ export class OfferFullViewComponent implements OnInit {
         });
     }
 
+    previousImage(imagesArrLength: number) {
+        if (this.activeImageIndex === 0) {
+            this.activeImageIndex = imagesArrLength - 1;
+        } else {
+            this.activeImageIndex--;
+        }
+    }
+
+    nextImage(imagesArrLength: number) {
+        if (this.activeImageIndex === imagesArrLength - 1) {
+            this.activeImageIndex = 0;
+        } else {
+            this.activeImageIndex++;
+        }
+    }
+
     placeholdersAmount = new Array(4);
 
     images = [1, 2, 3, 4];
