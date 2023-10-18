@@ -4,7 +4,9 @@
     >
         <div class="flex gap-4">
             <div class="flex flex-col w-8/12 gap-2">
-                <div class="relative w-full">
+                <div
+                    class="relative flex items-center justify-center w-full rounded-md shadow-md drop-shadow-md shadow-black backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter bg-neutral-950"
+                >
                     <button
                         *ngIf="offer.images.length > 1"
                         type="button"
@@ -28,11 +30,19 @@
                         />
                     </button>
                     <img
+                        [src]="offer.images[activeImageIndex]"
+                        class="rounded-md h-96"
+                        [alt]="
+                            offer.car.carBrand + offer.car.brandModel + 'photo'
+                        "
+                    />
+                    <!-- <img
                         src="https://www.bmw-m.com/content/dam/bmw/marketBMW_M/common/topics/magazine-article-pool/2018/bmw-m2-coupe-edition-black-shadow/bmw-m2-coup%C3%A9-black-shadow-stage-teaser-si.jpg"
                         class="w-full rounded-md"
-                        alt=""
-                    />
-                    <!-- if 1 image no arrows -->
+                        [alt]="
+                            offer.car.carBrand + offer.car.brandModel + 'photo'
+                        "
+                    /> -->
                 </div>
                 <div class="flex gap-2">
                     <div
@@ -42,7 +52,11 @@
                         <img
                             [src]="image"
                             class="object-cover h-full border-2 border-indigo-700 border-solid rounded-md"
-                            alt=""
+                            [alt]="
+                                offer.car.carBrand +
+                                offer.car.brandModel +
+                                'photo'
+                            "
                         />
                     </div>
 
@@ -59,6 +73,7 @@
                     </ng-container>
                 </div>
             </div>
+
             <div class="flex flex-col justify-between w-4/12">
                 <div class="flex flex-col items-center gap-4">
                     <div class="flex items-center self-center gap-1">

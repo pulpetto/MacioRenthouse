@@ -13,6 +13,8 @@ export class OfferFullViewComponent implements OnInit {
     offer$!: Observable<Offer>;
     math = Math;
 
+    activeImageIndex: number = 0;
+
     constructor(
         private route: ActivatedRoute,
         private userService: UserService
