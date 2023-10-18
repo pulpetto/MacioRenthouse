@@ -48,8 +48,11 @@
                 </div>
                 <div class="flex gap-2">
                     <div
-                        *ngFor="let image of offer.images"
-                        class="w-1/4 border-2 border-indigo-700 border-solid rounded-md shadow-md max-h-min drop-shadow-md shadow-black backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter bg-neutral-950"
+                        *ngFor="let image of offer.images; let i = index"
+                        class="w-1/4 rounded-md shadow-md max-h-min drop-shadow-md shadow-black backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter bg-neutral-950"
+                        [ngClass]="{
+                            'border-indigo-700 border-solid border-2': activeImageIndex === i,
+                        }"
                     >
                         <img
                             [src]="image"
