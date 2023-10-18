@@ -25,6 +25,8 @@ export class OfferFullViewComponent implements OnInit {
         });
     }
 
+    placeholdersAmount = new Array(4);
+
     images = [1, 2, 3, 4];
     images2 = [1, 2, 3, 4, 5];
 }

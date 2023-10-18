@@ -45,6 +45,17 @@
                             alt=""
                         />
                     </div>
+
+                    <ng-container *ngIf="offer.images.length < 4">
+                        <div
+                            *ngFor="
+                                let emptyPlaceholder of placeholdersAmount.slice(
+                                    0,
+                                    offer.images.length
+                                )
+                            "
+                        ></div>
+                    </ng-container>
                 </div>
             </div>
             <div class="flex flex-col justify-between w-4/12">
