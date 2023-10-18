@@ -49,11 +49,11 @@
                 <div class="flex gap-2">
                     <div
                         *ngFor="let image of offer.images"
-                        class="w-1/4 max-h-min"
+                        class="w-1/4 border-2 border-indigo-700 border-solid rounded-md shadow-md max-h-min drop-shadow-md shadow-black backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter bg-neutral-950"
                     >
                         <img
                             [src]="image"
-                            class="object-cover h-full border-2 border-indigo-700 border-solid rounded-md"
+                            class="object-cover w-full h-40 rounded-md"
                             [alt]="
                                 offer.car.carBrand +
                                 offer.car.brandModel +
