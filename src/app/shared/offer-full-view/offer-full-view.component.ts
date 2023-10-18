@@ -29,29 +29,31 @@ export class OfferFullViewComponent implements OnInit {
         });
     }
 
-    previousImage(imagesArrLength: number) {
+    previousImage() {
         if (this.activeImageIndex === 0) {
-            this.activeImageIndex = imagesArrLength - 1;
+            this.activeImageIndex = this.offer?.images.length - 1;
         } else {
             this.activeImageIndex--;
         }
     }
 
-    nextImage(imagesArrLength: number) {
-        if (this.activeImageIndex === imagesArrLength - 1) {
+    nextImage() {
+        if (this.activeImageIndex === this.offer?.images.length - 1) {
             this.activeImageIndex = 0;
         } else {
             this.activeImageIndex++;
         }
     }
 
+    clickedImageChange(i: number) {
+        this.activeImageIndex = i;
+    }
+
     @HostListener('document:keydown', ['$event'])
     handleKeyboardEvent(event: KeyboardEvent) {
-        if (event.key === 'ArrowRight')
-            this.nextImage(4 - this.offer?.images.length);
+        if (event.key === 'ArrowRight') this.nextImage();
 
-        if (event.key === 'ArrowLeft')
-            this.previousImage(4 - this.offer?.images.length);
+        if (event.key === 'ArrowLeft') this.previousImage();
     }
 
     images2 = [1, 2, 3, 4, 5];
