@@ -24,7 +24,7 @@ export class UserService {
         private router: Router
     ) {}
 
-    getOfferById(offerId: string): any {
+    getOfferById(offerId: string): Observable<Offer | null> {
         return this.angularFireDatabase
             .list<Offer>('offers', (ref) =>
                 ref.orderByChild('offerId').equalTo(offerId)

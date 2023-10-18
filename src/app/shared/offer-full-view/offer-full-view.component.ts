@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Offer } from 'src/app/interfaces/offer';
 import { UserService } from 'src/app/services/user.service';
@@ -10,7 +10,7 @@ import { ActivatedRoute } from '@angular/router';
     styleUrls: ['./offer-full-view.component.css'],
 })
 export class OfferFullViewComponent implements OnInit {
-    offer$!: Observable<Offer>;
+    offer: Offer | undefined;
     math = Math;
 
     activeImageIndex: number = 0;
@@ -23,7 +23,9 @@ export class OfferFullViewComponent implements OnInit {
     ngOnInit() {
         this.route.paramMap.subscribe((params) => {
             const offerId = params.get('id');
-            this.offer$ = this.userService.getOfferById(offerId!);
+            this.userService.getOfferById(offerId!).subscribe((offerData) => {
+                if (offerData) this.offer = offerData;
+            });
         });
     }
 
