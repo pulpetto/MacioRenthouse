@@ -1,7 +1,7 @@
 <div
     *ngIf="fullscreenPreview"
     cdkTrapFocus
-    class="absolute z-50 flex items-center justify-center w-full h-full bg-neutral-950"
+    class="fixed z-50 flex flex-col items-center w-full h-full gap-2 pt-2 pb-4 bg-neutral-950"
 >
     <button
         (click)="imageFullscreen()"
@@ -37,47 +37,47 @@
             alt="right arrow icon"
         />
     </button>
-    <div class="flex flex-col w-8/12 gap-2">
-        <div
-            class="relative flex items-center justify-center w-full rounded-md shadow-md drop-shadow-md shadow-black backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter bg-neutral-950"
-        >
-            <button type="button" (click)="imageFullscreen()">
-                <img
-                    [src]="offer.images[activeImageIndex]"
-                    class="h-full rounded-md"
-                    [alt]="offer.car.carBrand + offer.car.brandModel + 'photo'"
-                />
-            </button>
-        </div>
-        <div class="flex gap-2">
-            <button
-                type="button"
-                *ngFor="let image of offer.images; let i = index"
-                (click)="clickedImageChange(i)"
-                class="w-1/4 rounded-md shadow-md max-h-min drop-shadow-md shadow-black backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter bg-neutral-950"
-                [ngClass]="{
+
+    <div
+        class="rounded-md shadow-md drop-shadow-md shadow-black backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter bg-neutral-950 h-4/5"
+    >
+        <button type="button" class="h-full">
+            <img
+                [src]="offer.images[activeImageIndex]"
+                class="h-full rounded-md"
+                [alt]="offer.car.carBrand + offer.car.brandModel + 'photo'"
+            />
+        </button>
+    </div>
+
+    <div class="flex w-4/5 gap-2 h-1/5">
+        <button
+            type="button"
+            *ngFor="let image of offer.images; let i = index"
+            (click)="clickedImageChange(i)"
+            class="w-1/4 h-full rounded-md shadow-md drop-shadow-md shadow-black backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter bg-neutral-950"
+            [ngClass]="{
                 'border-indigo-700 border-solid border-2': activeImageIndex === i,
             }"
-            >
-                <img
-                    [src]="image"
-                    class="object-cover w-full h-40 rounded-md"
-                    [alt]="offer.car.carBrand + offer.car.brandModel + 'photo'"
-                />
-            </button>
+        >
+            <img
+                [src]="image"
+                class="object-cover w-full h-full rounded-md"
+                [alt]="offer.car.carBrand + offer.car.brandModel + 'photo'"
+            />
+        </button>
 
-            <ng-container *ngIf="offer.images.length < 4">
-                <div
-                    *ngFor="
-                        let emptyPlaceholder of placeholdersAmount.slice(
-                            0,
-                            offer.images.length
-                        )
-                    "
-                    class="w-1/4 h-full rounded-md shadow-md drop-shadow-md shadow-black backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter bg-neutral-950"
-                ></div>
-            </ng-container>
-        </div>
+        <ng-container *ngIf="offer.images.length < 4">
+            <div
+                *ngFor="
+                    let emptyPlaceholder of placeholdersAmount.slice(
+                        0,
+                        offer.images.length
+                    )
+                "
+                class="w-1/4 h-full rounded-md shadow-md drop-shadow-md shadow-black backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter bg-neutral-950"
+            ></div>
+        </ng-container>
     </div>
 </div>
 
