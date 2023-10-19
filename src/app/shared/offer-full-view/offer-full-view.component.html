@@ -94,7 +94,7 @@
                         (click)="previousImage()"
                         *ngIf="offer.images.length > 1"
                         type="button"
-                        class="absolute left-0 w-12 h-12 transition-all duration-300 translate-y-1/2 top-1/2 hover:-translate-x-1 hover:scale-105"
+                        class="absolute left-0 w-12 h-12 transition-all duration-300 -translate-y-1/2 top-1/2 hover:-translate-x-1 hover:scale-105"
                     >
                         <img
                             src="assets/svgs/arrow-left-5-svgrepo-com.svg"
@@ -106,7 +106,7 @@
                         (click)="nextImage()"
                         *ngIf="offer.images.length > 1"
                         type="button"
-                        class="absolute right-0 w-12 h-12 transition-all duration-300 translate-y-1/2 top-1/2 hover:translate-x-1 hover:scale-105"
+                        class="absolute right-0 w-12 h-12 transition-all duration-300 -translate-y-1/2 top-1/2 hover:translate-x-1 hover:scale-105"
                     >
                         <img
                             src="assets/svgs/right-arrow-svgrepo-com.svg"
