@@ -1,3 +1,86 @@
+<div
+    *ngIf="fullscreenPreview"
+    cdkTrapFocus
+    class="absolute z-50 flex items-center justify-center w-full h-full bg-neutral-950"
+>
+    <button
+        (click)="imageFullscreen()"
+        class="absolute w-12 h-12 right-2 top-2"
+    >
+        <img
+            src="assets/svgs/cross-svgrepo-com(1).svg"
+            class="w-full h-full"
+            alt="cross icon"
+        />
+    </button>
+    <button
+        (click)="previousImage()"
+        *ngIf="offer.images.length > 1"
+        type="button"
+        class="absolute left-0 w-24 h-24 transition-all duration-300 -translate-y-1/2 top-1/2 hover:-translate-x-1 hover:scale-105"
+    >
+        <img
+            src="assets/svgs/arrow-left-5-svgrepo-com.svg"
+            class="w-full h-full"
+            alt="left arrow icon"
+        />
+    </button>
+    <button
+        (click)="nextImage()"
+        *ngIf="offer.images.length > 1"
+        type="button"
+        class="absolute right-0 w-24 h-24 transition-all duration-300 -translate-y-1/2 top-1/2 hover:translate-x-1 hover:scale-105"
+    >
+        <img
+            src="assets/svgs/right-arrow-svgrepo-com.svg"
+            class="w-full h-full"
+            alt="right arrow icon"
+        />
+    </button>
+    <div class="flex flex-col w-8/12 gap-2">
+        <div
+            class="relative flex items-center justify-center w-full rounded-md shadow-md drop-shadow-md shadow-black backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter bg-neutral-950"
+        >
+            <button type="button" (click)="imageFullscreen()">
+                <img
+                    [src]="offer.images[activeImageIndex]"
+                    class="h-full rounded-md"
+                    [alt]="offer.car.carBrand + offer.car.brandModel + 'photo'"
+                />
+            </button>
+        </div>
+        <div class="flex gap-2">
+            <button
+                type="button"
+                *ngFor="let image of offer.images; let i = index"
+                (click)="clickedImageChange(i)"
+                class="w-1/4 rounded-md shadow-md max-h-min drop-shadow-md shadow-black backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter bg-neutral-950"
+                [ngClass]="{
+                'border-indigo-700 border-solid border-2': activeImageIndex === i,
+            }"
+            >
+                <img
+                    [src]="image"
+                    class="object-cover w-full h-40 rounded-md"
+                    [alt]="offer.car.carBrand + offer.car.brandModel + 'photo'"
+                />
+            </button>
+
+            <ng-container *ngIf="offer.images.length < 4">
+                <div
+                    *ngFor="
+                        let emptyPlaceholder of placeholdersAmount.slice(
+                            0,
+                            offer.images.length
+                        )
+                    "
+                    class="w-1/4 h-full rounded-md shadow-md drop-shadow-md shadow-black backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter bg-neutral-950"
+                ></div>
+            </ng-container>
+        </div>
+    </div>
+</div>
+
 <div *ngIf="offer" class="h-full pb-24 pt-36">
     <div
         class="flex flex-col gap-16 p-4 mx-auto rounded-md shadow-2xl drop-shadow-xl max-w-7xl shadow-black backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter bg-neutral-950"
@@ -11,7 +94,7 @@
                         (click)="previousImage()"
                         *ngIf="offer.images.length > 1"
                         type="button"
-                        class="absolute left-0 w-12 h-12 transition-all duration-300 -translate-y-1/2 top-1/2 hover:-translate-x-1 hover:scale-105"
+                        class="absolute left-0 w-12 h-12 transition-all duration-300 translate-y-1/2 top-1/2 hover:-translate-x-1 hover:scale-105"
                     >
                         <img
                             src="assets/svgs/arrow-left-5-svgrepo-com.svg"
@@ -23,7 +106,7 @@
                         (click)="nextImage()"
                         *ngIf="offer.images.length > 1"
                         type="button"
-                        class="absolute right-0 w-12 h-12 transition-all duration-300 -translate-y-1/2 top-1/2 hover:translate-x-1 hover:scale-105"
+                        class="absolute right-0 w-12 h-12 transition-all duration-300 translate-y-1/2 top-1/2 hover:translate-x-1 hover:scale-105"
                     >
                         <img
                             src="assets/svgs/right-arrow-svgrepo-com.svg"
@@ -31,13 +114,18 @@
                             alt="right arrow icon"
                         />
                     </button>
-                    <img
-                        [src]="offer.images[activeImageIndex]"
-                        class="rounded-md h-96"
-                        [alt]="
-                            offer.car.carBrand + offer.car.brandModel + 'photo'
-                        "
-                    />
+
+                    <button type="button" (click)="imageFullscreen()">
+                        <img
+                            [src]="offer.images[activeImageIndex]"
+                            class="rounded-md h-96"
+                            [alt]="
+                                offer.car.carBrand +
+                                offer.car.brandModel +
+                                'photo'
+                            "
+                        />
+                    </button>
                 </div>
                 <div class="flex gap-2">
                     <button
