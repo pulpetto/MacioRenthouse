@@ -1,5 +1,10 @@
-import { Component, HostListener, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import {
+    Component,
+    ElementRef,
+    HostListener,
+    OnInit,
+    ViewChild,
+} from '@angular/core';
 import { Offer } from 'src/app/interfaces/offer';
 import { UserService } from 'src/app/services/user.service';
 import { ActivatedRoute } from '@angular/router';
@@ -16,6 +21,28 @@ export class OfferFullViewComponent implements OnInit {
     activeImageIndex: number = 0;
     placeholdersAmount = new Array(4);
     fullscreenPreview: boolean = false;
+    canActivateFullscreen: boolean = true;
+
+    @ViewChild('imageSlider', { static: false }) set imageSlider(
+        targetElement: ElementRef
+    ) {
+        if (targetElement) {
+            const observer = new IntersectionObserver(
+                (entries) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            this.canActivateFullscreen = true;
+                        } else {
+                            this.canActivateFullscreen = false;
+                        }
+                    });
+                },
+                { root: null, rootMargin: '0px', threshold: 0.5 }
+            );
+
+            observer.observe(targetElement.nativeElement);
+        }
+    }
 
     constructor(
         private route: ActivatedRoute,
@@ -34,14 +61,14 @@ export class OfferFullViewComponent implements OnInit {
 
     previousImage() {
         if (this.activeImageIndex === 0) {
-            this.activeImageIndex = this.offer?.images.length - 1;
+            this.activeImageIndex = this.offer!.images.length - 1;
         } else {
             this.activeImageIndex--;
         }
     }
 
     nextImage() {
-        if (this.activeImageIndex === this.offer?.images.length - 1) {
+        if (this.activeImageIndex === this.offer!.images.length - 1) {
             this.activeImageIndex = 0;
         } else {
             this.activeImageIndex++;
@@ -72,7 +99,8 @@ export class OfferFullViewComponent implements OnInit {
             this.renderer.removeClass(document.body, 'overflow-hidden');
         }
 
-        if (event.key === 'f') this.imageFullscreen();
+        if (this.canActivateFullscreen)
+            if (event.key === 'f') this.imageFullscreen();
     }
 
     images2 = [1, 2, 3, 4, 5];
