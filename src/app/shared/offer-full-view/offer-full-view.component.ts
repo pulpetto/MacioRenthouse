@@ -20,7 +20,7 @@ export class OfferFullViewComponent implements OnInit {
     offer!: Offer;
     math = Math;
     activeImageIndex: number = 0;
-    placeholdersAmount = new Array(4);
+    placeholdersAmount = new Array();
     fullscreenPreview: boolean = false;
     canActivateFullscreen: boolean = true;
 
@@ -56,7 +56,12 @@ export class OfferFullViewComponent implements OnInit {
         this.route.paramMap.subscribe((params) => {
             const offerId = params.get('id');
             this.userService.getOfferById(offerId!).subscribe((offerData) => {
-                if (offerData) this.offer = offerData;
+                if (offerData) {
+                    this.offer = offerData;
+                    this.placeholdersAmount = new Array(
+                        4 - offerData.images.length
+                    );
+                }
             });
         });
 
