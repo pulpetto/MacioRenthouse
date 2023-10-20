@@ -12,6 +12,7 @@ import { SettingsComponent } from './pages/account/settings/settings.component';
 import { FavouritesComponent } from './pages/account/favourites/favourites.component';
 import { OfferComponent } from './shared/offer/offer.component';
 import { OfferFullViewComponent } from './shared/offer-full-view/offer-full-view.component';
+import { offerExistsGuard } from './guards/offer-exists.guard';
 
 const routes: Routes = [
     {
@@ -31,6 +32,7 @@ const routes: Routes = [
     {
         path: 'offer/:id',
         component: OfferFullViewComponent,
+        canActivate: [offerExistsGuard],
     },
     {
         path: 'account/:username/:userId',
