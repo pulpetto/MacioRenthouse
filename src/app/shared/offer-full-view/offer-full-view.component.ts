@@ -23,6 +23,7 @@ export class OfferFullViewComponent implements OnInit {
     placeholdersAmount = new Array();
     fullscreenPreview: boolean = false;
     canActivateFullscreen: boolean = true;
+    isHeaderSearchBarFocused: boolean = false;
 
     @ViewChild('imageSlider', { static: false }) set imageSlider(
         targetElement: ElementRef
@@ -68,6 +69,7 @@ export class OfferFullViewComponent implements OnInit {
         this.visibilityService
             .getHeaderSearchBarFocusState()
             .subscribe((isFocused) => {
+                this.isHeaderSearchBarFocused = isFocused;
                 this.canActivateFullscreen = !isFocused;
             });
     }
@@ -112,7 +114,7 @@ export class OfferFullViewComponent implements OnInit {
             this.renderer.removeClass(document.body, 'overflow-hidden');
         }
 
-        if (this.canActivateFullscreen)
+        if (this.canActivateFullscreen && !this.isHeaderSearchBarFocused)
             if (event.key === 'f') this.imageFullscreen();
     }
 
