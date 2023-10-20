@@ -26,6 +26,10 @@ export class HeaderComponent implements OnInit {
             this.visibilityService.getHeaderSearchBarVisibility();
     }
 
+    setFocusState(state: boolean) {
+        this.visibilityService.setHeaderSearchBarFocusState(state);
+    }
+
     navigateToDashboard() {
         this.userService.navigateToDashboard();
     }

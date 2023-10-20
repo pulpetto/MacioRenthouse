@@ -9,6 +9,7 @@ import { Offer } from 'src/app/interfaces/offer';
 import { UserService } from 'src/app/services/user.service';
 import { ActivatedRoute } from '@angular/router';
 import { Renderer2 } from '@angular/core';
+import { VisibilityService } from 'src/app/services/visibility.service';
 
 @Component({
     selector: 'app-offer-full-view',
@@ -47,6 +48,7 @@ export class OfferFullViewComponent implements OnInit {
     constructor(
         private route: ActivatedRoute,
         private userService: UserService,
+        private visibilityService: VisibilityService,
         private renderer: Renderer2
     ) {}
 
@@ -57,6 +59,12 @@ export class OfferFullViewComponent implements OnInit {
                 if (offerData) this.offer = offerData;
             });
         });
+
+        this.visibilityService
+            .getHeaderSearchBarFocusState()
+            .subscribe((isFocused) => {
+                this.canActivateFullscreen = !isFocused;
+            });
     }
 
     previousImage() {
