@@ -236,7 +236,7 @@ export class OfferCreatorComponent {
 
                 const newOffer: Offer = {
                     offerId: offerId,
-                    publishDate: new Date(),
+                    unixPublishDate: new Date().valueOf(),
                     price: +this.offerForm?.get('price')?.value!,
                     pickupLocation:
                         this.offerForm?.get('pickupLocation')?.value!,

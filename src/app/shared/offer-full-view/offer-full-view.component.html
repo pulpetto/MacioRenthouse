@@ -315,8 +315,10 @@
                         <div>{{ offer.car.horsePower | numberFormat }} hp</div>
                     </div>
                     <div class="flex gap-1">
-                        <div>Offer id:</div>
-                        <div>{{ offer.offerId }}</div>
+                        <div>Published on:</div>
+                        <div>
+                            {{ offer.unixPublishDate | date : "dd MMMM yyyy" }}
+                        </div>
                     </div>
                 </div>
             </div>
