@@ -13,6 +13,7 @@ import { FavouritesComponent } from './pages/account/favourites/favourites.compo
 import { OfferComponent } from './shared/offer/offer.component';
 import { OfferFullViewComponent } from './shared/offer-full-view/offer-full-view.component';
 import { offerExistsGuard } from './guards/offer-exists.guard';
+import { UserComponent } from './shared/user/user.component';
 
 const routes: Routes = [
     {
@@ -32,6 +33,11 @@ const routes: Routes = [
     {
         path: 'offer/:id',
         component: OfferFullViewComponent,
+        canActivate: [offerExistsGuard],
+    },
+    {
+        path: 'user/:username',
+        component: UserComponent,
         canActivate: [offerExistsGuard],
     },
     {
