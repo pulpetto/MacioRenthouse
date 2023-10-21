@@ -153,7 +153,7 @@ export class SignupComponent implements OnInit {
             email: this.signupForm.get('email')?.value!,
             age: parseInt(this.signupForm.get('age')?.value!),
             password: this.signupForm.get('password')?.value!,
-            userOffers: [],
+            offers: [],
             favouriteOffers: [],
         };
 

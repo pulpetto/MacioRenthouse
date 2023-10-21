@@ -7,6 +7,6 @@ export interface User {
     email: string;
     age: number;
     password: string;
-    userOffers: Offer[];
+    offers: Offer[];
     favouriteOffers: Offer[];
 }

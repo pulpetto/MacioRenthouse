@@ -59,9 +59,7 @@ export class UserService {
         ]).pipe(
             map(([user, offersArray]) => {
                 if (user && offersArray) {
-                    console.log(user.userOffers);
-                    user.userOffers = offersArray as Offer[];
-                    console.log(user.userOffers);
+                    user.offers = offersArray as Offer[];
                 }
                 return user;
             })

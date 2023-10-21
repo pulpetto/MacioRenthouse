@@ -259,7 +259,7 @@ export class OfferCreatorComponent {
                 };
 
                 this.userService.addOffer(newOffer);
-                user?.userOffers?.push(newOffer);
+                user?.offers?.push(newOffer);
 
                 this.creatorReset();
             });
