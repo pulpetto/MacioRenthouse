@@ -14,8 +14,16 @@
                     />
                 </div>
                 <div class="flex flex-col gap-1">
-                    <div class="text-5xl font-semibold">Name Lastname</div>
-                    <div class="text-lg opacity-70">@username</div>
+                    <div class="text-5xl font-semibold">
+                        {{
+                            user.name.at(0)?.toUpperCase() + user.name.slice(1)
+                        }}
+                        {{
+                            user.lastname.at(0)?.toUpperCase() +
+                                user.lastname.slice(1)
+                        }}
+                    </div>
+                    <div class="text-lg opacity-70">@{{ user.username }}</div>
                 </div>
             </div>
             <div>other user info</div>
