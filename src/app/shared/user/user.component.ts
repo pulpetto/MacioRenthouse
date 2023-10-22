@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Observable, map } from 'rxjs';
 import { Offer } from 'src/app/interfaces/offer';
 import { User } from 'src/app/interfaces/user';
@@ -10,13 +11,19 @@ import { UserService } from 'src/app/services/user.service';
     styleUrls: ['./user.component.css'],
 })
 export class UserComponent implements OnInit {
-    offers$!: Observable<Offer[] | null>;
+    user$!: Observable<User | null>;
 
-    constructor(private userService: UserService) {}
+    constructor(
+        private route: ActivatedRoute,
+        private userService: UserService
+    ) {}
 
     ngOnInit() {
-        this.offers$ = this.userService
-            .getUser2()
-            .pipe(map((user) => user?.offers || null));
+        this.route.paramMap.subscribe((params) => {
+            const username = params.get('username');
+            this.user$ = this.userService
+                .getUserByUsername(username!)
+                .pipe(map((user) => user || null));
+        });
     }
 }

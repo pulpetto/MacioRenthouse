@@ -33,6 +33,22 @@ export class UserService {
             .pipe(map((offers) => (offers.length ? offers[0] : null)));
     }
 
+    getUserByUsername(username: string): Observable<User | null> {
+        return combineLatest([
+            this.userSubject.asObservable(),
+            this.angularFireDatabase
+                .list(`users/${username}/offers`)
+                .valueChanges(),
+        ]).pipe(
+            map(([user, offersArray]) => {
+                if (user && offersArray) {
+                    user.offers = offersArray as Offer[];
+                }
+                return user;
+            })
+        );
+    }
+
     setUser(user: User) {
         this.userSubject.next(user);
     }
