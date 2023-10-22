@@ -10,12 +10,9 @@ export const userExistsGuard: CanActivateFn = (route, state) => {
 
     return userService.getUserByUsername(routeUsername).pipe(
         map((user) => {
-            console.log(user);
             if (user === null) {
-                console.log('qqq');
                 return router.parseUrl('/404');
             } else {
-                console.log('fr');
                 return true;
             }
         })
