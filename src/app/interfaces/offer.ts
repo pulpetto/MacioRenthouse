@@ -1,5 +1,6 @@
 export interface Offer {
     offerId: string;
+    sellerUsername: string;
     unixPublishDate: number;
     price: number;
     pickupLocation: string;

@@ -221,47 +221,53 @@ export class OfferCreatorComponent {
             return;
         } else {
             this.userService.getUser().subscribe(async (user) => {
-                await this.uploadImagesToFirebaseStorage();
+                if (user) {
+                    await this.uploadImagesToFirebaseStorage();
 
-                const offerId = this.generateRandomString();
-                const carBrand = this.offerForm?.get('carBrand')?.value!;
-                const capitalizedCarBrand =
-                    carBrand.charAt(0).toUpperCase() +
-                    carBrand.slice(1).toLowerCase();
+                    const offerId = this.generateRandomString();
+                    const carBrand = this.offerForm?.get('carBrand')?.value!;
+                    const capitalizedCarBrand =
+                        carBrand.charAt(0).toUpperCase() +
+                        carBrand.slice(1).toLowerCase();
 
-                const carModel = this.offerForm?.get('carModel')?.value!;
-                const capitalizedBrandModel =
-                    carModel.charAt(0).toUpperCase() +
-                    carModel.slice(1).toLowerCase();
+                    const carModel = this.offerForm?.get('carModel')?.value!;
+                    const capitalizedBrandModel =
+                        carModel.charAt(0).toUpperCase() +
+                        carModel.slice(1).toLowerCase();
 
-                const newOffer: Offer = {
-                    offerId: offerId,
-                    unixPublishDate: new Date().valueOf(),
-                    price: +this.offerForm?.get('price')?.value!,
-                    pickupLocation:
-                        this.offerForm?.get('pickupLocation')?.value!,
-                    offerDescription:
-                        this.offerForm?.get('description')?.value!,
-                    images: this.imagesUrls,
-                    car: {
-                        carBrand: capitalizedCarBrand,
-                        brandModel: capitalizedBrandModel,
-                        productionYear:
-                            +this.offerForm?.get('productionYear')?.value!,
-                        seats: +this.offerForm?.get('availableSeats')?.value!,
-                        gearboxType: this.offerForm?.get('gearboxType')?.value!,
-                        fuelType: this.offerForm?.get('fuelType')?.value!,
-                        engineCapacity:
-                            +this.offerForm?.get('engineCapacity')?.value!,
-                        mileage: +this.offerForm?.get('mileage')?.value!,
-                        horsePower: +this.offerForm?.get('horsePower')?.value!,
-                    },
-                };
+                    const newOffer: Offer = {
+                        offerId: offerId,
+                        sellerUsername: user.username,
+                        unixPublishDate: new Date().valueOf(),
+                        price: +this.offerForm?.get('price')?.value!,
+                        pickupLocation:
+                            this.offerForm?.get('pickupLocation')?.value!,
+                        offerDescription:
+                            this.offerForm?.get('description')?.value!,
+                        images: this.imagesUrls,
+                        car: {
+                            carBrand: capitalizedCarBrand,
+                            brandModel: capitalizedBrandModel,
+                            productionYear:
+                                +this.offerForm?.get('productionYear')?.value!,
+                            seats: +this.offerForm?.get('availableSeats')
+                                ?.value!,
+                            gearboxType:
+                                this.offerForm?.get('gearboxType')?.value!,
+                            fuelType: this.offerForm?.get('fuelType')?.value!,
+                            engineCapacity:
+                                +this.offerForm?.get('engineCapacity')?.value!,
+                            mileage: +this.offerForm?.get('mileage')?.value!,
+                            horsePower:
+                                +this.offerForm?.get('horsePower')?.value!,
+                        },
+                    };
 
-                this.userService.addOffer(newOffer);
-                user?.offers?.push(newOffer);
+                    this.userService.addOffer(newOffer);
+                    user?.offers?.push(newOffer);
 
-                this.creatorReset();
+                    this.creatorReset();
+                }
             });
         }
     }
