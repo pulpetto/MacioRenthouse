@@ -14,6 +14,7 @@ import { OfferComponent } from './shared/offer/offer.component';
 import { OfferFullViewComponent } from './shared/offer-full-view/offer-full-view.component';
 import { offerExistsGuard } from './guards/offer-exists.guard';
 import { UserComponent } from './shared/user/user.component';
+import { userExistsGuard } from './guards/user-exists.guard';
 
 const routes: Routes = [
     {
@@ -38,6 +39,7 @@ const routes: Routes = [
     {
         path: 'user/:username',
         component: UserComponent,
+        canActivate: [userExistsGuard],
     },
     {
         path: 'account/:username/:userId',

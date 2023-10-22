@@ -35,7 +35,12 @@ export class UserService {
 
     getUserByUsername(username: string): Observable<User | null> {
         return combineLatest([
-            this.userSubject.asObservable(),
+            this.angularFireDatabase
+                .list<User>('users', (ref) =>
+                    ref.orderByChild('username').equalTo(username)
+                )
+                .valueChanges()
+                .pipe(map((users) => (users.length ? users[0] : null))),
             this.angularFireDatabase
                 .list(`users/${username}/offers`)
                 .valueChanges(),
