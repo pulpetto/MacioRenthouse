@@ -42,6 +42,7 @@
         <div>
             <app-offer
                 *ngFor="let offer of user.offers"
+                class="transition-transform duration-300 hover:translate-y-2"
                 [offerData]="offer"
             ></app-offer>
         </div>
