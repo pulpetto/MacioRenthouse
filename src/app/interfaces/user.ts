@@ -9,4 +9,5 @@ export interface User {
     password: string;
     offers: Offer[];
     favouriteOffers: Offer[];
+    // date of account creation
 }
