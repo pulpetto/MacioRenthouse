@@ -46,7 +46,7 @@
             ></div>
         </div>
         <div>
-            <ng-container *ngIf="user.offers">
+            <ng-container *ngIf="user.offers.length > 0; else noOffersTemplate">
                 <app-offer
                     *ngFor="let offer of user.offers"
                     class="transition-transform duration-300 hover:translate-y-2"
