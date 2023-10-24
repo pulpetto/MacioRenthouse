@@ -39,13 +39,13 @@
                 class="w-full mt-1 border border-white border-solid rounded-md"
             ></div>
             <div class="text-3xl font-medium text-center whitespace-nowrap">
-                user offers
+                recent offers
             </div>
             <div
                 class="w-full mt-1 border border-white border-solid rounded-md"
             ></div>
         </div>
-        <div>
+        <div class="self-center">
             <ng-container *ngIf="user.offers.length > 0; else noOffersTemplate">
                 <app-offer
                     *ngFor="let offer of user.offers"
@@ -55,7 +55,9 @@
             </ng-container>
 
             <ng-template #noOffersTemplate>
-                <div>no offers</div>
+                <div class="my-48 text-2xl font-semibold">
+                    Nothing here, yet!
+                </div>
             </ng-template>
         </div>
     </div>
