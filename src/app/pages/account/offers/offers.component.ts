@@ -1,5 +1,4 @@
-import { Component, DestroyRef, OnInit, inject } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Offer } from 'src/app/interfaces/offer';
 import { UserService } from 'src/app/services/user.service';
@@ -10,17 +9,11 @@ import { UserService } from 'src/app/services/user.service';
     styleUrls: ['./offers.component.css'],
 })
 export class OffersComponent implements OnInit {
-    destroyRef = inject(DestroyRef);
-    userOffers: Offer[] | undefined;
+    offers$!: Observable<Offer[] | null>;
 
     constructor(private userService: UserService) {}
 
     ngOnInit() {
-        this.userService
-            .getUserOffers()
-            .pipe(takeUntilDestroyed(this.destroyRef))
-            .subscribe((offers) => {
-                this.userOffers = offers;
-            });
+        this.offers$ = this.userService.getUserOffers();
     }
 }

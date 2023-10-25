@@ -1,16 +1,20 @@
-<div class="flex flex-col items-center w-full gap-6 mt-12">
-    <app-offer
-        *ngFor="let offer of userOffers"
-        [offerData]="offer"
-        class="w-3/4 max-w-5xl"
-    ></app-offer>
-    <div
-        *ngIf="userOffers?.length === 0"
-        class="self-center text-center opacity-80"
-    >
-        <h1 class="mb-2 text-4xl font-semibold">
-            You dont have any offers yet!
-        </h1>
-        <div>Click plus icon, to add one</div>
-    </div>
+<div
+    *ngIf="offers$ | async as offers"
+    class="flex flex-col items-center w-full gap-6 mt-12"
+>
+    <ng-container *ngIf="offers.length > 0; else noOffers">
+        <app-offer
+            *ngFor="let offer of offers"
+            [offerData]="offer"
+            class="w-3/4 max-w-5xl"
+        ></app-offer>
+    </ng-container>
+    <ng-template #noOffers>
+        <div class="self-center text-center opacity-80">
+            <h1 class="mb-2 text-4xl font-semibold">
+                You dont have any offers yet!
+            </h1>
+            <div>Click plus icon, to add one</div>
+        </div>
+    </ng-template>
 </div>
