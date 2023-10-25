@@ -11,7 +11,7 @@
         />
     </button> -->
 
-    <div class="w-1/4 h-40 overflow-hidden rounded-md">
+    <div class="w-1/4 overflow-hidden rounded-md h-44">
         <img
             [src]="offerData.images[0]"
             class="object-cover object-center w-full h-full rounded-md"
@@ -19,23 +19,24 @@
         />
     </div>
 
-    <div class="flex flex-col justify-between w-3/4 text-neutral-300">
+    <div class="flex flex-col w-3/4 text-neutral-300">
         <div class="flex items-start justify-between gap-32">
-            <div
-                class="flex items-center gap-1 text-2xl font-medium text-white"
-            >
+            <div class="flex flex-col text-3xl font-medium text-white r">
                 <div>
                     {{ offerData.car.carBrand }} {{ offerData.car.brandModel }}
                 </div>
-                <div class="w-6 h-6">
-                    <img
-                        src="assets/svgs/dot-small-svgrepo-com.svg"
-                        class="w-full h-full"
-                        alt="dot icon"
-                    />
-                </div>
-                <div class="text-xl font-normal">
-                    {{ offerData.car.productionYear }}
+                <div class="flex items-center text-sm font-medium opacity-70">
+                    <div>{{ offerData.car.mileage | numberFormat }} km</div>
+                    <div class="w-4 h-4">
+                        <img
+                            src="assets/svgs/dot-small-svgrepo-com.svg"
+                            class="w-full h-full"
+                            alt="dot icon"
+                        />
+                    </div>
+                    <div>
+                        {{ offerData.car.productionYear }}
+                    </div>
                 </div>
             </div>
             <div class="flex gap-1 text-right">
@@ -50,7 +51,9 @@
             </div>
         </div>
 
-        <div class="flex self-center justify-between w-3/5 gap-10 text-white">
+        <div
+            class="flex self-center justify-between w-3/5 h-full gap-4 text-white opacity-80"
+        >
             <div class="flex items-center gap-1">
                 <div class="w-7 h-7">
                     <img
@@ -136,7 +139,7 @@
             </div>
         </div>
 
-        <div class="flex justify-between text-xs">
+        <!-- <div class="flex justify-between text-xs">
             <div class="flex gap-1">
                 <div>
                     <div><img src="" alt="" /></div>
@@ -159,6 +162,6 @@
                 </div>
                 <div class="font-semibold">{{ offerData.pickupLocation }}</div>
             </div>
-        </div>
+        </div> -->
     </div>
 </a>

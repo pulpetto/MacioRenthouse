@@ -5,7 +5,7 @@
     <app-offer
         *ngFor="let offer of userOffers"
         [offerData]="offer"
-        class="w-3/4 max-w-5xl transition-all duration-300 shadow-md hover:-translate-y-2 hover:scale-105 hover:shadow-lg hover:drop-shadow-lg"
+        class="w-3/4 max-w-5xl transition-all duration-300 shadow-md hover:-translate-y-2 hover:shadow-lg hover:drop-shadow-lg"
     ></app-offer>
     <div *ngIf="!userOffers" class="self-center text-center opacity-80">
         <h1 class="mb-2 text-4xl font-semibold">
