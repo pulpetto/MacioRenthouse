@@ -10,4 +10,5 @@ export interface User {
     offers: Offer[];
     favouriteOffers: Offer[];
     // date of account creation
+    // number of cars sold
 }
