@@ -1,15 +1,7 @@
-<a
+<!-- <a
     [routerLink]="'/offer/' + offerData.offerId"
     class="flex gap-4 p-2 pr-4 transition-transform duration-300 rounded-md shadow-2xl cursor-pointer bg-neutral-950 hover:-translate-y-2"
 >
-    <!-- <button class="absolute z-10 w-8 h-8">
-        <img
-            src="assets/svgs/bookmark-svgrepo-com.svg"
-            class="w-full h-full"
-            alt="bookmar icon"
-        />
-    </button> -->
-
     <div class="w-1/4 overflow-hidden rounded-md h-44">
         <img
             [src]="offerData.images[0]"
@@ -137,30 +129,39 @@
                 <div>{{ offerData.car.seats }}</div>
             </div>
         </div>
-
-        <!-- <div class="flex justify-between text-xs">
-            <div class="flex gap-1">
-                <div>
-                    <div><img src="" alt="" /></div>
-                    <div>
-                        {{ offerData.car.engineCapacity | numberFormat }} cm³
-                    </div>
-                </div>
-                <div>
-                    <div><img src="" alt="" /></div>
-                    <div>{{ offerData.car.horsePower | numberFormat }} hp</div>
-                </div>
-            </div>
-            <div class="flex items-center gap-1">
-                <div class="w-4 h-4">
-                    <img
-                        src="assets/svgs/location-svgrepo-com.svg"
-                        class="w-full h-full"
-                        alt="location icon"
-                    />
-                </div>
-                <div class="font-semibold">{{ offerData.pickupLocation }}</div>
-            </div>
-        </div> -->
     </div>
-</a>
+</a> -->
+
+<div class="p-2 rounded-md shadow-2xl bg-neutral-950">
+    <div role="status" class="flex items-center w-full gap-6 animate-pulse">
+        <div
+            class="flex items-center justify-center w-1/4 rounded bg-neutral-700 h-44"
+        >
+            <svg
+                class="w-12 h-12 text-neutral-500"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="currentColor"
+                viewBox="0 0 20 18"
+            >
+                <path
+                    d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z"
+                />
+            </svg>
+        </div>
+        <div class="w-3/4">
+            <div class="h-2.5 rounded-full bg-neutral-700 w-48 mb-4"></div>
+            <div
+                class="h-2 rounded-full bg-neutral-700 max-w-[480px] mb-2.5"
+            ></div>
+            <div class="h-2 rounded-full bg-neutral-700 mb-2.5"></div>
+            <div
+                class="h-2 rounded-full bg-neutral-700 max-w-[440px] mb-2.5"
+            ></div>
+            <div
+                class="h-2 rounded-full bg-neutral-700 max-w-[460px] mb-2.5"
+            ></div>
+            <div class="h-2 rounded-full bg-neutral-700 max-w-[360px]"></div>
+        </div>
+    </div>
+</div>
