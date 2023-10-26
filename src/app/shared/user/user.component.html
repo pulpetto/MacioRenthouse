@@ -21,7 +21,9 @@
                             loggedUserUsername$ | async as loggedUserUsername
                         "
                     >
-                        <span *ngIf="user.username === loggedUserUsername"
+                        <span
+                            *ngIf="user.username === loggedUserUsername"
+                            class="text-3xl font-medium opacity-80"
                             >(You)</span
                         >
                     </ng-container>
