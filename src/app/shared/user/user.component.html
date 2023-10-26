@@ -16,6 +16,15 @@
                         user.lastname.at(0)?.toUpperCase() +
                             user.lastname.slice(1)
                     }}
+                    <ng-container
+                        *ngIf="
+                            loggedUserUsername$ | async as loggedUserUsername
+                        "
+                    >
+                        <span *ngIf="user.username === loggedUserUsername"
+                            >(You)</span
+                        >
+                    </ng-container>
                 </div>
                 <div class="text-lg opacity-70">@{{ user.username }}</div>
             </div>

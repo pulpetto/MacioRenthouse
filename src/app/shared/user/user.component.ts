@@ -12,6 +12,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class UserComponent implements OnInit {
     user$!: Observable<User | null>;
+    loggedUserUsername$!: Observable<string | null>;
 
     constructor(
         private route: ActivatedRoute,
@@ -25,5 +26,9 @@ export class UserComponent implements OnInit {
                 .getUserByUsername(username!)
                 .pipe(map((user) => user || null));
         });
+
+        this.loggedUserUsername$ = this.userService
+            .getUser2()
+            .pipe(map((user) => user?.username || null));
     }
 }
