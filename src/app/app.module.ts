@@ -53,6 +53,7 @@ import { OfferFullViewComponent } from './shared/offer-full-view/offer-full-view
 import { FooterComponent } from './footer/footer.component';
 import { NumberSeparatorDirective } from './directives/number-separator.directive';
 import { UserComponent } from './shared/user/user.component';
+import { LoadingComponent } from './shared/loading/loading.component';
 
 @NgModule({
     declarations: [
@@ -76,6 +77,7 @@ import { UserComponent } from './shared/user/user.component';
         FooterComponent,
         NumberSeparatorDirective,
         UserComponent,
+        LoadingComponent,
     ],
     imports: [
         A11yModule,
