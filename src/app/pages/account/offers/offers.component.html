@@ -21,6 +21,7 @@
 
 <ng-template #loading>
     <div
+        cdkTrapFocus
         class="fixed top-0 left-0 z-50 flex flex-col items-center justify-center w-full h-full bg-black backdrop-blur-md bg-opacity-80"
     >
         <svg
@@ -39,6 +40,6 @@
                 fill="currentFill"
             />
         </svg>
-        <div class="mt-2 text-2xl font-semibold animate-ping">Loading...</div>
+        <div class="mt-4 text-2xl font-semibold animate-ping">Loading...</div>
     </div>
 </ng-template>
