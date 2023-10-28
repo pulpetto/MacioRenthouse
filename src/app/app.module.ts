@@ -54,6 +54,7 @@ import { FooterComponent } from './footer/footer.component';
 import { NumberSeparatorDirective } from './directives/number-separator.directive';
 import { LoadingComponent } from './shared/loading/loading.component';
 import { UserComponent } from './pages/user/user.component';
+import { OffersPreviewComponent } from './pages/user/offers-preview/offers-preview.component';
 
 @NgModule({
     declarations: [
@@ -78,6 +79,7 @@ import { UserComponent } from './pages/user/user.component';
         NumberSeparatorDirective,
         LoadingComponent,
         UserComponent,
+        OffersPreviewComponent,
     ],
     imports: [
         A11yModule,

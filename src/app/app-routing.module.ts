@@ -39,6 +39,10 @@ const routes: Routes = [
         path: 'user/:username',
         component: UserComponent,
         canActivate: [userExistsGuard],
+        children: [
+            { path: 'offers', component: OffersComponent },
+            { path: 'offer/:id', component: SettingsComponent },
+        ],
     },
     {
         path: 'account/:username/:userId',
