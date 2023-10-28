@@ -17,6 +17,7 @@ import { VisibilityService } from 'src/app/services/visibility.service';
     styleUrls: ['./offer-full-view.component.css'],
 })
 export class OfferFullViewComponent implements OnInit {
+    loading: boolean = true;
     offer!: Offer;
     math = Math;
     activeImageIndex: number = 0;
@@ -59,6 +60,7 @@ export class OfferFullViewComponent implements OnInit {
             this.userService.getOfferById(offerId!).subscribe((offerData) => {
                 if (offerData) {
                     this.offer = offerData;
+                    this.loading = false;
                     this.placeholdersAmount = new Array(
                         4 - offerData.images.length
                     );
