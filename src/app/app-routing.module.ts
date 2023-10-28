@@ -10,11 +10,10 @@ import { isLoggedGuard } from './guards/is-logged.guard';
 import { authGuard } from './guards/auth.guard';
 import { SettingsComponent } from './pages/account/settings/settings.component';
 import { FavouritesComponent } from './pages/account/favourites/favourites.component';
-import { OfferComponent } from './shared/offer/offer.component';
 import { OfferFullViewComponent } from './shared/offer-full-view/offer-full-view.component';
 import { offerExistsGuard } from './guards/offer-exists.guard';
-import { UserComponent } from './shared/user/user.component';
 import { userExistsGuard } from './guards/user-exists.guard';
+import { UserComponent } from './pages/user/user.component';
 
 const routes: Routes = [
     {

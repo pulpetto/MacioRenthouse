@@ -52,8 +52,8 @@ import { NumberFormatPipe } from './pipes/number-format.pipe';
 import { OfferFullViewComponent } from './shared/offer-full-view/offer-full-view.component';
 import { FooterComponent } from './footer/footer.component';
 import { NumberSeparatorDirective } from './directives/number-separator.directive';
-import { UserComponent } from './shared/user/user.component';
 import { LoadingComponent } from './shared/loading/loading.component';
+import { UserComponent } from './pages/user/user.component';
 
 @NgModule({
     declarations: [
@@ -76,8 +76,8 @@ import { LoadingComponent } from './shared/loading/loading.component';
         OfferFullViewComponent,
         FooterComponent,
         NumberSeparatorDirective,
-        UserComponent,
         LoadingComponent,
+        UserComponent,
     ],
     imports: [
         A11yModule,

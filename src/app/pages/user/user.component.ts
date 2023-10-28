@@ -10,7 +10,7 @@ import { UserService } from 'src/app/services/user.service';
     templateUrl: './user.component.html',
     styleUrls: ['./user.component.css'],
 })
-export class UserComponent implements OnInit {
+export class UserComponent {
     user$!: Observable<User | null>;
     loggedUserUsername$!: Observable<string | null>;
 
