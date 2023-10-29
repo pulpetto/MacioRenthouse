@@ -14,6 +14,7 @@ import { OfferFullViewComponent } from './shared/offer-full-view/offer-full-view
 import { offerExistsGuard } from './guards/offer-exists.guard';
 import { userExistsGuard } from './guards/user-exists.guard';
 import { UserComponent } from './pages/user/user.component';
+import { OffersPreviewComponent } from './pages/user/offers-preview/offers-preview.component';
 
 const routes: Routes = [
     {
@@ -39,10 +40,15 @@ const routes: Routes = [
         path: 'user/:username',
         component: UserComponent,
         canActivate: [userExistsGuard],
-        children: [
-            { path: 'offers', component: OffersComponent },
-            { path: 'offer/:id', component: SettingsComponent },
-        ],
+        // children: [
+        //     { path: 'offers', component: OffersPreviewComponent },
+        //     { path: 'offer/:id', component: SettingsComponent },
+        // ],
+    },
+    {
+        path: 'user/:username/offers',
+        component: OffersPreviewComponent,
+        canActivate: [userExistsGuard],
     },
     {
         path: 'account/:username/:userId',
