@@ -1,5 +1,5 @@
 <div class="flex items-start justify-center h-screen pt-24">
-    <div class="flex items-start justify-around w-full">
+    <!-- <div class="flex items-start justify-around w-full">
         <div
             class="absolute flex flex-col items-center overflow-hidden transition-all duration-300 border-2 border-indigo-700 border-solid rounded-md max-h-16 bg-neutral-950 bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-30 group hover:max-h-full"
         >
@@ -122,5 +122,18 @@
                 </ul>
             </div>
         </div>
+    </div> -->
+
+    <div id="menu">
+        <input value="Toggle list" type="button" (click)="toggleExpand(list)" />
+        <ul
+            #list
+            class="h-0 overflow-hidden transition-all duration-300 bg-gray-200"
+        >
+            <li>item</li>
+            <li>item</li>
+            <li>item</li>
+            <li>item</li>
+        </ul>
     </div>
 </div>
