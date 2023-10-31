@@ -55,6 +55,7 @@ import { NumberSeparatorDirective } from './directives/number-separator.directiv
 import { LoadingComponent } from './shared/loading/loading.component';
 import { UserComponent } from './pages/user/user.component';
 import { OffersPreviewComponent } from './pages/user/offers-preview/offers-preview.component';
+import { DropdownMenuComponent } from './shared/dropdown-menu/dropdown-menu.component';
 
 @NgModule({
     declarations: [
@@ -80,6 +81,7 @@ import { OffersPreviewComponent } from './pages/user/offers-preview/offers-previ
         LoadingComponent,
         UserComponent,
         OffersPreviewComponent,
+        DropdownMenuComponent,
     ],
     imports: [
         A11yModule,
