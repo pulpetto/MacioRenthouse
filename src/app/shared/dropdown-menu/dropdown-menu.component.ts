@@ -1,4 +1,10 @@
-import { Component, Input } from '@angular/core';
+import {
+    Component,
+    ElementRef,
+    HostListener,
+    Input,
+    ViewChild,
+} from '@angular/core';
 
 @Component({
     selector: 'app-dropdown-menu',
@@ -9,6 +15,19 @@ export class DropdownMenuComponent {
     @Input() dropdownName!: string;
     @Input() dropdownOptions!: string[];
     arrowRotated: boolean = false;
+
+    @HostListener('document:click', ['$event'])
+    clickout(event: Event) {
+        if (!this.elementRef.nativeElement.contains(event.target)) {
+            this.list.nativeElement.style.height = '0px';
+            this.arrowRotated = false;
+        }
+    }
+
+    @ViewChild('list', { read: ElementRef, static: false })
+    list!: ElementRef;
+
+    constructor(private elementRef: ElementRef) {}
 
     toggleExpand = function (element: any) {
         if (!element.style.height || element.style.height == '0px') {
