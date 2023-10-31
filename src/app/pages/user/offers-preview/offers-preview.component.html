@@ -1,6 +1,19 @@
 <div class="flex items-start justify-center h-screen pt-24">
-    <app-dropdown-menu
-        [dropdownName]="'Filtering'"
-        [dropdownOptions]="['New', 'Old']"
-    ></app-dropdown-menu>
+    <div class="flex justify-between gap-4">
+        <app-dropdown-menu
+            [dropdownName]="'Sorting'"
+            [dropdownOptions]="[
+                'Recently added',
+                'Oldest',
+                'Most expensive',
+                'Least expensive',
+                'Newest cars',
+                'Oldest cars',
+                'Least mileage',
+                'Most mileage',
+                'Least hp',
+                'Most hp'
+            ]"
+        ></app-dropdown-menu>
+    </div>
 </div>
