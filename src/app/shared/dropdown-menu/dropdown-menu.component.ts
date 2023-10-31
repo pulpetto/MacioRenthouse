@@ -8,6 +8,7 @@ import { Component, Input } from '@angular/core';
 export class DropdownMenuComponent {
     @Input() dropdownName!: string;
     @Input() dropdownOptions!: string[];
+    arrowRotated: boolean = false;
 
     toggleExpand = function (element: any) {
         if (!element.style.height || element.style.height == '0px') {
