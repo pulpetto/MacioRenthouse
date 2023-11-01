@@ -1,11 +1,11 @@
 <div
-    class="flex flex-col items-center overflow-hidden transition-all duration-300 border-2 border-indigo-700 border-solid rounded-md bg-neutral-950 bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-30"
+    class="flex flex-col items-center overflow-hidden transition-all duration-300 rounded-md bg-neutral-950 bg-clip-padding backdrop-filter backdrop-blur-3xl bg-opacity-60"
 >
     <button
         (click)="toggleExpand(list); arrowRotated = !arrowRotated"
         class="flex items-center px-3 py-3 transition-colors duration-300 rounded outline-none gap-28 hover:bg-neutral-900 focus:bg-neutral-900"
     >
-        <div>{{ dropdownName }}</div>
+        <div class="text-lg font-medium">{{ dropdownName }}</div>
         <div class="w-8 h-8">
             <img
                 src="assets/svgs/down-arrow-5-svgrepo-com.svg"
@@ -33,5 +33,17 @@
                 <div class="select-none">{{ option }}</div>
             </label>
         </ul>
+        <div class="flex w-full gap-2 p-2">
+            <button
+                class="w-1/2 py-1 text-lg font-semibold bg-indigo-700 rounded-sm hover:bg-indigo-600"
+            >
+                Apply
+            </button>
+            <button
+                class="w-1/2 py-1 text-lg font-semibold bg-indigo-700 rounded-sm hover:bg-indigo-600"
+            >
+                Clear
+            </button>
+        </div>
     </div>
 </div>
