@@ -56,6 +56,7 @@ import { LoadingComponent } from './shared/loading/loading.component';
 import { UserComponent } from './pages/user/user.component';
 import { OffersPreviewComponent } from './pages/user/offers-preview/offers-preview.component';
 import { DropdownMenuComponent } from './shared/dropdown-menu/dropdown-menu.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
     declarations: [
@@ -88,6 +89,7 @@ import { DropdownMenuComponent } from './shared/dropdown-menu/dropdown-menu.comp
         BrowserModule,
         AppRoutingModule,
         ReactiveFormsModule,
+        FormsModule,
         provideFirebaseApp(() => initializeApp(environment.firebase)),
         provideAnalytics(() => getAnalytics()),
         provideAuth(() => getAuth()),

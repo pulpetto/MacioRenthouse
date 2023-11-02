@@ -15,7 +15,8 @@ import {
 export class DropdownMenuComponent implements OnInit {
     @Input() dropdownName!: string;
     @Input() dropdownOptions!: string[];
-    dropdownOptionsConverted: object[] = [];
+    @Input() dropdownMultiselect!: boolean;
+    dropdownOptionsConverted: any[] = [];
     arrowRotated: boolean = false;
 
     @HostListener('document:click', ['$event'])
@@ -55,13 +56,18 @@ export class DropdownMenuComponent implements OnInit {
             element.style.height = '0px';
         }
     };
+
+    onInputClick(option: any, $event: Event) {
+        if (this.dropdownMultiselect === false) {
+            if (option.checked === false) {
+                this.dropdownOptionsConverted.forEach((option) => {
+                    option.checked = false;
+                });
+
+                option.checked = true;
+            } else {
+                $event.preventDefault();
+            }
+        }
+    }
 }
-
-// add default option
-// ---- pass via input name of the default
-
-// make only one be selectable
-
-// make random id for input and label
-
-// instead of checkbox make a check sign

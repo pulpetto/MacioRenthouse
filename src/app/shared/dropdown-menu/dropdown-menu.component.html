@@ -18,22 +18,26 @@
         </div>
     </button>
     <div #list class="w-full h-0 overflow-hidden transition-all duration-300">
-        <ul *ngFor="let option of dropdownOptions" class="w-full">
+        <ul *ngFor="let option of dropdownOptionsConverted" class="w-full">
             <label
-                [for]="option"
+                [for]="option.name"
                 [tabindex]="arrowRotated ? 0 : -1"
                 class="flex items-center justify-between w-full px-4 py-4 transition-colors duration-300 outline-none cursor-pointer hover:bg-neutral-900 last:rounded-b-md focus:bg-neutral-900"
             >
                 <input
-                    [id]="option"
-                    tabindex="-1"
+                    #dropdownCheckbox
                     type="checkbox"
+                    [(ngModel)]="option.checked"
+                    tabindex="-1"
+                    [id]="option.name"
+                    (click)="onInputClick(option, $event)"
                     class="w-4 h-4 bg-white rounded-md cursor-pointer accent-indigo-600 ring-indigo-600"
                 />
-                <div class="select-none">{{ option }}</div>
+                <div class="select-none">{{ option.name }}</div>
             </label>
         </ul>
-        <div class="flex w-full gap-2 p-2">
+
+        <!-- <div class="flex w-full gap-2 p-2">
             <button
                 class="w-1/2 py-1 text-lg font-semibold bg-indigo-700 rounded-sm hover:bg-indigo-600"
             >
@@ -44,6 +48,6 @@
             >
                 Clear
             </button>
-        </div>
+        </div> -->
     </div>
 </div>
