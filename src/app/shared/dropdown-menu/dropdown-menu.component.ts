@@ -35,6 +35,7 @@ export class DropdownMenuComponent implements OnInit {
     ngOnInit() {
         this.dropdownOptions.forEach((optionName) => {
             const optionObj = {
+                id: this.generateRandomString(),
                 name: optionName,
                 checked: false,
             };
@@ -69,5 +70,19 @@ export class DropdownMenuComponent implements OnInit {
                 $event.preventDefault();
             }
         }
+    }
+
+    generateRandomString(): string {
+        const characters =
+            'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        const charactersLength = characters.length;
+        let result = '';
+
+        for (let i = 0; i < 10; i++) {
+            const randomIndex = Math.floor(Math.random() * charactersLength);
+            result += characters.charAt(randomIndex);
+        }
+
+        return result;
     }
 }

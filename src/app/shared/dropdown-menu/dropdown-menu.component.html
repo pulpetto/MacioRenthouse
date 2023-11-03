@@ -20,7 +20,7 @@
     <div #list class="w-full h-0 overflow-hidden transition-all duration-300">
         <ul *ngFor="let option of dropdownOptionsConverted" class="w-full">
             <label
-                [for]="option.name"
+                [for]="option.id"
                 [tabindex]="arrowRotated ? 0 : -1"
                 class="flex items-center justify-between w-full px-4 py-4 transition-colors duration-300 outline-none cursor-pointer hover:bg-neutral-900 last:rounded-b-md focus:bg-neutral-900"
             >
@@ -29,7 +29,7 @@
                     type="checkbox"
                     [(ngModel)]="option.checked"
                     tabindex="-1"
-                    [id]="option.name"
+                    [id]="option.id"
                     (click)="onInputClick(option, $event)"
                     class="w-4 h-4 bg-white rounded-md cursor-pointer accent-indigo-600 ring-indigo-600"
                 />
