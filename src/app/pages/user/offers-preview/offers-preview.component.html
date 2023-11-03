@@ -1,5 +1,5 @@
-<div class="flex items-start justify-center h-screen max-w-6xl pt-24 mx-auto">
-    <div class="flex flex-wrap justify-between gap-4">
+<div class="h-screen max-w-6xl pt-24 mx-auto">
+    <div class="flex flex-wrap justify-center gap-2">
         <!-- <app-dropdown-menu
             [dropdownName]="'Sorting'"
             [dropdownOptions]="[
@@ -17,6 +17,61 @@
             [dropdownMultiselect]="false"
         ></app-dropdown-menu> -->
         <app-dropdown-menu
+            [dropdownName]="'Car brand'"
+            [dropdownOptions]="[
+                'Acura',
+                'Alfa Romeo',
+                'Aston Martin',
+                'Audi',
+                'Bentley',
+                'BMW',
+                'Buick'
+            ]"
+            [dropdownMultiselect]="true"
+        ></app-dropdown-menu>
+        <app-dropdown-menu
+            [dropdownName]="'Brand model'"
+            [dropdownOptions]="[
+                'Alero',
+                'Aveo',
+                'Camaro',
+                'Captiva',
+                'Corvette',
+                'Cruze',
+                'Cruze SW',
+                'Epica',
+                'Equinox',
+                'Evanda'
+            ]"
+            [dropdownMultiselect]="true"
+        ></app-dropdown-menu>
+        <app-dropdown-menu
+            [dropdownName]="'Fuel type'"
+            [dropdownOptions]="[
+                'All',
+                'Petrol',
+                'Diesel',
+                'Hydrogen',
+                'Electric',
+                'Ethanol',
+                'LPG'
+            ]"
+            [dropdownMultiselect]="true"
+        ></app-dropdown-menu>
+        <app-dropdown-menu
+            [dropdownName]="'Gearbox type'"
+            [dropdownOptions]="[
+                'All',
+                'Petrol',
+                'Diesel',
+                'Hydrogen',
+                'Electric',
+                'Ethanol',
+                'LPG'
+            ]"
+            [dropdownMultiselect]="true"
+        ></app-dropdown-menu>
+        <app-dropdown-menu
             [dropdownName]="'Price from'"
             [dropdownOptions]="[
                 '20 000',
@@ -27,6 +82,7 @@
             ]"
             [dropdownMultiselect]="true"
         ></app-dropdown-menu>
+
         <app-dropdown-menu
             [dropdownName]="'Price up to'"
             [dropdownOptions]="[
@@ -58,62 +114,47 @@
             [dropdownOptions]="['2000', '1900', '1800', '1300', '1500']"
             [dropdownMultiselect]="true"
         ></app-dropdown-menu>
-        <app-dropdown-menu
-            [dropdownName]="'Fuel type'"
-            [dropdownOptions]="[
-                'All',
-                'Petrol',
-                'Diesel',
-                'Hydrogen',
-                'Electric',
-                'Ethanol',
-                'LPG'
-            ]"
-            [dropdownMultiselect]="true"
-        ></app-dropdown-menu>
-        <app-dropdown-menu
-            [dropdownName]="'Gearbox type'"
-            [dropdownOptions]="[
-                'All',
-                'Petrol',
-                'Diesel',
-                'Hydrogen',
-                'Electric',
-                'Ethanol',
-                'LPG'
-            ]"
-            [dropdownMultiselect]="true"
-        ></app-dropdown-menu>
-        <app-dropdown-menu
-            [dropdownName]="'Car brand'"
-            [dropdownOptions]="[
-                'Acura',
-                'Alfa Romeo',
-                'Aston Martin',
-                'Audi',
-                'Bentley',
-                'BMW',
-                'Buick'
-            ]"
-            [dropdownMultiselect]="true"
-        ></app-dropdown-menu>
-        <app-dropdown-menu
-            [dropdownName]="'Brand model'"
-            [dropdownOptions]="[
-                'Alero',
-                'Aveo',
-                'Camaro',
-                'Captiva',
-                'Corvette',
-                'Cruze',
-                'Cruze SW',
-                'Epica',
-                'Equinox',
-                'Evanda'
-            ]"
-            [dropdownMultiselect]="true"
-        ></app-dropdown-menu>
-        <app-dropdown-menu
+
+        <div class="flex items-center justify-between w-11/12 gap-4">
+            <div
+                class="w-full mt-1 border border-white border-solid rounded-md"
+            ></div>
+
+            <a
+                routerLink="offers"
+                class="flex items-center text-lg font-semibold group whitespace-nowrap"
+            >
+                <div
+                    class="font-semibold transition-colors duration-300 group-hover:text-indigo-700"
+                >
+                    Show all filters
+                </div>
+                <div
+                    class="w-8 h-8 mt-1 transition-transform duration-300 group-hover:rotate-180 stroke-indigo-700"
+                >
+                    <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path
+                            class="transition-colors duration-300 stroke-white group-hover:stroke-indigo-700"
+                            d="M7 10L12 15L17 10"
+                            stroke="#ffffff"
+                            stroke-width="1.5"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        />
+                    </svg>
+                </div>
+            </a>
+
+            <div
+                class="w-full mt-1 border border-white border-solid rounded-md"
+            ></div>
+        </div>
+
+        <!-- <app-dropdown-menu
             [dropdownName]="'Year to'"
             [dropdownOptions]="[
                 '2011',
@@ -215,6 +256,6 @@
                 'Beijing'
             ]"
             [dropdownMultiselect]="true"
-        ></app-dropdown-menu>
+        ></app-dropdown-menu> -->
     </div>
 </div>
