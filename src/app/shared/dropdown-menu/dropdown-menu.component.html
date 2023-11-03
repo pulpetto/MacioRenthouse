@@ -3,7 +3,7 @@
 >
     <button
         (click)="toggleExpand(list); arrowRotated = !arrowRotated"
-        class="flex items-center px-3 py-3 transition-colors duration-300 rounded outline-none gap-28 hover:bg-neutral-900 focus:bg-neutral-900"
+        class="flex items-center px-3 py-3 transition-colors duration-300 rounded-md outline-none gap-28 hover:bg-neutral-900 focus:bg-neutral-900"
     >
         <div class="text-lg font-medium">{{ dropdownName }}</div>
         <div class="w-8 h-8">
@@ -18,11 +18,17 @@
         </div>
     </button>
     <div #list class="w-full h-0 overflow-hidden transition-all duration-300">
-        <ul *ngFor="let option of dropdownOptionsConverted" class="w-full">
+        <ul
+            *ngFor="let option of dropdownOptionsConverted; let i = index"
+            class="w-full"
+        >
             <label
                 [for]="option.id"
                 [tabindex]="arrowRotated ? 0 : -1"
-                class="flex items-center justify-between w-full px-4 py-4 transition-colors duration-300 outline-none cursor-pointer hover:bg-neutral-900 last:rounded-b-md focus:bg-neutral-900"
+                class="flex items-center justify-between w-full px-4 py-4 transition-colors duration-300 rounded-md outline-none cursor-pointer hover:bg-neutral-900 focus:bg-neutral-900"
+                [ngClass]="{
+                    'rounded-t-none': i === 0,
+                }"
             >
                 <input
                     #dropdownCheckbox
