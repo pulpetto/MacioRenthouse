@@ -1,9 +1,9 @@
 <div
-    class="flex flex-col items-center overflow-hidden transition-all duration-300 rounded-md bg-neutral-950 bg-clip-padding backdrop-filter backdrop-blur-3xl bg-opacity-60"
+    class="flex flex-col items-center overflow-hidden transition-all duration-300 rounded-md w-52 bg-neutral-950 bg-clip-padding backdrop-filter backdrop-blur-3xl bg-opacity-60"
 >
     <button
         (click)="toggleExpand(list); arrowRotated = !arrowRotated"
-        class="flex items-center px-3 py-3 transition-colors duration-300 outline-none rounded-t-md gap-28 hover:bg-neutral-900 focus:bg-neutral-900"
+        class="flex items-center justify-between w-full px-3 py-3 transition-colors duration-300 outline-none rounded-t-md hover:bg-neutral-900 focus:bg-neutral-900"
     >
         <div class="text-lg font-medium">{{ dropdownName }}</div>
         <div class="w-8 h-8">
