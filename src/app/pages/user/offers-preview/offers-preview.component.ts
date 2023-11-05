@@ -6,6 +6,8 @@ import { Component } from '@angular/core';
     styleUrls: ['./offers-preview.component.css'],
 })
 export class OffersPreviewComponent {
+    filtersVisibility: boolean = false;
+
     dropdowns = [
         {
             dropdownName: 'Car brand',
@@ -211,4 +213,8 @@ export class OffersPreviewComponent {
             element.style.height = '0px';
         }
     };
+
+    toggleFiltersVisiblity() {
+        this.filtersVisibility = !this.filtersVisibility;
+    }
 }

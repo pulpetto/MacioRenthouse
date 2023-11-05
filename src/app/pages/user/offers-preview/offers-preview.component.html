@@ -8,7 +8,7 @@
                 [dropdownMultiselect]="dropdown.dropdownMultiselect"
             ></app-dropdown-menu>
         </div>
-        <div class="absolute z-30 flex justify-center w-full gap-2 mt-20">
+        <div class="absolute z-30 flex justify-center w-full gap-2 mt-16">
             <app-dropdown-menu
                 *ngFor="let dropdown of dropdowns.slice(5, 10); let i = index"
                 [dropdownName]="dropdown.dropdownName"
@@ -16,10 +16,9 @@
                 [dropdownMultiselect]="dropdown.dropdownMultiselect"
             ></app-dropdown-menu>
         </div>
-        <!-- flex justify-between h-0 max-w-4xl gap-2 overflow-hidden transition-all duration-300 mt-36 -->
         <div
-            #list
-            class="absolute z-20 flex justify-center w-full h-0 gap-2 mt-40 overflow-hidden"
+            *ngIf="filtersVisibility"
+            class="absolute z-20 flex flex-wrap justify-center w-full gap-2 mt-32"
         >
             <app-dropdown-menu
                 *ngFor="let dropdown of dropdowns.slice(10, 15); let i = index"
@@ -28,9 +27,23 @@
                 [dropdownMultiselect]="dropdown.dropdownMultiselect"
             ></app-dropdown-menu>
         </div>
+        <div
+            *ngIf="filtersVisibility"
+            class="absolute z-10 flex flex-wrap justify-center w-full gap-2 mt-48"
+        >
+            <app-dropdown-menu
+                *ngFor="let dropdown of dropdowns.slice(15, 17); let i = index"
+                [dropdownName]="dropdown.dropdownName"
+                [dropdownOptions]="dropdown.dropdownOptions"
+                [dropdownMultiselect]="dropdown.dropdownMultiselect"
+            ></app-dropdown-menu>
+        </div>
 
         <div
-            class="absolute flex items-center justify-center w-full gap-4 mt-64"
+            class="flex items-center self-center justify-center w-11/12 gap-4 mt-32"
+            [ngClass]="{
+            'mt-64': filtersVisibility,
+        }"
         >
             <div
                 class="w-full mt-1 border border-white border-solid rounded-md"
@@ -38,13 +51,17 @@
 
             <button
                 type="button"
-                (click)="toggleExpand(list)"
+                (click)="toggleFiltersVisiblity()"
                 class="flex items-center text-lg font-semibold group whitespace-nowrap"
             >
                 <div
                     class="font-semibold transition-colors duration-300 group-hover:text-indigo-700"
                 >
-                    Show all filters
+                    {{
+                        filtersVisibility
+                            ? "Hide all filters"
+                            : "Show all filters"
+                    }}
                 </div>
                 <div
                     class="w-8 h-8 mt-1 transition-transform duration-300 group-hover:rotate-180 stroke-indigo-700"
