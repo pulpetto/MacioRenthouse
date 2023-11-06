@@ -88,4 +88,33 @@
             ></div>
         </div>
     </div>
+
+    <div class="flex justify-between w-11/12 mx-auto mt-4">
+        <div class="flex flex-col text-5xl font-semibold">
+            <div class="text-xl font-normal">suitable offers found:</div>
+            312 43
+        </div>
+        <div class="flex flex-col gap-2">
+            <div class="text-xl font-medium">Sorting By:</div>
+            <div class="relative">
+                <app-dropdown-menu
+                    class="absolute right-0 translate-x-2"
+                    [dropdownName]="'Sorting'"
+                    [dropdownOptions]="[
+                        'Recently added',
+                        'Oldest',
+                        'Most expensive',
+                        'Least expensive',
+                        'Newest cars',
+                        'Oldest cars',
+                        'Least mileage',
+                        'Most mileage',
+                        'Least hp',
+                        'Most hp'
+                    ]"
+                    [dropdownMultiselect]="false"
+                ></app-dropdown-menu>
+            </div>
+        </div>
+    </div>
 </div>
