@@ -1,12 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Observable, map } from 'rxjs';
+import { Offer } from 'src/app/interfaces/offer';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
     selector: 'app-offers-preview',
     templateUrl: './offers-preview.component.html',
     styleUrls: ['./offers-preview.component.css'],
 })
-export class OffersPreviewComponent {
+export class OffersPreviewComponent implements OnInit {
     filtersVisibility: boolean = false;
+    sellerOffers$!: Observable<Offer[] | null>;
 
     dropdowns = [
         {
@@ -198,6 +203,20 @@ export class OffersPreviewComponent {
             dropdownMultiselect: true,
         },
     ];
+
+    constructor(
+        private userService: UserService,
+        private route: ActivatedRoute
+    ) {}
+
+    ngOnInit() {
+        this.route.paramMap.subscribe((params) => {
+            const username = params.get('username');
+            this.sellerOffers$ = this.userService
+                .getUserByUsername(username!)
+                .pipe(map((user) => user?.offers || null));
+        });
+    }
 
     toggleExpand = function (element: any) {
         if (!element.style.height || element.style.height == '0px') {
