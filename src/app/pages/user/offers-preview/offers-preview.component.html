@@ -137,32 +137,31 @@
 
     <div class="flex items-center justify-center w-11/12 gap-4 mx-auto mt-12">
         <a
-            class="flex items-center justify-center w-12 h-12 rounded-md shadow-md drop-shadow-md shadow-black bg-neutral-950 backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter"
+            class="flex items-center justify-center w-12 h-12 transition-colors duration-300 rounded-md shadow-md cursor-pointer drop-shadow-md shadow-black bg-neutral-950 backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter hover:bg-indigo-700 group"
         >
             <img
                 src="assets/svgs/arrow-left-5-svgrepo-com.svg"
-                class="w-10 h-10"
+                class="w-10 h-10 transition-transform group-hover:-translate-x-0.5"
                 alt="left arrow icon"
             />
         </a>
 
         <div
-            class="flex text-xl rounded-md shadow-md drop-shadow-md shadow-black bg-neutral-950 backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter"
+            class="flex text-xl rounded-md shadow-md select-none drop-shadow-md shadow-black bg-neutral-950 backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter"
         >
-            <a class="flex items-center justify-center w-12 h-12">1</a>
-            <a class="flex items-center justify-center w-12 h-12">2</a>
-            <a class="flex items-center justify-center w-12 h-12">3</a>
-            <a class="flex items-center justify-center w-12 h-12">...</a>
-            <a class="flex items-center justify-center w-12 h-12">21</a>
-            <a class="flex items-center justify-center w-12 h-12">22</a>
+            <a
+                *ngFor="let page of pages"
+                class="flex items-center justify-center w-12 h-12 transition-all duration-300 rounded-md cursor-pointer hover:bg-indigo-700 hover:-translate-y-1"
+                >1</a
+            >
         </div>
 
         <a
-            class="flex items-center justify-center w-12 h-12 rounded-md shadow-md drop-shadow-md shadow-black bg-neutral-950 backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter"
+            class="flex items-center justify-center w-12 h-12 transition-colors duration-300 rounded-md shadow-md cursor-pointer drop-shadow-md shadow-black bg-neutral-950 backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter hover:bg-indigo-700 group"
         >
             <img
                 src="assets/svgs/right-arrow-svgrepo-com.svg"
-                class="w-10 h-10"
+                class="w-10 h-10 transition-transform group-hover:translate-x-0.5"
                 alt="right arrow icon"
             />
         </a>
