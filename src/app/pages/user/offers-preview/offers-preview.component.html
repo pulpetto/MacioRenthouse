@@ -1,4 +1,4 @@
-<div class="h-full max-w-6xl py-24 mx-auto">
+<div class="h-full max-w-6xl pt-24 pb-12 mx-auto">
     <div class="relative flex flex-col max-w-6xl gap-2 mt-6">
         <div class="absolute z-40 flex justify-center w-full gap-2">
             <app-dropdown-menu
@@ -135,35 +135,40 @@
         </ng-template>
     </div>
 
-    <div class="flex items-center justify-center w-11/12 gap-4 mx-auto mt-12">
-        <a
-            class="flex items-center justify-center w-12 h-12 transition-colors duration-300 rounded-md shadow-md cursor-pointer drop-shadow-md shadow-black bg-neutral-950 backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter hover:bg-indigo-700 group"
-        >
-            <img
-                src="assets/svgs/arrow-left-5-svgrepo-com.svg"
-                class="w-10 h-10 transition-transform group-hover:-translate-x-0.5"
-                alt="left arrow icon"
-            />
-        </a>
-
+    <div class="flex flex-col items-center gap-2">
         <div
-            class="flex text-xl rounded-md shadow-md select-none drop-shadow-md shadow-black bg-neutral-950 backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter"
+            class="flex items-center justify-center w-11/12 gap-4 mx-auto mt-16"
         >
             <a
-                *ngFor="let page of pages"
-                class="flex items-center justify-center w-12 h-12 transition-all duration-300 rounded-md cursor-pointer hover:bg-indigo-700 hover:-translate-y-1"
-                >1</a
+                class="flex items-center justify-center w-12 h-12 transition-colors duration-300 rounded-md shadow-md cursor-pointer drop-shadow-md shadow-black bg-neutral-950 backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter hover:bg-indigo-700 group"
             >
-        </div>
+                <img
+                    src="assets/svgs/arrow-left-5-svgrepo-com.svg"
+                    class="w-10 h-10 transition-transform group-hover:-translate-x-0.5"
+                    alt="left arrow icon"
+                />
+            </a>
 
-        <a
-            class="flex items-center justify-center w-12 h-12 transition-colors duration-300 rounded-md shadow-md cursor-pointer drop-shadow-md shadow-black bg-neutral-950 backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter hover:bg-indigo-700 group"
-        >
-            <img
-                src="assets/svgs/right-arrow-svgrepo-com.svg"
-                class="w-10 h-10 transition-transform group-hover:translate-x-0.5"
-                alt="right arrow icon"
-            />
-        </a>
+            <div
+                class="flex text-xl rounded-md shadow-md select-none drop-shadow-md shadow-black bg-neutral-950 backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter"
+            >
+                <a
+                    *ngFor="let page of pages"
+                    class="flex items-center justify-center w-12 h-12 transition-all duration-300 rounded-md cursor-pointer hover:bg-indigo-700 hover:-translate-y-1"
+                    >1</a
+                >
+            </div>
+
+            <a
+                class="flex items-center justify-center w-12 h-12 transition-colors duration-300 rounded-md shadow-md cursor-pointer drop-shadow-md shadow-black bg-neutral-950 backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter hover:bg-indigo-700 group"
+            >
+                <img
+                    src="assets/svgs/right-arrow-svgrepo-com.svg"
+                    class="w-10 h-10 transition-transform group-hover:translate-x-0.5"
+                    alt="right arrow icon"
+                />
+            </a>
+        </div>
+        <div class="text-xs opacity-50">0 of 00</div>
     </div>
 </div>
