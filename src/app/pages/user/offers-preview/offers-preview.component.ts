@@ -11,10 +11,71 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class OffersPreviewComponent implements OnInit {
     filtersVisibility: boolean = false;
-    sellerOffers$!: Observable<Offer[] | null>;
+    sellerOffers: Offer[] = [];
     maxItemsPerPage: number = 10;
     pagesAmount!: number;
     currentPage: number = 1;
+
+    pages = [1, 2, 3, 4, 5];
+
+    constructor(
+        private userService: UserService,
+        private route: ActivatedRoute
+    ) {}
+
+    ngOnInit() {
+        this.route.paramMap.subscribe((params) => {
+            const username = params.get('username');
+            this.userService
+                .getUserByUsername(username!)
+                .pipe(
+                    map((user) => {
+                        if (user) {
+                            this.pagesAmount = Math.ceil(
+                                user.offers.length / this.maxItemsPerPage
+                            );
+                            return user.offers;
+                        }
+                        return null;
+                    })
+                )
+                .subscribe((offers) => {
+                    if (offers) {
+                        const startIndex =
+                            (this.currentPage - 1) * this.maxItemsPerPage;
+                        const endIndex = startIndex + this.maxItemsPerPage;
+
+                        this.sellerOffers = offers.slice(startIndex, endIndex);
+                    }
+                });
+        });
+    }
+
+    // updateSellerOffers() {
+    //     const startIndex = (this.currentPage - 1) * this.maxItemsPerPage;
+    //     const endIndex = startIndex + this.maxItemsPerPage;
+
+    //     this.sellerOffers.slice(startIndex, endIndex);
+    // }
+
+    toggleExpand = function (element: any) {
+        if (!element.style.height || element.style.height == '0px') {
+            element.style.height =
+                Array.prototype.reduce.call(
+                    element.childNodes,
+                    function (p, c) {
+                        return p + (c.offsetHeight || 0);
+                    },
+                    0
+                ) + 'px';
+        } else {
+            element.style.height = '0px';
+        }
+    };
+
+    toggleFiltersVisiblity() {
+        this.filtersVisibility = !this.filtersVisibility;
+    }
 
     dropdowns = [
         {
@@ -206,48 +267,4 @@ export class OffersPreviewComponent implements OnInit {
             dropdownMultiselect: true,
         },
     ];
-
-    pages = [1, 2, 3, 4, 5];
-
-    constructor(
-        private userService: UserService,
-        private route: ActivatedRoute
-    ) {}
-
-    ngOnInit() {
-        this.route.paramMap.subscribe((params) => {
-            const username = params.get('username');
-            this.sellerOffers$ = this.userService
-                .getUserByUsername(username!)
-                .pipe(
-                    map((user) => {
-                        if (user) {
-                            this.pagesAmount = Math.ceil(
-                                user.offers.length / this.maxItemsPerPage
-                            );
-                        }
-                        return user?.offers || null;
-                    })
-                );
-        });
-    }
-
-    toggleExpand = function (element: any) {
-        if (!element.style.height || element.style.height == '0px') {
-            element.style.height =
-                Array.prototype.reduce.call(
-                    element.childNodes,
-                    function (p, c) {
-                        return p + (c.offsetHeight || 0);
-                    },
-                    0
-                ) + 'px';
-        } else {
-            element.style.height = '0px';
-        }
-    };
-
-    toggleFiltersVisiblity() {
-        this.filtersVisibility = !this.filtersVisibility;
-    }
 }
