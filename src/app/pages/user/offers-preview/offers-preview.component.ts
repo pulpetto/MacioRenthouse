@@ -12,6 +12,9 @@ import { UserService } from 'src/app/services/user.service';
 export class OffersPreviewComponent implements OnInit {
     filtersVisibility: boolean = false;
     sellerOffers$!: Observable<Offer[] | null>;
+    maxItemsPerPage: number = 10;
+    pagesAmount!: number;
+    currentPage: number = 1;
 
     dropdowns = [
         {
@@ -216,7 +219,16 @@ export class OffersPreviewComponent implements OnInit {
             const username = params.get('username');
             this.sellerOffers$ = this.userService
                 .getUserByUsername(username!)
-                .pipe(map((user) => user?.offers || null));
+                .pipe(
+                    map((user) => {
+                        if (user) {
+                            this.pagesAmount = Math.ceil(
+                                user.offers.length / this.maxItemsPerPage
+                            );
+                        }
+                        return user?.offers || null;
+                    })
+                );
         });
     }
 
