@@ -149,9 +149,12 @@
                 class="flex text-xl rounded-md shadow-md select-none drop-shadow-md shadow-black bg-neutral-950 backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter"
             >
                 <a
-                    *ngFor="let page of pages"
+                    *ngFor="
+                        let page of [].constructor(pagesAmount);
+                        let i = index
+                    "
                     class="flex items-center justify-center w-12 h-12 transition-all duration-300 rounded-md cursor-pointer hover:bg-indigo-700 hover:-translate-y-1"
-                    >1</a
+                    >{{ i + 1 }}</a
                 >
             </div>
 
