@@ -13,6 +13,7 @@ export class OffersPreviewComponent implements OnInit {
     filtersVisibility: boolean = false;
     sellerOffers: Offer[] = [];
     maxItemsPerPage: number = 10;
+    offersAmount!: number;
     pagesAmount!: number;
     currentPage: number = 1;
 
@@ -39,6 +40,8 @@ export class OffersPreviewComponent implements OnInit {
                 )
                 .subscribe((offers) => {
                     if (offers) {
+                        this.offersAmount = offers.length;
+
                         const startIndex =
                             (this.currentPage - 1) * this.maxItemsPerPage;
                         const endIndex = startIndex + this.maxItemsPerPage;
