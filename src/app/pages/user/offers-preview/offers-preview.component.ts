@@ -39,10 +39,18 @@ export class OffersPreviewComponent implements OnInit {
                     )
                     .subscribe((offers) => {
                         if (offers) {
-                            this.pagesAmount = Math.ceil(
-                                offers.length / this.maxItemsPerPage
-                            );
                             this.sellerOffers = offers;
+                        }
+                    });
+
+                this.userService
+                    .getOffersAmountByUsername(username)
+                    .subscribe((offersAmount) => {
+                        if (offersAmount) {
+                            this.offersAmount = offersAmount;
+                            this.pagesAmount = Math.ceil(
+                                offersAmount / this.maxItemsPerPage
+                            );
                         }
                     });
             }

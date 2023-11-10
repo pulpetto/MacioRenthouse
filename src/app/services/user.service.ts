@@ -72,6 +72,13 @@ export class UserService {
             .pipe(map((offers) => (offers ? offers : null)));
     }
 
+    getOffersAmountByUsername(username: string): Observable<number | null> {
+        return this.angularFireDatabase
+            .list(`users/${username}/offers`)
+            .snapshotChanges()
+            .pipe(map((changes) => (changes ? changes.length : null)));
+    }
+
     setUser(user: User) {
         this.userSubject.next(user);
     }
