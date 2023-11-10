@@ -154,6 +154,9 @@
                         let i = index
                     "
                     class="flex items-center justify-center w-12 h-12 transition-all duration-300 rounded-md cursor-pointer hover:bg-indigo-700 hover:-translate-y-1"
+                    [ngClass]="{
+                        'bg-indigo-700': i + 1 === currentPage,
+                    }"
                     >{{ i + 1 }}</a
                 >
             </div>
