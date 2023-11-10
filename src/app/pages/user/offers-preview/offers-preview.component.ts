@@ -25,30 +25,27 @@ export class OffersPreviewComponent implements OnInit {
     ngOnInit() {
         this.route.paramMap.subscribe((params) => {
             const username = params.get('username');
-            this.userService
-                .getUserByUsername(username!)
-                .pipe(
-                    map((user) => {
-                        if (user) {
+            const startIndex = (this.currentPage - 1) * this.maxItemsPerPage;
+            // make it dynamic
+            const sortingBy = 'price';
+
+            if (username) {
+                this.userService
+                    .getOffersByUsername(
+                        username,
+                        sortingBy,
+                        startIndex,
+                        this.maxItemsPerPage
+                    )
+                    .subscribe((offers) => {
+                        if (offers) {
                             this.pagesAmount = Math.ceil(
-                                user.offers.length / this.maxItemsPerPage
+                                offers.length / this.maxItemsPerPage
                             );
-                            return user.offers;
+                            this.sellerOffers = offers;
                         }
-                        return null;
-                    })
-                )
-                .subscribe((offers) => {
-                    if (offers) {
-                        this.offersAmount = offers.length;
-
-                        const startIndex =
-                            (this.currentPage - 1) * this.maxItemsPerPage;
-                        const endIndex = startIndex + this.maxItemsPerPage;
-
-                        this.sellerOffers = offers.slice(startIndex, endIndex);
-                    }
-                });
+                    });
+            }
         });
     }
 

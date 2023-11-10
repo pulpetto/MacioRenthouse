@@ -54,6 +54,24 @@ export class UserService {
         );
     }
 
+    // confing whether ascending or descending
+    getOffersByUsername(
+        username: string,
+        sortBy: string,
+        arrayStartIndex: number,
+        maxItemsPerPage: number
+    ): Observable<Offer[] | null> {
+        return this.angularFireDatabase
+            .list<Offer>(`users/${username}/offers`, (ref) =>
+                ref
+                    .orderByChild(sortBy)
+                    .startAt(arrayStartIndex)
+                    .limitToFirst(maxItemsPerPage)
+            )
+            .valueChanges()
+            .pipe(map((offers) => (offers ? offers : null)));
+    }
+
     setUser(user: User) {
         this.userSubject.next(user);
     }
