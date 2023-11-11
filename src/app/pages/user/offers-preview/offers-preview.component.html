@@ -144,7 +144,7 @@
 
     <div class="flex flex-col items-center gap-2">
         <div
-            class="flex items-center justify-center w-11/12 gap-4 mx-auto mt-16"
+            class="flex items-start justify-center w-11/12 gap-4 mx-auto mt-16"
         >
             <button
                 class="flex items-center justify-center w-12 h-12 transition-colors duration-300 rounded-md shadow-md cursor-pointer drop-shadow-md shadow-black bg-neutral-950 backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter hover:bg-indigo-700 group"
@@ -156,20 +156,25 @@
                 />
             </button>
 
-            <div
-                class="flex text-xl rounded-md shadow-md select-none drop-shadow-md shadow-black bg-neutral-950 backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter"
-            >
-                <a
-                    *ngFor="
-                        let page of [].constructor(sellerData.pagesAmount);
-                        let i = index
-                    "
-                    class="flex items-center justify-center w-12 h-12 transition-all duration-300 rounded-md cursor-pointer hover:bg-indigo-700 hover:-translate-y-1"
-                    [ngClass]="{
+            <div class="flex flex-col items-center gap-2">
+                <div
+                    class="flex text-xl rounded-md shadow-md select-none drop-shadow-md shadow-black bg-neutral-950 backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter"
+                >
+                    <a
+                        *ngFor="
+                            let page of [].constructor(sellerData.pagesAmount);
+                            let i = index
+                        "
+                        class="flex items-center justify-center w-12 h-12 transition-all duration-300 rounded-md cursor-pointer hover:bg-indigo-700 hover:-translate-y-1"
+                        [ngClass]="{
                         'bg-indigo-700': i + 1 === currentPage,
                     }"
-                    >{{ i + 1 }}</a
-                >
+                        >{{ i + 1 }}</a
+                    >
+                </div>
+                <div class="text-xs opacity-50">
+                    {{ currentPage }} of {{ sellerData.pagesAmount }}
+                </div>
             </div>
 
             <button
@@ -182,9 +187,6 @@
                     alt="right arrow icon"
                 />
             </button>
-        </div>
-        <div class="text-xs opacity-50">
-            {{ currentPage }} of {{ sellerData.pagesAmount }}
         </div>
     </div>
 </div>
