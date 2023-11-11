@@ -11,15 +11,11 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class OffersPreviewComponent implements OnInit {
     filtersVisibility: boolean = false;
-    sellerOffers: Offer[] = [];
-    maxItemsPerPage: number = 10;
-    offersAmount!: number;
-    // pagesAmount$!: Observable<number | null>;
     currentPage: number = 1;
+    maxItemsPerPage: number = 10;
 
     userOffers$!: Observable<Offer[] | null>;
     offersAmount$!: Observable<number | null>;
-
     sellerData$!: Observable<{
         offers: Offer[] | null;
         offersAmount: number | null;
