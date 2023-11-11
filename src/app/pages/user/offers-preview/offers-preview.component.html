@@ -1,5 +1,5 @@
 <div
-    *ngIf="sellerOffers.length > 0; else loading"
+    *ngIf="sellerData$ | async as sellerData; else loading"
     class="h-full max-w-6xl pt-24 pb-12 mx-auto"
 >
     <div class="relative flex flex-col max-w-6xl gap-2 mt-6">
@@ -106,7 +106,7 @@
         </div>
         <div class="flex flex-col items-center text-5xl font-semibold">
             <div class="text-xl font-normal">Suitable offers found:</div>
-            {{ offersAmount }}
+            {{ sellerData.offersAmount }}
         </div>
         <div class="flex flex-col gap-2">
             <div class="text-xl font-medium">Sort By:</div>
@@ -135,7 +135,7 @@
     <div class="flex flex-col w-11/12 gap-4 mx-auto mt-10">
         <div class="flex flex-col items-center w-full gap-6 mt-12">
             <app-offer
-                *ngFor="let offer of sellerOffers"
+                *ngFor="let offer of sellerData.offers"
                 [offerData]="offer"
                 class="w-full max-w-6xl"
             ></app-offer>
@@ -161,7 +161,7 @@
             >
                 <a
                     *ngFor="
-                        let page of [].constructor(pagesAmount);
+                        let page of [].constructor(sellerData.pagesAmount);
                         let i = index
                     "
                     class="flex items-center justify-center w-12 h-12 transition-all duration-300 rounded-md cursor-pointer hover:bg-indigo-700 hover:-translate-y-1"
@@ -184,7 +184,7 @@
             </button>
         </div>
         <div class="text-xs opacity-50">
-            {{ currentPage }} of {{ pagesAmount }}
+            {{ currentPage }} of {{ sellerData.pagesAmount }}
         </div>
     </div>
 </div>

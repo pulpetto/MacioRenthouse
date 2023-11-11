@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, map } from 'rxjs';
+import { Observable, combineLatest, map } from 'rxjs';
 import { Offer } from 'src/app/interfaces/offer';
 import { UserService } from 'src/app/services/user.service';
 
@@ -14,8 +14,17 @@ export class OffersPreviewComponent implements OnInit {
     sellerOffers: Offer[] = [];
     maxItemsPerPage: number = 10;
     offersAmount!: number;
-    pagesAmount!: number;
+    // pagesAmount$!: Observable<number | null>;
     currentPage: number = 1;
+
+    userOffers$!: Observable<Offer[] | null>;
+    offersAmount$!: Observable<number | null>;
+
+    sellerData$!: Observable<{
+        offers: Offer[] | null;
+        offersAmount: number | null;
+        pagesAmount: number | null;
+    }>;
 
     constructor(
         private userService: UserService,
@@ -30,29 +39,27 @@ export class OffersPreviewComponent implements OnInit {
             const sortingBy = 'price';
 
             if (username) {
-                this.userService
-                    .getOffersByUsername(
-                        username,
-                        sortingBy,
-                        startIndex,
-                        this.maxItemsPerPage
-                    )
-                    .subscribe((offers) => {
-                        if (offers) {
-                            this.sellerOffers = offers;
-                        }
-                    });
+                this.userOffers$ = this.userService.getOffersByUsername(
+                    username,
+                    sortingBy,
+                    startIndex,
+                    this.maxItemsPerPage
+                );
+                this.offersAmount$ =
+                    this.userService.getOffersAmountByUsername(username);
 
-                this.userService
-                    .getOffersAmountByUsername(username)
-                    .subscribe((offersAmount) => {
-                        if (offersAmount) {
-                            this.offersAmount = offersAmount;
-                            this.pagesAmount = Math.ceil(
-                                offersAmount / this.maxItemsPerPage
-                            );
-                        }
-                    });
+                this.sellerData$ = combineLatest([
+                    this.userOffers$,
+                    this.offersAmount$,
+                ]).pipe(
+                    map(([offers, offersAmount]) => ({
+                        offers,
+                        offersAmount,
+                        pagesAmount: Math.ceil(
+                            offersAmount! / this.maxItemsPerPage
+                        ),
+                    }))
+                );
             }
         });
     }
