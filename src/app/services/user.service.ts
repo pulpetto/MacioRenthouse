@@ -57,8 +57,9 @@ export class UserService {
     // confing whether ascending or descending
     getOffersByUsername(
         username: string,
+        orderBy: string,
         sortBy: string,
-        arrayStartIndex: number,
+        arrayStartIndex: string,
         maxItemsPerPage: number
     ): Observable<Offer[] | null> {
         return this.angularFireDatabase

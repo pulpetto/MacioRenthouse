@@ -14,6 +14,12 @@ export class OffersPreviewComponent implements OnInit {
     currentPage: number = 1;
     maxItemsPerPage: number = 10;
 
+    username!: string | null;
+    get startIndex(): number {
+        return (this.currentPage - 1) * this.maxItemsPerPage;
+    }
+    sortingBy: string = 'price';
+
     userOffers$!: Observable<Offer[] | null>;
     offersAmount$!: Observable<number | null>;
     sellerData$!: Observable<{
@@ -28,21 +34,21 @@ export class OffersPreviewComponent implements OnInit {
     ) {}
 
     ngOnInit() {
+        console.log('ngonhuj');
         this.route.paramMap.subscribe((params) => {
-            const username = params.get('username');
-            const startIndex = (this.currentPage - 1) * this.maxItemsPerPage;
-            // make it dynamic
-            const sortingBy = 'price';
+            this.username = params.get('username');
 
-            if (username) {
+            if (this.username) {
                 this.userOffers$ = this.userService.getOffersByUsername(
-                    username,
-                    sortingBy,
-                    startIndex,
+                    this.username,
+                    'ascending',
+                    this.sortingBy,
+                    this.startIndex.toString(),
                     this.maxItemsPerPage
                 );
-                this.offersAmount$ =
-                    this.userService.getOffersAmountByUsername(username);
+                this.offersAmount$ = this.userService.getOffersAmountByUsername(
+                    this.username
+                );
 
                 this.sellerData$ = combineLatest([
                     this.userOffers$,
@@ -66,6 +72,16 @@ export class OffersPreviewComponent implements OnInit {
 
     //     this.sellerOffers.slice(startIndex, endIndex);
     // }
+
+    onPageChange(pageNumber: number) {
+        if (this.currentPage === pageNumber || !this.username) return;
+
+        this.currentPage = pageNumber;
+        window.scroll({
+            top: 0,
+            behavior: 'smooth',
+        });
+    }
 
     toggleExpand = function (element: any) {
         if (!element.style.height || element.style.height == '0px') {

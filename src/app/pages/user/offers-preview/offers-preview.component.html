@@ -166,6 +166,7 @@
                             let page of [].constructor(sellerData.pagesAmount);
                             let i = index
                         "
+                        (click)="onPageChange(i + 1)"
                         class="flex items-center justify-center w-12 h-12 transition-all duration-300 rounded-md cursor-pointer"
                         [ngClass]="{
                         'text-indigo-700 font-semibold cursor-default': i + 1 === currentPage,
