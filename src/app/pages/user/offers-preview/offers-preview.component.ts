@@ -81,6 +81,25 @@ export class OffersPreviewComponent implements OnInit {
             top: 0,
             behavior: 'smooth',
         });
+
+        this.userOffers$ = this.userService.getOffersByUsername(
+            this.username,
+            'ascending',
+            this.sortingBy,
+            this.startIndex.toString(),
+            this.maxItemsPerPage
+        );
+
+        this.sellerData$ = combineLatest([
+            this.userOffers$,
+            this.offersAmount$,
+        ]).pipe(
+            map(([offers, offersAmount]) => ({
+                offers,
+                offersAmount,
+                pagesAmount: Math.ceil(offersAmount! / this.maxItemsPerPage),
+            }))
+        );
     }
 
     toggleExpand = function (element: any) {
