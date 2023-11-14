@@ -65,7 +65,8 @@ export class UserService {
         return this.angularFireDatabase
             .list<Offer>(`users/${username}/offers`, (ref) =>
                 ref
-                    .orderByChild(sortBy)
+                    // .orderByChild(sortBy)
+                    .orderByKey()
                     .startAt(arrayStartIndex)
                     .limitToFirst(maxItemsPerPage)
             )
