@@ -5,7 +5,10 @@
     <div class="relative flex flex-col max-w-6xl gap-2 mt-6">
         <div class="absolute z-40 flex justify-center w-full gap-2">
             <app-dropdown-menu
-                *ngFor="let dropdown of dropdowns.slice(0, 5); let i = index"
+                *ngFor="
+                    let dropdown of filterDropdowns.slice(0, 5);
+                    let i = index
+                "
                 [dropdownName]="dropdown.dropdownName"
                 [dropdownOptions]="dropdown.dropdownOptions"
                 [dropdownMultiselect]="dropdown.dropdownMultiselect"
@@ -13,7 +16,10 @@
         </div>
         <div class="absolute z-30 flex justify-center w-full gap-2 mt-16">
             <app-dropdown-menu
-                *ngFor="let dropdown of dropdowns.slice(5, 10); let i = index"
+                *ngFor="
+                    let dropdown of filterDropdowns.slice(5, 10);
+                    let i = index
+                "
                 [dropdownName]="dropdown.dropdownName"
                 [dropdownOptions]="dropdown.dropdownOptions"
                 [dropdownMultiselect]="dropdown.dropdownMultiselect"
@@ -24,7 +30,10 @@
             class="absolute z-20 flex flex-wrap justify-center w-full gap-2 mt-32"
         >
             <app-dropdown-menu
-                *ngFor="let dropdown of dropdowns.slice(10, 15); let i = index"
+                *ngFor="
+                    let dropdown of filterDropdowns.slice(10, 15);
+                    let i = index
+                "
                 [dropdownName]="dropdown.dropdownName"
                 [dropdownOptions]="dropdown.dropdownOptions"
                 [dropdownMultiselect]="dropdown.dropdownMultiselect"
@@ -35,7 +44,10 @@
             class="absolute z-10 flex flex-wrap justify-center w-full gap-2 mt-48"
         >
             <app-dropdown-menu
-                *ngFor="let dropdown of dropdowns.slice(15, 17); let i = index"
+                *ngFor="
+                    let dropdown of filterDropdowns.slice(15, 17);
+                    let i = index
+                "
                 [dropdownName]="dropdown.dropdownName"
                 [dropdownOptions]="dropdown.dropdownOptions"
                 [dropdownMultiselect]="dropdown.dropdownMultiselect"
@@ -98,9 +110,11 @@
             <div class="relative">
                 <app-dropdown-menu
                     class="absolute left-0 z-10 -translate-x-2"
-                    [dropdownName]="'Ordering'"
-                    [dropdownOptions]="['Ascending', 'Descending']"
-                    [dropdownMultiselect]="false"
+                    [dropdownName]="sortingDropdowns[0].dropdownName"
+                    [dropdownOptions]="sortingDropdowns[0].dropdownOptions"
+                    [dropdownMultiselect]="
+                        sortingDropdowns[0].dropdownMultiselect
+                    "
                 ></app-dropdown-menu>
             </div>
         </div>
@@ -113,20 +127,11 @@
             <div class="relative">
                 <app-dropdown-menu
                     class="absolute right-0 z-10 translate-x-2"
-                    [dropdownName]="'Sorting'"
-                    [dropdownOptions]="[
-                        'Recently added',
-                        'Oldest',
-                        'Most expensive',
-                        'Least expensive',
-                        'Newest cars',
-                        'Oldest cars',
-                        'Least mileage',
-                        'Most mileage',
-                        'Least hp',
-                        'Most hp'
-                    ]"
-                    [dropdownMultiselect]="false"
+                    [dropdownName]="sortingDropdowns[1].dropdownName"
+                    [dropdownOptions]="sortingDropdowns[1].dropdownOptions"
+                    [dropdownMultiselect]="
+                        sortingDropdowns[1].dropdownMultiselect
+                    "
                 ></app-dropdown-menu>
             </div>
         </div>
