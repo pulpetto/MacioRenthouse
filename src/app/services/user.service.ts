@@ -59,19 +59,34 @@ export class UserService {
         username: string,
         orderBy: string,
         sortBy: string,
-        arrayStartIndex: string,
+        arrayStartIndex: number,
         maxItemsPerPage: number
     ): Observable<Offer[] | null> {
         return this.angularFireDatabase
             .list<Offer>(`users/${username}/offers`, (ref) =>
-                ref
-                    // .orderByChild(sortBy)
-                    .orderByKey()
-                    .startAt(arrayStartIndex)
-                    .limitToFirst(maxItemsPerPage)
+                ref.orderByChild(sortBy)
             )
             .valueChanges()
-            .pipe(map((offers) => (offers ? offers : null)));
+            .pipe(
+                map((offers) =>
+                    offers
+                        ? offers.slice(
+                              arrayStartIndex,
+                              arrayStartIndex + maxItemsPerPage
+                          )
+                        : null
+                )
+            );
+        // return this.angularFireDatabase
+        //     .list<Offer>(`users/${username}/offers`, (ref) =>
+        //         ref
+        //             // .orderByChild(sortBy)
+        //             .orderByKey()
+        //             .startAt(arrayStartIndex)
+        //             .limitToFirst(maxItemsPerPage)
+        //     )
+        //     .valueChanges()
+        //     .pipe(map((offers) => (offers ? offers : null)));
     }
 
     getOffersAmountByUsername(username: string): Observable<number | null> {

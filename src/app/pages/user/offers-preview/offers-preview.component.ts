@@ -43,7 +43,7 @@ export class OffersPreviewComponent implements OnInit {
                     this.username,
                     'ascending',
                     this.sortingBy,
-                    this.startIndex.toString(),
+                    this.startIndex,
                     this.maxItemsPerPage
                 );
                 this.offersAmount$ = this.userService.getOffersAmountByUsername(
@@ -86,7 +86,7 @@ export class OffersPreviewComponent implements OnInit {
             this.username,
             'ascending',
             this.sortingBy,
-            this.startIndex.toString(),
+            this.startIndex,
             this.maxItemsPerPage
         );
 
