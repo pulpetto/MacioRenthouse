@@ -68,25 +68,28 @@ export class UserService {
             )
             .valueChanges()
             .pipe(
-                map((offers) =>
-                    offers
-                        ? offers.slice(
-                              arrayStartIndex,
-                              arrayStartIndex + maxItemsPerPage
-                          )
-                        : null
-                )
+                map((offers) => {
+                    if (!offers) return null;
+
+                    if (orderBy === 'ascending') {
+                        offers = offers.slice(
+                            arrayStartIndex,
+                            arrayStartIndex + maxItemsPerPage
+                        );
+                    }
+
+                    if (orderBy === 'descending') {
+                        offers = offers
+                            .reverse()
+                            .slice(
+                                arrayStartIndex,
+                                arrayStartIndex + maxItemsPerPage
+                            );
+                    }
+
+                    return offers;
+                })
             );
-        // return this.angularFireDatabase
-        //     .list<Offer>(`users/${username}/offers`, (ref) =>
-        //         ref
-        //             // .orderByChild(sortBy)
-        //             .orderByKey()
-        //             .startAt(arrayStartIndex)
-        //             .limitToFirst(maxItemsPerPage)
-        //     )
-        //     .valueChanges()
-        //     .pipe(map((offers) => (offers ? offers : null)));
     }
 
     getOffersAmountByUsername(username: string): Observable<number | null> {

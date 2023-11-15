@@ -34,7 +34,6 @@ export class OffersPreviewComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        console.log('ngonhuj');
         this.route.paramMap.subscribe((params) => {
             this.username = params.get('username');
 
