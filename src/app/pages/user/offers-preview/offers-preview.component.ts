@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, combineLatest, map } from 'rxjs';
+import { DropdownMenu } from 'src/app/interfaces/dropdown-menu';
 import { Offer } from 'src/app/interfaces/offer';
 import { UserService } from 'src/app/services/user.service';
 
@@ -120,13 +121,13 @@ export class OffersPreviewComponent implements OnInit {
         this.filtersVisibility = !this.filtersVisibility;
     }
 
-    orderingDropdown = {
+    orderingDropdown: DropdownMenu = {
         dropdownName: 'Ordering',
         dropdownOptions: ['Ascending', 'Descending'],
         dropdownMultiselect: false,
     };
 
-    sortingDropdown = {
+    sortingDropdown: DropdownMenu = {
         dropdownName: 'Sorting',
         dropdownOptions: [
             'Recently added',
@@ -143,7 +144,7 @@ export class OffersPreviewComponent implements OnInit {
         dropdownMultiselect: false,
     };
 
-    filterDropdowns = [
+    filterDropdowns: DropdownMenu[] = [
         {
             dropdownName: 'Car brand',
             dropdownOptions: [
