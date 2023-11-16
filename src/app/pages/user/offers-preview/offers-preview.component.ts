@@ -120,29 +120,28 @@ export class OffersPreviewComponent implements OnInit {
         this.filtersVisibility = !this.filtersVisibility;
     }
 
-    sortingDropdowns = [
-        {
-            dropdownName: 'Ordering',
-            dropdownOptions: ['Ascending', 'Descending'],
-            dropdownMultiselect: false,
-        },
-        {
-            dropdownName: 'Sorting',
-            dropdownOptions: [
-                'Recently added',
-                'Oldest',
-                'Most expensive',
-                'Least expensive',
-                'Newest cars',
-                'Oldest cars',
-                'Least mileage',
-                'Most mileage',
-                'Least hp',
-                'Most hp',
-            ],
-            dropdownMultiselect: false,
-        },
-    ];
+    orderingDropdown = {
+        dropdownName: 'Ordering',
+        dropdownOptions: ['Ascending', 'Descending'],
+        dropdownMultiselect: false,
+    };
+
+    sortingDropdown = {
+        dropdownName: 'Sorting',
+        dropdownOptions: [
+            'Recently added',
+            'Oldest',
+            'Most expensive',
+            'Least expensive',
+            'Newest cars',
+            'Oldest cars',
+            'Least mileage',
+            'Most mileage',
+            'Least hp',
+            'Most hp',
+        ],
+        dropdownMultiselect: false,
+    };
 
     filterDropdowns = [
         {

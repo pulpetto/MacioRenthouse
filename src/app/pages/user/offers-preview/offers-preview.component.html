@@ -110,11 +110,9 @@
             <div class="relative">
                 <app-dropdown-menu
                     class="absolute left-0 z-10 -translate-x-2"
-                    [dropdownName]="sortingDropdowns[0].dropdownName"
-                    [dropdownOptions]="sortingDropdowns[0].dropdownOptions"
-                    [dropdownMultiselect]="
-                        sortingDropdowns[0].dropdownMultiselect
-                    "
+                    [dropdownName]="orderingDropdown.dropdownName"
+                    [dropdownOptions]="orderingDropdown.dropdownOptions"
+                    [dropdownMultiselect]="orderingDropdown.dropdownMultiselect"
                 ></app-dropdown-menu>
             </div>
         </div>
@@ -127,11 +125,9 @@
             <div class="relative">
                 <app-dropdown-menu
                     class="absolute right-0 z-10 translate-x-2"
-                    [dropdownName]="sortingDropdowns[1].dropdownName"
-                    [dropdownOptions]="sortingDropdowns[1].dropdownOptions"
-                    [dropdownMultiselect]="
-                        sortingDropdowns[1].dropdownMultiselect
-                    "
+                    [dropdownName]="sortingDropdown.dropdownName"
+                    [dropdownOptions]="sortingDropdown.dropdownOptions"
+                    [dropdownMultiselect]="sortingDropdown.dropdownMultiselect"
                 ></app-dropdown-menu>
             </div>
         </div>

@@ -50,6 +50,8 @@ export class DropdownMenuComponent implements OnInit {
 
             this.dropdownOptionsConverted.push(optionObj);
         });
+
+        console.log(this.dropdownOptionsConverted);
     }
 
     toggleExpand = function (element: any) {
