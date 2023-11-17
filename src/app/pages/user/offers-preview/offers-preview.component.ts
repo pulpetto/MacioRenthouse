@@ -121,7 +121,11 @@ export class OffersPreviewComponent implements OnInit {
         this.filtersVisibility = !this.filtersVisibility;
     }
 
-    orderingDropdown: DropdownMenu = {
+    orderingChange($event: string) {
+        console.log($event);
+    }
+
+    orderingDropdown = {
         dropdownName: 'Ordering',
         dropdownOptions: ['Ascending', 'Descending'],
         dropdownMultiselect: false,

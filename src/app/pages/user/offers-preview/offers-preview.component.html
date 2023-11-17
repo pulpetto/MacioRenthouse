@@ -109,6 +109,7 @@
             <div class="text-xl font-medium">Order by:</div>
             <div class="relative">
                 <app-dropdown-menu
+                    (orderChangeEvent)="orderingChange($event)"
                     class="absolute left-0 z-10 -translate-x-2"
                     [dropdownName]="orderingDropdown.dropdownName"
                     [dropdownOptions]="orderingDropdown.dropdownOptions"

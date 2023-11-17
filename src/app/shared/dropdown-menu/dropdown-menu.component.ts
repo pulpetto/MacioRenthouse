@@ -1,9 +1,11 @@
 import {
     Component,
     ElementRef,
+    EventEmitter,
     HostListener,
     Input,
     OnInit,
+    Output,
     ViewChild,
 } from '@angular/core';
 
@@ -18,6 +20,7 @@ export class DropdownMenuComponent implements OnInit {
     @Input() dropdownMultiselect!: boolean;
     dropdownOptionsConverted: any[] = [];
     arrowRotated: boolean = false;
+    @Output() orderChangeEvent = new EventEmitter<string>();
 
     @HostListener('document:click', ['$event'])
     clickout(event: Event) {
@@ -77,6 +80,7 @@ export class DropdownMenuComponent implements OnInit {
                 });
 
                 option.checked = true;
+                this.orderChangeEvent.emit(option.name);
             } else {
                 $event.preventDefault();
             }
