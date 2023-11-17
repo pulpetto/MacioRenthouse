@@ -134,16 +134,11 @@ export class OffersPreviewComponent implements OnInit {
     sortingDropdown: DropdownMenu = {
         dropdownName: 'Sorting',
         dropdownOptions: [
-            'Recently added',
-            'Oldest',
-            'Most expensive',
-            'Least expensive',
-            'Newest cars',
-            'Oldest cars',
-            'Least mileage',
-            'Most mileage',
-            'Least hp',
-            'Most hp',
+            'Publish date',
+            'Price',
+            'Producation date',
+            'Mileage',
+            'Horse Power',
         ],
         dropdownMultiselect: false,
     };
@@ -193,15 +188,7 @@ export class OffersPreviewComponent implements OnInit {
         },
         {
             dropdownName: 'Gearbox type',
-            dropdownOptions: [
-                'All',
-                'Petrol',
-                'Diesel',
-                'Hydrogen',
-                'Electric',
-                'Ethanol',
-                'LPG',
-            ],
+            dropdownOptions: ['All', 'Manual', 'Automatic'],
             dropdownMultiselect: true,
         },
         {
