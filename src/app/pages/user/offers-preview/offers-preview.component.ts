@@ -19,6 +19,7 @@ export class OffersPreviewComponent implements OnInit {
     get startIndex(): number {
         return (this.currentPage - 1) * this.maxItemsPerPage;
     }
+    orderingBy: string = 'ascending';
     sortingBy: string = 'price';
 
     userOffers$!: Observable<Offer[] | null>;
@@ -41,7 +42,7 @@ export class OffersPreviewComponent implements OnInit {
             if (this.username) {
                 this.userOffers$ = this.userService.getOffersByUsername(
                     this.username,
-                    'ascending',
+                    this.orderingBy,
                     this.sortingBy,
                     this.startIndex,
                     this.maxItemsPerPage
@@ -84,7 +85,7 @@ export class OffersPreviewComponent implements OnInit {
 
         this.userOffers$ = this.userService.getOffersByUsername(
             this.username,
-            'ascending',
+            this.orderingBy,
             this.sortingBy,
             this.startIndex,
             this.maxItemsPerPage
@@ -122,7 +123,31 @@ export class OffersPreviewComponent implements OnInit {
     }
 
     orderingChange($event: string) {
-        console.log($event);
+        this.orderingBy = $event.toLowerCase();
+        this.currentPage = 1;
+
+        if (this.username) {
+            this.userOffers$ = this.userService.getOffersByUsername(
+                this.username,
+                this.orderingBy,
+                this.sortingBy,
+                this.startIndex,
+                this.maxItemsPerPage
+            );
+
+            this.sellerData$ = combineLatest([
+                this.userOffers$,
+                this.offersAmount$,
+            ]).pipe(
+                map(([offers, offersAmount]) => ({
+                    offers,
+                    offersAmount,
+                    pagesAmount: Math.ceil(
+                        offersAmount! / this.maxItemsPerPage
+                    ),
+                }))
+            );
+        }
     }
 
     orderingDropdown = {
