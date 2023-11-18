@@ -78,6 +78,7 @@ export class DropdownMenuComponent implements OnInit {
                 });
 
                 option.checked = true;
+                // emitt to the event with name from input to avoid repeating
                 this.orderChangeEvent.emit(option.name);
             } else {
                 $event.preventDefault();
