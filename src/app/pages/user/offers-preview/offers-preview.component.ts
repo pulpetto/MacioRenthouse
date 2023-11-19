@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, combineLatest, map } from 'rxjs';
+import {
+    BehaviorSubject,
+    Observable,
+    combineLatest,
+    map,
+    switchMap,
+} from 'rxjs';
 import { DropdownMenu } from 'src/app/interfaces/dropdown-menu';
 import { Offer } from 'src/app/interfaces/offer';
 import { UserService } from 'src/app/services/user.service';
@@ -22,13 +28,31 @@ export class OffersPreviewComponent implements OnInit {
     orderingBy: string = 'ascending';
     sortingBy: string = 'price';
 
-    userOffers$!: Observable<Offer[] | null>;
-    offersAmount$!: Observable<number | null>;
-    sellerData$!: Observable<{
+    // userOffers$!: Observable<Offer[] | null>;
+    private userOffersSubject = new BehaviorSubject<Offer[] | null>(null);
+    userOffers$: Observable<Offer[] | null> =
+        this.userOffersSubject.asObservable();
+
+    // offersAmount$!: Observable<number | null>;
+    private offersAmountSubject = new BehaviorSubject<number | null>(null);
+    offersAmount$: Observable<number | null> =
+        this.offersAmountSubject.asObservable();
+
+    // sellerData$!: Observable<{
+    //     offers: Offer[] | null;
+    //     offersAmount: number | null;
+    //     pagesAmount: number | null;
+    // }>;
+    private sellerDataSubject = new BehaviorSubject<{
         offers: Offer[] | null;
         offersAmount: number | null;
         pagesAmount: number | null;
-    }>;
+    } | null>(null);
+    sellerData$: Observable<{
+        offers: Offer[] | null;
+        offersAmount: number | null;
+        pagesAmount: number | null;
+    } | null> = this.sellerDataSubject.asObservable();
 
     constructor(
         private userService: UserService,
@@ -63,6 +87,24 @@ export class OffersPreviewComponent implements OnInit {
                         ),
                     }))
                 );
+
+                // this.sellerData$ = combineLatest([
+                //     this.userOffers$,
+                //     this.offersAmount$,
+                // ]).pipe(
+                //     switchMap(([offers, offersAmount]) => {
+                //         return this.offersAmount$.pipe(
+                //             map((newOffersAmount) => ({
+                //                 offers,
+                //                 offersAmount: newOffersAmount,
+                //                 pagesAmount: Math.ceil(
+                //                     (newOffersAmount as number) /
+                //                         this.maxItemsPerPage
+                //                 ),
+                //             }))
+                //         );
+                //     })
+                // );
             }
         });
     }
@@ -83,24 +125,24 @@ export class OffersPreviewComponent implements OnInit {
             behavior: 'smooth',
         });
 
-        this.userOffers$ = this.userService.getOffersByUsername(
-            this.username,
-            this.orderingBy,
-            this.sortingBy,
-            this.startIndex,
-            this.maxItemsPerPage
-        );
+        // this.userOffers$ = this.userService.getOffersByUsername(
+        //     this.username,
+        //     this.orderingBy,
+        //     this.sortingBy,
+        //     this.startIndex,
+        //     this.maxItemsPerPage
+        // );
 
-        this.sellerData$ = combineLatest([
-            this.userOffers$,
-            this.offersAmount$,
-        ]).pipe(
-            map(([offers, offersAmount]) => ({
-                offers,
-                offersAmount,
-                pagesAmount: Math.ceil(offersAmount! / this.maxItemsPerPage),
-            }))
-        );
+        // this.sellerData$ = combineLatest([
+        //     this.userOffers$,
+        //     this.offersAmount$,
+        // ]).pipe(
+        //     map(([offers, offersAmount]) => ({
+        //         offers,
+        //         offersAmount,
+        //         pagesAmount: Math.ceil(offersAmount! / this.maxItemsPerPage),
+        //     }))
+        // );
     }
 
     toggleExpand = function (element: any) {
@@ -134,20 +176,30 @@ export class OffersPreviewComponent implements OnInit {
                 this.startIndex,
                 this.maxItemsPerPage
             );
-
-            this.sellerData$ = combineLatest([
-                this.userOffers$,
-                this.offersAmount$,
-            ]).pipe(
-                map(([offers, offersAmount]) => ({
-                    offers,
-                    offersAmount,
-                    pagesAmount: Math.ceil(
-                        offersAmount! / this.maxItemsPerPage
-                    ),
-                }))
-            );
         }
+
+        // if (this.username) {
+        //     this.userOffers$ = this.userService.getOffersByUsername(
+        //         this.username,
+        //         this.orderingBy,
+        //         this.sortingBy,
+        //         this.startIndex,
+        //         this.maxItemsPerPage
+        //     );
+
+        //     this.sellerData$ = combineLatest([
+        //         this.userOffers$,
+        //         this.offersAmount$,
+        //     ]).pipe(
+        //         map(([offers, offersAmount]) => ({
+        //             offers,
+        //             offersAmount,
+        //             pagesAmount: Math.ceil(
+        //                 offersAmount! / this.maxItemsPerPage
+        //             ),
+        //         }))
+        //     );
+        // }
     }
 
     orderingDropdown = {
