@@ -109,13 +109,6 @@ export class OffersPreviewComponent implements OnInit {
         });
     }
 
-    // updateSellerOffers() {
-    //     const startIndex = (this.currentPage - 1) * this.maxItemsPerPage;
-    //     const endIndex = startIndex + this.maxItemsPerPage;
-
-    //     this.sellerOffers.slice(startIndex, endIndex);
-    // }
-
     onPageChange(pageNumber: number) {
         if (this.currentPage === pageNumber || !this.username) return;
 
