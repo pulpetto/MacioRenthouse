@@ -87,24 +87,6 @@ export class OffersPreviewComponent implements OnInit {
                         ),
                     }))
                 );
-
-                // this.sellerData$ = combineLatest([
-                //     this.userOffers$,
-                //     this.offersAmount$,
-                // ]).pipe(
-                //     switchMap(([offers, offersAmount]) => {
-                //         return this.offersAmount$.pipe(
-                //             map((newOffersAmount) => ({
-                //                 offers,
-                //                 offersAmount: newOffersAmount,
-                //                 pagesAmount: Math.ceil(
-                //                     (newOffersAmount as number) /
-                //                         this.maxItemsPerPage
-                //                 ),
-                //             }))
-                //         );
-                //     })
-                // );
             }
         });
     }
