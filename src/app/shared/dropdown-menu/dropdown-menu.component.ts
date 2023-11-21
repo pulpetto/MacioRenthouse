@@ -20,7 +20,7 @@ export class DropdownMenuComponent implements OnInit {
     @Input() dropdownMultiselect!: boolean;
     dropdownOptionsConverted: any[] = [];
     arrowRotated: boolean = false;
-    @Output() orderChangeEvent = new EventEmitter<string>();
+    @Output() orderingChangeEvent = new EventEmitter<string>();
     @Output() sortingChangeEvent = new EventEmitter<string>();
 
     @HostListener('document:click', ['$event'])
@@ -79,8 +79,9 @@ export class DropdownMenuComponent implements OnInit {
                 });
 
                 option.checked = true;
+
                 // emitt to the event with name from input to avoid repeating
-                this.orderChangeEvent.emit(option.name);
+                this.orderingChangeEvent.emit(option.name);
                 this.sortingChangeEvent.emit(option.name);
             } else {
                 $event.preventDefault();
