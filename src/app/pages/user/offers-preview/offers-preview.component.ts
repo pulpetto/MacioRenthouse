@@ -107,6 +107,14 @@ export class OffersPreviewComponent implements OnInit {
     sortingChange($event: string) {
         this.sortingBy = $event.toLowerCase();
 
+        // not reusable because of naming conflicts
+        if (this.sortingBy === 'production year') {
+            this.sortingBy = 'productionYear';
+        }
+        if (this.sortingBy === 'horse power') {
+            this.sortingBy = 'horsePower';
+        }
+
         if (this.sortingBy !== 'publish date' && 'price') {
             this.sortingByCarProperties = true;
         }
@@ -126,9 +134,9 @@ export class OffersPreviewComponent implements OnInit {
         dropdownOptions: [
             'Publish date',
             'Price',
-            'Producation date',
+            'Production year',
             'Mileage',
-            'Horse Power',
+            'Horse power',
         ],
         dropdownMultiselect: false,
     };
