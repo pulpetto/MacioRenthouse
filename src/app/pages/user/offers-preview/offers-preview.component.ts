@@ -20,7 +20,8 @@ export class OffersPreviewComponent implements OnInit {
         return (this.currentPage - 1) * this.maxItemsPerPage;
     }
     orderingBy: string = 'ascending';
-    sortingBy: string = 'price';
+    sortingBy: string = 'unixPublishDate';
+    sortingByCarProperties: boolean = false;
 
     sellerData$!: Observable<{
         offers: Offer[] | null;
@@ -50,7 +51,8 @@ export class OffersPreviewComponent implements OnInit {
                     this.orderingBy,
                     this.sortingBy,
                     this.startIndex,
-                    this.maxItemsPerPage
+                    this.maxItemsPerPage,
+                    this.sortingByCarProperties
                 ),
                 this.userService.getOffersAmountByUsername(this.username),
             ]).pipe(
@@ -99,7 +101,17 @@ export class OffersPreviewComponent implements OnInit {
     orderingChange($event: string) {
         this.orderingBy = $event.toLowerCase();
         this.currentPage = 1;
+        this.refreshData();
+    }
 
+    sortingChange($event: string) {
+        this.sortingBy = $event.toLowerCase();
+
+        if (this.sortingBy !== 'publish date' && 'price') {
+            this.sortingByCarProperties = true;
+        }
+
+        this.currentPage = 1;
         this.refreshData();
     }
 

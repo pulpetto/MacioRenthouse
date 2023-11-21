@@ -124,6 +124,7 @@
             <div class="text-xl font-medium">Sort By:</div>
             <div class="relative">
                 <app-dropdown-menu
+                    (sortingChangeEvent)="sortingChange($event)"
                     class="absolute right-0 z-10 translate-x-2"
                     [dropdownName]="sortingDropdown.dropdownName"
                     [dropdownOptions]="sortingDropdown.dropdownOptions"

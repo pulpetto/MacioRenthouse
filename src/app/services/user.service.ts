@@ -60,36 +60,43 @@ export class UserService {
         orderBy: string,
         sortBy: string,
         arrayStartIndex: number,
-        maxItemsPerPage: number
+        maxItemsPerPage: number,
+        sortingByCarProperties: boolean
     ): Observable<Offer[] | null> {
-        return this.angularFireDatabase
-            .list<Offer>(`users/${username}/offers`, (ref) =>
-                ref.orderByChild(sortBy)
-            )
-            .valueChanges()
-            .pipe(
-                map((offers) => {
-                    if (!offers) return null;
+        const query = this.angularFireDatabase.list<Offer>(
+            `users/${username}/offers`,
+            (ref) => {
+                if (sortingByCarProperties === false) {
+                    return ref.orderByChild(sortBy);
+                } else {
+                    return ref.orderByChild(`car/${sortBy}`);
+                }
+            }
+        );
 
-                    if (orderBy === 'ascending') {
-                        offers = offers.slice(
+        return query.valueChanges().pipe(
+            map((offers) => {
+                if (!offers) return null;
+
+                if (orderBy === 'ascending') {
+                    offers = offers.slice(
+                        arrayStartIndex,
+                        arrayStartIndex + maxItemsPerPage
+                    );
+                }
+
+                if (orderBy === 'descending') {
+                    offers = offers
+                        .reverse()
+                        .slice(
                             arrayStartIndex,
                             arrayStartIndex + maxItemsPerPage
                         );
-                    }
+                }
 
-                    if (orderBy === 'descending') {
-                        offers = offers
-                            .reverse()
-                            .slice(
-                                arrayStartIndex,
-                                arrayStartIndex + maxItemsPerPage
-                            );
-                    }
-
-                    return offers;
-                })
-            );
+                return offers;
+            })
+        );
     }
 
     getOffersAmountByUsername(username: string): Observable<number | null> {
