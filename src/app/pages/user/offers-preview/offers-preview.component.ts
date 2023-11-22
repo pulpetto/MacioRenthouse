@@ -108,6 +108,9 @@ export class OffersPreviewComponent implements OnInit {
         this.sortingBy = $event.toLowerCase();
 
         // not reusable because of naming conflicts
+        // if (this.sortingBy === 'publish date') {
+        //     this.sortingBy = 'unixPublishDate';
+        // }
         if (this.sortingBy === 'production year') {
             this.sortingBy = 'productionYear';
         }
@@ -117,6 +120,8 @@ export class OffersPreviewComponent implements OnInit {
 
         if (this.sortingBy !== 'publish date' && 'price') {
             this.sortingByCarProperties = true;
+        } else {
+            this.sortingByCarProperties = false;
         }
 
         this.currentPage = 1;
