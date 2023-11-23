@@ -108,9 +108,9 @@ export class OffersPreviewComponent implements OnInit {
         this.sortingBy = $event.toLowerCase();
 
         // not reusable because of naming conflicts
-        // if (this.sortingBy === 'publish date') {
-        //     this.sortingBy = 'unixPublishDate';
-        // }
+        if (this.sortingBy === 'publish date') {
+            this.sortingBy = 'unixPublishDate';
+        }
         if (this.sortingBy === 'production year') {
             this.sortingBy = 'productionYear';
         }
@@ -118,10 +118,10 @@ export class OffersPreviewComponent implements OnInit {
             this.sortingBy = 'horsePower';
         }
 
-        if (this.sortingBy !== 'publish date' && 'price') {
-            this.sortingByCarProperties = true;
-        } else {
+        if (this.sortingBy === 'publish date' || this.sortingBy === 'price') {
             this.sortingByCarProperties = false;
+        } else {
+            this.sortingByCarProperties = true;
         }
 
         this.currentPage = 1;
