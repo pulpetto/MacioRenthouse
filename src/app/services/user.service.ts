@@ -54,7 +54,6 @@ export class UserService {
         );
     }
 
-    // confing whether ascending or descending
     getOffersByUsername(
         username: string,
         orderBy: string,
@@ -98,6 +97,9 @@ export class UserService {
             })
         );
     }
+
+    // if username not specified then global offer searching
+    getOffersBySearchTerm(searchTerm: string, username?: string) {}
 
     getOffersAmountByUsername(username: string): Observable<number | null> {
         return this.angularFireDatabase
