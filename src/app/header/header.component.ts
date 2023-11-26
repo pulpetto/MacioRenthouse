@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { Observable, map } from 'rxjs';
 import { VisibilityService } from '../services/visibility.service';
+import { SearchingService } from '../services/searching.service';
 
 @Component({
     selector: 'app-header',
@@ -12,9 +13,12 @@ export class HeaderComponent implements OnInit {
     userFirstName$!: Observable<string | null>;
     searchBarVisibility$!: Observable<boolean>;
 
+    term: string = '';
+
     constructor(
         private userService: UserService,
-        private visibilityService: VisibilityService
+        private visibilityService: VisibilityService,
+        private searchingService: SearchingService
     ) {}
 
     ngOnInit() {
@@ -24,6 +28,11 @@ export class HeaderComponent implements OnInit {
 
         this.searchBarVisibility$ =
             this.visibilityService.getHeaderSearchBarVisibility();
+    }
+
+    onSearchTermSubmit(searchTerm: string) {
+        this.searchingService.updateSearchTerm(searchTerm);
+        console.log(searchTerm);
     }
 
     setFocusState(state: boolean) {

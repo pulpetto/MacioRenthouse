@@ -8,4 +8,8 @@ export class SearchingService {
     private searchTerm: string = '';
 
     constructor(private angularFireDatabase: AngularFireDatabase) {}
+
+    updateSearchTerm(updatedSearchTerm: string) {
+        this.searchTerm = updatedSearchTerm;
+    }
 }
