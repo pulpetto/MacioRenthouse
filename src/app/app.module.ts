@@ -57,6 +57,7 @@ import { UserComponent } from './pages/user/user.component';
 import { OffersPreviewComponent } from './pages/user/offers-preview/offers-preview.component';
 import { DropdownMenuComponent } from './shared/dropdown-menu/dropdown-menu.component';
 import { FormsModule } from '@angular/forms';
+import { SearchBarComponent } from './shared/search-bar/search-bar.component';
 
 @NgModule({
     declarations: [
@@ -83,6 +84,7 @@ import { FormsModule } from '@angular/forms';
         UserComponent,
         OffersPreviewComponent,
         DropdownMenuComponent,
+        SearchBarComponent,
     ],
     imports: [
         A11yModule,
