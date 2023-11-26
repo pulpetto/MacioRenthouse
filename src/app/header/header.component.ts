@@ -13,8 +13,6 @@ export class HeaderComponent implements OnInit {
     userFirstName$!: Observable<string | null>;
     searchBarVisibility$!: Observable<boolean>;
 
-    term: string = '';
-
     constructor(
         private userService: UserService,
         private visibilityService: VisibilityService,
