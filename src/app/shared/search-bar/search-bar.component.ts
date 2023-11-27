@@ -15,7 +15,6 @@ export class SearchBarComponent {
 
     onSearchTermSubmit(searchTerm: string) {
         this.searchingService.updateSearchTerm(searchTerm);
-        console.log(searchTerm);
     }
 
     setFocusState(state: boolean) {
