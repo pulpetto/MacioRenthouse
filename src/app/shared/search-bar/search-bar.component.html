@@ -6,6 +6,9 @@
         (blur)="setFocusState(false)"
         placeholder="Search for a specific car..."
         class="w-full p-4 rounded-md bg-neutral-800 bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-30 focus:outline focus:outline-indigo-700"
+        [ngClass]="{
+            'rounded-b-none': autocompleteOptions,
+        }"
     />
     <button
         type="submit"
@@ -18,3 +21,17 @@
         />
     </button>
 </form>
+
+<div
+    *ngIf="autocompleteOptions"
+    class="flex flex-col w-full bg-neutral-800 bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-30 rounded-b-md"
+>
+    <a
+        routerLink=""
+        *ngFor="let x of [1, 2, 3, 4]"
+        class="flex justify-between p-4 transition-colors duration-300 outline-none cursor-pointer first:rounded-t-none last-of-type:rounded-b-md last:rounded-b-md focus:bg-neutral-900 focus:border-l-4 focus:border-solid focus:border-indigo-700 hover:bg-neutral-700 hover:bg-opacity-30"
+    >
+        <div class="font-medium">Toyota</div>
+        <div>car</div>
+    </a>
+</div>

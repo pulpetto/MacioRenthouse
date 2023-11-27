@@ -8,6 +8,8 @@ import { VisibilityService } from 'src/app/services/visibility.service';
     styleUrls: ['./search-bar.component.css'],
 })
 export class SearchBarComponent {
+    autocompleteOptions: boolean = true;
+
     constructor(
         private visibilityService: VisibilityService,
         private searchingService: SearchingService

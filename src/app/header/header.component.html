@@ -14,7 +14,7 @@
 
     <app-search-bar
         *ngIf="searchBarVisibility$ | async"
-        class="absolute flex items-center w-1/4 translate-x-1/2 right-1/2"
+        class="absolute flex flex-col items-center w-1/4 translate-x-1/2 right-1/2 top-4"
     ></app-search-bar>
 
     <div *ngIf="!(userFirstName$ | async)">
