@@ -45,9 +45,9 @@ export class OffersPreviewComponent implements OnInit {
                 if (term) {
                     this.searchTerm = term;
                 }
-            });
 
-            this.refreshData();
+                this.refreshData();
+            });
         });
     }
 
