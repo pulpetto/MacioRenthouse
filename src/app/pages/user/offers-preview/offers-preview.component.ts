@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable, combineLatest, map } from 'rxjs';
 import { DropdownMenu } from 'src/app/interfaces/dropdown-menu';
 import { Offer } from 'src/app/interfaces/offer';
+import { SearchingService } from 'src/app/services/searching.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -22,6 +23,7 @@ export class OffersPreviewComponent implements OnInit {
     orderingBy: string = 'ascending';
     sortingBy: string = 'unixPublishDate';
     sortingByCarProperties: boolean = false;
+    searchTerm: string = '';
 
     sellerData$!: Observable<{
         offers: Offer[] | null;
@@ -31,12 +33,19 @@ export class OffersPreviewComponent implements OnInit {
 
     constructor(
         private userService: UserService,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private searchingService: SearchingService
     ) {}
 
     ngOnInit() {
         this.route.paramMap.subscribe((params) => {
             this.username = params.get('username')!;
+
+            this.searchingService.getSearchTerm().subscribe((term) => {
+                if (term) {
+                    this.searchTerm = term;
+                }
+            });
 
             this.refreshData();
         });
