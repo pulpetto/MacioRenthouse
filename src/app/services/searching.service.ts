@@ -1,15 +1,13 @@
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase } from '@angular/fire/compat/database';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
     providedIn: 'root',
 })
 export class SearchingService {
-    private searchTerm: string = '';
-
-    constructor(private angularFireDatabase: AngularFireDatabase) {}
+    private searchTermSubject = new BehaviorSubject<string | null>(null);
 
     updateSearchTerm(updatedSearchTerm: string) {
-        this.searchTerm = updatedSearchTerm;
+        this.searchTermSubject.next(updatedSearchTerm);
     }
 }
