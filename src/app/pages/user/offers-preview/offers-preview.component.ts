@@ -61,7 +61,8 @@ export class OffersPreviewComponent implements OnInit {
                     this.sortingBy,
                     this.startIndex,
                     this.maxItemsPerPage,
-                    this.sortingByCarProperties
+                    this.sortingByCarProperties,
+                    this.searchTerm
                 ),
                 this.userService.getOffersAmountByUsername(this.username),
             ]).pipe(
