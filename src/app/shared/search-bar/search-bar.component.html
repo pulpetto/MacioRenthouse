@@ -1,7 +1,10 @@
 <form class="w-full" (ngSubmit)="onSearchTermSubmit(searchBar.value)">
     <input
         type="text"
+        name="searchBar"
         #searchBar
+        [(ngModel)]="searchTerm"
+        (ngModelChange)="onSearchTermChange()"
         (focus)="setFocusState(true)"
         (blur)="setFocusState(false)"
         placeholder="Search for a specific car..."

@@ -9,13 +9,16 @@ import { VisibilityService } from 'src/app/services/visibility.service';
 })
 export class SearchBarComponent {
     autocompleteOptions: boolean = false;
+    searchTerm: string = '';
 
     constructor(
         private visibilityService: VisibilityService,
         private searchingService: SearchingService
     ) {}
 
-    onSearchTermChange(searchTerm: string) {}
+    onSearchTermChange() {
+        console.log(this.searchTerm);
+    }
 
     onSearchTermSubmit(searchTerm: string) {
         this.searchingService.updateSearchTerm(searchTerm);
