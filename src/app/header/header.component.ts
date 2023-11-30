@@ -28,11 +28,6 @@ export class HeaderComponent implements OnInit {
             this.visibilityService.getHeaderSearchBarVisibility();
     }
 
-    onSearchTermSubmit(searchTerm: string) {
-        this.searchingService.updateSearchTerm(searchTerm);
-        console.log(searchTerm);
-    }
-
     setFocusState(state: boolean) {
         this.visibilityService.setHeaderSearchBarFocusState(state);
     }
