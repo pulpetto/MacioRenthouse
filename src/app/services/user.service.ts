@@ -109,7 +109,7 @@ export class UserService {
     }
 
     // if username not specified then global offer searching
-    getOffersBySearchTerm(searchTerm: string, username?: string) {}
+    getOffersBySearchTerm(searchTerm: string) {}
 
     getOffersAmountByUsername(username: string): Observable<number | null> {
         return this.angularFireDatabase
