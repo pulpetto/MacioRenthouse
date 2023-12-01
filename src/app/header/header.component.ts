@@ -12,6 +12,7 @@ import { SearchingService } from '../services/searching.service';
 export class HeaderComponent implements OnInit {
     userFirstName$!: Observable<string | null>;
     searchBarVisibility$!: Observable<boolean>;
+    isSearchBarFocused$!: Observable<boolean>;
 
     constructor(
         private userService: UserService,
@@ -26,6 +27,9 @@ export class HeaderComponent implements OnInit {
 
         this.searchBarVisibility$ =
             this.visibilityService.getHeaderSearchBarVisibility();
+
+        this.isSearchBarFocused$ =
+            this.visibilityService.getHeaderSearchBarFocusState();
     }
 
     setFocusState(state: boolean) {

@@ -10,7 +10,7 @@
         placeholder="Search for a specific car..."
         class="w-full p-4 transition-colors duration-300 border-b-4 rounded-md outline-none bg-neutral-800 bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-30 focus:border-b-4 focus:border-indigo-700 focus:border-solid border-b-transparent"
         [ngClass]="{
-            'rounded-b-none': autocompleteOptions,
+            'rounded-b-none': autocompleteOptionsVisibility,
         }"
     />
     <button
@@ -26,7 +26,7 @@
 </form>
 
 <div
-    *ngIf="autocompleteOptions"
+    *ngIf="autocompleteOptionsVisibility"
     class="flex flex-col w-full bg-neutral-800 bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-30 rounded-b-md"
 >
     <a

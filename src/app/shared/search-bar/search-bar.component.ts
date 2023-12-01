@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { SearchingService } from 'src/app/services/searching.service';
+import { UserService } from 'src/app/services/user.service';
 import { VisibilityService } from 'src/app/services/visibility.service';
 
 @Component({
@@ -8,16 +9,18 @@ import { VisibilityService } from 'src/app/services/visibility.service';
     styleUrls: ['./search-bar.component.css'],
 })
 export class SearchBarComponent {
-    autocompleteOptions: boolean = false;
+    autocompleteOptionsVisibility: boolean = false;
     searchTerm: string = '';
 
     constructor(
         private visibilityService: VisibilityService,
+        private userService: UserService,
         private searchingService: SearchingService
     ) {}
 
     onSearchTermChange() {
-        console.log(this.searchTerm);
+        this.userService.getOffersBySearchTerm(this.searchTerm);
+        this.autocompleteOptionsVisibility = true;
     }
 
     onSearchTermSubmit(searchTerm: string) {

@@ -14,7 +14,7 @@
 
     <app-search-bar
         *ngIf="searchBarVisibility$ | async"
-        class="absolute flex flex-col items-center w-1/4 translate-x-1/2 right-1/2 top-4"
+        class="absolute z-20 flex flex-col items-center w-1/4 translate-x-1/2 right-1/2 top-4"
     ></app-search-bar>
 
     <div *ngIf="!(userFirstName$ | async)">
@@ -46,4 +46,9 @@
             />
         </div>
     </button>
+
+    <div
+        *ngIf="isSearchBarFocused$ | async"
+        class="absolute top-0 left-0 w-screen h-screen transition-all duration-1000 backdrop-brightness-50 backdrop-filter"
+    ></div>
 </div>
