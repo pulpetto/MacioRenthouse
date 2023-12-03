@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { SearchingService } from 'src/app/services/searching.service';
 import { UserService } from 'src/app/services/user.service';
 import { VisibilityService } from 'src/app/services/visibility.service';
@@ -8,8 +9,9 @@ import { VisibilityService } from 'src/app/services/visibility.service';
     templateUrl: './search-bar.component.html',
     styleUrls: ['./search-bar.component.css'],
 })
-export class SearchBarComponent {
-    autocompleteOptionsVisibility: boolean = false;
+export class SearchBarComponent implements OnInit {
+    autocompleteOptions$!: Observable<string[] | null>;
+    isSearchBarFocused: boolean = false;
     searchTerm: string = '';
 
     constructor(
@@ -18,9 +20,13 @@ export class SearchBarComponent {
         private searchingService: SearchingService
     ) {}
 
+    ngOnInit() {
+        this.autocompleteOptions$ =
+            this.searchingService.getSearchSuggestions();
+    }
+
     onSearchTermChange() {
         this.userService.getOffersBySearchTerm(this.searchTerm);
-        this.autocompleteOptionsVisibility = true;
     }
 
     onSearchTermSubmit(searchTerm: string) {

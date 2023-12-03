@@ -5,12 +5,12 @@
         #searchBar
         [(ngModel)]="searchTerm"
         (ngModelChange)="onSearchTermChange()"
-        (focus)="setFocusState(true)"
-        (blur)="setFocusState(false)"
+        (focus)="setFocusState(true); isSearchBarFocused = true"
+        (blur)="setFocusState(false); isSearchBarFocused = false"
         placeholder="Search for a specific car..."
         class="w-full p-4 transition-colors duration-300 border-b-4 rounded-md outline-none bg-neutral-800 bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-30 focus:border-b-4 focus:border-indigo-700 focus:border-solid border-b-transparent"
         [ngClass]="{
-            'rounded-b-none': autocompleteOptionsVisibility,
+            'rounded-b-none': isSearchBarFocused,
         }"
     />
     <button
@@ -27,17 +27,19 @@
     </button>
 </form>
 
-<div
-    *ngIf="autocompleteOptionsVisibility"
-    class="flex flex-col w-full bg-neutral-800 bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-30 rounded-b-md"
->
-    <a
-        routerLink=""
-        (focus)="setFocusState(true)"
-        (blur)="setFocusState(false)"
-        *ngFor="let option of autocompleteOptions"
-        class="p-4 transition-colors duration-300 border-l-4 outline-none cursor-pointer first:rounded-t-none last-of-type:rounded-b-md last:rounded-b-md focus:bg-neutral-900 focus:border-l-4 focus:border-solid focus:border-indigo-700 hover:bg-neutral-700 hover:bg-opacity-30 border-l-transparent"
+<ng-container *ngIf="autocompleteOptions$ | async as autocompleteOptions">
+    <div
+        *ngIf="isSearchBarFocused"
+        class="flex flex-col w-full bg-neutral-800 bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-30 rounded-b-md"
     >
-        <div class="font-medium">Toyota</div>
-    </a>
-</div>
+        <a
+            routerLink=""
+            (focus)="setFocusState(true)"
+            (blur)="setFocusState(false)"
+            *ngFor="let option of autocompleteOptions"
+            class="p-4 transition-colors duration-300 border-l-4 outline-none cursor-pointer first:rounded-t-none last-of-type:rounded-b-md last:rounded-b-md focus:bg-neutral-900 focus:border-l-4 focus:border-solid focus:border-indigo-700 hover:bg-neutral-700 hover:bg-opacity-30 border-l-transparent"
+        >
+            <div class="font-medium">{{ option }}</div>
+        </a>
+    </div>
+</ng-container>
