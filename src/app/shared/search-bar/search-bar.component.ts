@@ -26,11 +26,11 @@ export class SearchBarComponent implements OnInit {
     }
 
     onSearchTermChange() {
-        this.userService.getOffersBySearchTerm(this.searchTerm);
+        this.searchingService.updateSearchTerm(this.searchTerm);
     }
 
-    onSearchTermSubmit(searchTerm: string) {
-        this.searchingService.updateSearchTerm(searchTerm);
+    onSearchTermSubmit() {
+        this.userService.getOffersBySearchTerm(this.searchTerm);
     }
 
     setFocusState(state: boolean) {
