@@ -38,6 +38,8 @@ export class SearchingService {
                 return suggestion.toLowerCase().startsWith(searchTermFixed);
             }) || null;
 
+        this.suggestionsLetters$.next([]);
+
         searchingSuggestionsFiltered?.map((suggestion) => {
             const suggestionsLetters: { letter: string; match: boolean }[] = [];
             Array.from(suggestion.toLowerCase()).map((letter) => {
