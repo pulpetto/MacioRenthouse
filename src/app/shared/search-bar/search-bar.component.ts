@@ -11,6 +11,11 @@ import { VisibilityService } from 'src/app/services/visibility.service';
 })
 export class SearchBarComponent implements OnInit {
     autocompleteOptions$!: Observable<string[] | null>;
+    // prettier-ignore
+    autocompleteOptionsLetters$!:Observable<{
+        letter: string;
+        match: boolean;
+    }[][] | null>;
     isSearchBarFocused: boolean = false;
     searchTerm: string = '';
 
@@ -23,6 +28,9 @@ export class SearchBarComponent implements OnInit {
     ngOnInit() {
         this.autocompleteOptions$ =
             this.searchingService.getSearchSuggestions();
+
+        this.autocompleteOptionsLetters$ =
+            this.searchingService.getSearchSuggestionsLetters();
     }
 
     onSearchTermChange() {

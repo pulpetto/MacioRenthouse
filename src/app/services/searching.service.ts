@@ -74,4 +74,12 @@ export class SearchingService {
     getSearchSuggestions(): Observable<string[] | null> {
         return this.searchingSuggestions$.asObservable();
     }
+
+    // prettier-ignore
+    getSearchSuggestionsLetters(): Observable<{
+        letter: string;
+        match: boolean;
+    }[][] | null> {
+        return this.suggestionsLetters$.asObservable();
+    }
 }
