@@ -86,18 +86,8 @@ export class UserService {
         sortBy: string,
         arrayStartIndex: number,
         maxItemsPerPage: number,
-        sortingByCarProperties: boolean,
-        searchTerm: string
+        sortingByCarProperties: boolean
     ): Observable<Offer[] | null> {
-        const searchTermFixed = searchTerm
-            .toLowerCase() // Convert to lowercase
-            .trim() // Trim leading and trailing whitespaces
-            .replace(/[^\w\s]/gi, '') // Remove non-alphanumeric characters
-            .normalize('NFD') // Normalize accents/diacritics
-            .replace(/[\u0300-\u036f]/g, ''); // Remove accents/diacritics
-
-        const searchTermWords = searchTerm.split(/\s+/);
-
         const query = this.angularFireDatabase.list<Offer>(
             `users/${username}/offers`,
             (ref) => {
@@ -133,9 +123,6 @@ export class UserService {
             })
         );
     }
-
-    // if username not specified then global offer searching
-    getOffersBySearchTerm(searchTerm: string) {}
 
     getOffersAmountByUsername(username: string): Observable<number | null> {
         return this.angularFireDatabase
