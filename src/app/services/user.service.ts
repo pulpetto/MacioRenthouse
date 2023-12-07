@@ -9,7 +9,7 @@ import {
 } from '@angular/fire/compat/database';
 import { getDatabase, ref, set } from '@angular/fire/database';
 import { Observable } from 'rxjs/internal/Observable';
-import { BehaviorSubject, combineLatest, map } from 'rxjs';
+import { BehaviorSubject, combineLatest, map, retry } from 'rxjs';
 import { Offer } from '../interfaces/offer';
 
 @Injectable({
@@ -31,6 +31,32 @@ export class UserService {
             )
             .valueChanges()
             .pipe(map((offers) => (offers.length ? offers[0] : null)));
+    }
+
+    // make it case-insensitive
+    getOffersNamesBySearchTerm(searchTerm: string): Observable<
+        {
+            carNaming: string;
+            offerId: string;
+        }[]
+    > {
+        return this.angularFireDatabase
+            .list<Offer>('offers', (ref) =>
+                ref
+                    .orderByChild('car/carBrand')
+                    .startAt(searchTerm)
+                    .endAt(searchTerm + '\uf8ff')
+                    .limitToFirst(10)
+            )
+            .valueChanges()
+            .pipe(
+                map((offers) =>
+                    offers.map((offer) => ({
+                        carNaming: `${offer.car.carBrand} ${offer.car.brandModel}`,
+                        offerId: offer.offerId,
+                    }))
+                )
+            );
     }
 
     getUserByUsername(username: string): Observable<User | null> {
