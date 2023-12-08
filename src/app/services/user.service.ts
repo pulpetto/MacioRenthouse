@@ -34,12 +34,7 @@ export class UserService {
     }
 
     // make it case-insensitive
-    getOffersNamesBySearchTerm(searchTerm: string): Observable<
-        {
-            carNaming: string;
-            offerId: string;
-        }[]
-    > {
+    getOffersNamesBySearchTerm(searchTerm: string): Observable<string[]> {
         return this.angularFireDatabase
             .list<Offer>('offers', (ref) =>
                 ref
@@ -51,10 +46,11 @@ export class UserService {
             .valueChanges()
             .pipe(
                 map((offers) =>
-                    offers.map((offer) => ({
-                        carNaming: `${offer.car.carBrand} ${offer.car.brandModel}`,
-                        offerId: offer.offerId,
-                    }))
+                    offers.map((offer) =>
+                        `${offer.car.carBrand} ${offer.car.brandModel}`
+                            .trim()
+                            .replace(/\s+/g, ' ')
+                    )
                 )
             );
     }
