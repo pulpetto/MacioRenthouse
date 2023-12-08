@@ -46,11 +46,16 @@ export class UserService {
             .valueChanges()
             .pipe(
                 map((offers) =>
-                    offers.map((offer) =>
-                        `${offer.car.carBrand} ${offer.car.brandModel}`
-                            .trim()
-                            .replace(/\s+/g, ' ')
-                    )
+                    offers
+                        .map((offer) =>
+                            `${offer.car.carBrand} ${offer.car.brandModel}`
+                                .trim()
+                                .replace(/\s+/g, ' ')
+                        )
+                        .filter(
+                            (value, index, self) =>
+                                self.indexOf(value) === index
+                        )
                 )
             );
     }
