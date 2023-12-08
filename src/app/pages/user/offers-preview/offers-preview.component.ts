@@ -23,7 +23,6 @@ export class OffersPreviewComponent implements OnInit {
     orderingBy: string = 'ascending';
     sortingBy: string = 'unixPublishDate';
     sortingByCarProperties: boolean = false;
-    searchTerm: string = '';
 
     sellerData$!: Observable<{
         offers: Offer[] | null;
@@ -40,14 +39,7 @@ export class OffersPreviewComponent implements OnInit {
     ngOnInit() {
         this.route.paramMap.subscribe((params) => {
             this.username = params.get('username')!;
-
-            this.searchingService.getSearchTerm().subscribe((term) => {
-                if (term) {
-                    this.searchTerm = term;
-                }
-
-                this.refreshData();
-            });
+            this.refreshData();
         });
     }
 
