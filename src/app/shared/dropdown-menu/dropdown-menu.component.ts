@@ -8,6 +8,7 @@ import {
     Output,
     ViewChild,
 } from '@angular/core';
+import { UtilityService } from 'src/app/services/utility.service';
 
 @Component({
     selector: 'app-dropdown-menu',
@@ -34,7 +35,10 @@ export class DropdownMenuComponent implements OnInit {
     @ViewChild('list', { read: ElementRef, static: false })
     list!: ElementRef;
 
-    constructor(private elementRef: ElementRef) {}
+    constructor(
+        private elementRef: ElementRef,
+        private utilityService: UtilityService
+    ) {}
 
     ngOnInit() {
         this.dropdownOptions.forEach((optionName, i) => {
@@ -47,7 +51,7 @@ export class DropdownMenuComponent implements OnInit {
             }
 
             const optionObj = {
-                id: this.generateRandomString(),
+                id: this.utilityService.generateRandomString(10),
                 name: optionName,
                 checked: checked,
             };
@@ -87,19 +91,5 @@ export class DropdownMenuComponent implements OnInit {
                 $event.preventDefault();
             }
         }
-    }
-
-    generateRandomString(): string {
-        const characters =
-            'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-        const charactersLength = characters.length;
-        let result = '';
-
-        for (let i = 0; i < 10; i++) {
-            const randomIndex = Math.floor(Math.random() * charactersLength);
-            result += characters.charAt(randomIndex);
-        }
-
-        return result;
     }
 }

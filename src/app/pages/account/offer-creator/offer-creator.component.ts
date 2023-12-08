@@ -11,6 +11,7 @@ import { firstValueFrom } from 'rxjs';
 import { Modal } from 'src/app/interfaces/modal';
 import { Offer } from 'src/app/interfaces/offer';
 import { UserService } from 'src/app/services/user.service';
+import { UtilityService } from 'src/app/services/utility.service';
 
 @Component({
     selector: 'app-offer-creator',
@@ -74,6 +75,7 @@ export class OfferCreatorComponent {
 
     constructor(
         private userService: UserService,
+        private utilityService: UtilityService,
         private angularFireStorage: AngularFireStorage,
         private renderer: Renderer2
     ) {}
@@ -200,20 +202,6 @@ export class OfferCreatorComponent {
         this.updatePlaceholdersAmount();
     }
 
-    generateRandomString(): string {
-        const characters =
-            'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-        const charactersLength = characters.length;
-        let result = '';
-
-        for (let i = 0; i < 20; i++) {
-            const randomIndex = Math.floor(Math.random() * charactersLength);
-            result += characters.charAt(randomIndex);
-        }
-
-        return result;
-    }
-
     onOfferSubmit() {
         if (this.imagesUrls.length === 0) {
             // maybe pulse animation on image upload label
@@ -224,7 +212,8 @@ export class OfferCreatorComponent {
                 if (user) {
                     await this.uploadImagesToFirebaseStorage();
 
-                    const offerId = this.generateRandomString();
+                    const offerId =
+                        this.utilityService.generateRandomString(20);
                     const carBrand = this.offerForm?.get('carBrand')?.value!;
                     const capitalizedCarBrand =
                         carBrand.charAt(0).toUpperCase() +
