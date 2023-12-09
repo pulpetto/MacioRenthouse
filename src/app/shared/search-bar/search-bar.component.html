@@ -1,4 +1,4 @@
-<form class="w-full" (ngSubmit)="onSearchTermSubmit()">
+<form class="z-10 w-full" (ngSubmit)="onSearchTermSubmit()">
     <input
         type="text"
         name="searchBar"
@@ -6,17 +6,16 @@
         [(ngModel)]="searchTerm"
         (ngModelChange)="onSearchTermChange()"
         (focus)="setFocusState(true); isSearchBarFocused = true"
-        (blur)="setFocusState(false); isSearchBarFocused = false"
+        (blur)="isSearchBarFocused = false"
         placeholder="Search for a specific car..."
         class="w-full p-4 transition-colors duration-300 border-b-4 rounded-md outline-none bg-neutral-800 bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-30 focus:border-b-4 focus:border-indigo-700 focus:border-solid border-b-transparent"
         [ngClass]="{
-            'rounded-b-none': isSearchBarFocused,
+            'rounded-b-none': isSearchBarFocused === true
         }"
     />
     <button
         type="submit"
-        (focus)="setFocusState(true); isSearchBarFocused = true"
-        (blur)="setFocusState(false); isSearchBarFocused = false"
+        (click)="onSearchTermSubmit()"
         class="absolute w-10 h-10 transition-transform duration-300 rounded-md right-2 focus:outline focus:outline-indigo-700 hover:scale-105 top-2"
     >
         <img
@@ -27,51 +26,63 @@
     </button>
 </form>
 
-<ng-container *ngIf="autocompleteOptions$ | async as autocompleteOptions">
-    <div
-        *ngIf="isSearchBarFocused"
-        class="flex flex-col w-full bg-neutral-800 bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-30 rounded-b-md"
-    >
-        <a
-            routerLink=""
-            *ngFor="let option of autocompleteOptions"
-            (click)="onSearchTermSubmit()"
-            (focus)="setFocusState(true)"
-            (blur)="setFocusState(false)"
-            class="p-4 transition-colors duration-300 border-l-4 outline-none cursor-pointer first:rounded-t-none last-of-type:rounded-b-md last:rounded-b-md focus:bg-neutral-900 focus:border-l-4 focus:border-solid focus:border-indigo-700 hover:bg-neutral-700 hover:bg-opacity-30 border-l-transparent"
-        >
-            <div class="font-medium">{{ option }}</div>
-        </a>
-
+<ng-container
+    *ngIf="autocompleteOptionsLetters$ | async as autocompleteOptions"
+>
+    <ng-container *ngIf="isSearchBarFocused$ | async">
         <div
-            class="flex justify-between p-4 transition-colors duration-300 border-l-4 outline-none first:rounded-t-none last-of-type:rounded-b-md last:rounded-b-md focus:bg-neutral-900 focus:border-l-4 focus:border-solid focus:border-indigo-700 border-l-transparent"
-            *ngIf="autocompleteOptions.length === 0"
+            class="flex flex-col w-full bg-neutral-800 bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-30 rounded-b-md"
         >
-            <div class="font-semibold">Searching history</div>
-            <div class="flex justify-between gap-1">
-                <button class="w-8 h-8">
-                    <img
-                        src="assets/svgs/history-svgrepo-com.svg"
-                        class="w-full h-full"
-                        alt="history icon"
-                    />
-                </button>
-                <button class="w-8 h-8">
-                    <img
-                        src="assets/svgs/circle-cancel-svgrepo-com.svg"
-                        class="w-full h-full"
-                        alt="delete icon"
-                    />
-                </button>
-            </div>
+            <a
+                routerLink=""
+                *ngFor="let option of autocompleteOptions"
+                (click)="onSearchTermSubmit()"
+                class="p-4 transition-colors duration-300 border-l-4 outline-none cursor-pointer first:rounded-t-none last-of-type:rounded-b-md last:rounded-b-md focus:bg-neutral-900 focus:border-l-4 focus:border-solid focus:border-indigo-700 hover:bg-neutral-700 hover:bg-opacity-30 border-l-transparent"
+            >
+                <div class="flex gap-0">
+                    <span
+                        *ngFor="let signObject of option"
+                        class="font-medium"
+                        [ngClass]="{
+                            'font-semibold': signObject.match === true,
+                            'ml-1': signObject.letter === ' '
+                        }"
+                    >
+                        {{ signObject.letter }}
+                    </span>
+                </div>
+            </a>
+
+            <ng-container *ngIf="autocompleteOptions.length === 0">
+                <div
+                    class="flex justify-between p-4 transition-colors duration-300 border-l-4 outline-none first:rounded-t-none last-of-type:rounded-b-md last:rounded-b-md focus:bg-neutral-900 focus:border-l-4 focus:border-solid focus:border-indigo-700 border-l-transparent"
+                >
+                    <div class="font-semibold">Searching history</div>
+                    <div class="flex justify-between gap-1">
+                        <button class="w-8 h-8">
+                            <img
+                                src="assets/svgs/history-svgrepo-com.svg"
+                                class="w-full h-full"
+                                alt="history icon"
+                            />
+                        </button>
+                        <button class="w-8 h-8">
+                            <img
+                                src="assets/svgs/circle-cancel-svgrepo-com.svg"
+                                class="w-full h-full"
+                                alt="delete icon"
+                            />
+                        </button>
+                    </div>
+                </div>
+                <a
+                    routerLink=""
+                    *ngFor="let x of [1, 2, 3, 4]"
+                    class="p-4 transition-colors duration-300 border-l-4 outline-none cursor-pointer first:rounded-t-none last-of-type:rounded-b-md last:rounded-b-md focus:bg-neutral-900 focus:border-l-4 focus:border-solid focus:border-indigo-700 hover:bg-neutral-700 hover:bg-opacity-30 border-l-transparent"
+                >
+                    <div class="font-medium">option {{ x }}</div>
+                </a>
+            </ng-container>
         </div>
-        <a
-            routerLink=""
-            *ngFor="let x of [1, 2, 3, 4]"
-            (click)="onSearchTermSubmit()"
-            class="p-4 transition-colors duration-300 border-l-4 outline-none cursor-pointer first:rounded-t-none last-of-type:rounded-b-md last:rounded-b-md focus:bg-neutral-900 focus:border-l-4 focus:border-solid focus:border-indigo-700 hover:bg-neutral-700 hover:bg-opacity-30 border-l-transparent"
-        >
-            <div class="font-medium">option {{ x }}</div>
-        </a>
-    </div>
+    </ng-container>
 </ng-container>

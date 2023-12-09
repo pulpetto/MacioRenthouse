@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { SearchingService } from 'src/app/services/searching.service';
 import { UserService } from 'src/app/services/user.service';
@@ -10,22 +10,26 @@ import { VisibilityService } from 'src/app/services/visibility.service';
     styleUrls: ['./search-bar.component.css'],
 })
 export class SearchBarComponent implements OnInit {
+    isSearchBarFocused$!: Observable<boolean | null>;
     autocompleteOptions$!: Observable<string[] | null>;
     // prettier-ignore
     autocompleteOptionsLetters$!:Observable<{
         letter: string;
         match: boolean;
     }[][] | null>;
-    isSearchBarFocused: boolean = false;
     searchTerm: string = '';
+    // only for visual effect
+    isSearchBarFocused: boolean = false;
 
     constructor(
         private visibilityService: VisibilityService,
-        private userService: UserService,
         private searchingService: SearchingService
     ) {}
 
     ngOnInit() {
+        this.isSearchBarFocused$ =
+            this.visibilityService.getHeaderSearchBarFocusState();
+
         this.autocompleteOptions$ =
             this.searchingService.getSearchSuggestions();
 
@@ -33,15 +37,13 @@ export class SearchBarComponent implements OnInit {
             this.searchingService.getSearchSuggestionsLetters();
     }
 
+    setFocusState(state: boolean) {
+        this.visibilityService.setHeaderSearchBarFocusState(state);
+    }
+
     onSearchTermChange() {
         this.searchingService.updateSearchTerm(this.searchTerm);
     }
 
-    onSearchTermSubmit() {
-        this.userService.getOffersBySearchTerm(this.searchTerm);
-    }
-
-    setFocusState(state: boolean) {
-        this.visibilityService.setHeaderSearchBarFocusState(state);
-    }
+    onSearchTermSubmit() {}
 }
