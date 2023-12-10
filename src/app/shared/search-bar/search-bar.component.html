@@ -30,6 +30,15 @@
     <div
         class="flex flex-col w-full bg-neutral-800 bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-30 rounded-b-md"
     >
+        <div
+            *ngIf="showHistoryDeletedNotification"
+            class="p-4 transition-colors duration-300 border-l-4 outline-none first:rounded-t-none last-of-type:rounded-b-md last:rounded-b-md focus:bg-neutral-900 focus:border-l-4 focus:border-solid focus:border-indigo-700 border-l-transparent"
+        >
+            <div class="font-semibold text-center">
+                Searching history successfully deleted!
+            </div>
+        </div>
+
         <ng-container
             *ngIf="
                 searchTerm.length === 0 && searchingHistory.length > 0;
@@ -53,7 +62,11 @@
                             />
                         </svg>
                     </button>
-                    <button class="w-8 h-8">
+                    <button
+                        type="button"
+                        (click)="deleteSearchigHistory()"
+                        class="w-8 h-8"
+                    >
                         <svg
                             class="transition-colors duration-300 hover:stroke-indigo-700 stroke-white"
                             viewBox="0 -0.5 25 25"

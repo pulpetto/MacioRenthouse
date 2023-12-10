@@ -21,6 +21,7 @@ export class SearchBarComponent implements OnInit {
     // only for visual effect
     isSearchBarFocused: boolean = false;
     searchingHistory: string[] = [];
+    showHistoryDeletedNotification: boolean = false;
 
     constructor(
         private visibilityService: VisibilityService,
@@ -64,5 +65,16 @@ export class SearchBarComponent implements OnInit {
             autocompleteOption ? autocompleteOption : this.searchTerm
         );
         localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
+    }
+
+    deleteSearchigHistory() {
+        localStorage.setItem('searchHistory', JSON.stringify([]));
+        this.searchingHistory = [];
+
+        this.showHistoryDeletedNotification = true;
+
+        setTimeout(() => {
+            this.showHistoryDeletedNotification = false;
+        }, 3000);
     }
 }
