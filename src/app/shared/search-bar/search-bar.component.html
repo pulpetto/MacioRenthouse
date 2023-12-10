@@ -26,67 +26,81 @@
     </button>
 </form>
 
-<ng-container
-    *ngIf="autocompleteOptionsLetters$ | async as autocompleteOptions"
->
-    <ng-container *ngIf="isSearchBarFocused$ | async">
-        <div
-            class="flex flex-col w-full bg-neutral-800 bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-30 rounded-b-md"
+<ng-container *ngIf="isSearchBarFocused$ | async">
+    <div
+        class="flex flex-col w-full bg-neutral-800 bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-30 rounded-b-md"
+    >
+        <ng-container
+            *ngIf="
+                searchTerm.length === 0 && searchingHistory.length > 0;
+                else searchingSuggestions
+            "
         >
-            <ng-container
-                *ngIf="searchTerm.length === 0; else searchingSuggestions"
+            <div
+                class="flex justify-between p-4 transition-colors duration-300 border-l-4 outline-none first:rounded-t-none last-of-type:rounded-b-md last:rounded-b-md focus:bg-neutral-900 focus:border-l-4 focus:border-solid focus:border-indigo-700 border-l-transparent"
             >
-                <div
-                    class="flex justify-between p-4 transition-colors duration-300 border-l-4 outline-none first:rounded-t-none last-of-type:rounded-b-md last:rounded-b-md focus:bg-neutral-900 focus:border-l-4 focus:border-solid focus:border-indigo-700 border-l-transparent"
-                >
-                    <div class="font-semibold">Searching history</div>
-                    <div class="flex justify-between gap-1">
-                        <button class="w-8 h-8">
-                            <img
-                                src="assets/svgs/history-svgrepo-com.svg"
-                                class="w-full h-full"
-                                alt="history icon"
-                            />
-                        </button>
-                        <button class="w-8 h-8">
-                            <img
-                                src="assets/svgs/circle-cancel-svgrepo-com.svg"
-                                class="w-full h-full"
-                                alt="delete icon"
-                            />
-                        </button>
-                    </div>
+                <div class="font-semibold">Searching history</div>
+                <div class="flex justify-between gap-1">
+                    <button class="w-8 h-8">
+                        <img
+                            src="assets/svgs/history-svgrepo-com.svg"
+                            class="w-full h-full"
+                            alt="history icon"
+                        />
+                    </button>
+                    <button class="w-8 h-8">
+                        <img
+                            src="assets/svgs/circle-cancel-svgrepo-com.svg"
+                            class="w-full h-full"
+                            alt="delete icon"
+                        />
+                    </button>
                 </div>
-                <a
-                    routerLink=""
-                    *ngFor="let x of [1, 2, 3, 4]"
-                    class="p-4 transition-colors duration-300 border-l-4 outline-none cursor-pointer first:rounded-t-none last-of-type:rounded-b-md last:rounded-b-md focus:bg-neutral-900 focus:border-l-4 focus:border-solid focus:border-indigo-700 hover:bg-neutral-700 hover:bg-opacity-30 border-l-transparent"
-                >
-                    <div class="font-medium">option {{ x }}</div>
-                </a>
-            </ng-container>
+            </div>
+            <a
+                routerLink=""
+                *ngFor="let searchQuery of searchingHistory"
+                (click)="onSearchTermSubmit(searchQuery)"
+                class="p-4 transition-colors duration-300 border-l-4 outline-none cursor-pointer first:rounded-t-none last-of-type:rounded-b-md last:rounded-b-md focus:bg-neutral-900 focus:border-l-4 focus:border-solid focus:border-indigo-700 hover:bg-neutral-700 hover:bg-opacity-30 border-l-transparent"
+            >
+                <div class="font-medium">{{ searchQuery }}</div>
+            </a>
+        </ng-container>
 
-            <ng-template #searchingSuggestions>
-                <a
-                    routerLink=""
-                    *ngFor="let option of autocompleteOptions"
-                    (click)="onSearchTermSubmit()"
-                    class="p-4 transition-colors duration-300 border-l-4 outline-none cursor-pointer first:rounded-t-none last-of-type:rounded-b-md last:rounded-b-md focus:bg-neutral-900 focus:border-l-4 focus:border-solid focus:border-indigo-700 hover:bg-neutral-700 hover:bg-opacity-30 border-l-transparent"
+        <ng-template #searchingSuggestions>
+            <ng-container
+                *ngIf="
+                    autocompleteOptionsLetters$
+                        | async as autocompleteOptionsLetters
+                "
+            >
+                <ng-container
+                    *ngIf="autocompleteOptions$ | async as autocompleteOptions"
                 >
-                    <div class="flex gap-0">
-                        <span
-                            *ngFor="let signObject of option"
-                            class="font-medium"
-                            [ngClass]="{
-                                'font-semibold': signObject.match === true,
-                                'ml-1': signObject.letter === ' '
-                            }"
-                        >
-                            {{ signObject.letter }}
-                        </span>
-                    </div>
-                </a>
-            </ng-template>
-        </div>
-    </ng-container>
+                    <a
+                        routerLink=""
+                        *ngFor="
+                            let option of autocompleteOptionsLetters;
+                            let i = index
+                        "
+                        (click)="onSearchTermSubmit(autocompleteOptions[i])"
+                        class="p-4 transition-colors duration-300 border-l-4 outline-none cursor-pointer first:rounded-t-none last-of-type:rounded-b-md last:rounded-b-md focus:bg-neutral-900 focus:border-l-4 focus:border-solid focus:border-indigo-700 hover:bg-neutral-700 hover:bg-opacity-30 border-l-transparent"
+                    >
+                        <div class="flex gap-0">
+                            <span
+                                *ngFor="let signObject of option"
+                                class="font-medium"
+                                [ngClass]="{
+                                    'font-semibold': signObject.match === true,
+                                    'ml-1': signObject.letter === ' '
+                                }"
+                            >
+                                {{ signObject.letter }}
+                            </span>
+                        </div>
+                    </a>
+                </ng-container>
+            </ng-container>
+        </ng-template>
+    </div>
 </ng-container>

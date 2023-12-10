@@ -20,6 +20,7 @@ export class SearchBarComponent implements OnInit {
     searchTerm: string = '';
     // only for visual effect
     isSearchBarFocused: boolean = false;
+    searchingHistory: string[] = [];
 
     constructor(
         private visibilityService: VisibilityService,
@@ -27,6 +28,9 @@ export class SearchBarComponent implements OnInit {
     ) {}
 
     ngOnInit() {
+        this.searchingHistory =
+            JSON.parse(localStorage.getItem('searchHistory')!) || [];
+
         this.isSearchBarFocused$ =
             this.visibilityService.getHeaderSearchBarFocusState();
 
@@ -45,5 +49,20 @@ export class SearchBarComponent implements OnInit {
         this.searchingService.updateSearchTerm(this.searchTerm);
     }
 
-    onSearchTermSubmit() {}
+    // make case insensitive
+    onSearchTermSubmit(autocompleteOption?: string) {
+        const searchHistory =
+            JSON.parse(localStorage.getItem('searchHistory')!) || [];
+
+        if (
+            searchHistory.includes(this.searchTerm) ||
+            searchHistory.includes(autocompleteOption)
+        )
+            return;
+
+        searchHistory.push(
+            autocompleteOption ? autocompleteOption : this.searchTerm
+        );
+        localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
+    }
 }
