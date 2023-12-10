@@ -14,7 +14,7 @@
     >
         <button
             (click)="modalClose(false)"
-            class="px-6 py-2 bg-indigo-700 rounded-md hover:bg-indigo-800"
+            class="px-6 py-2 transition-colors duration-300 bg-indigo-700 rounded-md hover:bg-indigo-800"
         >
             Got it!
         </button>
@@ -24,13 +24,13 @@
         <div class="flex gap-2 text-xl font-semibold">
             <button
                 (click)="modalClose(false)"
-                class="px-6 py-2 rounded-md hover:text-indigo-700"
+                class="px-6 py-2 transition-colors duration-300 rounded-md hover:text-indigo-700"
             >
                 {{ optionNames![0] }}
             </button>
             <button
                 (click)="modalClose(true)"
-                class="px-6 py-2 bg-indigo-700 rounded-md hover:bg-indigo-800"
+                class="px-6 py-2 transition-colors duration-300 bg-indigo-700 rounded-md hover:bg-indigo-800"
             >
                 {{ optionNames![1] }}
             </button>
