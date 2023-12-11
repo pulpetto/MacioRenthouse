@@ -50,7 +50,11 @@
             >
                 <div class="font-semibold">Searching history</div>
                 <div class="flex justify-between gap-1">
-                    <button class="w-8 h-8">
+                    <button
+                        type="button"
+                        (click)="viewFullSearchigHistory()"
+                        class="w-8 h-8"
+                    >
                         <svg
                             class="transition-colors duration-300 hover:fill-indigo-700 fill-white"
                             viewBox="0 0 24 24"
@@ -137,3 +141,74 @@
         </ng-template>
     </div>
 </ng-container>
+
+<div
+    cdkTrapFocus
+    [cdkTrapFocusAutoCapture]="true"
+    *ngIf="showHistoryModal"
+    (click)="closeModal($event, modal)"
+    class="absolute z-20 flex items-center justify-center w-screen h-screen bg-opacity-60 bg-neutral-950 backdrop-brightness-50 backdrop-blur-xl"
+>
+    <div
+        #modal
+        class="flex flex-col items-center justify-between max-w-lg gap-6 px-24 py-6 text-center rounded-xl backdrop-brightness-200 backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter bg-neutral-950 h-2/5 max-h-min"
+    >
+        <button
+            type="button"
+            (click)="closeModal()"
+            class="absolute w-10 h-10 top-2 right-2"
+        >
+            <svg
+                class="transition-colors duration-300 hover:fill-indigo-600 fill-white"
+                viewBox="0 -0.5 25 25"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+            >
+                <path
+                    d="M6.96967 16.4697C6.67678 16.7626 6.67678 17.2374 6.96967 17.5303C7.26256 17.8232 7.73744 17.8232 8.03033 17.5303L6.96967 16.4697ZM13.0303 12.5303C13.3232 12.2374 13.3232 11.7626 13.0303 11.4697C12.7374 11.1768 12.2626 11.1768 11.9697 11.4697L13.0303 12.5303ZM11.9697 11.4697C11.6768 11.7626 11.6768 12.2374 11.9697 12.5303C12.2626 12.8232 12.7374 12.8232 13.0303 12.5303L11.9697 11.4697ZM18.0303 7.53033C18.3232 7.23744 18.3232 6.76256 18.0303 6.46967C17.7374 6.17678 17.2626 6.17678 16.9697 6.46967L18.0303 7.53033ZM13.0303 11.4697C12.7374 11.1768 12.2626 11.1768 11.9697 11.4697C11.6768 11.7626 11.6768 12.2374 11.9697 12.5303L13.0303 11.4697ZM16.9697 17.5303C17.2626 17.8232 17.7374 17.8232 18.0303 17.5303C18.3232 17.2374 18.3232 16.7626 18.0303 16.4697L16.9697 17.5303ZM11.9697 12.5303C12.2626 12.8232 12.7374 12.8232 13.0303 12.5303C13.3232 12.2374 13.3232 11.7626 13.0303 11.4697L11.9697 12.5303ZM8.03033 6.46967C7.73744 6.17678 7.26256 6.17678 6.96967 6.46967C6.67678 6.76256 6.67678 7.23744 6.96967 7.53033L8.03033 6.46967ZM8.03033 17.5303L13.0303 12.5303L11.9697 11.4697L6.96967 16.4697L8.03033 17.5303ZM13.0303 12.5303L18.0303 7.53033L16.9697 6.46967L11.9697 11.4697L13.0303 12.5303ZM11.9697 12.5303L16.9697 17.5303L18.0303 16.4697L13.0303 11.4697L11.9697 12.5303ZM13.0303 11.4697L8.03033 6.46967L6.96967 7.53033L11.9697 12.5303L13.0303 11.4697Z"
+                />
+            </svg>
+        </button>
+
+        <div class="flex flex-col w-full gap-2">
+            <div class="flex items-center self-center justify-between gap-2">
+                <div class="text-3xl font-semibold">History</div>
+                <!-- <div class="mt-2 w-11 h-11">
+                    <img
+                        src="assets/svgs/history-svgrepo-com.svg"
+                        class="w-full h-full"
+                        alt="history icon"
+                    />
+                </div> -->
+            </div>
+            <div
+                class="w-full border-2 border-white border-solid rounded-md"
+            ></div>
+        </div>
+
+        <div
+            *ngIf="searchingHistory.length === 0"
+            class="h-full text-lg font-semibold justify-self-center"
+        >
+            Nothing here yet!
+        </div>
+
+        <div
+            class="flex flex-col self-start h-full gap-3 overflow-y-auto scroll-smooth justify-self-start"
+        >
+            <a
+                *ngFor="let searchTerm of searchingHistory"
+                class="text-xl duration-300 cursor-pointer text-start ransition-colors hover:text-indigo-700"
+                >{{ searchTerm }}</a
+            >
+        </div>
+
+        <button
+            type="button"
+            (click)="deleteSearchigHistory()"
+            class="px-6 py-2 text-xl font-semibold transition-colors duration-300 rounded-md hover:text-red-600"
+        >
+            Clear
+        </button>
+    </div>
+</div>

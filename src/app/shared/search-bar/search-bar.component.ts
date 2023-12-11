@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit, Renderer2 } from '@angular/core';
 import { Observable } from 'rxjs';
 import { SearchingService } from 'src/app/services/searching.service';
 import { UserService } from 'src/app/services/user.service';
@@ -22,10 +22,12 @@ export class SearchBarComponent implements OnInit {
     isSearchBarFocused: boolean = false;
     searchingHistory: string[] = [];
     showHistoryDeletedNotification: boolean = false;
+    showHistoryModal: boolean = false;
 
     constructor(
         private visibilityService: VisibilityService,
-        private searchingService: SearchingService
+        private searchingService: SearchingService,
+        private renderer: Renderer2
     ) {}
 
     ngOnInit() {
@@ -67,6 +69,23 @@ export class SearchBarComponent implements OnInit {
         localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
     }
 
+    viewFullSearchigHistory() {
+        this.showHistoryModal = true;
+        this.renderer.addClass(document.body, 'overflow-hidden');
+    }
+
+    closeModal($event?: Event, modal?: HTMLDivElement) {
+        if (
+            $event &&
+            modal &&
+            (modal === $event.target || modal.contains($event.target as Node))
+        )
+            return;
+
+        this.showHistoryModal = false;
+        this.renderer.removeClass(document.body, 'overflow-hidden');
+    }
+
     deleteSearchigHistory() {
         localStorage.setItem('searchHistory', JSON.stringify([]));
         this.searchingHistory = [];
@@ -76,5 +95,12 @@ export class SearchBarComponent implements OnInit {
         setTimeout(() => {
             this.showHistoryDeletedNotification = false;
         }, 3000);
+    }
+
+    @HostListener('document:keydown', ['$event'])
+    handleKeyboardEvent(event: KeyboardEvent) {
+        if (event.key === 'Escape') {
+            this.closeModal();
+        }
     }
 }
