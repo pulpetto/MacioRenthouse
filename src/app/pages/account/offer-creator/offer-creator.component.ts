@@ -214,15 +214,14 @@ export class OfferCreatorComponent {
 
                     const offerId =
                         this.utilityService.generateRandomString(20);
-                    const carBrand = this.offerForm?.get('carBrand')?.value!;
-                    const capitalizedCarBrand =
-                        carBrand.charAt(0).toUpperCase() +
-                        carBrand.slice(1).toLowerCase();
 
-                    const carModel = this.offerForm?.get('carModel')?.value!;
-                    const capitalizedBrandModel =
-                        carModel.charAt(0).toUpperCase() +
-                        carModel.slice(1).toLowerCase();
+                    const carBrand = this.utilityService.capitalizeEveryWord(
+                        this.offerForm?.get('carBrand')?.value!
+                    );
+
+                    const carModel = this.utilityService.capitalizeEveryWord(
+                        this.offerForm?.get('carModel')?.value!
+                    );
 
                     const newOffer: Offer = {
                         offerId: offerId,
@@ -235,8 +234,9 @@ export class OfferCreatorComponent {
                             this.offerForm?.get('description')?.value!,
                         images: this.imagesUrls,
                         car: {
-                            carBrand: capitalizedCarBrand,
-                            brandModel: capitalizedBrandModel,
+                            carBrand: carBrand,
+                            brandModel: carModel,
+                            fullCarName: `${carBrand} ${carModel}`,
                             productionYear:
                                 +this.offerForm?.get('productionYear')?.value!,
                             seats: +this.offerForm?.get('availableSeats')
