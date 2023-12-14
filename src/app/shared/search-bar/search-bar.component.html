@@ -13,6 +13,18 @@
             'rounded-b-none': isSearchBarFocused === true
         }"
     />
+    <div
+        class="absolute top-0 right-0 flex items-center justify-between gap-1 py-1 pl-4 pr-2 -translate-x-1/2 rounded-md select-none translate-y-1/3 bg-neutral-950"
+    >
+        <div class="font-medium">For: Pawo</div>
+        <button type="button" class="w-6 h-6 mt-1">
+            <img
+                src="assets/svgs/cross-svgrepo-com(1).svg"
+                class="w-full h-full"
+                alt="cross icon"
+            />
+        </button>
+    </div>
     <button
         type="submit"
         (click)="onSearchTermSubmit()"
