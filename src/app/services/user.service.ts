@@ -38,7 +38,7 @@ export class UserService {
         return this.angularFireDatabase
             .list<Offer>('offers', (ref) =>
                 ref
-                    .orderByChild('car/carBrand')
+                    .orderByChild('car/fullCarName')
                     .startAt(searchTerm)
                     .endAt(searchTerm + '\uf8ff')
                     .limitToFirst(10)
@@ -48,7 +48,7 @@ export class UserService {
                 map((offers) =>
                     offers
                         .map((offer) =>
-                            `${offer.car.carBrand} ${offer.car.brandModel}`
+                            `${offer.car.fullCarName}`
                                 .trim()
                                 .replace(/\s+/g, ' ')
                         )
