@@ -7,6 +7,7 @@ import { UtilityService } from './utility.service';
     providedIn: 'root',
 })
 export class SearchingService {
+    private routeUsername$ = new BehaviorSubject<string | null>(null);
     private searchTerm$ = new BehaviorSubject<string | null>(null);
     private searchingSuggestions$ = new BehaviorSubject<string[] | null>([]);
     // prettier-ignore
@@ -31,7 +32,8 @@ export class SearchingService {
 
         this.userService
             .getOffersNamesBySearchTerm(
-                this.utilityService.capitalizeEveryWord(searchTermFixed)
+                this.utilityService.capitalizeEveryWord(searchTermFixed),
+                this.routeUsername$.value
             )
             .subscribe((searchingSuggestions) => {
                 this.suggestionsLetters$.next([]);
@@ -76,6 +78,14 @@ export class SearchingService {
 
     getSearchSuggestions(): Observable<string[] | null> {
         return this.searchingSuggestions$.asObservable();
+    }
+
+    setRouteUsername(newUsername: string) {
+        this.routeUsername$.next(newUsername);
+    }
+
+    getRouteUsername(): Observable<string | null> {
+        return this.routeUsername$.asObservable();
     }
 
     // prettier-ignore
