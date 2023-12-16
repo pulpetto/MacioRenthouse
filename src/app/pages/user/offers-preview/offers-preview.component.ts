@@ -39,6 +39,7 @@ export class OffersPreviewComponent implements OnInit {
     ngOnInit() {
         this.route.paramMap.subscribe((params) => {
             this.username = params.get('username')!;
+            this.searchingService.setRouteUsername(this.username);
             this.refreshData();
         });
     }
@@ -47,15 +48,15 @@ export class OffersPreviewComponent implements OnInit {
         // if no filters then dont check for length
         if (this.username) {
             this.sellerData$ = combineLatest([
-                this.userService.getOffersByUsername(
-                    this.username,
+                this.userService.getOffers(
                     this.orderingBy,
                     this.sortingBy,
                     this.startIndex,
                     this.maxItemsPerPage,
-                    this.sortingByCarProperties
+                    this.sortingByCarProperties,
+                    this.username
                 ),
-                this.userService.getOffersAmountByUsername(this.username),
+                this.userService.getOffersAmount(this.username),
             ]).pipe(
                 map(([offers, offersAmount]) => ({
                     offers,
