@@ -10,6 +10,7 @@ import { VisibilityService } from 'src/app/services/visibility.service';
     styleUrls: ['./search-bar.component.css'],
 })
 export class SearchBarComponent implements OnInit {
+    routeUsername$!: Observable<string | null>;
     isSearchBarFocused$!: Observable<boolean | null>;
     autocompleteOptions$!: Observable<string[] | null>;
     // prettier-ignore
@@ -31,6 +32,11 @@ export class SearchBarComponent implements OnInit {
     ) {}
 
     ngOnInit() {
+        // setTimeout to fix NG0100 error
+        setTimeout(() => {
+            this.routeUsername$ = this.searchingService.getRouteUsername();
+        });
+
         this.searchingHistory =
             JSON.parse(localStorage.getItem('searchHistory')!) || [];
 
