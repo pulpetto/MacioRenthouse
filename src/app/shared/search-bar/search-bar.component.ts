@@ -54,6 +54,10 @@ export class SearchBarComponent implements OnInit {
         this.visibilityService.setHeaderSearchBarFocusState(state);
     }
 
+    stopUserOffersSearch() {
+        this.searchingService.setRouteUsername(null);
+    }
+
     onSearchTermChange() {
         this.searchingService.updateSearchTerm(this.searchTerm);
     }

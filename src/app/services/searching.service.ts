@@ -80,8 +80,8 @@ export class SearchingService {
         return this.searchingSuggestions$.asObservable();
     }
 
-    setRouteUsername(newUsername: string) {
-        this.routeUsername$.next(newUsername);
+    setRouteUsername(newValue: string | null) {
+        this.routeUsername$.next(newValue);
     }
 
     getRouteUsername(): Observable<string | null> {
