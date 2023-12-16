@@ -15,6 +15,7 @@ import { offerExistsGuard } from './guards/offer-exists.guard';
 import { userExistsGuard } from './guards/user-exists.guard';
 import { UserComponent } from './pages/user/user.component';
 import { OffersPreviewComponent } from './pages/user/offers-preview/offers-preview.component';
+import { hasMinimumOffersGuard } from './guards/has-minimum-offers.guard';
 
 const routes: Routes = [
     {
@@ -44,7 +45,7 @@ const routes: Routes = [
     {
         path: 'user/:username/offers',
         component: OffersPreviewComponent,
-        canActivate: [userExistsGuard],
+        canActivate: [userExistsGuard, hasMinimumOffersGuard],
     },
     {
         path: 'account/:username/:userId',
