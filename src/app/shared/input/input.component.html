@@ -12,6 +12,9 @@
             <div *ngIf="control.errors?.['required']" class="text-red-600">
                 required
             </div>
+            <div *ngIf="control.errors?.['maxlength']" class="text-red-600">
+                max length is 15 characters
+            </div>
             <div
                 *ngIf="control.errors?.['usernameDoestExist']"
                 class="text-red-600"
