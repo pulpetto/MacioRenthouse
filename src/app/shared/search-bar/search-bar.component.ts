@@ -1,7 +1,6 @@
 import { Component, HostListener, OnInit, Renderer2 } from '@angular/core';
 import { Observable } from 'rxjs';
 import { SearchingService } from 'src/app/services/searching.service';
-import { UserService } from 'src/app/services/user.service';
 import { VisibilityService } from 'src/app/services/visibility.service';
 
 @Component({
@@ -64,6 +63,10 @@ export class SearchBarComponent implements OnInit {
 
     // make case insensitive
     onSearchTermSubmit(autocompleteOption?: string) {
+        this.searchingService.searchSubmit();
+
+        if (this.searchTerm === '') return;
+
         const searchHistory =
             JSON.parse(localStorage.getItem('searchHistory')!) || [];
 
