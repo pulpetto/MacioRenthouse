@@ -122,9 +122,7 @@
                         ></app-dropdown-menu>
                     </div>
                 </div>
-                <ng-container
-                    *ngIf="sellerData$ | async as sellerData; else loading"
-                >
+                <ng-container *ngIf="sellerData$ | async as sellerData">
                     <div
                         class="flex flex-col items-center text-5xl font-semibold"
                     >
@@ -151,7 +149,7 @@
             </div>
 
             <ng-container
-                *ngIf="sellerData$ | async as sellerData; else loading"
+                *ngIf="sellerData$ | async as sellerData; else loadingOffers"
             >
                 <div class="flex flex-col w-full gap-4 mx-auto mt-6">
                     <div class="flex flex-col items-center w-full gap-6 mt-12">
@@ -218,10 +216,55 @@
                     </div>
                 </div>
             </ng-container>
+
+            <ng-template #loadingOffers>
+                <div class="flex flex-col items-start gap-6 mt-24">
+                    <div
+                        *ngFor="let x of [1, 2, 3, 4, 5, 6]"
+                        role="status"
+                        class="flex w-full gap-6"
+                    >
+                        <div
+                            data-placeholder
+                            class="relative flex items-center justify-center h-48 overflow-hidden rounded bg-neutral-700 w-96"
+                        >
+                            <svg
+                                class="w-10 h-10 text-neutral-500"
+                                aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="currentColor"
+                                viewBox="0 0 20 18"
+                            >
+                                <path
+                                    d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z"
+                                />
+                            </svg>
+                        </div>
+                        <div class="w-full mt-2">
+                            <div
+                                data-placeholder
+                                class="relative w-48 h-3 mb-4 overflow-hidden rounded-full bg-neutral-700"
+                            ></div>
+                            <div
+                                class="h-2 rounded-full bg-neutral-700 max-w-[480px] mb-2.5"
+                            ></div>
+                            <div
+                                class="h-2 rounded-full bg-neutral-700 max-w-[680px] mb-6"
+                            ></div>
+                            <div
+                                class="h-2 rounded-full bg-neutral-700 max-w-[440px] mb-2.5"
+                            ></div>
+                            <div
+                                class="h-2 rounded-full bg-neutral-700 max-w-[460px] mb-2.5"
+                            ></div>
+                            <div
+                                class="h-2 rounded-full bg-neutral-700 max-w-[320px] mb-2"
+                            ></div>
+                        </div>
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </div>
+            </ng-template>
         </div>
     </div>
 </div>
-
-<ng-template #loading>
-    <app-loading></app-loading>
-</ng-template>
