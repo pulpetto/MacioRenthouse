@@ -72,6 +72,13 @@ export class SearchingService {
             });
     }
 
+    searchSubmit() {
+        this.userService.getOffers(
+            this.routeUsername$.value,
+            this.searchTerm$.value
+        );
+    }
+
     getSearchTerm(): Observable<string | null> {
         return this.searchTerm$.asObservable();
     }

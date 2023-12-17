@@ -87,51 +87,62 @@ export class UserService {
     }
 
     getOffers(
-        orderBy: string,
-        sortBy: string,
-        arrayStartIndex: number,
-        maxItemsPerPage: number,
-        sortingByCarProperties: boolean,
-        username?: string,
-        searchTerm?: string
+        username: string | null,
+        searchTerm: string | null,
+        orderBy: string = 'ascending',
+        sortBy: string = 'unixPublishDate',
+        arrayStartIndex: number = 0,
+        maxItemsPerPage: number = 10,
+        sortingByCarProperties: boolean = false
     ): Observable<Offer[] | null> {
-        const path = username ? `users/${username}/offers` : 'offers';
+        let query;
+        const offersPath = username ? `users/${username}/offers` : 'offers';
+        const sortingBy = sortingByCarProperties ? `car/${sortBy}` : sortBy;
 
-        return this.angularFireDatabase
-            .list<Offer>(path, (ref) => {
-                if (sortingByCarProperties === false) {
-                    return ref.orderByChild(sortBy);
-                } else {
-                    return ref.orderByChild(`car/${sortBy}`);
+        if (searchTerm === null) {
+            query = this.angularFireDatabase.list<Offer>(offersPath, (ref) =>
+                ref.orderByChild(sortingBy)
+            );
+        } else {
+            query = this.angularFireDatabase.list<Offer>(offersPath, (ref) =>
+                ref
+                    .orderByChild('car/fullCarName')
+                    .startAt(searchTerm)
+                    .endAt(searchTerm + '\uf8ff')
+                    .limitToFirst(10)
+            );
+        }
+
+        return query.valueChanges().pipe(
+            map((offers) => {
+                if (searchTerm !== null) {
+                    // orderby firebase implementation copy
                 }
-            })
-            .valueChanges()
-            .pipe(
-                map((offers) => {
-                    if (!offers) return null;
 
-                    if (orderBy === 'ascending') {
-                        offers = offers.slice(
+                if (!offers) return null;
+
+                if (orderBy === 'ascending') {
+                    offers = offers.slice(
+                        arrayStartIndex,
+                        arrayStartIndex + maxItemsPerPage
+                    );
+                }
+
+                if (orderBy === 'descending') {
+                    offers = offers
+                        .reverse()
+                        .slice(
                             arrayStartIndex,
                             arrayStartIndex + maxItemsPerPage
                         );
-                    }
+                }
 
-                    if (orderBy === 'descending') {
-                        offers = offers
-                            .reverse()
-                            .slice(
-                                arrayStartIndex,
-                                arrayStartIndex + maxItemsPerPage
-                            );
-                    }
-
-                    return offers;
-                })
-            );
+                return offers;
+            })
+        );
     }
 
-    getOffersAmount(username?: string): Observable<number | null> {
+    getOffersAmount(username: string | null): Observable<number | null> {
         const path = username ? `users/${username}/offers` : 'offers';
 
         return this.angularFireDatabase

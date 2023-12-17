@@ -38,7 +38,7 @@ export class OffersPreviewComponent implements OnInit {
 
     ngOnInit() {
         this.route.paramMap.subscribe((params) => {
-            this.username = params.get('username')!;
+            this.username = params.get('username');
             this.searchingService.setRouteUsername(this.username);
             this.refreshData();
         });
@@ -49,12 +49,34 @@ export class OffersPreviewComponent implements OnInit {
         if (this.username) {
             this.sellerData$ = combineLatest([
                 this.userService.getOffers(
+                    this.username,
+                    null,
                     this.orderingBy,
                     this.sortingBy,
                     this.startIndex,
                     this.maxItemsPerPage,
-                    this.sortingByCarProperties,
-                    this.username
+                    this.sortingByCarProperties
+                ),
+                this.userService.getOffersAmount(this.username),
+            ]).pipe(
+                map(([offers, offersAmount]) => ({
+                    offers,
+                    offersAmount,
+                    pagesAmount: Math.ceil(
+                        offersAmount! / this.maxItemsPerPage
+                    ),
+                }))
+            );
+        } else {
+            this.sellerData$ = combineLatest([
+                this.userService.getOffers(
+                    this.username,
+                    null,
+                    this.orderingBy,
+                    this.sortingBy,
+                    this.startIndex,
+                    this.maxItemsPerPage,
+                    this.sortingByCarProperties
                 ),
                 this.userService.getOffersAmount(this.username),
             ]).pipe(
@@ -70,7 +92,7 @@ export class OffersPreviewComponent implements OnInit {
     }
 
     onPageChange(pageNumber: number) {
-        if (this.currentPage === pageNumber || !this.username) return;
+        if (this.currentPage === pageNumber) return;
 
         this.currentPage = pageNumber;
         window.scroll({
