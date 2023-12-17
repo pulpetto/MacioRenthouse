@@ -1,6 +1,7 @@
 <form class="z-10 w-full" (ngSubmit)="onSearchTermSubmit()">
     <input
         type="text"
+        autocomplete="off"
         name="searchBar"
         #searchBar
         [(ngModel)]="searchTerm"
