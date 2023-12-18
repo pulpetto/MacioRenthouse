@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, DestroyRef, OnInit, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, combineLatest, map } from 'rxjs';
 import { DropdownMenu } from 'src/app/interfaces/dropdown-menu';
@@ -12,6 +13,7 @@ import { UserService } from 'src/app/services/user.service';
     styleUrls: ['./offers-preview.component.css'],
 })
 export class OffersPreviewComponent implements OnInit {
+    destroyRef = inject(DestroyRef);
     filtersVisibility: boolean = false;
     currentPage: number = 1;
     maxItemsPerPage: number = 10;
@@ -37,11 +39,13 @@ export class OffersPreviewComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        this.route.paramMap.subscribe((params) => {
-            this.username = params.get('username');
-            this.searchingService.setRouteUsername(this.username);
-            this.refreshData();
-        });
+        this.route.paramMap
+            .pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe((params) => {
+                this.username = params.get('username');
+                this.searchingService.setRouteUsername(this.username);
+                this.refreshData();
+            });
     }
 
     refreshData() {
