@@ -63,9 +63,9 @@ export class SearchBarComponent implements OnInit {
 
     // make case insensitive
     onSearchTermSubmit(autocompleteOption?: string) {
-        this.searchingService.searchSubmit();
-
         if (this.searchTerm === '') return;
+
+        this.searchingService.searchSubmit();
 
         const searchHistory =
             JSON.parse(localStorage.getItem('searchHistory')!) || [];
