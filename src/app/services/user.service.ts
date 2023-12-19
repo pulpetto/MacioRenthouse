@@ -94,7 +94,7 @@ export class UserService {
         arrayStartIndex: number = 0,
         maxItemsPerPage: number = 10,
         sortingByCarProperties: boolean = false
-    ): Observable<Offer[] | null> {
+    ): Observable<{ offers: Offer[]; offersLength: number } | null> {
         let query;
         const offersPath = username ? `users/${username}/offers` : 'offers';
         const sortingBy = sortingByCarProperties ? `car/${sortBy}` : sortBy;
@@ -109,15 +109,15 @@ export class UserService {
                     .orderByChild('car/fullCarName')
                     .startAt(searchTerm)
                     .endAt(searchTerm + '\uf8ff')
-                    .limitToFirst(10)
             );
         }
 
         return query.valueChanges().pipe(
             map((offers) => {
-                if (searchTerm !== null) {
-                    // orderby firebase implementation copy
-                }
+                const returnObj = {
+                    offers: offers,
+                    offersLength: offers.length,
+                };
 
                 if (!offers) return null;
 
@@ -137,7 +137,7 @@ export class UserService {
                         );
                 }
 
-                return offers;
+                return returnObj;
             })
         );
     }
