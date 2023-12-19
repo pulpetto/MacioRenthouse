@@ -117,14 +117,14 @@
                     </button>
                 </div>
             </div>
-            <a
-                routerLink=""
+            <button
+                type="button"
                 *ngFor="let searchQuery of searchingHistory.slice(-10)"
                 (click)="onSearchTermSubmit(searchQuery)"
-                class="p-4 transition-colors duration-300 border-l-4 outline-none cursor-pointer first:rounded-t-none last-of-type:rounded-b-md last:rounded-b-md focus:bg-neutral-900 focus:border-l-4 focus:border-solid focus:border-indigo-700 hover:bg-neutral-700 hover:bg-opacity-30 border-l-transparent"
+                class="p-4 transition-colors duration-300 border-l-4 outline-none cursor-pointer text-start first:rounded-t-none last-of-type:rounded-b-md last:rounded-b-md focus:bg-neutral-900 focus:border-l-4 focus:border-solid focus:border-indigo-700 hover:bg-neutral-700 hover:bg-opacity-30 border-l-transparent"
             >
                 <div class="font-medium">{{ searchQuery }}</div>
-            </a>
+            </button>
         </ng-container>
 
         <ng-template #searchingSuggestions>
@@ -137,8 +137,8 @@
                 <ng-container
                     *ngIf="autocompleteOptions$ | async as autocompleteOptions"
                 >
-                    <a
-                        routerLink=""
+                    <button
+                        type="button"
                         *ngFor="
                             let option of autocompleteOptionsLetters;
                             let i = index
@@ -158,7 +158,7 @@
                                 {{ signObject.letter }}
                             </span>
                         </div>
-                    </a>
+                    </button>
                 </ng-container>
             </ng-container>
         </ng-template>
