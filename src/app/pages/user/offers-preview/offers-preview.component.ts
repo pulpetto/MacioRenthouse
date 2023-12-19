@@ -32,6 +32,8 @@ export class OffersPreviewComponent implements OnInit {
         pagesAmount: number | null;
     }>;
 
+    searchTerm: string | null = null;
+
     constructor(
         private userService: UserService,
         private route: ActivatedRoute,
@@ -46,53 +48,40 @@ export class OffersPreviewComponent implements OnInit {
                 this.searchingService.setRouteUsername(this.username);
                 this.refreshData();
             });
+
+        this.searchingService.searchTriggered$
+            .pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe(() => {
+                this.refreshData();
+            });
+
+        this.searchingService
+            .getSearchTerm()
+            .pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe((searchTerm) => {
+                this.searchTerm = searchTerm;
+            });
     }
 
     refreshData() {
-        // if no filters then dont check for length
-        if (this.username) {
-            this.sellerData$ = combineLatest([
-                this.userService.getOffers(
-                    this.username,
-                    null,
-                    this.orderingBy,
-                    this.sortingBy,
-                    this.startIndex,
-                    this.maxItemsPerPage,
-                    this.sortingByCarProperties
-                ),
-                this.userService.getOffersAmount(this.username),
-            ]).pipe(
-                map(([offers, offersAmount]) => ({
-                    offers,
-                    offersAmount,
-                    pagesAmount: Math.ceil(
-                        offersAmount! / this.maxItemsPerPage
-                    ),
-                }))
-            );
-        } else {
-            this.sellerData$ = combineLatest([
-                this.userService.getOffers(
-                    this.username,
-                    null,
-                    this.orderingBy,
-                    this.sortingBy,
-                    this.startIndex,
-                    this.maxItemsPerPage,
-                    this.sortingByCarProperties
-                ),
-                this.userService.getOffersAmount(this.username),
-            ]).pipe(
-                map(([offers, offersAmount]) => ({
-                    offers,
-                    offersAmount,
-                    pagesAmount: Math.ceil(
-                        offersAmount! / this.maxItemsPerPage
-                    ),
-                }))
-            );
-        }
+        this.sellerData$ = combineLatest([
+            this.userService.getOffers(
+                this.username,
+                this.searchTerm,
+                this.orderingBy,
+                this.sortingBy,
+                this.startIndex,
+                this.maxItemsPerPage,
+                this.sortingByCarProperties
+            ),
+            this.userService.getOffersAmount(this.username),
+        ]).pipe(
+            map(([offers, offersAmount]) => ({
+                offers,
+                offersAmount,
+                pagesAmount: Math.ceil(offersAmount! / this.maxItemsPerPage),
+            }))
+        );
     }
 
     onPageChange(pageNumber: number) {

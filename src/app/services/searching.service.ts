@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { UserService } from './user.service';
 import { UtilityService } from './utility.service';
 
@@ -15,6 +15,9 @@ export class SearchingService {
         letter: string;
         match: boolean;
     }[][] | null>([]);
+
+    private searchTrigger = new Subject<void>();
+    searchTriggered$ = this.searchTrigger.asObservable();
 
     constructor(
         private userService: UserService,
@@ -72,13 +75,6 @@ export class SearchingService {
             });
     }
 
-    searchSubmit() {
-        this.userService.getOffers(
-            this.routeUsername$.value,
-            this.searchTerm$.value
-        );
-    }
-
     getSearchTerm(): Observable<string | null> {
         return this.searchTerm$.asObservable();
     }
@@ -101,5 +97,9 @@ export class SearchingService {
         match: boolean;
     }[][] | null> {
         return this.suggestionsLetters$.asObservable();
+    }
+
+    triggerSearchSubmit() {
+        this.searchTrigger.next();
     }
 }
