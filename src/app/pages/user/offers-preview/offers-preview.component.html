@@ -104,48 +104,47 @@
 
         <div class="flex justify-between w-full mx-auto mt-4">
             <div class="flex flex-col gap-2">
-                <!-- <div class="text-xl font-medium">Order by:</div> -->
-                <div class="relative">
-                    <app-dropdown-menu
-                        (orderingChangeEvent)="orderingChange($event)"
-                        class="absolute left-0 z-10"
-                        [dropdownName]="orderingDropdown.dropdownName"
-                        [dropdownOptions]="orderingDropdown.dropdownOptions"
-                        [dropdownMultiselect]="
-                            orderingDropdown.dropdownMultiselect
-                        "
-                    ></app-dropdown-menu>
+                <div>
+                    <div class="relative">
+                        <app-dropdown-menu
+                            (sortingChangeEvent)="sortingChange($event)"
+                            class="absolute left-0 z-10"
+                            [dropdownName]="sortingDropdown.dropdownName"
+                            [dropdownOptions]="sortingDropdown.dropdownOptions"
+                            [dropdownMultiselect]="
+                                sortingDropdown.dropdownMultiselect
+                            "
+                        ></app-dropdown-menu>
+                    </div>
+
+                    <div class="relative">
+                        <app-dropdown-menu
+                            (orderingChangeEvent)="orderingChange($event)"
+                            class="absolute z-10 -translate-x-1 left-64"
+                            [dropdownName]="orderingDropdown.dropdownName"
+                            [dropdownOptions]="orderingDropdown.dropdownOptions"
+                            [dropdownMultiselect]="
+                                orderingDropdown.dropdownMultiselect
+                            "
+                        ></app-dropdown-menu>
+                    </div>
                 </div>
-            </div>
-            <ng-container *ngIf="offersData$ | async as offersData">
-                <div class="flex flex-col items-center text-5xl font-semibold">
-                    <div class="text-xl font-normal">
+                <ng-container *ngIf="offersData$ | async as offersData">
+                    <div
+                        class="text-sm font-medium text-neutral-500 mt-14 ml-0.5"
+                    >
                         Suitable
                         <span
                             >offer<span *ngIf="offersData.offersAmount > 1"
                                 >s</span
                             ></span
                         >
-
-                        found:
+                        found: {{ offersData.offersAmount }}
                     </div>
-                    {{ offersData.offersAmount }}
-                </div>
-            </ng-container>
-            <div class="flex flex-col gap-2">
-                <!-- <div class="text-xl font-medium">Sort By:</div> -->
-                <div class="relative">
-                    <app-dropdown-menu
-                        (sortingChangeEvent)="sortingChange($event)"
-                        class="absolute right-0 z-10 translate-x-1"
-                        [dropdownName]="sortingDropdown.dropdownName"
-                        [dropdownOptions]="sortingDropdown.dropdownOptions"
-                        [dropdownMultiselect]="
-                            sortingDropdown.dropdownMultiselect
-                        "
-                    ></app-dropdown-menu>
-                </div>
+                </ng-container>
             </div>
+
+            <div>offers per page dropdown</div>
         </div>
 
         <ng-container
