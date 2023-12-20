@@ -94,7 +94,11 @@ export class UserService {
         arrayStartIndex: number = 0,
         maxItemsPerPage: number = 10,
         sortingByCarProperties: boolean = false
-    ): Observable<{ offers: Offer[]; offersLength: number } | null> {
+    ): Observable<{
+        offers: Offer[];
+        offersAmount: number;
+        pagesAmount: number;
+    } | null> {
         let query;
         const offersPath = username ? `users/${username}/offers` : 'offers';
         const sortingBy = sortingByCarProperties ? `car/${sortBy}` : sortBy;
@@ -114,10 +118,8 @@ export class UserService {
 
         return query.valueChanges().pipe(
             map((offers) => {
-                const returnObj = {
-                    offers: offers,
-                    offersLength: offers.length,
-                };
+                const offersAmount = offers.length;
+                const pagesAmount = Math.ceil(offers.length / maxItemsPerPage);
 
                 if (!offers) return null;
 
@@ -136,6 +138,12 @@ export class UserService {
                             arrayStartIndex + maxItemsPerPage
                         );
                 }
+
+                const returnObj = {
+                    offers: offers,
+                    offersAmount,
+                    pagesAmount,
+                };
 
                 return returnObj;
             })
