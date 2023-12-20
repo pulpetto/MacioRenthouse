@@ -26,11 +26,11 @@ export class OffersPreviewComponent implements OnInit {
     sortingBy: string = 'unixPublishDate';
     sortingByCarProperties: boolean = false;
 
-    sellerData$!: Observable<{
-        offers: Offer[] | null;
-        offersAmount: number | null;
-        pagesAmount: number | null;
-    }>;
+    offersData$!: Observable<{
+        offers: Offer[];
+        offersAmount: number;
+        pagesAmount: number;
+    } | null>;
 
     searchTerm: string | null = null;
 
@@ -64,23 +64,14 @@ export class OffersPreviewComponent implements OnInit {
     }
 
     refreshData() {
-        this.sellerData$ = combineLatest([
-            this.userService.getOffers(
-                this.username,
-                this.searchTerm,
-                this.orderingBy,
-                this.sortingBy,
-                this.startIndex,
-                this.maxItemsPerPage,
-                this.sortingByCarProperties
-            ),
-            this.userService.getOffersAmount(this.username),
-        ]).pipe(
-            map(([offers, offersAmount]) => ({
-                offers,
-                offersAmount,
-                pagesAmount: Math.ceil(offersAmount! / this.maxItemsPerPage),
-            }))
+        this.offersData$ = this.userService.getOffers(
+            this.username,
+            this.searchTerm,
+            this.orderingBy,
+            this.sortingBy,
+            this.startIndex,
+            this.maxItemsPerPage,
+            this.sortingByCarProperties
         );
     }
 
