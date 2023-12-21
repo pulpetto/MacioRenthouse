@@ -136,6 +136,13 @@ export class OffersPreviewComponent implements OnInit {
         this.refreshData();
     }
 
+    maxOffersPerPageChange($event: string) {
+        if ($event === '10') this.maxItemsPerPage = 10;
+        if ($event === '15') this.maxItemsPerPage = 15;
+        if ($event === '20') this.maxItemsPerPage = 20;
+        this.refreshData();
+    }
+
     orderingDropdown = {
         dropdownName: 'Ordering',
         dropdownOptions: ['Ascending', 'Descending'],

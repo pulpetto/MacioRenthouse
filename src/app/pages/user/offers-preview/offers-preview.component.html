@@ -144,7 +144,17 @@
                 </ng-container>
             </div>
 
-            <div>offers per page dropdown</div>
+            <div class="relative">
+                <app-dropdown-menu
+                    class="absolute right-0 z-10"
+                    (maxOffersPerPageChangeEvent)="
+                        maxOffersPerPageChange($event)
+                    "
+                    [dropdownName]="'Offers per page'"
+                    [dropdownOptions]="['10', '15', '20']"
+                    [dropdownMultiselect]="false"
+                ></app-dropdown-menu>
+            </div>
         </div>
 
         <ng-container

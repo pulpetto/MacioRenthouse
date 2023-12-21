@@ -23,6 +23,7 @@ export class DropdownMenuComponent implements OnInit {
     arrowRotated: boolean = false;
     @Output() orderingChangeEvent = new EventEmitter<string>();
     @Output() sortingChangeEvent = new EventEmitter<string>();
+    @Output() maxOffersPerPageChangeEvent = new EventEmitter<string>();
 
     @HostListener('document:click', ['$event'])
     clickout(event: Event) {
@@ -87,6 +88,7 @@ export class DropdownMenuComponent implements OnInit {
                 // emitt to the event with name from input to avoid repeating
                 this.orderingChangeEvent.emit(option.name);
                 this.sortingChangeEvent.emit(option.name);
+                this.maxOffersPerPageChangeEvent.emit(option.name);
             } else {
                 $event.preventDefault();
             }
