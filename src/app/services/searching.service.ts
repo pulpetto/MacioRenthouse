@@ -25,7 +25,9 @@ export class SearchingService {
     ) {}
 
     updateSearchTerm(updatedSearchTerm: string) {
-        this.searchTerm$.next(updatedSearchTerm);
+        this.searchTerm$.next(
+            this.utilityService.capitalizeEveryWord(updatedSearchTerm)
+        );
 
         const searchTermFixed = updatedSearchTerm
             .trim() // Trim leading and trailing whitespaces
@@ -46,7 +48,7 @@ export class SearchingService {
                         letter: string;
                         match: boolean;
                     }[] = [];
-                    Array.from(suggestion.toLowerCase()).map((letter) => {
+                    Array.from(suggestion).map((letter) => {
                         const letterObj = {
                             letter: letter,
                             match: false,
@@ -60,7 +62,9 @@ export class SearchingService {
                     for (let i = 0; i < searchTermLetters.length; i++) {
                         if (
                             suggestionsLetters[i].letter ===
-                            searchTermLetters[i]
+                                searchTermLetters[i] ||
+                            suggestionsLetters[i].letter.toLowerCase() ===
+                                searchTermLetters[i].toLowerCase()
                         ) {
                             suggestionsLetters[i].match = true;
                         }
