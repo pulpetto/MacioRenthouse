@@ -19,8 +19,10 @@ export class SearchBarComponent implements OnInit {
         match: boolean;
     }[][] | null>;
     searchTerm: string = '';
+
     // only for visual effect
     isSearchBarFocused: boolean = false;
+
     searchingHistory: string[] = [];
     showHistoryDeletedNotification: boolean = false;
     showHistoryModal: boolean = false;
@@ -64,6 +66,13 @@ export class SearchBarComponent implements OnInit {
     }
 
     onSearchTermSubmit(autocompleteOption?: string) {
+        if (autocompleteOption) {
+            this.searchTerm = autocompleteOption;
+            this.searchingService.updateSearchTerm(this.searchTerm);
+        }
+
+        this.visibilityService.setHeaderSearchBarFocusState(false);
+
         if (this.searchTerm === '' && !autocompleteOption) return;
 
         this.searchingService.triggerSearchSubmit();
