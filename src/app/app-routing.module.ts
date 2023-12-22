@@ -38,6 +38,13 @@ const routes: Routes = [
         canActivate: [offerExistsGuard],
     },
     {
+        path: 'offers',
+        component: OffersPreviewComponent,
+        children: [
+            { path: 'search/:searchQuery', component: OffersPreviewComponent },
+        ],
+    },
+    {
         path: 'user/:username',
         component: UserComponent,
         canActivate: [userExistsGuard],
@@ -46,6 +53,9 @@ const routes: Routes = [
         path: 'user/:username/offers',
         component: OffersPreviewComponent,
         canActivate: [userExistsGuard, hasMinimumOffersGuard],
+        children: [
+            { path: 'search/:searchQuery', component: OffersPreviewComponent },
+        ],
     },
     {
         path: 'account/:username/:userId',

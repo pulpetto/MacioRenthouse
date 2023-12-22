@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { UserService } from './user.service';
 import { UtilityService } from './utility.service';
+import { Router } from '@angular/router';
 
 @Injectable({
     providedIn: 'root',
@@ -21,7 +22,8 @@ export class SearchingService {
 
     constructor(
         private userService: UserService,
-        private utilityService: UtilityService
+        private utilityService: UtilityService,
+        private router: Router
     ) {}
 
     updateSearchTerm(updatedSearchTerm: string) {
@@ -104,6 +106,16 @@ export class SearchingService {
     }
 
     triggerSearchSubmit() {
+        let path = `offers/search/${this.searchTerm$.value?.replace(' ', '')}`;
+
+        if (this.routeUsername$.value) {
+            path = `user/${
+                this.routeUsername$.value
+            }/offers/search/${this.searchTerm$.value?.replace(' ', '')}`;
+        }
+
+        this.router.navigate([path]);
+
         this.searchTrigger.next();
     }
 }
