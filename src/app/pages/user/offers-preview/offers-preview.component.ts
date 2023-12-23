@@ -19,6 +19,7 @@ export class OffersPreviewComponent implements OnInit {
     maxItemsPerPage: number = 10;
 
     username!: string | null;
+    searchQuery!: string | null;
     get startIndex(): number {
         return (this.currentPage - 1) * this.maxItemsPerPage;
     }
@@ -46,6 +47,18 @@ export class OffersPreviewComponent implements OnInit {
             .subscribe((params) => {
                 this.username = params.get('username');
                 this.searchingService.setRouteUsername(this.username);
+                this.refreshData();
+            });
+
+        this.route.paramMap
+            .pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe((params) => {
+                this.searchQuery = params.get('searchQuery');
+
+                if (this.searchQuery) {
+                    this.searchTerm = this.searchQuery.replace('_', ' ');
+                }
+
                 this.refreshData();
             });
 
