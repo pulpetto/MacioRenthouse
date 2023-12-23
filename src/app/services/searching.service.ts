@@ -106,12 +106,12 @@ export class SearchingService {
     }
 
     triggerSearchSubmit() {
-        let path = `offers/search/${this.searchTerm$.value?.replace(' ', '')}`;
+        let path = `offers/search/${this.searchTerm$.value?.replace(' ', '_')}`;
 
         if (this.routeUsername$.value) {
             path = `user/${
                 this.routeUsername$.value
-            }/offers/search/${this.searchTerm$.value?.replace(' ', '')}`;
+            }/offers/search/${this.searchTerm$.value?.replace(' ', '_')}`;
         }
 
         this.router.navigate([path]);
