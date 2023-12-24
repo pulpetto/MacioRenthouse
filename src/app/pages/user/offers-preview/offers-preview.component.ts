@@ -42,6 +42,11 @@ export class OffersPreviewComponent implements OnInit {
     ) {}
 
     ngOnInit() {
+        window.scroll({
+            top: 0,
+            behavior: 'smooth',
+        });
+
         this.route.paramMap
             .pipe(takeUntilDestroyed(this.destroyRef))
             .subscribe((params) => {
