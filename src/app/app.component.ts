@@ -51,10 +51,11 @@ export class AppComponent {
                     this.visibilityService.setHeaderAndFooterVisibility(true);
                 }
 
-                // maybe add condition if header is not visible then return
                 if (routePath === 'home') {
+                    this.visibilityService.setBreadcrumbVisibility(false);
                     this.visibilityService.setHeaderSearchBarVisibility(false);
                 } else {
+                    this.visibilityService.setBreadcrumbVisibility(true);
                     this.visibilityService.setHeaderSearchBarVisibility(true);
                 }
             });
