@@ -40,9 +40,10 @@ const routes: Routes = [
     {
         path: 'offers',
         component: OffersPreviewComponent,
-        children: [
-            { path: 'search/:searchQuery', component: OffersPreviewComponent },
-        ],
+    },
+    {
+        path: 'offers/search/:searchQuery',
+        component: OffersPreviewComponent,
     },
     {
         path: 'user/:username',
