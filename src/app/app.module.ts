@@ -58,6 +58,7 @@ import { OffersPreviewComponent } from './pages/user/offers-preview/offers-previ
 import { DropdownMenuComponent } from './shared/dropdown-menu/dropdown-menu.component';
 import { FormsModule } from '@angular/forms';
 import { SearchBarComponent } from './shared/search-bar/search-bar.component';
+import { BreadcrumbComponent } from './header/breadcrumb/breadcrumb.component';
 
 @NgModule({
     declarations: [
@@ -85,6 +86,7 @@ import { SearchBarComponent } from './shared/search-bar/search-bar.component';
         OffersPreviewComponent,
         DropdownMenuComponent,
         SearchBarComponent,
+        BreadcrumbComponent,
     ],
     imports: [
         A11yModule,
