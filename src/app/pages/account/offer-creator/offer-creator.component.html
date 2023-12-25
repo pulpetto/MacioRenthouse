@@ -22,7 +22,7 @@
             'w-full': creatorFullscreenState,
             'h-full': creatorFullscreenState,
         }"
-    class="grid w-3/4 grid-cols-4 grid-rows-5 gap-8 px-8 pt-16 pb-8 text-center transition-all duration-500 ease-out rounded-md shadow-2xl drop-shadow-2xl shadow-black h-5/6 backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter"
+    class="grid w-3/4 grid-cols-4 grid-rows-5 gap-8 px-8 pt-16 pb-8 text-center transition-all duration-500 ease-out rounded-xl h-5/6 backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter bg-neutral-950"
 >
     <div
         class="absolute flex items-center justify-between w-full pl-6 pr-7 top-2"
@@ -70,7 +70,7 @@
         <label
             *ngIf="imagesUrls.length === 0"
             for="dropzone-file"
-            class="flex flex-col items-center justify-center w-full h-full col-span-3 transition-all duration-300 ease-out rounded-md shadow-md cursor-pointer row-span-full drop-shadow-md shadow-black backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter"
+            class="flex flex-col items-center justify-center w-full h-full col-span-3 transition-all duration-300 ease-out rounded-md shadow-md cursor-pointer row-span-full drop-shadow-md shadow-black"
         >
             <div class="flex flex-col items-center justify-center pt-5 pb-6">
                 <div class="w-24 h-24">
@@ -85,7 +85,7 @@
                     or drag and drop
                 </p>
                 <p class="opacity-60">
-                    PNG, JPG or JPEG (horizontal orientation), <br />
+                    PNG, JPG or JPEG (preferably horizontal orientation), <br />
                     up to 4 images
                 </p>
             </div>
@@ -173,7 +173,7 @@
 
         <div
             *ngFor="let placeholder of placeholdersAmount"
-            class="w-full h-full col-start-4 row-span-1 transition-all rounded-md shadow-md drop-shadow-md shadow-black backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter"
+            class="w-full h-full col-start-4 row-span-1 transition-all rounded-md shadow-md drop-shadow-md shadow-black backdrop-blur-3xl bg-clip-padding backdrop-filter"
         ></div>
     </div>
 
