@@ -36,10 +36,6 @@ export class BreadcrumbComponent implements OnInit {
                     this.activatedRoute.root
                 );
             });
-
-        setTimeout(() => {
-            console.log(this.breadcrumbs);
-        }, 4000);
     }
 
     buildBreadCrumb(
