@@ -60,7 +60,7 @@ export class BreadcrumbComponent implements OnInit {
                 lastRoutePart!,
                 route.snapshot.params[paramName!]
             );
-            label = route.snapshot.params[paramName!];
+            label = route.snapshot.params[paramName!].replace('_', ' ');
         }
 
         const nextUrl = path ? `${url}/${path}` : url;
