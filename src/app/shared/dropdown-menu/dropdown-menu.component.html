@@ -17,7 +17,10 @@
             />
         </div>
     </button>
-    <div #list class="w-full h-0 overflow-hidden transition-all duration-300">
+    <div
+        #list
+        class="w-full h-0 overflow-y-auto transition-all duration-300 max-h-96"
+    >
         <ul
             *ngFor="let option of dropdownOptionsConverted; let i = index"
             class="w-full"
@@ -25,7 +28,7 @@
             <label
                 [for]="option.id"
                 [tabindex]="arrowRotated ? 0 : -1"
-                class="flex items-center justify-between w-full px-4 py-4 transition-colors duration-300 rounded-md outline-none cursor-pointer hover:bg-neutral-900 focus:bg-neutral-900"
+                class="flex items-center justify-start w-full gap-4 px-4 py-4 transition-colors duration-300 rounded-md outline-none cursor-pointer hover:bg-neutral-900 focus:bg-neutral-900"
                 [ngClass]="{
                     'rounded-t-none': i === 0,
                 }"
