@@ -17,33 +17,39 @@
             />
         </div>
     </button>
-    <div
-        #list
-        class="w-full h-0 overflow-y-auto transition-all duration-300 max-h-96"
-    >
-        <ul
-            *ngFor="let option of dropdownOptionsConverted; let i = index"
-            class="w-full"
-        >
-            <label
-                [for]="option.id"
-                [tabindex]="arrowRotated ? 0 : -1"
-                class="flex items-center justify-start w-full gap-4 px-4 py-4 transition-colors duration-300 rounded-md outline-none cursor-pointer hover:bg-neutral-900 focus:bg-neutral-900"
-                [ngClass]="{
+    <div #list class="relative w-full h-0 transition-all duration-300">
+        <div *ngIf="dropdownOptions.length > 10">
+            <input
+                type="text"
+                placeholder="Search for property..."
+                class="w-full pl-4 text-white bg-transparent outline-none h-14"
+            />
+        </div>
+        <ul class="overflow-y-auto max-h-96">
+            <li
+                *ngFor="let option of dropdownOptionsConverted; let i = index"
+                class="w-full"
+            >
+                <label
+                    [for]="option.id"
+                    [tabindex]="arrowRotated ? 0 : -1"
+                    class="flex items-center justify-start w-full gap-4 px-4 py-4 transition-colors duration-300 rounded-md outline-none cursor-pointer hover:bg-neutral-900 focus:bg-neutral-900"
+                    [ngClass]="{
                     'rounded-t-none': i === 0,
                 }"
-            >
-                <input
-                    #dropdownCheckbox
-                    type="checkbox"
-                    [(ngModel)]="option.checked"
-                    tabindex="-1"
-                    [id]="option.id"
-                    (click)="onInputClick(option, $event)"
-                    class="w-4 h-4 bg-white rounded-md cursor-pointer accent-indigo-600 ring-indigo-600"
-                />
-                <div class="select-none">{{ option.name }}</div>
-            </label>
+                >
+                    <input
+                        #dropdownCheckbox
+                        type="checkbox"
+                        [(ngModel)]="option.checked"
+                        tabindex="-1"
+                        [id]="option.id"
+                        (click)="onInputClick(option, $event)"
+                        class="w-4 h-4 bg-white rounded-md cursor-pointer accent-indigo-600 ring-indigo-600"
+                    />
+                    <div class="select-none">{{ option.name }}</div>
+                </label>
+            </li>
         </ul>
 
         <!-- <div class="flex w-full gap-2 p-2">
