@@ -59,7 +59,10 @@ export class DropdownMenuComponent implements OnInit {
             (optionName, index) => ({
                 id: this.utilityService.generateRandomString(10),
                 name: optionName,
-                checked: index === 0 ? true : false,
+                checked:
+                    index === 0 && this.dropdownMultiselect === false
+                        ? true
+                        : false,
             })
         );
 
