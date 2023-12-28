@@ -33,6 +33,7 @@ export class DropdownMenuComponent implements OnInit {
         checked: boolean;
     }[] = [];
     arrowRotated: boolean = false;
+    anyOptionChecked: boolean = false;
     @Output() orderingChangeEvent = new EventEmitter<string>();
     @Output() sortingChangeEvent = new EventEmitter<string>();
     @Output() maxOffersPerPageChangeEvent = new EventEmitter<string>();
@@ -69,6 +70,12 @@ export class DropdownMenuComponent implements OnInit {
         this.dropdownOptionsConvertedCopy = this.dropdownOptionsConverted;
     }
 
+    updateAnyOptionsCheckedState() {
+        this.anyOptionChecked = this.dropdownOptionsConverted.some(
+            (option) => option.checked
+        );
+    }
+
     toggleExpand = function (element: any) {
         if (!element.style.height || element.style.height == '0px') {
             element.style.height =
@@ -103,21 +110,34 @@ export class DropdownMenuComponent implements OnInit {
     }
 
     onInputClick(option: any, $event: Event) {
-        if (this.dropdownMultiselect === false) {
-            if (option.checked === false) {
-                this.dropdownOptionsConverted.forEach((option) => {
-                    option.checked = false;
-                });
+        this.updateAnyOptionsCheckedState();
 
+        if (!this.dropdownMultiselect) {
+            if (option.checked) $event.preventDefault();
+            if (!option.checked) {
+                this.dropdownOptionsConverted.forEach(
+                    (option) => (option.checked = false)
+                );
                 option.checked = true;
 
                 // emitt to the event with name from input to avoid repeating
                 this.orderingChangeEvent.emit(option.name);
                 this.sortingChangeEvent.emit(option.name);
                 this.maxOffersPerPageChangeEvent.emit(option.name);
-            } else {
-                $event.preventDefault();
             }
         }
+    }
+
+    checkStateChange() {
+        this.updateAnyOptionsCheckedState();
+    }
+
+    unCheckAllOptions() {
+        if (this.dropdownMultiselect) {
+            this.dropdownOptionsConverted.forEach(
+                (option) => (option.checked = false)
+            );
+        }
+        this.updateAnyOptionsCheckedState();
     }
 }
