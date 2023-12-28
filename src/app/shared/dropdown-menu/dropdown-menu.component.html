@@ -21,8 +21,10 @@
         <div *ngIf="dropdownOptions.length > 10">
             <input
                 type="text"
+                [(ngModel)]="searchTerm"
+                (ngModelChange)="onDropdownPropertySearch(list)"
                 placeholder="Search for property..."
-                class="w-full pl-4 text-white bg-transparent outline-none h-14"
+                class="w-full h-16 pl-4 text-white bg-transparent outline-none"
             />
         </div>
         <ul class="overflow-y-auto max-h-96">

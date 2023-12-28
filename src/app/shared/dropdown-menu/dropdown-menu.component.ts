@@ -1,4 +1,5 @@
 import {
+    ChangeDetectorRef,
     Component,
     ElementRef,
     EventEmitter,
@@ -16,10 +17,21 @@ import { UtilityService } from 'src/app/services/utility.service';
     styleUrls: ['./dropdown-menu.component.css'],
 })
 export class DropdownMenuComponent implements OnInit {
+    searchTerm: string = '';
     @Input() dropdownName!: string;
     @Input() dropdownOptions!: string[];
     @Input() dropdownMultiselect!: boolean;
-    dropdownOptionsConverted: any[] = [];
+    dropdownOptionsConverted: {
+        id: string;
+        name: string;
+        checked: boolean;
+    }[] = [];
+    // for searching purposes
+    dropdownOptionsConvertedCopy: {
+        id: string;
+        name: string;
+        checked: boolean;
+    }[] = [];
     arrowRotated: boolean = false;
     @Output() orderingChangeEvent = new EventEmitter<string>();
     @Output() sortingChangeEvent = new EventEmitter<string>();
@@ -38,7 +50,8 @@ export class DropdownMenuComponent implements OnInit {
 
     constructor(
         private elementRef: ElementRef,
-        private utilityService: UtilityService
+        private utilityService: UtilityService,
+        private changeDetectorRef: ChangeDetectorRef
     ) {}
 
     ngOnInit() {
@@ -59,6 +72,8 @@ export class DropdownMenuComponent implements OnInit {
 
             this.dropdownOptionsConverted.push(optionObj);
         });
+
+        this.dropdownOptionsConvertedCopy = this.dropdownOptionsConverted;
     }
 
     toggleExpand = function (element: any) {
@@ -75,6 +90,24 @@ export class DropdownMenuComponent implements OnInit {
             element.style.height = '0px';
         }
     };
+
+    onDropdownPropertySearch(element: any) {
+        const filteredOptions = this.dropdownOptionsConvertedCopy.filter(
+            (option) => option.name.startsWith(this.searchTerm)
+        );
+
+        this.dropdownOptionsConverted = filteredOptions;
+
+        this.changeDetectorRef.detectChanges();
+        element.style.height =
+            Array.prototype.reduce.call(
+                element.childNodes,
+                function (p, c) {
+                    return p + (c.offsetHeight || 0);
+                },
+                0
+            ) + 'px';
+    }
 
     onInputClick(option: any, $event: Event) {
         if (this.dropdownMultiselect === false) {
