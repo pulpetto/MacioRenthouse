@@ -55,23 +55,13 @@ export class DropdownMenuComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        this.dropdownOptions.forEach((optionName, i) => {
-            let checked;
-
-            if (i === 0) {
-                checked = true;
-            } else {
-                checked = false;
-            }
-
-            const optionObj = {
+        this.dropdownOptionsConverted = this.dropdownOptions.map(
+            (optionName, index) => ({
                 id: this.utilityService.generateRandomString(10),
                 name: optionName,
-                checked: checked,
-            };
-
-            this.dropdownOptionsConverted.push(optionObj);
-        });
+                checked: index === 0 ? true : false,
+            })
+        );
 
         this.dropdownOptionsConvertedCopy = this.dropdownOptionsConverted;
     }
