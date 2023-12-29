@@ -21,6 +21,7 @@ export class DropdownMenuComponent implements OnInit {
     @Input() dropdownName!: string;
     @Input() dropdownOptions!: string[];
     @Input() dropdownMultiselect!: boolean;
+    @Input() type: string = 'checkbox';
     dropdownOptionsConverted: {
         id: string;
         name: string;

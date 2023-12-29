@@ -18,7 +18,7 @@
         </div>
     </button>
     <div #list class="relative w-full h-0 transition-all duration-300">
-        <div *ngIf="dropdownOptions.length > 10">
+        <div *ngIf="type === 'checkbox' && dropdownOptions.length > 10">
             <input
                 type="text"
                 [(ngModel)]="searchTerm"
@@ -28,7 +28,7 @@
             />
         </div>
 
-        <ul class="overflow-y-auto max-h-96">
+        <ul *ngIf="type === 'checkbox'" class="overflow-y-auto max-h-96">
             <li
                 *ngFor="let option of dropdownOptionsConverted; let i = index"
                 class="w-full"
@@ -57,8 +57,8 @@
         </ul>
 
         <div
+            *ngIf="type === 'checkbox' && dropdownOptionsConverted.length === 0"
             class="p-4 text-center select-none opacity-60"
-            *ngIf="dropdownOptionsConverted.length === 0"
         >
             No results found.
         </div>
