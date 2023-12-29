@@ -59,6 +59,7 @@ import { DropdownMenuComponent } from './shared/dropdown-menu/dropdown-menu.comp
 import { FormsModule } from '@angular/forms';
 import { SearchBarComponent } from './shared/search-bar/search-bar.component';
 import { BreadcrumbComponent } from './header/breadcrumb/breadcrumb.component';
+import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 
 @NgModule({
     declarations: [
@@ -94,6 +95,8 @@ import { BreadcrumbComponent } from './header/breadcrumb/breadcrumb.component';
         AppRoutingModule,
         ReactiveFormsModule,
         FormsModule,
+        NgxMaskDirective,
+        NgxMaskPipe,
         provideFirebaseApp(() => initializeApp(environment.firebase)),
         provideAnalytics(() => getAnalytics()),
         provideAuth(() => getAuth()),
@@ -115,6 +118,7 @@ import { BreadcrumbComponent } from './header/breadcrumb/breadcrumb.component';
         ScreenTrackingService,
         UserTrackingService,
         { provide: FIREBASE_OPTIONS, useValue: environment.firebase },
+        provideNgxMask(),
     ],
     bootstrap: [AppComponent],
 })
