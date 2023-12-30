@@ -289,8 +289,9 @@ export class OffersPreviewComponent implements OnInit {
             dropdownOptions: ['20 000', '30 000', '40 000', '50 000', '60 000'],
             dropdownMultiselect: true,
             type: 'range',
-            minVal: 0,
-            maxVal: 20000000,
+            minVal: 1000,
+            maxVal: 1000000,
+            suffix: 'zł',
         },
         {
             dropdownName: 'Price up to',
@@ -298,7 +299,8 @@ export class OffersPreviewComponent implements OnInit {
             dropdownMultiselect: true,
             type: 'range',
             minVal: 1000,
-            maxVal: 20000000,
+            maxVal: 1000000,
+            suffix: 'zł',
         },
         {
             dropdownName: 'HP up to',
@@ -307,6 +309,7 @@ export class OffersPreviewComponent implements OnInit {
             type: 'range',
             minVal: 68,
             maxVal: 2000,
+            suffix: 'hp',
         },
         {
             dropdownName: 'HP from',
@@ -315,6 +318,7 @@ export class OffersPreviewComponent implements OnInit {
             type: 'range',
             minVal: 68,
             maxVal: 2000,
+            suffix: 'hp',
         },
         {
             dropdownName: 'Engine size up to',
@@ -323,6 +327,7 @@ export class OffersPreviewComponent implements OnInit {
             type: 'range',
             minVal: 1000,
             maxVal: 8400,
+            suffix: 'cm³',
         },
         {
             dropdownName: 'Engine size from',
@@ -331,6 +336,7 @@ export class OffersPreviewComponent implements OnInit {
             type: 'range',
             minVal: 1000,
             maxVal: 8400,
+            suffix: 'cm³',
         },
         {
             dropdownName: 'Year to',
