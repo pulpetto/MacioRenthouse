@@ -10,6 +10,7 @@ import {
     ViewChild,
 } from '@angular/core';
 import { UtilityService } from 'src/app/services/utility.service';
+import { NgxMaskDirective } from 'ngx-mask';
 
 @Component({
     selector: 'app-dropdown-menu',
@@ -38,6 +39,23 @@ export class DropdownMenuComponent implements OnInit {
     @Output() orderingChangeEvent = new EventEmitter<string>();
     @Output() sortingChangeEvent = new EventEmitter<string>();
     @Output() maxOffersPerPageChangeEvent = new EventEmitter<string>();
+
+    numberInputValue!: string;
+    rangeInputValue: number = 0;
+    onNumberInput() {
+        if (!this.numberInputValue) return;
+
+        if (+this.numberInputValue > 500000) {
+            this.numberInputValue = '500000';
+        }
+
+        this.rangeInputValue = +this.numberInputValue;
+    }
+    onRangeInput() {
+        this.numberInputValue = (
+            Math.round(this.rangeInputValue / 1000) * 1000
+        ).toString();
+    }
 
     @HostListener('document:click', ['$event'])
     clickout(event: Event) {

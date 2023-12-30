@@ -28,6 +28,39 @@
             />
         </div>
 
+        <div *ngIf="type === 'range'">
+            <input
+                [maxlength]="10"
+                mask="separator"
+                suffix=" km"
+                [(ngModel)]="numberInputValue"
+                (input)="onNumberInput()"
+                type="text"
+                placeholder="Enter number manually..."
+                class="w-full h-16 pl-4 font-semibold text-white bg-transparent outline-none"
+            />
+        </div>
+
+        <div *ngIf="type === 'range'" class="mx-4">
+            <label for="labels-range-input" class="sr-only">Labels range</label>
+            <input
+                [(ngModel)]="rangeInputValue"
+                (input)="onRangeInput()"
+                id="labels-range-input"
+                type="range"
+                value="1000"
+                min="0"
+                max="500000"
+                class="w-full h-2 rounded-md cursor-pointer bg-neutral-800 text-neutral-950 accent-indigo-700"
+            />
+            <div
+                class="flex items-center justify-between w-full pt-2 text-sm opacity-60"
+            >
+                <div>Min 0</div>
+                <div>Max 500 000</div>
+            </div>
+        </div>
+
         <ul *ngIf="type === 'checkbox'" class="overflow-y-auto max-h-96">
             <li
                 *ngFor="let option of dropdownOptionsConverted; let i = index"
