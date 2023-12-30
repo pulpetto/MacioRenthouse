@@ -7,4 +7,5 @@ export interface DropdownMenu {
     minVal?: number;
     maxVal?: number;
     suffix?: string;
+    minimalValChange?: number;
 }

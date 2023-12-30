@@ -26,6 +26,9 @@ export class DropdownMenuComponent implements OnInit {
     @Input() minVal!: number | undefined;
     @Input() maxVal!: number | undefined;
     @Input() suffix!: string | undefined;
+    @Input() minimalValChange: number | undefined;
+    numberInputValue!: string;
+    rangeInputValue: number = 0;
     dropdownOptionsConverted: {
         id: string;
         name: string;
@@ -42,23 +45,6 @@ export class DropdownMenuComponent implements OnInit {
     @Output() orderingChangeEvent = new EventEmitter<string>();
     @Output() sortingChangeEvent = new EventEmitter<string>();
     @Output() maxOffersPerPageChangeEvent = new EventEmitter<string>();
-
-    numberInputValue!: string;
-    rangeInputValue: number = 0;
-    onNumberInput() {
-        if (!this.numberInputValue) return;
-
-        if (+this.numberInputValue > 500000) {
-            this.numberInputValue = '500000';
-        }
-
-        this.rangeInputValue = +this.numberInputValue;
-    }
-    onRangeInput() {
-        this.numberInputValue = (
-            Math.round(this.rangeInputValue / 1000) * 1000
-        ).toString();
-    }
 
     @HostListener('document:click', ['$event'])
     clickout(event: Event) {
@@ -90,6 +76,24 @@ export class DropdownMenuComponent implements OnInit {
         );
 
         this.dropdownOptionsConvertedCopy = this.dropdownOptionsConverted;
+    }
+
+    onNumberInput() {
+        if (!this.numberInputValue) return;
+
+        if (+this.numberInputValue > 500000) {
+            this.numberInputValue = '500000';
+        }
+
+        this.rangeInputValue = +this.numberInputValue;
+    }
+
+    onRangeInput() {
+        if (this.minimalValChange)
+            this.numberInputValue = (
+                Math.round(this.rangeInputValue / this.minimalValChange) *
+                this.minimalValChange
+            ).toString();
     }
 
     updateAnyOptionsCheckedState() {

@@ -292,6 +292,7 @@ export class OffersPreviewComponent implements OnInit {
             minVal: 1000,
             maxVal: 1000000,
             suffix: 'zł',
+            minimalValChange: 1000,
         },
         {
             dropdownName: 'Price up to',
@@ -301,6 +302,7 @@ export class OffersPreviewComponent implements OnInit {
             minVal: 1000,
             maxVal: 1000000,
             suffix: 'zł',
+            minimalValChange: 1000,
         },
         {
             dropdownName: 'HP up to',
@@ -310,6 +312,7 @@ export class OffersPreviewComponent implements OnInit {
             minVal: 68,
             maxVal: 2000,
             suffix: 'hp',
+            minimalValChange: 10,
         },
         {
             dropdownName: 'HP from',
@@ -319,6 +322,7 @@ export class OffersPreviewComponent implements OnInit {
             minVal: 68,
             maxVal: 2000,
             suffix: 'hp',
+            minimalValChange: 10,
         },
         {
             dropdownName: 'Engine size up to',
@@ -328,6 +332,7 @@ export class OffersPreviewComponent implements OnInit {
             minVal: 1000,
             maxVal: 8400,
             suffix: 'cm³',
+            minimalValChange: 10,
         },
         {
             dropdownName: 'Engine size from',
@@ -337,6 +342,7 @@ export class OffersPreviewComponent implements OnInit {
             minVal: 1000,
             maxVal: 8400,
             suffix: 'cm³',
+            minimalValChange: 10,
         },
         {
             dropdownName: 'Year to',
@@ -356,6 +362,7 @@ export class OffersPreviewComponent implements OnInit {
             type: 'range',
             minVal: 1950,
             maxVal: 2024,
+            minimalValChange: 1,
         },
         {
             dropdownName: 'Year from',
@@ -376,6 +383,7 @@ export class OffersPreviewComponent implements OnInit {
             type: 'range',
             minVal: 1950,
             maxVal: 2024,
+            minimalValChange: 1,
         },
         {
             dropdownName: 'Mileage up to',
@@ -396,6 +404,7 @@ export class OffersPreviewComponent implements OnInit {
             type: 'range',
             minVal: 0,
             maxVal: 500000,
+            minimalValChange: 1000,
         },
         {
             dropdownName: 'Mileage from',
@@ -415,6 +424,7 @@ export class OffersPreviewComponent implements OnInit {
             type: 'range',
             minVal: 0,
             maxVal: 500000,
+            minimalValChange: 1000,
         },
         {
             dropdownName: 'Seats',
