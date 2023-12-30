@@ -6,5 +6,5 @@ export interface DropdownMenu {
     type?: string;
     minVal?: number;
     maxVal?: number;
-    postFix?: string;
+    suffix?: string;
 }
