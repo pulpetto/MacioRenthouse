@@ -7,9 +7,7 @@
                         let dropdown of filterDropdowns.slice(0, 5);
                         let i = index
                     "
-                    [dropdownName]="dropdown.dropdownName"
-                    [dropdownOptions]="dropdown.dropdownOptions"
-                    [dropdownMultiselect]="dropdown.dropdownMultiselect"
+                    [dropdownMenu]="dropdown"
                 ></app-dropdown-menu>
             </div>
             <div class="absolute z-30 flex justify-center w-full gap-5 mt-16">
@@ -18,9 +16,7 @@
                         let dropdown of filterDropdowns.slice(5, 10);
                         let i = index
                     "
-                    [dropdownName]="dropdown.dropdownName"
-                    [dropdownOptions]="dropdown.dropdownOptions"
-                    [dropdownMultiselect]="dropdown.dropdownMultiselect"
+                    [dropdownMenu]="dropdown"
                 ></app-dropdown-menu>
             </div>
             <div
@@ -32,9 +28,7 @@
                         let dropdown of filterDropdowns.slice(10, 15);
                         let i = index
                     "
-                    [dropdownName]="dropdown.dropdownName"
-                    [dropdownOptions]="dropdown.dropdownOptions"
-                    [dropdownMultiselect]="dropdown.dropdownMultiselect"
+                    [dropdownMenu]="dropdown"
                 ></app-dropdown-menu>
             </div>
             <div
@@ -46,9 +40,7 @@
                         let dropdown of filterDropdowns.slice(15, 17);
                         let i = index
                     "
-                    [dropdownName]="dropdown.dropdownName"
-                    [dropdownOptions]="dropdown.dropdownOptions"
-                    [dropdownMultiselect]="dropdown.dropdownMultiselect"
+                    [dropdownMenu]="dropdown"
                 ></app-dropdown-menu>
             </div>
 
@@ -109,11 +101,7 @@
                         <app-dropdown-menu
                             (sortingChangeEvent)="sortingChange($event)"
                             class="absolute left-0 z-10"
-                            [dropdownName]="sortingDropdown.dropdownName"
-                            [dropdownOptions]="sortingDropdown.dropdownOptions"
-                            [dropdownMultiselect]="
-                                sortingDropdown.dropdownMultiselect
-                            "
+                            [dropdownMenu]="sortingDropdown"
                         ></app-dropdown-menu>
                     </div>
 
@@ -121,11 +109,7 @@
                         <app-dropdown-menu
                             (orderingChangeEvent)="orderingChange($event)"
                             class="absolute z-10 translate-x-1 left-64"
-                            [dropdownName]="orderingDropdown.dropdownName"
-                            [dropdownOptions]="orderingDropdown.dropdownOptions"
-                            [dropdownMultiselect]="
-                                orderingDropdown.dropdownMultiselect
-                            "
+                            [dropdownMenu]="orderingDropdown"
                         ></app-dropdown-menu>
                     </div>
                 </div>
@@ -150,9 +134,7 @@
                     (maxOffersPerPageChangeEvent)="
                         maxOffersPerPageChange($event)
                     "
-                    [dropdownName]="'Offers per page'"
-                    [dropdownOptions]="['10', '15', '20']"
-                    [dropdownMultiselect]="false"
+                    [dropdownMenu]="offersPerPageDropdown"
                 ></app-dropdown-menu>
             </div>
         </div>
