@@ -60,6 +60,8 @@ import { FormsModule } from '@angular/forms';
 import { SearchBarComponent } from './shared/search-bar/search-bar.component';
 import { BreadcrumbComponent } from './header/breadcrumb/breadcrumb.component';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
+import { CheckboxInputComponent } from './shared/dropdown-menu/dropdown-inputs/checkbox-input/checkbox-input.component';
+import { RangeInputComponent } from './shared/dropdown-menu/dropdown-inputs/range-input/range-input.component';
 
 @NgModule({
     declarations: [
@@ -88,6 +90,8 @@ import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
         DropdownMenuComponent,
         SearchBarComponent,
         BreadcrumbComponent,
+        CheckboxInputComponent,
+        RangeInputComponent,
     ],
     imports: [
         A11yModule,
