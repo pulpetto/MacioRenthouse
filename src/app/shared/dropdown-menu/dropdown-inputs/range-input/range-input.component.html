@@ -1,1 +1,30 @@
-<p>range-input works!</p>
+<div>
+    <input
+        type="text"
+        placeholder="Enter number manually..."
+        [(ngModel)]="numberInputValue"
+        (input)="onNumberInput()"
+        [maxlength]="10"
+        mask="separator"
+        [suffix]="' ' + suffix"
+        class="w-full h-16 pl-4 font-semibold text-white bg-transparent outline-none"
+    />
+</div>
+
+<div class="mx-4">
+    <input
+        type="range"
+        [(ngModel)]="rangeInputValue"
+        (input)="onRangeInput()"
+        value="1000"
+        [min]="minVal"
+        [max]="maxVal"
+        class="w-full h-2 rounded-md cursor-pointer bg-neutral-800 text-neutral-950 accent-indigo-700"
+    />
+    <div
+        class="flex items-center justify-between w-full pt-2 text-sm opacity-60"
+    >
+        <div>Min {{ minVal }}</div>
+        <div>Max {{ maxVal }}</div>
+    </div>
+</div>
