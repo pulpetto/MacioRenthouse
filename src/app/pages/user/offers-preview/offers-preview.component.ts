@@ -35,6 +35,7 @@ export class OffersPreviewComponent implements OnInit {
     } | null>;
 
     searchTerm: string | null = null;
+    sliceFiltersTo: number = 10;
 
     constructor(
         private userService: UserService,
@@ -122,6 +123,9 @@ export class OffersPreviewComponent implements OnInit {
     };
 
     toggleFiltersVisiblity() {
+        this.sliceFiltersTo =
+            this.sliceFiltersTo === 10 ? this.filterDropdowns.length : 10;
+
         this.filtersVisibility = !this.filtersVisibility;
     }
 
