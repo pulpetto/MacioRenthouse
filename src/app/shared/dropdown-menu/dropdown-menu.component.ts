@@ -24,9 +24,6 @@ export class DropdownMenuComponent {
     @Input() dropdownName!: string;
     searchTerm: string = '';
     arrowRotated: boolean = false;
-    @Output() orderingChangeEvent = new EventEmitter<string>();
-    @Output() sortingChangeEvent = new EventEmitter<string>();
-    @Output() maxOffersPerPageChangeEvent = new EventEmitter<string>();
 
     @HostListener('document:click', ['$event'])
     clickout(event: Event) {
