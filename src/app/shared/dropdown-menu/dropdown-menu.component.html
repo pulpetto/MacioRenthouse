@@ -1,128 +1,27 @@
-<div
-    class="flex flex-col items-center overflow-hidden transition-all duration-300 rounded-md w-60 bg-neutral-900 bg-clip-padding backdrop-filter backdrop-blur-3xl bg-opacity-60"
->
-    <button
-        (click)="toggleExpand(list); arrowRotated = !arrowRotated"
-        class="flex items-center justify-between w-full px-3 py-3 transition-colors duration-300 outline-none rounded-t-md hover:bg-neutral-900 focus:bg-neutral-900"
+<div class="relative">
+    <div
+        class="absolute flex flex-col items-center overflow-hidden transition-all duration-300 rounded-md w-60 bg-neutral-900 bg-clip-padding backdrop-filter backdrop-blur-3xl bg-opacity-60"
     >
-        <div class="text-lg font-medium">{{ dropdownName }}</div>
-        <div class="w-8 h-8">
-            <img
-                src="assets/svgs/down-arrow-5-svgrepo-com.svg"
-                class="w-full h-full transition-transform duration-300"
-                [ngClass]="{
+        <button
+            (click)="toggleExpand(list); arrowRotated = !arrowRotated"
+            class="flex items-center justify-between w-full px-3 py-3 transition-colors duration-300 outline-none rounded-t-md hover:bg-neutral-900 focus:bg-neutral-900"
+        >
+            <div class="text-lg font-medium">
+                {{ dropdownName }}
+            </div>
+            <div class="w-8 h-8">
+                <img
+                    src="assets/svgs/down-arrow-5-svgrepo-com.svg"
+                    class="w-full h-full transition-transform duration-300"
+                    [ngClass]="{
                     'rotate-180': arrowRotated,
                 }"
-                alt="arrow icon"
-            />
-        </div>
-    </button>
-    <div #list class="relative w-full h-0 transition-all duration-300">
-        <div *ngIf="type === 'checkbox' && dropdownOptions.length > 10">
-            <input
-                type="text"
-                [(ngModel)]="searchTerm"
-                (ngModelChange)="onDropdownPropertySearch(list)"
-                placeholder="Search for property..."
-                class="w-full h-16 pl-4 text-white bg-transparent outline-none"
-            />
-        </div>
-
-        <ng-container *ngIf="type === 'range' && minVal && maxVal && suffix">
-            <div>
-                <input
-                    [maxlength]="10"
-                    mask="separator"
-                    [suffix]="' ' + suffix"
-                    [(ngModel)]="numberInputValue"
-                    (input)="onNumberInput()"
-                    type="text"
-                    placeholder="Enter number manually..."
-                    class="w-full h-16 pl-4 font-semibold text-white bg-transparent outline-none"
+                    alt="arrow icon"
                 />
             </div>
-
-            <div class="mx-4">
-                <label for="labels-range-input" class="sr-only"
-                    >Labels range</label
-                >
-                <input
-                    [(ngModel)]="rangeInputValue"
-                    (input)="onRangeInput()"
-                    id="labels-range-input"
-                    type="range"
-                    value="1000"
-                    [min]="minVal"
-                    [max]="maxVal"
-                    class="w-full h-2 rounded-md cursor-pointer bg-neutral-800 text-neutral-950 accent-indigo-700"
-                />
-                <div
-                    class="flex items-center justify-between w-full pt-2 text-sm opacity-60"
-                >
-                    <div>Min {{ minVal }}</div>
-                    <div>Max {{ maxVal }}</div>
-                </div>
-            </div>
-        </ng-container>
-
-        <ul *ngIf="type === 'checkbox'" class="overflow-y-auto max-h-96">
-            <li
-                *ngFor="let option of dropdownOptionsConverted; let i = index"
-                class="w-full"
-            >
-                <label
-                    [for]="option.id"
-                    [tabindex]="arrowRotated ? 0 : -1"
-                    class="flex items-center justify-start w-full gap-4 px-4 py-4 transition-colors duration-300 rounded-md outline-none cursor-pointer hover:bg-neutral-900 focus:bg-neutral-900"
-                    [ngClass]="{
-                    'rounded-t-none': i === 0,
-                }"
-                >
-                    <input
-                        #dropdownCheckbox
-                        type="checkbox"
-                        [(ngModel)]="option.checked"
-                        tabindex="-1"
-                        [id]="option.id"
-                        (click)="onInputClick(option, $event)"
-                        (change)="checkStateChange()"
-                        class="w-4 h-4 bg-white rounded-md cursor-pointer accent-indigo-600 ring-indigo-600"
-                    />
-                    <div class="select-none">{{ option.name }}</div>
-                </label>
-            </li>
-        </ul>
-
-        <div
-            *ngIf="type === 'checkbox' && dropdownOptionsConverted.length === 0"
-            class="p-4 text-center select-none opacity-60"
-        >
-            No results found.
-        </div>
-
-        <div
-            class="flex w-full"
-            *ngIf="
-                dropdownMultiselect === true &&
-                dropdownOptionsConverted.length !== 0
-            "
-        >
-            <button
-                class="w-1/2 py-4 text-lg font-semibold transition-transform duration-300 hover:scale-105"
-            >
-                Apply
-            </button>
-            <button
-                class="w-1/2 py-4 text-lg font-semibold transition-transform duration-300 opacity-60"
-                [ngClass]="{
-                    'opacity-60': !anyOptionChecked,
-                    'hover:scale-105': anyOptionChecked,
-                }"
-                [disabled]="!anyOptionChecked"
-                (click)="unCheckAllOptions()"
-            >
-                Clear
-            </button>
+        </button>
+        <div #list class="relative w-full h-0 transition-all duration-300">
+            <ng-content></ng-content>
         </div>
     </div>
 </div>
