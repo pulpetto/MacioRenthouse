@@ -13,6 +13,7 @@ import { UserService } from 'src/app/services/user.service';
     styleUrls: ['./offers-preview.component.css'],
 })
 export class OffersPreviewComponent implements OnInit {
+    Math: Math = Math;
     destroyRef = inject(DestroyRef);
     filtersVisibility: boolean = false;
     currentPage: number = 1;
