@@ -1,1 +1,67 @@
-<p>checkbox-input works!</p>
+<div *ngIf="dropdownOptions.length > 10">
+    <input
+        type="text"
+        [(ngModel)]="searchTerm"
+        (ngModelChange)="onDropdownPropertySearch()"
+        placeholder="Search for property..."
+        class="w-full h-16 pl-4 text-white bg-transparent outline-none"
+    />
+</div>
+
+<ul class="overflow-y-auto max-h-96">
+    <li
+        *ngFor="let option of dropdownOptionsConverted; let i = index"
+        class="w-full"
+    >
+        <label
+            [for]="option.id"
+            class="flex items-center justify-start w-full gap-4 px-4 py-4 transition-colors duration-300 rounded-md outline-none cursor-pointer hover:bg-neutral-900 focus:bg-neutral-900"
+            [ngClass]="{
+            'rounded-t-none': i === 0,
+        }"
+        >
+            <input
+                #dropdownCheckbox
+                type="checkbox"
+                [(ngModel)]="option.checked"
+                tabindex="-1"
+                [id]="option.id"
+                (click)="onInputClick(option, $event)"
+                (change)="checkStateChange()"
+                class="w-4 h-4 bg-white rounded-md cursor-pointer accent-indigo-600 ring-indigo-600"
+            />
+            <div class="select-none">{{ option.name }}</div>
+        </label>
+    </li>
+</ul>
+
+<div
+    *ngIf="dropdownOptionsConverted.length === 0"
+    class="p-4 text-center select-none opacity-60"
+>
+    No results found.
+</div>
+
+<div
+    class="flex w-full"
+    *ngIf="
+        dropdownMultiselect === true && dropdownOptionsConverted.length !== 0
+    "
+>
+    <button
+        class="w-1/2 py-4 text-lg font-semibold transition-transform duration-300 hover:scale-105"
+    >
+        Apply
+    </button>
+    <button
+        class="w-1/2 py-4 text-lg font-semibold transition-transform duration-300 opacity-60"
+        [ngClass]="{
+            'opacity-60': !anyOptionChecked,
+            'hover:scale-105': anyOptionChecked,
+        }"
+        [disabled]="!anyOptionChecked"
+        (click)="unCheckAllOptions()"
+    >
+        Clear
+    </button>
+</div>
