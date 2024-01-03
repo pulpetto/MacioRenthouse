@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+    ChangeDetectorRef,
+    Component,
+    EventEmitter,
+    Input,
+    OnInit,
+    Output,
+} from '@angular/core';
 import { UtilityService } from 'src/app/services/utility.service';
 
 @Component({
@@ -15,6 +22,7 @@ export class CheckboxInputComponent implements OnInit {
     @Output() orderingChangeEvent = new EventEmitter<string>();
     @Output() sortingChangeEvent = new EventEmitter<string>();
     @Output() maxOffersPerPageChangeEvent = new EventEmitter<string>();
+    @Output() calculateHeightEvent = new EventEmitter<void>();
 
     dropdownOptionsConverted: {
         id: string;
@@ -30,7 +38,10 @@ export class CheckboxInputComponent implements OnInit {
 
     anyOptionChecked: boolean = false;
 
-    constructor(private utilityService: UtilityService) {}
+    constructor(
+        private utilityService: UtilityService,
+        private cdr: ChangeDetectorRef
+    ) {}
 
     ngOnInit() {
         this.dropdownOptionsConverted = this.dropdownOptions.map(
@@ -53,6 +64,9 @@ export class CheckboxInputComponent implements OnInit {
         );
 
         this.dropdownOptionsConverted = filteredOptions;
+
+        this.cdr.detectChanges();
+        this.calculateHeightEvent.emit();
     }
 
     updateAnyOptionsCheckedState() {

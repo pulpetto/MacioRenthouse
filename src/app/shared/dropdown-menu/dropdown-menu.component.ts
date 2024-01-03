@@ -1,29 +1,31 @@
 import {
-    ChangeDetectorRef,
+    AfterViewInit,
     Component,
+    ContentChild,
+    DestroyRef,
     ElementRef,
-    EventEmitter,
     HostListener,
     Input,
-    OnInit,
-    Output,
     ViewChild,
+    inject,
 } from '@angular/core';
-import { UtilityService } from 'src/app/services/utility.service';
-import { NgxMaskDirective } from 'ngx-mask';
-import { CheckboxSelect } from 'src/app/interfaces/dropdown/checkbox-select';
-import { RangeSelect } from 'src/app/interfaces/dropdown/range-select';
-import { DropdownMenu } from 'src/app/interfaces/dropdown/dropdown-menu';
+import { CheckboxInputComponent } from './dropdown-inputs/checkbox-input/checkbox-input.component';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
     selector: 'app-dropdown-menu',
     templateUrl: './dropdown-menu.component.html',
     styleUrls: ['./dropdown-menu.component.css'],
 })
-export class DropdownMenuComponent {
+export class DropdownMenuComponent implements AfterViewInit {
     @Input() dropdownName!: string;
     searchTerm: string = '';
     arrowRotated: boolean = false;
+
+    destroyRef = inject(DestroyRef);
+
+    @ContentChild(CheckboxInputComponent)
+    checkboxInput!: CheckboxInputComponent;
 
     @HostListener('document:click', ['$event'])
     clickout(event: Event) {
@@ -38,18 +40,33 @@ export class DropdownMenuComponent {
 
     constructor(private elementRef: ElementRef) {}
 
-    toggleExpand = function (element: any) {
+    ngAfterViewInit() {
+        if (this.checkboxInput) {
+            this.checkboxInput.calculateHeightEvent
+                .pipe(takeUntilDestroyed(this.destroyRef))
+                .subscribe(() => {
+                    if (this.list)
+                        this.calculateHeight(this.list.nativeElement);
+                });
+        }
+    }
+
+    calculateHeight(element: any) {
+        element.style.height =
+            Array.prototype.reduce.call(
+                element.childNodes,
+                function (p, c) {
+                    return p + (c.offsetHeight || 0);
+                },
+                0
+            ) + 'px';
+    }
+
+    toggleExpand(element: any) {
         if (!element.style.height || element.style.height == '0px') {
-            element.style.height =
-                Array.prototype.reduce.call(
-                    element.childNodes,
-                    function (p, c) {
-                        return p + (c.offsetHeight || 0);
-                    },
-                    0
-                ) + 'px';
+            this.calculateHeight(element);
         } else {
             element.style.height = '0px';
         }
-    };
+    }
 }
