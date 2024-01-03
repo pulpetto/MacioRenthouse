@@ -35,3 +35,12 @@
         left: 150%;
     }
 }
+
+/* fix for tailwind css not working */
+.z-30 {
+    z-index: 30;
+}
+
+.z-40 {
+    z-index: 40;
+}
