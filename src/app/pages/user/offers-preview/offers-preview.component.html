@@ -82,10 +82,10 @@
             <div class="grid w-full grid-cols-5 mx-auto mt-4">
                 <app-dropdown-menu
                     class="col-start-1"
-                    (sortingChangeEvent)="sortingChange($event)"
                     [dropdownName]="sortingDropdown.dropdownName"
                 >
                     <app-checkbox-input
+                        (sortingChangeEvent)="sortingChange($event)"
                         *ngIf="
                             sortingDropdown.inputTypeProperties.type ===
                             'checkbox'
@@ -102,10 +102,10 @@
 
                 <app-dropdown-menu
                     class="col-start-2"
-                    (orderingChangeEvent)="orderingChange($event)"
                     [dropdownName]="orderingDropdown.dropdownName"
                 >
                     <app-checkbox-input
+                        (orderingChangeEvent)="orderingChange($event)"
                         *ngIf="
                             orderingDropdown.inputTypeProperties.type ===
                             'checkbox'
@@ -122,12 +122,12 @@
 
                 <app-dropdown-menu
                     class="col-start-5"
-                    (maxOffersPerPageChangeEvent)="
-                        maxOffersPerPageChange($event)
-                    "
                     [dropdownName]="offersPerPageDropdown.dropdownName"
                 >
                     <app-checkbox-input
+                        (maxOffersPerPageChangeEvent)="
+                            maxOffersPerPageChange($event)
+                        "
                         *ngIf="
                             offersPerPageDropdown.inputTypeProperties.type ===
                             'checkbox'
