@@ -11,22 +11,42 @@ export class RangeInputComponent {
     @Input() suffix!: string;
     @Input() minimalValChange!: number;
 
+    applyButtonDisabled: boolean = true;
+    clearButtonDisabled: boolean = true;
+
     numberInputValue: string = '';
     rangeInputValue: number = 0;
 
     onNumberInput() {
-        if (+this.numberInputValue > this.maxVal) {
-            this.numberInputValue = this.maxVal.toString();
-        }
+        this.applyButtonDisabled = false;
+
+        this.clearButtonDisabled =
+            +this.numberInputValue === this.minVal ? true : false;
 
         this.rangeInputValue = +this.numberInputValue;
     }
 
     onRangeInput() {
+        this.applyButtonDisabled = false;
+
+        this.clearButtonDisabled =
+            this.rangeInputValue === this.minVal ? true : false;
+
         if (this.minimalValChange)
             this.numberInputValue = (
                 Math.round(this.rangeInputValue / this.minimalValChange) *
                 this.minimalValChange
             ).toString();
+    }
+
+    applyInputValues() {
+        this.applyButtonDisabled = true;
+    }
+
+    clearInputValues() {
+        this.clearButtonDisabled = true;
+
+        this.numberInputValue = '';
+        this.rangeInputValue = this.minVal;
     }
 }

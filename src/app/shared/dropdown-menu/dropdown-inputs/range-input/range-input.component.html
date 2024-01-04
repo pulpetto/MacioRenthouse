@@ -28,3 +28,28 @@
         <div>Max {{ maxVal }}</div>
     </div>
 </div>
+
+<div class="flex w-full">
+    <button
+        (click)="applyInputValues()"
+        class="w-1/2 py-4 text-lg font-semibold transition-transform duration-300"
+        [ngClass]="{
+            'opacity-60': applyButtonDisabled,
+            'hover:scale-105': !applyButtonDisabled,
+        }"
+        [disabled]="applyButtonDisabled"
+    >
+        Apply
+    </button>
+    <button
+        (click)="clearInputValues()"
+        class="w-1/2 py-4 text-lg font-semibold transition-transform duration-300"
+        [ngClass]="{
+            'opacity-60': clearButtonDisabled,
+            'hover:scale-105': !clearButtonDisabled,
+        }"
+        [disabled]="clearButtonDisabled"
+    >
+        Clear
+    </button>
+</div>
