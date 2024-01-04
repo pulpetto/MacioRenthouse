@@ -27,7 +27,7 @@
                 tabindex="-1"
                 [id]="option.id"
                 (click)="onInputClick(option, $event)"
-                (change)="checkStateChange()"
+                (change)="updateAnyOptionsCheckedState()"
                 class="w-4 h-4 bg-white rounded-md cursor-pointer accent-indigo-600 ring-indigo-600"
             />
             <div class="select-none">{{ option.name }}</div>
@@ -49,18 +49,24 @@
     "
 >
     <button
-        class="w-1/2 py-4 text-lg font-semibold transition-transform duration-300 hover:scale-105"
+        class="w-1/2 py-4 text-lg font-semibold transition-transform duration-300"
+        [ngClass]="{
+            'opacity-60': applyButtonDisabled,
+            'hover:scale-105': !applyButtonDisabled,
+        }"
+        [disabled]="applyButtonDisabled"
+        (click)="applyAllOptions()"
     >
         Apply
     </button>
     <button
-        class="w-1/2 py-4 text-lg font-semibold transition-transform duration-300 opacity-60"
+        class="w-1/2 py-4 text-lg font-semibold transition-transform duration-300"
         [ngClass]="{
-            'opacity-60': !anyOptionChecked,
-            'hover:scale-105': anyOptionChecked,
+            'opacity-60': clearButtonDisabled,
+            'hover:scale-105': !clearButtonDisabled,
         }"
-        [disabled]="!anyOptionChecked"
-        (click)="unCheckAllOptions()"
+        [disabled]="clearButtonDisabled"
+        (click)="clearAllOptions()"
     >
         Clear
     </button>

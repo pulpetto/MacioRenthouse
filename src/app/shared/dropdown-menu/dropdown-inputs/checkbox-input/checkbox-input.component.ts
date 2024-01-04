@@ -38,6 +38,9 @@ export class CheckboxInputComponent implements OnInit {
 
     anyOptionChecked: boolean = false;
 
+    applyButtonDisabled: boolean = true;
+    clearButtonDisabled: boolean = true;
+
     constructor(
         private utilityService: UtilityService,
         private cdr: ChangeDetectorRef
@@ -73,10 +76,14 @@ export class CheckboxInputComponent implements OnInit {
         this.anyOptionChecked = this.dropdownOptionsConverted.some(
             (option) => option.checked
         );
+
+        this.clearButtonDisabled = !this.anyOptionChecked;
     }
 
     onInputClick(option: any, $event: Event) {
         this.updateAnyOptionsCheckedState();
+
+        this.applyButtonDisabled = false;
 
         if (!this.dropdownMultiselect) {
             if (option.checked) $event.preventDefault();
@@ -94,11 +101,13 @@ export class CheckboxInputComponent implements OnInit {
         }
     }
 
-    checkStateChange() {
-        this.updateAnyOptionsCheckedState();
+    applyAllOptions() {
+        this.applyButtonDisabled = true;
     }
 
-    unCheckAllOptions() {
+    clearAllOptions() {
+        this.applyButtonDisabled = false;
+
         if (this.dropdownMultiselect) {
             this.dropdownOptionsConverted.forEach(
                 (option) => (option.checked = false)
