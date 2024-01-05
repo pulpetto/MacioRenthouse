@@ -62,6 +62,7 @@ import { BreadcrumbComponent } from './header/breadcrumb/breadcrumb.component';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 import { CheckboxInputComponent } from './shared/dropdown-menu/dropdown-inputs/checkbox-input/checkbox-input.component';
 import { RangeInputComponent } from './shared/dropdown-menu/dropdown-inputs/range-input/range-input.component';
+import { NgxSliderModule } from 'ngx-slider-v2';
 
 @NgModule({
     declarations: [
@@ -101,6 +102,7 @@ import { RangeInputComponent } from './shared/dropdown-menu/dropdown-inputs/rang
         FormsModule,
         NgxMaskDirective,
         NgxMaskPipe,
+        NgxSliderModule,
         provideFirebaseApp(() => initializeApp(environment.firebase)),
         provideAnalytics(() => getAnalytics()),
         provideAuth(() => getAuth()),
