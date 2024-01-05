@@ -108,11 +108,13 @@ export class CheckboxInputComponent implements OnInit {
     clearAllOptions() {
         this.applyButtonDisabled = false;
 
-        if (this.dropdownMultiselect) {
-            this.dropdownOptionsConverted.forEach(
-                (option) => (option.checked = false)
-            );
-        }
+        this.dropdownOptionsConvertedCopy.forEach(
+            (option) => (option.checked = false)
+        );
+        this.dropdownOptionsConverted.forEach(
+            (option) => (option.checked = false)
+        );
+
         this.updateAnyOptionsCheckedState();
     }
 }
