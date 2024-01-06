@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Options } from 'ngx-slider-v2';
 
 @Component({
     selector: 'app-range-input',
@@ -10,12 +11,21 @@ export class RangeInputComponent {
     @Input() maxVal!: number;
     @Input() suffix!: string;
     @Input() minimalValChange!: number;
+    @Input() ngxMask!: string;
 
     applyButtonDisabled: boolean = true;
     clearButtonDisabled: boolean = true;
 
     numberInputValue: string = '';
     rangeInputValue: number = 0;
+
+    // ngx config
+    minValue: number = 50;
+    maxValue: number = 200;
+    options: Options = {
+        floor: 0,
+        ceil: 250,
+    };
 
     onNumberInput() {
         this.applyButtonDisabled = false;
