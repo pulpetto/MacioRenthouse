@@ -6,8 +6,11 @@
             (click)="toggleExpand(list); arrowRotated = !arrowRotated"
             class="flex items-center justify-between w-full px-3 py-3 transition-colors duration-300 outline-none rounded-t-md hover:bg-neutral-900 focus:bg-neutral-900"
         >
-            <div class="text-lg font-medium">
+            <div class="text-lg">
                 {{ dropdownName }}
+                <span *ngIf="checkedOptionsCount !== 0" class="font-semibold">
+                    ({{ checkedOptionsCount }})
+                </span>
             </div>
             <div class="w-8 h-8">
                 <img

@@ -21,6 +21,7 @@ export class DropdownMenuComponent implements AfterViewInit {
     @Input() dropdownName!: string;
     searchTerm: string = '';
     arrowRotated: boolean = false;
+    checkedOptionsCount: number = 0;
 
     destroyRef = inject(DestroyRef);
 
@@ -47,6 +48,12 @@ export class DropdownMenuComponent implements AfterViewInit {
                 .subscribe(() => {
                     if (this.list)
                         this.calculateHeight(this.list.nativeElement);
+                });
+
+            this.checkboxInput.checkedOptionsChangeEvent
+                .pipe(takeUntilDestroyed(this.destroyRef))
+                .subscribe((data) => {
+                    if (data) this.checkedOptionsCount = data;
                 });
         }
     }
