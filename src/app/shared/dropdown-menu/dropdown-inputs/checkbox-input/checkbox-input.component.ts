@@ -86,11 +86,6 @@ export class CheckboxInputComponent implements OnInit {
 
         this.applyButtonDisabled = false;
 
-        const checkedOptionsCount: number =
-            this.dropdownOptionsConverted.filter((option) => option.checked)
-                .length + 1;
-        this.checkedOptionsChangeEvent.emit(checkedOptionsCount);
-
         if (!this.dropdownMultiselect) {
             if (option.checked) $event.preventDefault();
             if (!option.checked) {
@@ -104,6 +99,11 @@ export class CheckboxInputComponent implements OnInit {
                 this.sortingChangeEvent.emit(option.name);
                 this.maxOffersPerPageChangeEvent.emit(option.name);
             }
+        } else {
+            const checkedOptionsCount: number =
+                this.dropdownOptionsConverted.filter((option) => option.checked)
+                    .length + 1;
+            this.checkedOptionsChangeEvent.emit(checkedOptionsCount);
         }
     }
 
