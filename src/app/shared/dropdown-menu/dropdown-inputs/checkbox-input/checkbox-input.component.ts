@@ -23,6 +23,7 @@ export class CheckboxInputComponent implements OnInit {
     @Output() sortingChangeEvent = new EventEmitter<string>();
     @Output() maxOffersPerPageChangeEvent = new EventEmitter<string>();
     @Output() calculateHeightEvent = new EventEmitter<void>();
+    @Output() checkedOptionsChangeEvent = new EventEmitter<number>();
 
     dropdownOptionsConverted: {
         id: string;
@@ -84,6 +85,11 @@ export class CheckboxInputComponent implements OnInit {
         this.updateAnyOptionsCheckedState();
 
         this.applyButtonDisabled = false;
+
+        const checkedOptionsCount: number =
+            this.dropdownOptionsConverted.filter((option) => option.checked)
+                .length + 1;
+        this.checkedOptionsChangeEvent.emit(checkedOptionsCount);
 
         if (!this.dropdownMultiselect) {
             if (option.checked) $event.preventDefault();
