@@ -84,6 +84,7 @@
                 <app-dropdown-menu
                     class="col-start-1"
                     [dropdownName]="sortingDropdown.dropdownName"
+                    [dropdownWidth]="60"
                 >
                     <app-checkbox-input
                         (sortingChangeEvent)="sortingChange($event)"
@@ -104,6 +105,7 @@
                 <app-dropdown-menu
                     class="col-start-2"
                     [dropdownName]="orderingDropdown.dropdownName"
+                    [dropdownWidth]="60"
                 >
                     <app-checkbox-input
                         (orderingChangeEvent)="orderingChange($event)"
@@ -124,6 +126,7 @@
                 <app-dropdown-menu
                     class="col-start-5"
                     [dropdownName]="offersPerPageDropdown.dropdownName"
+                    [dropdownWidth]="60"
                 >
                     <app-checkbox-input
                         (maxOffersPerPageChangeEvent)="
