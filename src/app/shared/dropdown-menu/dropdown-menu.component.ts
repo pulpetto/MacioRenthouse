@@ -52,8 +52,8 @@ export class DropdownMenuComponent implements AfterViewInit {
 
             this.checkboxInput.checkedOptionsChangeEvent
                 .pipe(takeUntilDestroyed(this.destroyRef))
-                .subscribe((data) => {
-                    if (data) this.checkedOptionsCount = data;
+                .subscribe((data: number) => {
+                    this.checkedOptionsCount = data;
                 });
         }
     }
@@ -75,5 +75,11 @@ export class DropdownMenuComponent implements AfterViewInit {
         } else {
             element.style.height = '0px';
         }
+    }
+
+    onCheckboxesClear($event: Event) {
+        $event.stopPropagation();
+        this.checkedOptionsCount = 0;
+        this.checkboxInput.clearAllOptions();
     }
 }

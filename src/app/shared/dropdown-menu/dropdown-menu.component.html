@@ -8,11 +8,11 @@
         >
             <div class="text-lg">
                 {{ dropdownName }}
-                <span *ngIf="checkedOptionsCount !== 0" class="font-semibold">
-                    ({{ checkedOptionsCount }})
-                </span>
             </div>
-            <div class="w-8 h-8">
+            <div
+                *ngIf="checkedOptionsCount === 0; else closeIcon"
+                class="w-8 h-8"
+            >
                 <img
                     src="assets/svgs/down-arrow-5-svgrepo-com.svg"
                     class="w-full h-full transition-transform duration-300"
@@ -22,6 +22,21 @@
                     alt="arrow icon"
                 />
             </div>
+            <ng-template #closeIcon>
+                <div class="flex items-center">
+                    <div class="font-semibold">({{ checkedOptionsCount }})</div>
+                    <button
+                        (click)="onCheckboxesClear($event)"
+                        class="mt-1 cursor-pointer w-7 h-7"
+                    >
+                        <img
+                            src="assets/svgs/cross-svgrepo-com(1).svg"
+                            class="w-full h-full"
+                            alt="close icon"
+                        />
+                    </button>
+                </div>
+            </ng-template>
         </button>
         <div #list class="relative w-full h-0 transition-all duration-300">
             <ng-content></ng-content>

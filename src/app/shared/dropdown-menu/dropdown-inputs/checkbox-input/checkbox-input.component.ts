@@ -81,7 +81,14 @@ export class CheckboxInputComponent implements OnInit {
         this.clearButtonDisabled = !this.anyOptionChecked;
     }
 
-    onInputClick(option: any, $event: Event) {
+    onInputClick(
+        option: {
+            id: string;
+            name: string;
+            checked: boolean;
+        },
+        $event: Event
+    ) {
         this.updateAnyOptionsCheckedState();
 
         this.applyButtonDisabled = false;
@@ -100,9 +107,12 @@ export class CheckboxInputComponent implements OnInit {
                 this.maxOffersPerPageChangeEvent.emit(option.name);
             }
         } else {
+            let incrementOrDecrement = option.checked ? -1 : 1;
+
             const checkedOptionsCount: number =
                 this.dropdownOptionsConverted.filter((option) => option.checked)
-                    .length + 1;
+                    .length + incrementOrDecrement;
+
             this.checkedOptionsChangeEvent.emit(checkedOptionsCount);
         }
     }
@@ -122,5 +132,11 @@ export class CheckboxInputComponent implements OnInit {
         );
 
         this.updateAnyOptionsCheckedState();
+
+        const checkedOptionsCount: number =
+            this.dropdownOptionsConverted.filter(
+                (option) => option.checked
+            ).length;
+        this.checkedOptionsChangeEvent.emit(checkedOptionsCount);
     }
 }
