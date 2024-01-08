@@ -35,6 +35,7 @@ export class OfferCreatorComponent {
     @Output() creatorState = new EventEmitter<void>();
     creatorFullscreenState = false;
     fullscreenImageSrc = 'assets/svgs/expand-svgrepo-com.svg';
+    noImagesAnimation: boolean = true;
 
     imagesUrls: string[] = [];
     imagesFiles: File[] = [];
@@ -204,9 +205,11 @@ export class OfferCreatorComponent {
 
     onOfferSubmit() {
         if (this.imagesUrls.length === 0) {
-            // maybe pulse animation on image upload label
+            this.noImagesAnimation = true;
+            setTimeout(() => {
+                this.noImagesAnimation = false;
+            }, 7000);
             this.openModalByName('noImages');
-            return;
         } else {
             this.userService.getUser().subscribe(async (user) => {
                 if (user) {

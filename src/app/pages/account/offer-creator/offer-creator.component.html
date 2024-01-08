@@ -73,7 +73,12 @@
             class="flex flex-col items-center justify-center w-full h-full col-span-3 transition-all duration-300 ease-out rounded-md shadow-md cursor-pointer row-span-full drop-shadow-md shadow-black"
         >
             <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                <div class="w-24 h-24">
+                <div
+                    class="w-24 h-24"
+                    [ngClass]="{
+                        'animate-bounce': noImagesAnimation,
+                    }"
+                >
                     <img
                         src="assets/svgs/upload-svgrepo-com.svg"
                         class="w-full h-full"
