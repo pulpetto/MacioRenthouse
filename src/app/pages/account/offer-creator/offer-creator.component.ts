@@ -35,7 +35,7 @@ export class OfferCreatorComponent {
     @Output() creatorState = new EventEmitter<void>();
     creatorFullscreenState = false;
     fullscreenImageSrc = 'assets/svgs/expand-svgrepo-com.svg';
-    noImagesAnimation: boolean = true;
+    noImagesAnimation: boolean = false;
 
     imagesUrls: string[] = [];
     imagesFiles: File[] = [];
