@@ -3,6 +3,7 @@
         class="absolute flex flex-col items-center overflow-hidden transition-all duration-300 rounded-md w-60 bg-neutral-900 bg-clip-padding backdrop-filter backdrop-blur-3xl bg-opacity-60"
     >
         <button
+            type="button"
             (click)="toggleExpand(list); arrowRotated = !arrowRotated"
             class="flex items-center justify-between w-full px-3 py-3 transition-colors duration-300 outline-none rounded-t-md hover:bg-neutral-900 focus:bg-neutral-900"
         >
@@ -26,6 +27,7 @@
                 <div class="flex items-center">
                     <div class="font-semibold">({{ checkedOptionsCount }})</div>
                     <button
+                        type="button"
                         (click)="onCheckboxesClear($event)"
                         class="mt-1 cursor-pointer w-7 h-7"
                     >
