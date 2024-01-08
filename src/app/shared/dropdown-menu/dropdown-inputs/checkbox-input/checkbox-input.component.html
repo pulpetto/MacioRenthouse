@@ -30,7 +30,7 @@
                 (change)="updateAnyOptionsCheckedState()"
                 class="w-4 h-4 bg-white rounded-md cursor-pointer accent-indigo-600 ring-indigo-600"
             />
-            <div class="select-none">{{ option.name }}</div>
+            <div class="select-none">{{ option.name | titlecase }}</div>
         </label>
     </li>
 </ul>
