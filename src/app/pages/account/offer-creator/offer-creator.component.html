@@ -233,39 +233,30 @@
             <div class="flex justify-between gap-2">
                 <app-input
                     class="w-1/2"
-                    label="production year"
-                    type="text"
-                    [control]="offerForm.controls.productionYear"
-                ></app-input>
-
-                <app-input
-                    class="w-1/2"
-                    label="mileage"
-                    type="text"
-                    [control]="offerForm.controls.mileage"
-                    [mask]="'separator'"
-                    [suffix]="'km'"
-                ></app-input>
-            </div>
-
-            <div class="flex justify-between gap-2">
-                <app-input
-                    class="w-1/5"
-                    label="seats"
-                    type="text"
-                    [control]="offerForm.controls.availableSeats"
-                ></app-input>
-                <app-input
-                    class="w-2/5"
                     label="fuel type"
                     type="text"
                     [control]="offerForm.controls.fuelType"
                 ></app-input>
                 <app-input
-                    class="w-2/5"
+                    class="w-1/2"
                     label="gearbox type"
                     type="text"
                     [control]="offerForm.controls.gearboxType"
+                ></app-input>
+            </div>
+
+            <div class="flex justify-between gap-2">
+                <app-input
+                    class="w-1/2"
+                    label="production year"
+                    type="text"
+                    [control]="offerForm.controls.productionYear"
+                ></app-input>
+                <app-input
+                    class="w-1/2"
+                    label="seats"
+                    type="text"
+                    [control]="offerForm.controls.availableSeats"
                 ></app-input>
             </div>
 
@@ -291,9 +282,11 @@
             <div class="flex justify-between gap-2">
                 <app-input
                     class="w-1/2"
-                    label="pickup location"
+                    label="mileage"
                     type="text"
-                    [control]="offerForm.controls.pickupLocation"
+                    [control]="offerForm.controls.mileage"
+                    [mask]="'separator'"
+                    [suffix]="'km'"
                 ></app-input>
                 <app-input
                     class="w-1/2"
@@ -304,6 +297,13 @@
                     [suffix]="'zł'"
                 ></app-input>
             </div>
+
+            <app-input
+                class="w-1/2"
+                label="pickup location"
+                type="text"
+                [control]="offerForm.controls.pickupLocation"
+            ></app-input>
         </div>
 
         <button
