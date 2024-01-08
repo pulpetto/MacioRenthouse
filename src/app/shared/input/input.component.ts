@@ -10,4 +10,6 @@ export class InputComponent {
     @Input() control!: FormControl;
     @Input() label!: string;
     @Input() type!: string;
+    @Input() mask!: string;
+    @Input() suffix!: string;
 }
