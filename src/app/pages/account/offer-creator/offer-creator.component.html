@@ -243,6 +243,8 @@
                     label="mileage"
                     type="text"
                     [control]="offerForm.controls.mileage"
+                    [mask]="'separator'"
+                    [suffix]="'km'"
                 ></app-input>
             </div>
 
@@ -273,12 +275,16 @@
                     label="engine capacity"
                     type="text"
                     [control]="offerForm.controls.engineCapacity"
+                    [mask]="'separator'"
+                    [suffix]="'cm³'"
                 ></app-input>
                 <app-input
                     class="w-1/2"
                     label="horse power"
                     type="text"
                     [control]="offerForm.controls.horsePower"
+                    [mask]="'separator'"
+                    [suffix]="'hp'"
                 ></app-input>
             </div>
 
@@ -294,6 +300,8 @@
                     label="price"
                     type="text"
                     [control]="offerForm.controls.price"
+                    [mask]="'separator'"
+                    [suffix]="'zł'"
                 ></app-input>
             </div>
         </div>
