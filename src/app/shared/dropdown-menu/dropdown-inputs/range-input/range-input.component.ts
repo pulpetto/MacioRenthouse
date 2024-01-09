@@ -8,9 +8,9 @@ import { Component, Input } from '@angular/core';
 export class RangeInputComponent {
     @Input() minVal!: number;
     @Input() maxVal!: number;
-    @Input() suffix!: string;
+    @Input() suffix: string = '';
     @Input() minimalValChange!: number;
-    @Input() ngxMask!: string;
+    @Input() ngxMask: string = 'separator';
 
     applyButtonDisabled: boolean = true;
     clearButtonDisabled: boolean = true;
