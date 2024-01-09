@@ -22,7 +22,7 @@
             'w-full': creatorFullscreenState,
             'h-full': creatorFullscreenState,
         }"
-    class="grid w-3/4 grid-cols-4 grid-rows-5 gap-8 px-8 pt-16 pb-8 text-center transition-all duration-500 ease-out rounded-xl h-5/6 backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter bg-neutral-950"
+    class="grid w-3/4 grid-cols-4 grid-rows-5 gap-8 px-8 pt-16 pb-8 text-center transition-all duration-500 ease-out rounded-xl h-5/6 backdrop-blur-3xl bg-clip-padding backdrop-filter bg-neutral-950"
 >
     <div
         class="absolute flex items-center justify-between w-full pl-6 pr-7 top-2"
@@ -215,95 +215,197 @@
 
     <div class="flex flex-col justify-between h-full col-start-4 row-span-full">
         <div class="flex flex-col gap-6 justify-self-start">
-            <div class="flex justify-between gap-2">
-                <app-input
-                    class="w-1/2"
-                    label="car brand"
-                    type="text"
-                    [control]="offerForm.controls.carBrand"
-                ></app-input>
-                <app-input
-                    class="w-1/2"
-                    label="car model"
-                    type="text"
-                    [control]="offerForm.controls.carModel"
-                ></app-input>
+            <div class="z-30 grid w-full grid-cols-2 gap-2 mb-14">
+                <app-dropdown-menu
+                    [dropdownName]="'Car Brand'"
+                    [dropdownWidth]="'full'"
+                    class="w-full col-start-1 col-end-2"
+                >
+                    <app-checkbox-input
+                        [dropdownOptions]="[
+                            'Abarth',
+                            'Alfa Romeo',
+                            'Aston Martin',
+                            'Audi',
+                            'Bentley',
+                            'BMW',
+                            'Bugatti',
+                            'Cadillac',
+                            'Chevrolet',
+                            'Chrysler',
+                            'Citroën',
+                            'Dacia',
+                            'Daewoo',
+                            'Daihatsu',
+                            'Dodge',
+                            'Donkervoort',
+                            'DS',
+                            'Ferrari',
+                            'Fiat',
+                            'Fisker',
+                            'Ford',
+                            'Honda',
+                            'Hummer',
+                            'Hyundai',
+                            'Infiniti',
+                            'Iveco',
+                            'Jaguar',
+                            'Jeep',
+                            'Kia',
+                            'KTM',
+                            'Lada',
+                            'Lamborghini',
+                            'Lancia',
+                            'Land Rover',
+                            'Landwind',
+                            'Lexus',
+                            'Lotus',
+                            'Maserati',
+                            'Maybach',
+                            'Mazda',
+                            'McLaren',
+                            'Mercedes-Benz',
+                            'MG',
+                            'Mini',
+                            'Mitsubishi',
+                            'Morgan',
+                            'Nissan',
+                            'Opel',
+                            'Peugeot',
+                            'Porsche',
+                            'Renault',
+                            'Rolls-Royce',
+                            'Rover',
+                            'Saab',
+                            'Seat',
+                            'Skoda',
+                            'Smart',
+                            'SsangYong',
+                            'Subaru',
+                            'Suzuki',
+                            'Tesla',
+                            'Toyota',
+                            'Volkswagen',
+                            'Volvo'
+                        ]"
+                        [dropdownMultiselect]="false"
+                    ></app-checkbox-input>
+                </app-dropdown-menu>
+                <app-dropdown-menu
+                    [dropdownName]="'Car Brand'"
+                    [dropdownWidth]="'full'"
+                    class="col-start-2"
+                >
+                    <app-checkbox-input
+                        [dropdownOptions]="[
+                            'Opt 1',
+                            'Opt 2',
+                            'Opt 3',
+                            'Opt 4',
+                            'Opt 5'
+                        ]"
+                        [dropdownMultiselect]="false"
+                    ></app-checkbox-input>
+                </app-dropdown-menu>
             </div>
 
-            <div class="flex justify-between gap-2">
-                <app-input
-                    class="w-1/2"
-                    label="fuel type"
-                    type="text"
-                    [control]="offerForm.controls.fuelType"
-                ></app-input>
-                <app-input
-                    class="w-1/2"
-                    label="gearbox type"
-                    type="text"
-                    [control]="offerForm.controls.gearboxType"
-                ></app-input>
+            <div class="z-20 grid w-full grid-cols-2 gap-2 mb-14">
+                <app-dropdown-menu
+                    [dropdownName]="'Fuel type'"
+                    [dropdownWidth]="'full'"
+                    class="w-full col-start-1 col-end-2"
+                >
+                    <app-checkbox-input
+                        [dropdownOptions]="[
+                            'Petrol',
+                            'Diesel',
+                            'Hydrogen',
+                            'Electric',
+                            'Ethanol',
+                            'LPG',
+                            'Hybrid'
+                        ]"
+                        [dropdownMultiselect]="false"
+                    ></app-checkbox-input>
+                </app-dropdown-menu>
+                <app-dropdown-menu
+                    [dropdownName]="'Gearbox type'"
+                    [dropdownWidth]="'full'"
+                    class="col-start-2"
+                >
+                    <app-checkbox-input
+                        [dropdownOptions]="['Manual', 'Automatic']"
+                        [dropdownMultiselect]="false"
+                    ></app-checkbox-input>
+                </app-dropdown-menu>
             </div>
 
-            <div class="flex justify-between gap-2">
-                <app-input
-                    class="w-1/2"
-                    label="production year"
-                    type="text"
-                    [control]="offerForm.controls.productionYear"
-                ></app-input>
-                <app-input
-                    class="w-1/2"
-                    label="seats"
-                    type="text"
-                    [control]="offerForm.controls.availableSeats"
-                ></app-input>
+            <div class="z-10 grid w-full grid-cols-2 gap-2 mb-12">
+                <app-dropdown-menu
+                    [dropdownName]="'Production year'"
+                    [dropdownWidth]="'full'"
+                    class="col-start-1 col-end-2"
+                >
+                    <app-range-input
+                        [minVal]="1950"
+                        [maxVal]="currentYear"
+                        [minimalValChange]="1"
+                        [ngxMask]="'0000'"
+                    ></app-range-input>
+                </app-dropdown-menu>
+                <app-dropdown-menu
+                    [dropdownName]="'Seats'"
+                    [dropdownWidth]="'full'"
+                    class="w-full col-start-2"
+                >
+                    <app-range-input
+                        [minVal]="2"
+                        [maxVal]="8"
+                        [minimalValChange]="1"
+                        [ngxMask]="'0'"
+                    ></app-range-input>
+                </app-dropdown-menu>
             </div>
 
-            <div class="flex justify-between gap-2">
-                <app-input
-                    class="w-1/2"
-                    label="engine capacity"
-                    type="text"
-                    [control]="offerForm.controls.engineCapacity"
-                    [mask]="'separator'"
-                    [suffix]="'cm³'"
-                ></app-input>
-                <app-input
-                    class="w-1/2"
-                    label="horse power"
-                    type="text"
-                    [control]="offerForm.controls.horsePower"
-                    [mask]="'separator'"
-                    [suffix]="'hp'"
-                ></app-input>
-            </div>
+            <div class="flex flex-col">
+                <div class="flex justify-between gap-2">
+                    <app-input
+                        class="w-1/2"
+                        label="engine capacity"
+                        type="text"
+                        [control]="offerForm.controls.engineCapacity"
+                        [mask]="'separator'"
+                        [suffix]="'cm³'"
+                    ></app-input>
+                    <app-input
+                        class="w-1/2"
+                        label="horse power"
+                        type="text"
+                        [control]="offerForm.controls.horsePower"
+                        [mask]="'separator'"
+                        [suffix]="'hp'"
+                    ></app-input>
+                </div>
 
-            <div class="flex justify-between gap-2">
-                <app-input
-                    class="w-1/2"
-                    label="mileage"
-                    type="text"
-                    [control]="offerForm.controls.mileage"
-                    [mask]="'separator'"
-                    [suffix]="'km'"
-                ></app-input>
-                <app-input
-                    class="w-1/2"
-                    label="price"
-                    type="text"
-                    [control]="offerForm.controls.price"
-                    [mask]="'separator'"
-                    [suffix]="'zł'"
-                ></app-input>
+                <div class="flex justify-between gap-2">
+                    <app-input
+                        class="w-1/2"
+                        label="mileage"
+                        type="text"
+                        [control]="offerForm.controls.mileage"
+                        [mask]="'separator'"
+                        [suffix]="'km'"
+                    ></app-input>
+                    <app-input
+                        class="w-1/2"
+                        label="price"
+                        type="text"
+                        [control]="offerForm.controls.price"
+                        [mask]="'separator'"
+                        [suffix]="'zł'"
+                    ></app-input>
+                </div>
             </div>
-
-            <app-input
-                class="w-1/2"
-                label="pickup location"
-                type="text"
-                [control]="offerForm.controls.pickupLocation"
-            ></app-input>
         </div>
 
         <button
