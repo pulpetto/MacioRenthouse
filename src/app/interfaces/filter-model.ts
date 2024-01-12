@@ -1,6 +1,6 @@
 export interface FilterModel {
-    carsBrands: string[];
-    brandsModels: string[];
+    carBrands: string[];
+    carModels: string[];
     fuelTypes: string[];
     gearboxTypes: string[];
     priceFrom: number;
@@ -13,5 +13,5 @@ export interface FilterModel {
     productionYearTo: number;
     mileageFrom: number;
     mileageTo: number;
-    seats: number[];
+    seatsAmount: number[];
 }
