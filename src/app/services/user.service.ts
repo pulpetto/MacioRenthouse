@@ -167,15 +167,6 @@ export class UserService {
         return this.userSubject.asObservable();
     }
 
-    // getUserByUsername(username: string): Observable<User | null> {
-    //     return this.angularFireDatabase
-    //         .list<User>('users', (ref) =>
-    //             ref.orderByChild('username').equalTo(username)
-    //         )
-    //         .valueChanges()
-    //         .pipe(map((users) => (users.length ? users[0] : null)));
-    // }
-
     getUser2(): Observable<User | null> {
         return combineLatest([
             this.userSubject.asObservable(),
