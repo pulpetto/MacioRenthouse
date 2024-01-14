@@ -12,45 +12,47 @@
             *ngIf="control.touched && control.dirty && control.errors"
         >
             <div *ngIf="control.errors?.['required']" class="text-red-600">
-                required
+                Field required.
             </div>
-            <div *ngIf="control.errors?.['maxlength']" class="text-red-600">
-                max length is 15 characters
-            </div>
+
             <div
                 *ngIf="control.errors?.['usernameDoestExist']"
                 class="text-red-600"
             >
-                this username does not exist, did you mean to
+                This username does not exist, did you mean to
                 <a routerLink="/signup" class="text-indigo-700 hover:underline">
-                    sign up
+                    sign up?
                 </a>
             </div>
+
             <div
                 *ngIf="control.errors?.['emailNotRegistered']"
                 class="text-red-600"
             >
-                this email is not registered, did you mean to
+                This email is not registered, did you mean to
                 <a routerLink="/signup" class="text-indigo-700 hover:underline">
-                    sign up
+                    sign up?
                 </a>
             </div>
+
             <div
                 *ngIf="control.errors?.['usernameAlreadyTaken']"
                 class="text-red-600"
             >
-                this username is already taken, try another one
+                This username is already taken, try another one.
             </div>
+
             <div *ngIf="control.errors?.['email']" class="text-red-600">
-                this field requires an email address
+                This field requires an email address.
             </div>
+
             <div
                 *ngIf="control.errors?.['emailAlreadyRegistered']"
                 class="text-red-600"
             >
-                email already registered, did you mean to
+                Email already registered, did you mean to
                 <a routerLink="/login" class="text-indigo-700 hover:underline">
-                    log in
+                    log in?
                 </a>
             </div>
 
@@ -60,42 +62,42 @@
                     *ngIf="control.errors?.['uppercaseLetterMissing']"
                     class="text-red-600"
                 >
-                    password should contain at least 1 uppercase letter
+                    Password should contain at least 1 uppercase letter.
                 </div>
 
                 <div
                     *ngIf="control.errors?.['lowercaseLetterMissing']"
                     class="text-red-600"
                 >
-                    password should contain at least 1 lowercase letter
+                    Password should contain at least 1 lowercase letter.
                 </div>
 
                 <div
                     *ngIf="control.errors?.['numberMissing']"
                     class="text-red-600"
                 >
-                    password should contain at least 1 number
+                    Password should contain at least 1 number.
                 </div>
 
                 <div
                     *ngIf="control.errors?.['symbolMissing']"
                     class="text-red-600"
                 >
-                    password should contain at least 1 symbol
+                    Password should contain at least 1 symbol.
                 </div>
 
                 <div
                     *ngIf="control.errors?.['passwordTooShort']"
                     class="text-red-600"
                 >
-                    password should contain at least 8 characters
+                    Password should contain at least 8 characters.
                 </div>
 
                 <div
                     *ngIf="control.errors?.['passwordsDoNotMatch']"
                     class="text-red-600"
                 >
-                    passwords are not the same
+                    Passwords are not the same.
                 </div>
             </ng-container>
         </ng-container>
