@@ -54,21 +54,6 @@
                 </a>
             </div>
 
-            <div
-                *ngIf="control.errors?.['pattern']"
-                class="text-xs text-red-600"
-            >
-                numbers only
-            </div>
-
-            <div *ngIf="control.errors?.['max']" class="text-xs text-red-600">
-                we don't have that year, yet
-            </div>
-
-            <div *ngIf="control.errors?.['min']" class="text-xs text-red-600">
-                cars weren't even invented then
-            </div>
-
             <!-- password -->
             <ng-container *ngIf="control.value.length > 0">
                 <div
