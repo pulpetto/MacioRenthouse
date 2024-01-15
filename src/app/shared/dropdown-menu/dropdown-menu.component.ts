@@ -19,7 +19,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 })
 export class DropdownMenuComponent implements AfterViewInit {
     @Input() dropdownName!: string;
-    @Input() dropdownWidth: number | string = 60;
+    @Input() dropdownWidth: number | string = 'full';
     searchTerm: string = '';
     arrowRotated: boolean = false;
     checkedOptionsCount: number = 0;
