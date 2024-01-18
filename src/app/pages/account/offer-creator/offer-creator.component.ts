@@ -114,12 +114,14 @@ export class OfferCreatorComponent {
         productionYear: new FormControl('', [
             Validators.required,
             Validators.pattern('^[0-9]*$'),
+            Validators.min(1950),
             Validators.max(this.currentYear),
-            Validators.min(1886),
         ]),
         availableSeats: new FormControl('', [
             Validators.required,
             Validators.pattern('^[0-9]*$'),
+            Validators.min(1),
+            Validators.max(8),
         ]),
         gearboxType: new FormControl('', [Validators.required]),
         fuelType: new FormControl('', [Validators.required]),
