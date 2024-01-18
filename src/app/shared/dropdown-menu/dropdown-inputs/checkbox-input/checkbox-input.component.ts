@@ -7,6 +7,7 @@ import {
     Output,
 } from '@angular/core';
 import { UtilityService } from 'src/app/services/utility.service';
+import { FormControl } from '@angular/forms';
 
 @Component({
     selector: 'app-checkbox-input',
@@ -18,6 +19,7 @@ export class CheckboxInputComponent implements OnInit {
 
     @Input() dropdownOptions!: string[];
     @Input() dropdownMultiselect!: boolean;
+    @Input() control?: FormControl | undefined;
 
     @Output() orderingChangeEvent = new EventEmitter<string>();
     @Output() sortingChangeEvent = new EventEmitter<string>();
@@ -99,6 +101,8 @@ export class CheckboxInputComponent implements OnInit {
         this.updateAnyOptionsCheckedState();
 
         this.applyButtonDisabled = false;
+
+        this.control?.setValue(option.name);
 
         if (!this.dropdownMultiselect) {
             if (option.checked) $event.preventDefault();
