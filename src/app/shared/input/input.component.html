@@ -35,6 +35,13 @@
                 </a>
             </div>
 
+            <div *ngIf="control.errors?.['min']" class="text-red-600">
+                Please choose higher number.
+            </div>
+            <div *ngIf="control.errors?.['max']" class="text-red-600">
+                Please choose lower number.
+            </div>
+
             <div
                 *ngIf="control.errors?.['usernameAlreadyTaken']"
                 class="text-red-600"

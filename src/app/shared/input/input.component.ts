@@ -7,6 +7,8 @@ import { FormControl } from '@angular/forms';
     styleUrls: ['./input.component.css'],
 })
 export class InputComponent {
+    currentYear = new Date().getFullYear();
+
     @Input() control!: FormControl;
     @Input() label!: string;
     @Input() type!: string;
