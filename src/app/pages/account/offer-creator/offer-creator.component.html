@@ -289,6 +289,7 @@
                             'Volvo'
                         ]"
                         [dropdownMultiselect]="false"
+                        [control]="offerForm.controls.carBrand"
                     ></app-checkbox-input>
                 </app-dropdown-menu>
                 <app-dropdown-menu
@@ -305,6 +306,7 @@
                             'Opt 5'
                         ]"
                         [dropdownMultiselect]="false"
+                        [control]="offerForm.controls.carModel"
                     ></app-checkbox-input>
                 </app-dropdown-menu>
             </div>
@@ -326,6 +328,7 @@
                             'Hybrid'
                         ]"
                         [dropdownMultiselect]="false"
+                        [control]="offerForm.controls.fuelType"
                     ></app-checkbox-input>
                 </app-dropdown-menu>
                 <app-dropdown-menu
@@ -336,38 +339,29 @@
                     <app-checkbox-input
                         [dropdownOptions]="['Manual', 'Automatic']"
                         [dropdownMultiselect]="false"
+                        [control]="offerForm.controls.gearboxType"
                     ></app-checkbox-input>
                 </app-dropdown-menu>
             </div>
 
-            <div class="z-10 grid w-full grid-cols-2 gap-2 mb-12">
-                <app-dropdown-menu
-                    [dropdownName]="'Production year'"
-                    [dropdownWidth]="'full'"
-                    class="col-start-1 col-end-2"
-                >
-                    <app-range-input
-                        [minVal]="1950"
-                        [maxVal]="currentYear"
-                        [minimalValChange]="1"
-                        [ngxMask]="'0000'"
-                    ></app-range-input>
-                </app-dropdown-menu>
-                <app-dropdown-menu
-                    [dropdownName]="'Seats'"
-                    [dropdownWidth]="'full'"
-                    class="w-full col-start-2"
-                >
-                    <app-range-input
-                        [minVal]="2"
-                        [maxVal]="8"
-                        [minimalValChange]="1"
-                        [ngxMask]="'0'"
-                    ></app-range-input>
-                </app-dropdown-menu>
-            </div>
+            <div class="flex flex-col gap-2 mt-2">
+                <div class="flex justify-between gap-2">
+                    <app-input
+                        class="w-1/2"
+                        label="Production year"
+                        type="text"
+                        [control]="offerForm.controls.productionYear"
+                        [mask]="'0000'"
+                    ></app-input>
+                    <app-input
+                        class="w-1/2"
+                        label="Seats"
+                        type="text"
+                        [control]="offerForm.controls.availableSeats"
+                        [mask]="'0'"
+                    ></app-input>
+                </div>
 
-            <div class="flex flex-col mt-2">
                 <div class="flex justify-between gap-2">
                     <app-input
                         class="w-1/2"
