@@ -3,7 +3,6 @@ export interface Offer {
     sellerUsername: string;
     unixPublishDate: number;
     price: number;
-    pickupLocation: string;
     offerDescription: string;
     images: string[];
     car: {

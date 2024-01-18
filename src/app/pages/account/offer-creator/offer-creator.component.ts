@@ -135,7 +135,6 @@ export class OfferCreatorComponent {
             Validators.required,
             Validators.pattern('^[0-9]*$'),
         ]),
-        pickupLocation: new FormControl('', [Validators.required]),
         price: new FormControl('', [
             Validators.required,
             Validators.pattern('^[0-9]*$'),
@@ -231,8 +230,6 @@ export class OfferCreatorComponent {
                         sellerUsername: user.username,
                         unixPublishDate: new Date().valueOf(),
                         price: +this.offerForm?.get('price')?.value!,
-                        pickupLocation:
-                            this.offerForm?.get('pickupLocation')?.value!,
                         offerDescription:
                             this.offerForm?.get('description')?.value!,
                         images: this.imagesUrls,
