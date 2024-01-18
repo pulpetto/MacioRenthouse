@@ -118,4 +118,8 @@ export class SearchingService {
 
         this.searchTrigger.next();
     }
+
+    clearSearchTerm() {
+        this.searchTerm$.next(null);
+    }
 }

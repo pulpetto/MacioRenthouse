@@ -64,6 +64,9 @@ export class OffersPreviewComponent implements OnInit {
 
                 if (this.searchQuery) {
                     this.searchTerm = this.searchQuery.replace('_', ' ');
+                    this.searchingService.updateSearchTerm(this.searchTerm);
+                } else {
+                    this.searchingService.clearSearchTerm();
                 }
 
                 this.refreshData();

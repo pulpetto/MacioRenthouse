@@ -1,5 +1,10 @@
-import { Component, HostListener, OnInit, Renderer2 } from '@angular/core';
-import { Router } from '@angular/router';
+import {
+    ChangeDetectorRef,
+    Component,
+    HostListener,
+    OnInit,
+    Renderer2,
+} from '@angular/core';
 import { Observable } from 'rxjs';
 import { SearchingService } from 'src/app/services/searching.service';
 import { VisibilityService } from 'src/app/services/visibility.service';
@@ -30,14 +35,17 @@ export class SearchBarComponent implements OnInit {
     constructor(
         private visibilityService: VisibilityService,
         private searchingService: SearchingService,
-        private router: Router,
+        private cdr: ChangeDetectorRef,
         private renderer: Renderer2
     ) {}
 
     ngOnInit() {
-        // setTimeout to fix NG0100 error
-        setTimeout(() => {
-            this.routeUsername$ = this.searchingService.getRouteUsername();
+        this.routeUsername$ = this.searchingService.getRouteUsername();
+
+        this.searchingService.getSearchTerm().subscribe((data) => {
+            if (data) this.searchTerm = data;
+            if (!data) this.searchTerm = '';
+            this.cdr.detectChanges();
         });
 
         this.searchingHistory =
