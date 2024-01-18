@@ -1,5 +1,11 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import {
+    BehaviorSubject,
+    Observable,
+    Subject,
+    debounceTime,
+    distinctUntilChanged,
+} from 'rxjs';
 import { UserService } from './user.service';
 import { UtilityService } from './utility.service';
 import { Router } from '@angular/router';
@@ -42,6 +48,7 @@ export class SearchingService {
                 this.utilityService.capitalizeEveryWord(searchTermFixed),
                 this.routeUsername$.value
             )
+            .pipe(debounceTime(300), distinctUntilChanged())
             .subscribe((searchingSuggestions) => {
                 this.suggestionsLetters$.next([]);
 
