@@ -423,7 +423,7 @@ export class OffersPreviewComponent implements OnInit {
             dropdownName: 'Seats',
             inputTypeProperties: {
                 type: 'checkbox',
-                dropdownOptions: ['2', '3', '4', '5', '6', '7'],
+                dropdownOptions: ['2', '3', '4', '5', '6', '7', '8'],
                 dropdownMultiselect: true,
             },
         },
