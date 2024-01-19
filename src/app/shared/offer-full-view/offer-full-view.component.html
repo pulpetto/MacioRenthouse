@@ -81,83 +81,200 @@
     </div>
 </div>
 
-<div *ngIf="offer" class="h-full pb-24 pt-36">
+<div *ngIf="offer" class="h-full pb-24">
     <div
-        class="flex flex-col gap-16 p-4 mx-auto rounded-md shadow-2xl drop-shadow-xl max-w-7xl shadow-black backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter bg-neutral-950"
+        class="flex flex-col gap-16 p-4 mx-auto max-w-7xl backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter"
     >
         <div class="flex gap-4">
             <div #imageSlider class="flex flex-col w-8/12 gap-2">
                 <div
                     class="relative flex items-center justify-center w-full rounded-md shadow-md drop-shadow-md shadow-black backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter bg-neutral-950"
                 >
-                    <button
-                        (click)="previousImage()"
-                        *ngIf="offer.images.length > 1"
-                        type="button"
-                        class="absolute left-0 w-12 h-12 transition-all duration-300 -translate-y-1/2 top-1/2 hover:-translate-x-1 hover:scale-105"
+                    <div
+                        *ngIf="loading"
+                        data-placeholder
+                        class="relative flex items-center justify-center w-full overflow-hidden rounded h-96 bg-neutral-700"
                     >
-                        <img
-                            src="assets/svgs/arrow-left-5-svgrepo-com.svg"
-                            class="w-full h-full"
-                            alt="left arrow icon"
-                        />
-                    </button>
-                    <button
-                        (click)="nextImage()"
-                        *ngIf="offer.images.length > 1"
-                        type="button"
-                        class="absolute right-0 w-12 h-12 transition-all duration-300 -translate-y-1/2 top-1/2 hover:translate-x-1 hover:scale-105"
-                    >
-                        <img
-                            src="assets/svgs/right-arrow-svgrepo-com.svg"
-                            class="w-full h-full"
-                            alt="right arrow icon"
-                        />
-                    </button>
+                        <svg
+                            class="w-10 h-10 text-neutral-500"
+                            aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="currentColor"
+                            viewBox="0 0 20 18"
+                        >
+                            <path
+                                d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z"
+                            />
+                        </svg>
+                    </div>
 
-                    <button type="button" (click)="imageFullscreen()">
-                        <img
-                            [src]="offer.images[activeImageIndex]"
-                            class="rounded-md h-96"
-                            [alt]="
-                                offer.car.carBrand +
-                                offer.car.brandModel +
-                                'photo'
-                            "
-                        />
-                    </button>
+                    <ng-container *ngIf="!loading">
+                        <button
+                            (click)="previousImage()"
+                            *ngIf="offer.images.length > 1"
+                            type="button"
+                            class="absolute left-0 w-12 h-12 transition-all duration-300 -translate-y-1/2 top-1/2 hover:-translate-x-1 hover:scale-105"
+                        >
+                            <img
+                                src="assets/svgs/arrow-left-5-svgrepo-com.svg"
+                                class="w-full h-full"
+                                alt="left arrow icon"
+                            />
+                        </button>
+                        <button
+                            (click)="nextImage()"
+                            *ngIf="offer.images.length > 1"
+                            type="button"
+                            class="absolute right-0 w-12 h-12 transition-all duration-300 -translate-y-1/2 top-1/2 hover:translate-x-1 hover:scale-105"
+                        >
+                            <img
+                                src="assets/svgs/right-arrow-svgrepo-com.svg"
+                                class="w-full h-full"
+                                alt="right arrow icon"
+                            />
+                        </button>
+
+                        <button type="button" (click)="imageFullscreen()">
+                            <img
+                                [src]="offer.images[activeImageIndex]"
+                                class="rounded-md h-96"
+                                [alt]="
+                                    offer.car.carBrand +
+                                    offer.car.brandModel +
+                                    'photo'
+                                "
+                            />
+                        </button>
+                    </ng-container>
                 </div>
                 <div class="flex gap-2">
-                    <button
-                        type="button"
-                        *ngFor="let image of offer.images; let i = index"
-                        (click)="clickedImageChange(i)"
-                        class="w-1/4 rounded-md shadow-md max-h-min drop-shadow-md shadow-black backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter bg-neutral-950"
-                        [ngClass]="{
+                    <ng-container *ngIf="loading">
+                        <div
+                            *ngFor="let placeholder of [1, 2, 3, 4]"
+                            class="relative flex items-center justify-center w-1/4 h-40 overflow-hidden rounded bg-neutral-700"
+                        >
+                            <svg
+                                class="w-10 h-10 text-neutral-500"
+                                aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="currentColor"
+                                viewBox="0 0 20 18"
+                            >
+                                <path
+                                    d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z"
+                                />
+                            </svg>
+                        </div>
+                    </ng-container>
+
+                    <ng-container *ngIf="!loading">
+                        <button
+                            type="button"
+                            *ngFor="let image of offer.images; let i = index"
+                            (click)="clickedImageChange(i)"
+                            class="w-1/4 rounded-md shadow-md max-h-min drop-shadow-md shadow-black backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter bg-neutral-950"
+                            [ngClass]="{
                             'border-indigo-700 border-solid border-2': activeImageIndex === i,
                         }"
-                    >
-                        <img
-                            [src]="image"
-                            class="object-cover w-full h-40 rounded-md"
-                            [alt]="
-                                offer.car.carBrand +
-                                offer.car.brandModel +
-                                'photo'
-                            "
-                        />
-                    </button>
+                        >
+                            <img
+                                [src]="image"
+                                class="object-cover w-full h-40 rounded-md"
+                                [alt]="
+                                    offer.car.carBrand +
+                                    offer.car.brandModel +
+                                    'photo'
+                                "
+                            />
+                        </button>
 
-                    <ng-container *ngIf="offer.images.length < 4">
-                        <div
-                            *ngFor="let emptyPlaceholder of placeholdersAmount"
-                            class="w-1/4 h-full rounded-md shadow-md drop-shadow-md shadow-black backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter bg-neutral-950"
-                        ></div>
+                        <ng-container *ngIf="offer.images.length < 4">
+                            <div
+                                *ngFor="
+                                    let emptyPlaceholder of placeholdersAmount
+                                "
+                                class="w-1/4 h-full rounded-md shadow-md drop-shadow-md shadow-black backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter bg-neutral-950"
+                            ></div>
+                        </ng-container>
                     </ng-container>
                 </div>
             </div>
 
-            <div class="flex flex-col justify-between w-4/12">
+            <div class="w-4/12" *ngIf="loading">
+                <div
+                    class="h-2 rounded-full bg-neutral-700 max-w-[480px] mb-2.5"
+                ></div>
+                <div
+                    class="h-2 rounded-full bg-neutral-700 max-w-[180px] mb-6"
+                ></div>
+
+                <div
+                    class="h-2 rounded-full bg-neutral-700 max-w-[340px] mb-2.5"
+                ></div>
+                <div
+                    class="h-2 rounded-full bg-neutral-700 max-w-[360px] mb-2.5"
+                ></div>
+                <div
+                    class="h-2 rounded-full bg-neutral-700 max-w-[320px] mb-4"
+                ></div>
+
+                <div
+                    class="h-2 rounded-full bg-neutral-700 max-w-[360px] mb-2.5"
+                ></div>
+                <div
+                    class="h-2 rounded-full bg-neutral-700 max-w-[320px] mb-2"
+                ></div>
+                <div
+                    class="h-2 rounded-full bg-neutral-700 max-w-[340px] mb-6"
+                ></div>
+
+                <div
+                    class="h-2 rounded-full bg-neutral-700 max-w-[360px] mb-2.5"
+                ></div>
+                <div
+                    class="h-2 rounded-full bg-neutral-700 max-w-[360px] mb-2"
+                ></div>
+                <div
+                    class="h-2 rounded-full bg-neutral-700 max-w-[360px] mb-2.5"
+                ></div>
+                <div
+                    class="h-2 rounded-full bg-neutral-700 max-w-[320px] mb-2"
+                ></div>
+                <div
+                    class="h-2 rounded-full bg-neutral-700 max-w-[340px] mb-32"
+                ></div>
+
+                <div
+                    class="h-2 rounded-full bg-neutral-700 max-w-[440px] mb-2"
+                ></div>
+                <div
+                    class="h-2 rounded-full bg-neutral-700 max-w-[460px] mb-2.5"
+                ></div>
+                <div
+                    class="h-2 rounded-full bg-neutral-700 max-w-[320px] mb-5"
+                ></div>
+
+                <div
+                    class="h-2 rounded-full bg-neutral-700 max-w-[340px] mb-2.5"
+                ></div>
+                <div
+                    class="h-2 rounded-full bg-neutral-700 max-w-[360px] mb-2.5"
+                ></div>
+                <div
+                    class="h-2 rounded-full bg-neutral-700 max-w-[320px] mb-5"
+                ></div>
+                <div
+                    class="h-2 rounded-full bg-neutral-700 max-w-[360px] mb-2.5"
+                ></div>
+                <div
+                    class="h-2 rounded-full bg-neutral-700 max-w-[320px] mb-2"
+                ></div>
+                <div
+                    class="h-2 rounded-full bg-neutral-700 max-w-[340px] mb-12"
+                ></div>
+            </div>
+
+            <div *ngIf="!loading" class="flex flex-col justify-between w-4/12">
                 <div class="flex flex-col items-center gap-4">
                     <div class="flex items-center self-center gap-1">
                         <div class="text-3xl font-semibold">
@@ -267,7 +384,39 @@
                     class="w-full mt-1 border border-white border-solid rounded-md"
                 ></div>
             </div>
-            <div class="flex gap-36">
+            <div class="self-center w-1/2" *ngIf="loading">
+                <div
+                    class="h-2 rounded-full bg-neutral-700 max-w-[480px] mb-2.5"
+                ></div>
+                <div
+                    class="h-2 rounded-full bg-neutral-700 max-w-[680px] mb-6"
+                ></div>
+                <div
+                    class="h-2 rounded-full bg-neutral-700 max-w-[440px] mb-2.5"
+                ></div>
+                <div
+                    class="h-2 rounded-full bg-neutral-700 max-w-[460px] mb-2.5"
+                ></div>
+                <div
+                    class="h-2 rounded-full bg-neutral-700 max-w-[330px] mb-2"
+                ></div>
+                <div
+                    class="h-2 rounded-full bg-neutral-700 max-w-[320px] mb-2"
+                ></div>
+                <div
+                    class="h-2 rounded-full bg-neutral-700 max-w-[340px] mb-4"
+                ></div>
+                <div
+                    class="h-2 rounded-full bg-neutral-700 max-w-[460px] mb-2.5"
+                ></div>
+                <div
+                    class="h-2 rounded-full bg-neutral-700 max-w-[320px] mb-2"
+                ></div>
+                <div
+                    class="h-2 rounded-full bg-neutral-700 max-w-[440px] mb-2.5"
+                ></div>
+            </div>
+            <div class="flex gap-36" *ngIf="!loading">
                 <div class="flex flex-col self-start gap-4">
                     <div class="flex gap-1">
                         <div>Car brand:</div>
@@ -331,101 +480,134 @@
                 ></div>
             </div>
             <div class="self-center w-1/2">
-                {{ offer.offerDescription }}
-            </div>
-            <div class="flex items-center justify-between w-full gap-4">
-                <div
-                    class="w-full mt-1 border border-white border-solid rounded-md"
-                ></div>
-                <div class="text-3xl font-medium text-center whitespace-nowrap">
-                    Location
+                <div class="w-full mt-2" *ngIf="loading">
+                    <div
+                        class="h-2 rounded-full bg-neutral-700 max-w-[480px] mb-2.5"
+                    ></div>
+                    <div
+                        class="h-2 rounded-full bg-neutral-700 max-w-[680px] mb-6"
+                    ></div>
+                    <div
+                        class="h-2 rounded-full bg-neutral-700 max-w-[440px] mb-2.5"
+                    ></div>
+                    <div
+                        class="h-2 rounded-full bg-neutral-700 max-w-[460px] mb-2.5"
+                    ></div>
+                    <div
+                        class="h-2 rounded-full bg-neutral-700 max-w-[320px] mb-4"
+                    ></div>
+                    <div
+                        class="h-2 rounded-full bg-neutral-700 max-w-[460px] mb-2.5"
+                    ></div>
+                    <div
+                        class="h-2 rounded-full bg-neutral-700 max-w-[320px] mb-2"
+                    ></div>
+                    <div
+                        class="h-2 rounded-full bg-neutral-700 max-w-[440px] mb-2.5"
+                    ></div>
                 </div>
-                <div
-                    class="w-full mt-1 border border-white border-solid rounded-md"
-                ></div>
-            </div>
-            <div
-                class="flex items-center justify-center w-1/2 h-64 rounded-md shadow-2xl bg-neutral-950 shadow-black backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter"
-            >
-                Google Maps API
+
+                <ng-container *ngIf="!loading">
+                    {{ offer.offerDescription }}
+                </ng-container>
             </div>
             <div class="flex items-center justify-between w-full gap-4">
                 <div
                     class="w-full mt-1 border border-white border-solid rounded-md"
                 ></div>
-                <div class="text-2xl font-medium text-center whitespace-nowrap">
+                <div
+                    class="text-3xl font-semibold text-center whitespace-nowrap"
+                >
                     Others
                 </div>
                 <div
                     class="w-full mt-1 border border-white border-solid rounded-md"
                 ></div>
             </div>
-            <div class="flex gap-4">
-                <a
-                    routerLink=""
-                    *ngFor="let image of images2"
-                    class="flex flex-col transition-transform duration-300 rounded-md shadow-2xl bg-neutral-950 shadow-black backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter hover:-translate-y-2 hover:scale-105"
-                >
-                    <div>
-                        <img
-                            src="https://www.bmw-m.com/content/dam/bmw/marketBMW_M/common/topics/magazine-article-pool/2018/bmw-m2-coupe-edition-black-shadow/bmw-m2-coup%C3%A9-black-shadow-stage-teaser-si.jpg"
-                            class="w-full h-full rounded-md"
-                            alt=""
-                        />
-                    </div>
-
-                    <!-- Design 1 -->
-                    <!-- <div class="flex flex-col gap-4 p-2">
-                        <div class="flex justify-between">
-                            <div class="flex gap-1 text-lg">
-                                <div>BMW</div>
-                                <div>Alpina</div>
-                            </div>
-                            <div class="flex flex-col items-end">
-                                <div>2018</div>
-                                <div class="text-sm opacity-80">298 000 km</div>
-                            </div>
-                        </div>
-                        <div class="flex gap-1">
-                            <div class="text-2xl font-semibold">300 000</div>
-                            <div class="flex flex-col items-start mt-1">
-                                <div class="text-xs">ZŁ</div>
-                            </div>
-                        </div>
-                    </div> -->
-
-                    <!-- Design 2 -->
-                    <div class="flex flex-col p-2">
-                        <div class="flex justify-between">
-                            <div class="flex gap-1 text-lg">
-                                <div>BMW</div>
-                                <div>Alpina</div>
-                            </div>
-                        </div>
+            <div class="flex w-full gap-4">
+                <ng-container *ngIf="loading">
+                    <div
+                        *ngFor="let offerSuggestion of [1, 2, 3, 4, 5]"
+                        class="flex-col w-full gap-2"
+                    >
                         <div
-                            class="flex items-end gap-1 mb-4 text-sm opacity-80"
+                            data-placeholder
+                            class="relative flex items-center justify-center w-full h-32 overflow-hidden rounded bg-neutral-700"
                         >
-                            <div>2018</div>
-                            <div class="w-4 h-4">
-                                <img
-                                    src="assets/svgs/dot-small-svgrepo-com.svg"
-                                    class="w-full h-full"
-                                    alt=""
+                            <svg
+                                class="w-10 h-10 text-neutral-500"
+                                aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="currentColor"
+                                viewBox="0 0 20 18"
+                            >
+                                <path
+                                    d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z"
                                 />
-                            </div>
-                            <div>298 000 km</div>
+                            </svg>
                         </div>
-                        <div class="flex gap-1">
-                            <div class="text-2xl font-semibold">300 000</div>
-                            <div class="flex flex-col items-start mt-1">
-                                <div class="text-xs">ZŁ</div>
-                            </div>
+                        <div class="flex flex-col mt-3">
+                            <div
+                                class="h-1.5 rounded-full bg-neutral-700 max-w-[120px] mb-2"
+                            ></div>
+                            <div
+                                class="h-1.5 rounded-full bg-neutral-700 max-w-[150px] mb-2"
+                            ></div>
+                            <div
+                                class="h-1.5 rounded-full bg-neutral-700 max-w-[140px] mb-2"
+                            ></div>
+                            <div
+                                class="h-1.5 rounded-full bg-neutral-700 max-w-[130px] mb-2"
+                            ></div>
                         </div>
                     </div>
-                </a>
+                </ng-container>
+
+                <ng-container *ngIf="!loading">
+                    <a
+                        routerLink=""
+                        *ngFor="let image of images2"
+                        class="flex flex-col transition-transform duration-300 rounded-md shadow-2xl bg-neutral-950 shadow-black backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter hover:-translate-y-2 hover:scale-105"
+                    >
+                        <div>
+                            <img
+                                src="https://www.bmw-m.com/content/dam/bmw/marketBMW_M/common/topics/magazine-article-pool/2018/bmw-m2-coupe-edition-black-shadow/bmw-m2-coup%C3%A9-black-shadow-stage-teaser-si.jpg"
+                                class="w-full h-full rounded-md"
+                                alt=""
+                            />
+                        </div>
+                        <div class="flex flex-col p-2">
+                            <div class="flex justify-between">
+                                <div class="flex gap-1 text-lg">
+                                    <div>BMW</div>
+                                    <div>Alpina</div>
+                                </div>
+                            </div>
+                            <div
+                                class="flex items-end gap-1 mb-4 text-sm opacity-80"
+                            >
+                                <div>2018</div>
+                                <div class="w-4 h-4">
+                                    <img
+                                        src="assets/svgs/dot-small-svgrepo-com.svg"
+                                        class="w-full h-full"
+                                        alt=""
+                                    />
+                                </div>
+                                <div>298 000 km</div>
+                            </div>
+                            <div class="flex gap-1">
+                                <div class="text-2xl font-semibold">
+                                    300 000
+                                </div>
+                                <div class="flex flex-col items-start mt-1">
+                                    <div class="text-xs">ZŁ</div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </ng-container>
             </div>
         </div>
     </div>
 </div>
-
-<app-loading *ngIf="loading"></app-loading>
