@@ -63,12 +63,9 @@ export class CheckboxInputComponent implements OnInit {
 
         this.dropdownOptionsConvertedCopy = this.dropdownOptionsConverted;
 
-        if (this.dropdownMultiselect) {
-            // or when passing data make it already lower case
-            this.dropdownOptionsConvertedCopy.forEach(
-                (option) => (option.name = option.name.toLowerCase())
-            );
-        }
+        this.dropdownOptionsConvertedCopy.forEach(
+            (option) => (option.name = option.name.toLowerCase())
+        );
     }
 
     onDropdownPropertySearch() {
