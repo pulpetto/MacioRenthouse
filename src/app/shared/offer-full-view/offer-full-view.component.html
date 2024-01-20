@@ -39,7 +39,7 @@
     </button>
 
     <div
-        class="flex items-center justify-center w-4/5 rounded-md shadow-md drop-shadow-md shadow-black backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter bg-neutral-950 h-4/5"
+        class="flex items-center justify-center w-4/5 rounded-md backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter bg-neutral-950 h-4/5"
     >
         <button type="button" class="h-full">
             <img
@@ -55,7 +55,7 @@
             type="button"
             *ngFor="let image of offer.images; let i = index"
             (click)="clickedImageChange(i)"
-            class="w-1/4 h-full rounded-md shadow-md drop-shadow-md shadow-black backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter bg-neutral-950"
+            class="w-1/4 h-full rounded-md backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter bg-neutral-950"
             [ngClass]="{
                 'border-indigo-700 border-solid border-2': activeImageIndex === i,
             }"
@@ -172,7 +172,7 @@
                             type="button"
                             *ngFor="let image of offer.images; let i = index"
                             (click)="clickedImageChange(i)"
-                            class="w-1/4 rounded-md shadow-md max-h-min drop-shadow-md shadow-black backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter bg-neutral-950"
+                            class="w-1/4 rounded-md max-h-min backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter bg-neutral-950"
                             [ngClass]="{
                             'border-indigo-700 border-solid border-2': activeImageIndex === i,
                         }"
