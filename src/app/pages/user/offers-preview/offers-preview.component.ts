@@ -3,6 +3,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, combineLatest, map } from 'rxjs';
 import { DropdownMenu } from 'src/app/interfaces/dropdown/dropdown-menu';
+import { FilterModel } from 'src/app/interfaces/filter-model';
 import { Offer } from 'src/app/interfaces/offer';
 import { SearchingService } from 'src/app/services/searching.service';
 import { UserService } from 'src/app/services/user.service';
@@ -36,6 +37,24 @@ export class OffersPreviewComponent implements OnInit {
 
     searchTerm: string | null = null;
     sliceFiltersTo: number = 10;
+
+    initialFiltersState: FilterModel = {
+        carBrands: [],
+        carModels: [],
+        fuelTypes: [],
+        gearboxTypes: [],
+        priceFrom: 0,
+        priceTo: 0,
+        horsePowerFrom: 0,
+        horsePowerTo: 0,
+        engineSizeFrom: 0,
+        engineSizeTo: 0,
+        productionYearFrom: 0,
+        productionYearTo: 0,
+        mileageFrom: 0,
+        mileageTo: 0,
+        seatsAmount: [],
+    };
 
     constructor(
         private userService: UserService,
@@ -323,7 +342,7 @@ export class OffersPreviewComponent implements OnInit {
             dropdownName: 'Price from',
             inputTypeProperties: {
                 type: 'range',
-                minVal: 1000,
+                minVal: 0,
                 maxVal: 1000000,
                 suffix: 'zł',
                 minimalValChange: 1000,
@@ -333,7 +352,7 @@ export class OffersPreviewComponent implements OnInit {
             dropdownName: 'Price up to',
             inputTypeProperties: {
                 type: 'range',
-                minVal: 1000,
+                minVal: 0,
                 maxVal: 1000000,
                 suffix: 'zł',
                 minimalValChange: 1000,
@@ -343,7 +362,7 @@ export class OffersPreviewComponent implements OnInit {
             dropdownName: 'HP from',
             inputTypeProperties: {
                 type: 'range',
-                minVal: 68,
+                minVal: 0,
                 maxVal: 2000,
                 suffix: 'hp',
                 minimalValChange: 10,
@@ -353,7 +372,7 @@ export class OffersPreviewComponent implements OnInit {
             dropdownName: 'HP up to',
             inputTypeProperties: {
                 type: 'range',
-                minVal: 68,
+                minVal: 0,
                 maxVal: 2000,
                 suffix: 'hp',
                 minimalValChange: 10,
@@ -363,7 +382,7 @@ export class OffersPreviewComponent implements OnInit {
             dropdownName: 'Engine size from',
             inputTypeProperties: {
                 type: 'range',
-                minVal: 1000,
+                minVal: 0,
                 maxVal: 8400,
                 suffix: 'cm³',
                 minimalValChange: 10,
@@ -373,7 +392,7 @@ export class OffersPreviewComponent implements OnInit {
             dropdownName: 'Engine size up to',
             inputTypeProperties: {
                 type: 'range',
-                minVal: 1000,
+                minVal: 0,
                 maxVal: 8400,
                 suffix: 'cm³',
                 minimalValChange: 10,
