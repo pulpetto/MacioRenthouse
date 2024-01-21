@@ -9,6 +9,7 @@ import {
 import { UserService } from './user.service';
 import { UtilityService } from './utility.service';
 import { Router } from '@angular/router';
+import { FilterModel } from '../interfaces/filter-model';
 
 @Injectable({
     providedIn: 'root',
@@ -25,6 +26,28 @@ export class SearchingService {
 
     private searchTrigger = new Subject<void>();
     searchTriggered$ = this.searchTrigger.asObservable();
+
+    filtersState: FilterModel = {
+        multiOptionsFilters: {
+            carBrands: [],
+            carModels: [],
+            fuelTypes: [],
+            gearboxTypes: [],
+            seatsAmount: [],
+        },
+        rangeFilters: {
+            priceFrom: 0,
+            priceTo: 0,
+            horsePowerFrom: 0,
+            horsePowerTo: 0,
+            engineSizeFrom: 0,
+            engineSizeTo: 0,
+            productionYearFrom: 0,
+            productionYearTo: 0,
+            mileageFrom: 0,
+            mileageTo: 0,
+        },
+    };
 
     constructor(
         private userService: UserService,
