@@ -1,4 +1,4 @@
-import { FilteringOption } from '../filtering-option';
+import { RangeFilters } from '../range-filters';
 
 export interface RangeSelect {
     type: 'range';
@@ -6,5 +6,5 @@ export interface RangeSelect {
     maxVal: number;
     suffix: string;
     minimalValChange: number;
-    filteringOption?: FilteringOption;
+    filteringOption?: RangeFilters;
 }

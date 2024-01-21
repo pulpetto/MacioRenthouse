@@ -8,7 +8,8 @@ import {
 } from '@angular/core';
 import { UtilityService } from 'src/app/services/utility.service';
 import { FormControl } from '@angular/forms';
-import { FilteringOption } from 'src/app/interfaces/filtering-option';
+import { MultiOptionFilters } from 'src/app/interfaces/multi-option-filters';
+import { SearchingService } from 'src/app/services/searching.service';
 
 @Component({
     selector: 'app-checkbox-input',
@@ -21,7 +22,7 @@ export class CheckboxInputComponent implements OnInit {
     @Input() dropdownOptions!: string[];
     @Input() dropdownMultiselect!: boolean;
     @Input() control?: FormControl | undefined;
-    @Input() connectedToFilter: FilteringOption | undefined;
+    @Input() connectedToFilter: MultiOptionFilters | undefined;
 
     @Output() orderingChangeEvent = new EventEmitter<string>();
     @Output() sortingChangeEvent = new EventEmitter<string>();
@@ -47,6 +48,7 @@ export class CheckboxInputComponent implements OnInit {
     clearButtonDisabled: boolean = true;
 
     constructor(
+        private searchingService: SearchingService,
         private utilityService: UtilityService,
         private cdr: ChangeDetectorRef
     ) {}

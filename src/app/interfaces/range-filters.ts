@@ -1,8 +1,4 @@
-export type FilteringOption =
-    | 'carBrands'
-    | 'carModels'
-    | 'fuelTypes'
-    | 'gearboxTypes'
+export type RangeFilters =
     | 'priceFrom'
     | 'priceTo'
     | 'horsePowerFrom'
@@ -12,5 +8,4 @@ export type FilteringOption =
     | 'productionYearFrom'
     | 'productionYearTo'
     | 'mileageFrom'
-    | 'mileageTo'
-    | 'seatsAmount';
+    | 'mileageTo';
