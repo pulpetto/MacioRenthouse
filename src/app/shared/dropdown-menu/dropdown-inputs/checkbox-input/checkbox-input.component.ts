@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import { UtilityService } from 'src/app/services/utility.service';
 import { FormControl } from '@angular/forms';
+import { FilteringOption } from 'src/app/interfaces/filtering-option';
 
 @Component({
     selector: 'app-checkbox-input',
@@ -20,6 +21,7 @@ export class CheckboxInputComponent implements OnInit {
     @Input() dropdownOptions!: string[];
     @Input() dropdownMultiselect!: boolean;
     @Input() control?: FormControl | undefined;
+    @Input() connectedToFilter: FilteringOption | undefined;
 
     @Output() orderingChangeEvent = new EventEmitter<string>();
     @Output() sortingChangeEvent = new EventEmitter<string>();

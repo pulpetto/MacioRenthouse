@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { FilteringOption } from 'src/app/interfaces/filtering-option';
 
 @Component({
     selector: 'app-range-input',
@@ -11,6 +12,7 @@ export class RangeInputComponent {
     @Input() suffix: string = '';
     @Input() minimalValChange!: number;
     @Input() ngxMask: string = 'separator';
+    @Input() connectedToFilter: FilteringOption | undefined;
 
     applyButtonDisabled: boolean = true;
     clearButtonDisabled: boolean = true;
