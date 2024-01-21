@@ -21,6 +21,9 @@
                     [dropdownMultiselect]="
                         dropdown.inputTypeProperties.dropdownMultiselect
                     "
+                    [connectedToFilter]="
+                        dropdown.inputTypeProperties.filteringOption
+                    "
                 ></app-checkbox-input>
                 <app-range-input
                     *ngIf="dropdown.inputTypeProperties.type === 'range'"
@@ -30,6 +33,9 @@
                         dropdown.inputTypeProperties.minimalValChange
                     "
                     [suffix]="dropdown.inputTypeProperties.suffix"
+                    [connectedToFilter]="
+                        dropdown.inputTypeProperties.filteringOption
+                    "
                 ></app-range-input>
             </app-dropdown-menu>
         </div>
