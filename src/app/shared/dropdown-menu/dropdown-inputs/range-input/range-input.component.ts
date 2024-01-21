@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { RangeFilters } from 'src/app/interfaces/range-filters';
+import { SearchingService } from 'src/app/services/searching.service';
 
 @Component({
     selector: 'app-range-input',
@@ -19,6 +20,8 @@ export class RangeInputComponent {
 
     numberInputValue: string = '';
     rangeInputValue: number = 0;
+
+    constructor(private searchingService: SearchingService) {}
 
     onNumberInput() {
         this.applyButtonDisabled = false;
@@ -43,10 +46,22 @@ export class RangeInputComponent {
     }
 
     applyInputValues() {
+        if (this.connectedToFilter) {
+            this.searchingService.filtersState.rangeFilters[
+                this.connectedToFilter
+            ] = this.rangeInputValue;
+        }
+
         this.applyButtonDisabled = true;
     }
 
     clearInputValues() {
+        if (this.connectedToFilter) {
+            this.searchingService.filtersState.rangeFilters[
+                this.connectedToFilter
+            ] = 0;
+        }
+
         this.clearButtonDisabled = true;
 
         this.numberInputValue = '';
