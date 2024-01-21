@@ -293,6 +293,7 @@ export class OffersPreviewComponent implements OnInit {
                     'Volvo',
                 ],
                 dropdownMultiselect: true,
+                filteringOption: 'carBrands',
             },
         },
         {
@@ -312,6 +313,7 @@ export class OffersPreviewComponent implements OnInit {
                     'Evanda',
                 ],
                 dropdownMultiselect: true,
+                filteringOption: 'carModels',
             },
         },
         {
@@ -328,6 +330,7 @@ export class OffersPreviewComponent implements OnInit {
                     'Hybrid',
                 ],
                 dropdownMultiselect: true,
+                filteringOption: 'fuelTypes',
             },
         },
         {
@@ -336,6 +339,7 @@ export class OffersPreviewComponent implements OnInit {
                 type: 'checkbox',
                 dropdownOptions: ['Manual', 'Automatic'],
                 dropdownMultiselect: true,
+                filteringOption: 'gearboxTypes',
             },
         },
         {
@@ -346,6 +350,7 @@ export class OffersPreviewComponent implements OnInit {
                 maxVal: 1000000,
                 suffix: 'zł',
                 minimalValChange: 1000,
+                filteringOption: 'priceFrom',
             },
         },
         {
@@ -356,6 +361,7 @@ export class OffersPreviewComponent implements OnInit {
                 maxVal: 1000000,
                 suffix: 'zł',
                 minimalValChange: 1000,
+                filteringOption: 'priceTo',
             },
         },
         {
@@ -366,6 +372,7 @@ export class OffersPreviewComponent implements OnInit {
                 maxVal: 2000,
                 suffix: 'hp',
                 minimalValChange: 10,
+                filteringOption: 'horsePowerFrom',
             },
         },
         {
@@ -376,6 +383,7 @@ export class OffersPreviewComponent implements OnInit {
                 maxVal: 2000,
                 suffix: 'hp',
                 minimalValChange: 10,
+                filteringOption: 'horsePowerTo',
             },
         },
         {
@@ -386,6 +394,7 @@ export class OffersPreviewComponent implements OnInit {
                 maxVal: 8400,
                 suffix: 'cm³',
                 minimalValChange: 10,
+                filteringOption: 'engineSizeFrom',
             },
         },
         {
@@ -396,6 +405,7 @@ export class OffersPreviewComponent implements OnInit {
                 maxVal: 8400,
                 suffix: 'cm³',
                 minimalValChange: 10,
+                filteringOption: 'engineSizeTo',
             },
         },
         {
@@ -406,6 +416,7 @@ export class OffersPreviewComponent implements OnInit {
                 maxVal: 2024,
                 suffix: '',
                 minimalValChange: 1,
+                filteringOption: 'productionYearFrom',
             },
         },
         {
@@ -416,6 +427,7 @@ export class OffersPreviewComponent implements OnInit {
                 maxVal: 2024,
                 suffix: '',
                 minimalValChange: 1,
+                filteringOption: 'productionYearTo',
             },
         },
         {
@@ -426,6 +438,7 @@ export class OffersPreviewComponent implements OnInit {
                 maxVal: 500000,
                 suffix: 'km',
                 minimalValChange: 1000,
+                filteringOption: 'mileageFrom',
             },
         },
         {
@@ -436,6 +449,7 @@ export class OffersPreviewComponent implements OnInit {
                 maxVal: 500000,
                 suffix: 'km',
                 minimalValChange: 1000,
+                filteringOption: 'mileageTo',
             },
         },
         {
@@ -444,6 +458,7 @@ export class OffersPreviewComponent implements OnInit {
                 type: 'checkbox',
                 dropdownOptions: ['2', '3', '4', '5', '6', '7', '8'],
                 dropdownMultiselect: true,
+                filteringOption: 'seatsAmount',
             },
         },
     ];
