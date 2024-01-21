@@ -130,10 +130,28 @@ export class CheckboxInputComponent implements OnInit {
     }
 
     applyAllOptions() {
+        if (this.connectedToFilter) {
+            const checkedOptions: string[] = [];
+
+            this.dropdownOptionsConverted.forEach((option) => {
+                if (option.checked) checkedOptions.push(option.name);
+            });
+
+            this.searchingService.filtersState.multiOptionsFilters[
+                this.connectedToFilter
+            ] = checkedOptions;
+        }
+
         this.applyButtonDisabled = true;
     }
 
     clearAllOptions() {
+        if (this.connectedToFilter) {
+            this.searchingService.filtersState.multiOptionsFilters[
+                this.connectedToFilter
+            ] = [];
+        }
+
         this.applyButtonDisabled = false;
 
         this.dropdownOptionsConvertedCopy.forEach(
