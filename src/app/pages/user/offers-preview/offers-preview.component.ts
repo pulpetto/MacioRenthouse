@@ -38,24 +38,6 @@ export class OffersPreviewComponent implements OnInit {
     searchTerm: string | null = null;
     sliceFiltersTo: number = 10;
 
-    initialFiltersState: FilterModel = {
-        carBrands: [],
-        carModels: [],
-        fuelTypes: [],
-        gearboxTypes: [],
-        priceFrom: 0,
-        priceTo: 0,
-        horsePowerFrom: 0,
-        horsePowerTo: 0,
-        engineSizeFrom: 0,
-        engineSizeTo: 0,
-        productionYearFrom: 0,
-        productionYearTo: 0,
-        mileageFrom: 0,
-        mileageTo: 0,
-        seatsAmount: [],
-    };
-
     constructor(
         private userService: UserService,
         private route: ActivatedRoute,
