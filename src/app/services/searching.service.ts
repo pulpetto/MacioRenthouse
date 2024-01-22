@@ -27,7 +27,7 @@ export class SearchingService {
     private searchTrigger = new Subject<void>();
     searchTriggered$ = this.searchTrigger.asObservable();
 
-    filtersState: FilterModel = {
+    filtersState$ = new BehaviorSubject<FilterModel>({
         multiOptionsFilters: {
             carBrands: [],
             carModels: [],
@@ -47,13 +47,21 @@ export class SearchingService {
             mileageFrom: 0,
             mileageTo: 0,
         },
-    };
+    });
 
     constructor(
         private userService: UserService,
         private utilityService: UtilityService,
         private router: Router
     ) {}
+
+    getFiltersState(): FilterModel {
+        return this.filtersState$.value;
+    }
+
+    updateFiltersState(newState: FilterModel) {
+        this.filtersState$.next(newState);
+    }
 
     updateSearchTerm(updatedSearchTerm: string) {
         this.searchTerm$.next(
