@@ -11,6 +11,7 @@ import { getDatabase, ref, set } from '@angular/fire/database';
 import { Observable } from 'rxjs/internal/Observable';
 import { BehaviorSubject, combineLatest, map, retry } from 'rxjs';
 import { Offer } from '../interfaces/offer';
+import { FilterModel } from '../interfaces/filter-model';
 
 @Injectable({
     providedIn: 'root',
@@ -93,7 +94,8 @@ export class UserService {
         sortBy: string = 'unixPublishDate',
         arrayStartIndex: number = 0,
         maxItemsPerPage: number = 10,
-        sortingByCarProperties: boolean = false
+        sortingByCarProperties: boolean = false,
+        filters: FilterModel
     ): Observable<{
         offers: Offer[];
         offersAmount: number;
