@@ -241,7 +241,7 @@ export class OfferCreatorComponent {
                             fullCarName: `${carBrand} ${carModel}`,
                             productionYear:
                                 +this.offerForm?.get('productionYear')?.value!,
-                            seats: +this.offerForm?.get('availableSeats')
+                            seats: this.offerForm?.get('availableSeats')
                                 ?.value!,
                             gearboxType:
                                 this.offerForm?.get('gearboxType')?.value!,

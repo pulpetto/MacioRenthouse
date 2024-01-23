@@ -10,7 +10,7 @@ export interface Offer {
         brandModel: string;
         fullCarName: string;
         productionYear: number;
-        seats: number;
+        seats: string;
         gearboxType: string;
         fuelType: string;
         engineCapacity: number;
