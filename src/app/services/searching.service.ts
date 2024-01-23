@@ -59,7 +59,7 @@ export class SearchingService {
         return this.filtersState$.value;
     }
 
-    getFiltersState$(): Observable<FilterModel | null> {
+    getFiltersState$(): Observable<FilterModel> {
         return this.filtersState$.asObservable();
     }
 
