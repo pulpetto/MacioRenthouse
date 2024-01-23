@@ -137,7 +137,7 @@ export class CheckboxInputComponent implements OnInit {
                 if (option.checked) checkedOptions.push(option.name);
             });
 
-            const filtersState = this.searchingService.getFiltersState();
+            const filtersState = this.searchingService.getCurrentFiltersState();
             filtersState.multiOptionsFilters[this.connectedToFilter] =
                 checkedOptions;
             this.searchingService.updateFiltersState(filtersState);
@@ -148,7 +148,7 @@ export class CheckboxInputComponent implements OnInit {
 
     clearAllOptions() {
         if (this.connectedToFilter) {
-            const filtersState = this.searchingService.getFiltersState();
+            const filtersState = this.searchingService.getCurrentFiltersState();
             filtersState.multiOptionsFilters[this.connectedToFilter] = [];
             this.searchingService.updateFiltersState(filtersState);
         }

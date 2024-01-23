@@ -55,7 +55,7 @@ export class SearchingService {
         private router: Router
     ) {}
 
-    getFiltersState(): FilterModel {
+    getCurrentFiltersState(): FilterModel {
         return this.filtersState$.value;
     }
 

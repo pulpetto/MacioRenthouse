@@ -47,7 +47,7 @@ export class RangeInputComponent {
 
     applyInputValues() {
         if (this.connectedToFilter) {
-            const filtersState = this.searchingService.getFiltersState();
+            const filtersState = this.searchingService.getCurrentFiltersState();
             filtersState.rangeFilters[this.connectedToFilter] =
                 this.rangeInputValue;
             this.searchingService.updateFiltersState(filtersState);
@@ -58,7 +58,7 @@ export class RangeInputComponent {
 
     clearInputValues() {
         if (this.connectedToFilter) {
-            const filtersState = this.searchingService.getFiltersState();
+            const filtersState = this.searchingService.getCurrentFiltersState();
             filtersState.rangeFilters[this.connectedToFilter] = this.minVal;
             this.searchingService.updateFiltersState(filtersState);
         }
