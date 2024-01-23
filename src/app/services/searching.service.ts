@@ -59,6 +59,10 @@ export class SearchingService {
         return this.filtersState$.value;
     }
 
+    getFiltersState$(): Observable<FilterModel | null> {
+        return this.filtersState$.asObservable();
+    }
+
     updateFiltersState(newState: FilterModel) {
         this.filtersState$.next(newState);
     }
