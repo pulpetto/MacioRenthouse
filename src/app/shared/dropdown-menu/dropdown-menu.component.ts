@@ -25,6 +25,7 @@ export class DropdownMenuComponent implements AfterViewInit {
     arrowRotated: boolean = false;
     checkedOptionsCount: number = 0;
     rangeInputValue: number = 0;
+    rangeInputMask!: string;
 
     destroyRef = inject(DestroyRef);
 
@@ -69,6 +70,8 @@ export class DropdownMenuComponent implements AfterViewInit {
                 .subscribe((data) => {
                     this.rangeInputValue = data;
                 });
+
+            this.rangeInputMask = this.rangeInput.ngxMask;
         }
     }
 
