@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { RangeFilters } from 'src/app/interfaces/range-filters';
 import { SearchingService } from 'src/app/services/searching.service';
 
@@ -14,6 +14,7 @@ export class RangeInputComponent {
     @Input() minimalValChange!: number;
     @Input() ngxMask!: string;
     @Input() connectedToFilter: RangeFilters | undefined;
+    @Output() rangeInputValueChangeEvent = new EventEmitter<number>();
 
     applyButtonDisabled: boolean = true;
     clearButtonDisabled: boolean = true;
@@ -30,6 +31,8 @@ export class RangeInputComponent {
             +this.numberInputValue === this.minVal ? true : false;
 
         this.rangeInputValue = +this.numberInputValue;
+
+        this.rangeInputValueChangeEvent.emit(this.rangeInputValue);
     }
 
     onRangeInput() {
@@ -43,6 +46,8 @@ export class RangeInputComponent {
                 Math.round(this.rangeInputValue / this.minimalValChange) *
                 this.minimalValChange
             ).toString();
+
+        this.rangeInputValueChangeEvent.emit(+this.numberInputValue);
     }
 
     applyInputValues() {
@@ -67,5 +72,7 @@ export class RangeInputComponent {
 
         this.numberInputValue = '';
         this.rangeInputValue = this.minVal;
+
+        this.rangeInputValueChangeEvent.emit(this.minVal);
     }
 }

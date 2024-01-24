@@ -11,6 +11,7 @@ import {
 } from '@angular/core';
 import { CheckboxInputComponent } from './dropdown-inputs/checkbox-input/checkbox-input.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { RangeInputComponent } from './dropdown-inputs/range-input/range-input.component';
 
 @Component({
     selector: 'app-dropdown-menu',
@@ -23,11 +24,15 @@ export class DropdownMenuComponent implements AfterViewInit {
     searchTerm: string = '';
     arrowRotated: boolean = false;
     checkedOptionsCount: number = 0;
+    rangeInputValue: number = 0;
 
     destroyRef = inject(DestroyRef);
 
     @ContentChild(CheckboxInputComponent)
     checkboxInput!: CheckboxInputComponent;
+
+    @ContentChild(RangeInputComponent)
+    rangeInput!: RangeInputComponent;
 
     @HostListener('document:click', ['$event'])
     clickout(event: Event) {
@@ -57,6 +62,14 @@ export class DropdownMenuComponent implements AfterViewInit {
                     this.checkedOptionsCount = data;
                 });
         }
+
+        if (this.rangeInput) {
+            this.rangeInput.rangeInputValueChangeEvent
+                .pipe(takeUntilDestroyed(this.destroyRef))
+                .subscribe((data) => {
+                    this.rangeInputValue = data;
+                });
+        }
     }
 
     calculateHeight(element: any) {
@@ -78,9 +91,16 @@ export class DropdownMenuComponent implements AfterViewInit {
         }
     }
 
-    onCheckboxesClear($event: Event) {
+    onOptionsReset($event: Event) {
         $event.stopPropagation();
-        this.checkedOptionsCount = 0;
-        this.checkboxInput.clearAllOptions();
+
+        if (this.checkboxInput) {
+            this.checkedOptionsCount = 0;
+            this.checkboxInput.clearAllOptions();
+        }
+
+        if (this.rangeInput) {
+            this.rangeInput.clearInputValues();
+        }
     }
 }

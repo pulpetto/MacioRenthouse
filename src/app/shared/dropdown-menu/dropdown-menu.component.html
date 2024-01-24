@@ -8,28 +8,65 @@
             (click)="toggleExpand(list); arrowRotated = !arrowRotated"
             class="flex items-center justify-between w-full px-3 py-3 transition-colors duration-300 outline-none rounded-t-md hover:bg-neutral-900 focus:bg-neutral-900"
         >
-            <div class="text-lg">
-                {{ dropdownName }}
-            </div>
-            <div
-                *ngIf="checkedOptionsCount === 0; else closeIcon"
-                class="w-8 h-8"
-            >
-                <img
-                    src="assets/svgs/down-arrow-5-svgrepo-com.svg"
-                    class="w-full h-full transition-transform duration-300"
-                    [ngClass]="{
+            <div class="text-lg">{{ dropdownName }}</div>
+
+            <ng-container *ngIf="checkboxInput">
+                <div
+                    *ngIf="checkedOptionsCount === 0; else closeIcon"
+                    class="w-8 h-8"
+                >
+                    <img
+                        src="assets/svgs/down-arrow-5-svgrepo-com.svg"
+                        class="w-full h-full transition-transform duration-300"
+                        [ngClass]="{
                     'rotate-180': arrowRotated,
                 }"
-                    alt="arrow icon"
-                />
-            </div>
-            <ng-template #closeIcon>
-                <div class="flex items-center">
-                    <div class="font-semibold">({{ checkedOptionsCount }})</div>
+                        alt="arrow icon"
+                    />
+                </div>
+
+                <ng-template #closeIcon>
+                    <div class="flex items-center">
+                        <div class="font-semibold">
+                            ({{ checkedOptionsCount }})
+                        </div>
+                        <button
+                            type="button"
+                            (click)="onOptionsReset($event)"
+                            class="mt-1 cursor-pointer w-7 h-7"
+                        >
+                            <img
+                                src="assets/svgs/cross-svgrepo-com(1).svg"
+                                class="w-full h-full"
+                                alt="close icon"
+                            />
+                        </button>
+                    </div>
+                </ng-template>
+            </ng-container>
+
+            <ng-container *ngIf="rangeInput">
+                <div class="flex items-center text-lg">
+                    <div *ngIf="rangeInputValue">({{ rangeInputValue }})</div>
+                    <div
+                        *ngIf="!rangeInputValue; else closeIcon"
+                        class="w-8 h-8"
+                    >
+                        <img
+                            src="assets/svgs/down-arrow-5-svgrepo-com.svg"
+                            class="w-full h-full transition-transform duration-300"
+                            [ngClass]="{
+                    'rotate-180': arrowRotated,
+                }"
+                            alt="arrow icon"
+                        />
+                    </div>
+                </div>
+
+                <ng-template #closeIcon>
                     <button
                         type="button"
-                        (click)="onCheckboxesClear($event)"
+                        (click)="onOptionsReset($event)"
                         class="mt-1 cursor-pointer w-7 h-7"
                     >
                         <img
@@ -38,8 +75,8 @@
                             alt="close icon"
                         />
                     </button>
-                </div>
-            </ng-template>
+                </ng-template>
+            </ng-container>
         </button>
         <div #list class="relative w-full h-0 transition-all duration-300">
             <ng-content></ng-content>
