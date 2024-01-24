@@ -47,7 +47,9 @@
 
             <ng-container *ngIf="rangeInput">
                 <div class="flex items-center text-lg">
-                    <div *ngIf="rangeInputValue">({{ rangeInputValue }})</div>
+                    <div *ngIf="rangeInputValue" class="font-semibold">
+                        ({{ rangeInputValue | mask : "separator" }})
+                    </div>
                     <div
                         *ngIf="!rangeInputValue; else closeIcon"
                         class="w-8 h-8"
