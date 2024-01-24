@@ -12,7 +12,7 @@ export class RangeInputComponent {
     @Input() maxVal!: number;
     @Input() suffix: string = '';
     @Input() minimalValChange!: number;
-    @Input() ngxMask: string = 'separator';
+    @Input() ngxMask!: string;
     @Input() connectedToFilter: RangeFilters | undefined;
 
     applyButtonDisabled: boolean = true;

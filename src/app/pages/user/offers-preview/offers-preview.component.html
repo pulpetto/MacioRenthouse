@@ -33,6 +33,11 @@
                         dropdown.inputTypeProperties.minimalValChange
                     "
                     [suffix]="dropdown.inputTypeProperties.suffix"
+                    [ngxMask]="
+                        dropdown.inputTypeProperties.mask
+                            ? dropdown.inputTypeProperties.mask
+                            : 'separator'
+                    "
                     [connectedToFilter]="
                         dropdown.inputTypeProperties.filteringOption
                     "

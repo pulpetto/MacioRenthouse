@@ -6,5 +6,6 @@ export interface RangeSelect {
     maxVal: number;
     suffix: string;
     minimalValChange: number;
+    mask?: string;
     filteringOption?: RangeFilters;
 }
