@@ -120,6 +120,75 @@ export class UserService {
 
         return query.valueChanges().pipe(
             map((offers) => {
+                offers = offers.filter((offer) => {
+                    if (filters.multiOptionsFilters) {
+                        const {
+                            carBrands,
+                            carModels,
+                            fuelTypes,
+                            gearboxTypes,
+                            seatsAmount,
+                        } = filters.multiOptionsFilters;
+
+                        if (
+                            (carBrands.length > 0 &&
+                                !carBrands.includes(offer.car.carBrand)) ||
+                            (carModels.length > 0 &&
+                                !carModels.includes(offer.car.brandModel)) ||
+                            (fuelTypes.length > 0 &&
+                                !fuelTypes.includes(offer.car.fuelType)) ||
+                            (gearboxTypes.length > 0 &&
+                                !gearboxTypes.includes(
+                                    offer.car.gearboxType
+                                )) ||
+                            (seatsAmount.length > 0 &&
+                                !seatsAmount.includes(offer.car.seats))
+                        ) {
+                            return false;
+                        }
+                    }
+
+                    if (filters.rangeFilters) {
+                        const {
+                            priceFrom,
+                            priceTo,
+                            horsePowerFrom,
+                            horsePowerTo,
+                            engineSizeFrom,
+                            engineSizeTo,
+                            productionYearFrom,
+                            productionYearTo,
+                            mileageFrom,
+                            mileageTo,
+                        } = filters.rangeFilters;
+
+                        if (
+                            (priceFrom > 0 && offer.price < priceFrom) ||
+                            (priceTo > 0 && offer.price > priceTo) ||
+                            (horsePowerFrom > 0 &&
+                                offer.car.horsePower < horsePowerFrom) ||
+                            (horsePowerTo > 0 &&
+                                offer.car.horsePower > horsePowerTo) ||
+                            (engineSizeFrom > 0 &&
+                                offer.car.engineCapacity < engineSizeFrom) ||
+                            (engineSizeTo > 0 &&
+                                offer.car.engineCapacity > engineSizeTo) ||
+                            (productionYearFrom > 0 &&
+                                offer.car.productionYear <
+                                    productionYearFrom) ||
+                            (productionYearTo > 0 &&
+                                offer.car.productionYear > productionYearTo) ||
+                            (mileageFrom > 0 &&
+                                offer.car.mileage < mileageFrom) ||
+                            (mileageTo > 0 && offer.car.mileage > mileageTo)
+                        ) {
+                            return false;
+                        }
+                    }
+
+                    return true;
+                });
+
                 const offersAmount = offers.length;
                 const pagesAmount = Math.ceil(offers.length / maxItemsPerPage);
 
