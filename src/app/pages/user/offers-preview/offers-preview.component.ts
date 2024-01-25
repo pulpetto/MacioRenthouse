@@ -93,6 +93,7 @@ export class OffersPreviewComponent implements OnInit {
             .pipe(takeUntilDestroyed(this.destroyRef))
             .subscribe((filtersState) => {
                 this.filtersState = filtersState;
+                this.refreshData();
             });
     }
 
