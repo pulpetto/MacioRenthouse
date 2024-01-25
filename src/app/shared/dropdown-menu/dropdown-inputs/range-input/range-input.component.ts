@@ -12,7 +12,7 @@ export class RangeInputComponent {
     @Input() maxVal!: number;
     @Input() suffix: string = '';
     @Input() minimalValChange!: number;
-    @Input() minOrMax!: string;
+    @Input() minOrMax!: 'min' | 'max';
     @Input() ngxMask!: string;
     @Input() connectedToFilter: RangeFilters | undefined;
     @Output() rangeInputValueChangeEvent = new EventEmitter<number>();
