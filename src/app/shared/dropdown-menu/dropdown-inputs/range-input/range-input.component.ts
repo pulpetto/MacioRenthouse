@@ -21,17 +21,24 @@ export class RangeInputComponent implements OnInit {
     clearButtonDisabled: boolean = true;
 
     currentNumberInputValue: string = '';
+    lastlyAppliedNumberInputValue!: string;
+
     currentRangeInputValue!: number;
+    lastlyAppliedRangeInputValue!: number;
 
     constructor(private searchingService: SearchingService) {}
 
     ngOnInit() {
         if (this.minOrMax === 'max') {
             this.currentRangeInputValue = this.maxVal;
+            this.lastlyAppliedRangeInputValue = this.maxVal;
+            this.lastlyAppliedNumberInputValue = this.maxVal.toString();
         }
 
         if (this.minOrMax === 'min') {
             this.currentRangeInputValue = this.minVal;
+            this.lastlyAppliedRangeInputValue = this.minVal;
+            this.lastlyAppliedNumberInputValue = this.minVal.toString();
         }
     }
 
@@ -47,9 +54,11 @@ export class RangeInputComponent implements OnInit {
     }
 
     onRangeInput() {
-        // if it equals the old applied value disable apply option
-
-        this.applyButtonDisabled = false;
+        if (this.currentRangeInputValue === this.lastlyAppliedRangeInputValue) {
+            this.applyButtonDisabled = true;
+        } else {
+            this.applyButtonDisabled = false;
+        }
 
         this.clearButtonDisabled =
             this.currentRangeInputValue === this.minVal ? true : false;
@@ -65,6 +74,9 @@ export class RangeInputComponent implements OnInit {
     }
 
     applyInputValues() {
+        this.lastlyAppliedRangeInputValue = this.currentRangeInputValue;
+        this.lastlyAppliedNumberInputValue = this.currentNumberInputValue;
+
         if (this.connectedToFilter) {
             const filtersState = this.searchingService.getCurrentFiltersState();
             filtersState.rangeFilters[this.connectedToFilter] =
@@ -87,11 +99,15 @@ export class RangeInputComponent implements OnInit {
 
         if (this.minOrMax === 'max') {
             this.currentRangeInputValue = this.maxVal;
+            this.lastlyAppliedRangeInputValue = this.maxVal;
+            this.lastlyAppliedNumberInputValue = this.maxVal.toString();
             this.rangeInputValueChangeEvent.emit(this.maxVal);
         }
 
         if (this.minOrMax === 'min') {
             this.currentRangeInputValue = this.minVal;
+            this.lastlyAppliedRangeInputValue = this.minVal;
+            this.lastlyAppliedNumberInputValue = this.minVal.toString();
             this.rangeInputValueChangeEvent.emit(this.minVal);
         }
     }
