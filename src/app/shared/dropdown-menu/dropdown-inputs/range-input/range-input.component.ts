@@ -20,7 +20,7 @@ export class RangeInputComponent implements OnInit {
     applyButtonDisabled: boolean = true;
     clearButtonDisabled: boolean = true;
 
-    numberInputValue: string = '';
+    currentNumberInputValue: string = '';
     currentRangeInputValue!: number;
 
     constructor(private searchingService: SearchingService) {}
@@ -39,27 +39,29 @@ export class RangeInputComponent implements OnInit {
         this.applyButtonDisabled = false;
 
         this.clearButtonDisabled =
-            +this.numberInputValue === this.minVal ? true : false;
+            +this.currentNumberInputValue === this.minVal ? true : false;
 
-        this.currentRangeInputValue = +this.numberInputValue;
+        this.currentRangeInputValue = +this.currentNumberInputValue;
 
         this.rangeInputValueChangeEvent.emit(this.currentRangeInputValue);
     }
 
     onRangeInput() {
+        // if it equals the old applied value disable apply option
+
         this.applyButtonDisabled = false;
 
         this.clearButtonDisabled =
             this.currentRangeInputValue === this.minVal ? true : false;
 
         if (this.minimalValChange)
-            this.numberInputValue = (
+            this.currentNumberInputValue = (
                 Math.round(
                     this.currentRangeInputValue / this.minimalValChange
                 ) * this.minimalValChange
             ).toString();
 
-        this.rangeInputValueChangeEvent.emit(+this.numberInputValue);
+        this.rangeInputValueChangeEvent.emit(+this.currentNumberInputValue);
     }
 
     applyInputValues() {
@@ -81,7 +83,7 @@ export class RangeInputComponent implements OnInit {
         }
 
         this.clearButtonDisabled = true;
-        this.numberInputValue = '';
+        this.currentNumberInputValue = '';
 
         if (this.minOrMax === 'max') {
             this.currentRangeInputValue = this.maxVal;
