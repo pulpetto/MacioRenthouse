@@ -21,17 +21,17 @@ export class RangeInputComponent implements OnInit {
     clearButtonDisabled: boolean = true;
 
     numberInputValue: string = '';
-    rangeInputValue!: number;
+    currentRangeInputValue!: number;
 
     constructor(private searchingService: SearchingService) {}
 
     ngOnInit() {
         if (this.minOrMax === 'max') {
-            this.rangeInputValue = this.maxVal;
+            this.currentRangeInputValue = this.maxVal;
         }
 
         if (this.minOrMax === 'min') {
-            this.rangeInputValue = this.minVal;
+            this.currentRangeInputValue = this.minVal;
         }
     }
 
@@ -41,21 +41,22 @@ export class RangeInputComponent implements OnInit {
         this.clearButtonDisabled =
             +this.numberInputValue === this.minVal ? true : false;
 
-        this.rangeInputValue = +this.numberInputValue;
+        this.currentRangeInputValue = +this.numberInputValue;
 
-        this.rangeInputValueChangeEvent.emit(this.rangeInputValue);
+        this.rangeInputValueChangeEvent.emit(this.currentRangeInputValue);
     }
 
     onRangeInput() {
         this.applyButtonDisabled = false;
 
         this.clearButtonDisabled =
-            this.rangeInputValue === this.minVal ? true : false;
+            this.currentRangeInputValue === this.minVal ? true : false;
 
         if (this.minimalValChange)
             this.numberInputValue = (
-                Math.round(this.rangeInputValue / this.minimalValChange) *
-                this.minimalValChange
+                Math.round(
+                    this.currentRangeInputValue / this.minimalValChange
+                ) * this.minimalValChange
             ).toString();
 
         this.rangeInputValueChangeEvent.emit(+this.numberInputValue);
@@ -65,7 +66,7 @@ export class RangeInputComponent implements OnInit {
         if (this.connectedToFilter) {
             const filtersState = this.searchingService.getCurrentFiltersState();
             filtersState.rangeFilters[this.connectedToFilter] =
-                this.rangeInputValue;
+                this.currentRangeInputValue;
             this.searchingService.updateFiltersState(filtersState);
         }
 
@@ -83,12 +84,12 @@ export class RangeInputComponent implements OnInit {
         this.numberInputValue = '';
 
         if (this.minOrMax === 'max') {
-            this.rangeInputValue = this.maxVal;
+            this.currentRangeInputValue = this.maxVal;
             this.rangeInputValueChangeEvent.emit(this.maxVal);
         }
 
         if (this.minOrMax === 'min') {
-            this.rangeInputValue = this.minVal;
+            this.currentRangeInputValue = this.minVal;
             this.rangeInputValueChangeEvent.emit(this.minVal);
         }
     }
