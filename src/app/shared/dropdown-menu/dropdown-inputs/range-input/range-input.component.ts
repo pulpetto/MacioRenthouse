@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { RangeFilters } from 'src/app/interfaces/range-filters';
 import { SearchingService } from 'src/app/services/searching.service';
 
@@ -7,7 +7,7 @@ import { SearchingService } from 'src/app/services/searching.service';
     templateUrl: './range-input.component.html',
     styleUrls: ['./range-input.component.css'],
 })
-export class RangeInputComponent {
+export class RangeInputComponent implements OnInit {
     @Input() minVal!: number;
     @Input() maxVal!: number;
     @Input() suffix: string = '';
@@ -21,9 +21,19 @@ export class RangeInputComponent {
     clearButtonDisabled: boolean = true;
 
     numberInputValue: string = '';
-    rangeInputValue: number = 0;
+    rangeInputValue!: number;
 
     constructor(private searchingService: SearchingService) {}
+
+    ngOnInit() {
+        if (this.minOrMax === 'max') {
+            this.rangeInputValue = this.maxVal;
+        }
+
+        if (this.minOrMax === 'min') {
+            this.rangeInputValue = this.minVal;
+        }
+    }
 
     onNumberInput() {
         this.applyButtonDisabled = false;
@@ -70,10 +80,16 @@ export class RangeInputComponent {
         }
 
         this.clearButtonDisabled = true;
-
         this.numberInputValue = '';
-        this.rangeInputValue = this.minVal;
 
-        this.rangeInputValueChangeEvent.emit(this.minVal);
+        if (this.minOrMax === 'max') {
+            this.rangeInputValue = this.maxVal;
+            this.rangeInputValueChangeEvent.emit(this.maxVal);
+        }
+
+        if (this.minOrMax === 'min') {
+            this.rangeInputValue = this.minVal;
+            this.rangeInputValueChangeEvent.emit(this.minVal);
+        }
     }
 }
