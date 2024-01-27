@@ -1,5 +1,6 @@
 import {
     AfterViewInit,
+    ChangeDetectorRef,
     Component,
     ContentChild,
     DestroyRef,
@@ -24,8 +25,11 @@ export class DropdownMenuComponent implements AfterViewInit {
     searchTerm: string = '';
     arrowRotated: boolean = false;
     checkedOptionsCount: number = 0;
-    rangeInputValue: number = 0;
+    rangeInputValue!: number;
     rangeInputMask!: string;
+    rangeInputType!: 'min' | 'max';
+    minVal!: number;
+    maxVal!: number;
 
     destroyRef = inject(DestroyRef);
 
@@ -46,7 +50,10 @@ export class DropdownMenuComponent implements AfterViewInit {
     @ViewChild('list', { read: ElementRef, static: false })
     list!: ElementRef;
 
-    constructor(private elementRef: ElementRef) {}
+    constructor(
+        private elementRef: ElementRef,
+        private cdr: ChangeDetectorRef
+    ) {}
 
     ngAfterViewInit() {
         if (this.checkboxInput) {
@@ -72,6 +79,11 @@ export class DropdownMenuComponent implements AfterViewInit {
                 });
 
             this.rangeInputMask = this.rangeInput.ngxMask;
+            this.rangeInputType = this.rangeInput.minOrMax;
+            this.rangeInputValue = this.rangeInput.currentRangeInputValue;
+            this.minVal = this.rangeInput.minVal;
+            this.maxVal = this.rangeInput.maxVal;
+            this.cdr.detectChanges();
         }
     }
 
