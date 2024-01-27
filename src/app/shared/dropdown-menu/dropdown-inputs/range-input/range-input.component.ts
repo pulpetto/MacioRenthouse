@@ -43,7 +43,14 @@ export class RangeInputComponent implements OnInit {
     }
 
     onNumberInput() {
-        this.applyButtonDisabled = false;
+        if (
+            +this.currentNumberInputValue ===
+            +this.lastlyAppliedNumberInputValue
+        ) {
+            this.applyButtonDisabled = true;
+        } else {
+            this.applyButtonDisabled = false;
+        }
 
         if (
             (+this.currentNumberInputValue === this.minVal &&
