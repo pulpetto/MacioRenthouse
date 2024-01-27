@@ -45,8 +45,16 @@ export class RangeInputComponent implements OnInit {
     onNumberInput() {
         this.applyButtonDisabled = false;
 
-        this.clearButtonDisabled =
-            +this.currentNumberInputValue === this.minVal ? true : false;
+        if (
+            (+this.currentNumberInputValue === this.minVal &&
+                this.minOrMax === 'min') ||
+            (+this.currentNumberInputValue === this.maxVal &&
+                this.minOrMax === 'max')
+        ) {
+            this.clearButtonDisabled = true;
+        } else {
+            this.clearButtonDisabled = false;
+        }
 
         this.currentRangeInputValue = +this.currentNumberInputValue;
 
@@ -60,8 +68,16 @@ export class RangeInputComponent implements OnInit {
             this.applyButtonDisabled = false;
         }
 
-        this.clearButtonDisabled =
-            this.currentRangeInputValue === this.minVal ? true : false;
+        if (
+            (this.currentRangeInputValue === this.minVal &&
+                this.minOrMax === 'min') ||
+            (this.currentRangeInputValue === this.maxVal &&
+                this.minOrMax === 'max')
+        ) {
+            this.clearButtonDisabled = true;
+        } else {
+            this.clearButtonDisabled = false;
+        }
 
         if (this.minimalValChange)
             this.currentNumberInputValue = (
