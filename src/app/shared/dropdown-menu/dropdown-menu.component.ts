@@ -44,6 +44,14 @@ export class DropdownMenuComponent implements AfterViewInit {
         if (!this.elementRef.nativeElement.contains(event.target)) {
             this.list.nativeElement.style.height = '0px';
             this.arrowRotated = false;
+
+            if (this.checkboxInput && !this.checkboxInput.applyButtonDisabled) {
+                this.checkboxInput.applyAllOptions();
+            }
+
+            if (this.rangeInput && !this.rangeInput.applyButtonDisabled) {
+                this.rangeInput.applyInputValues();
+            }
         }
     }
 
