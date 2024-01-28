@@ -227,6 +227,14 @@ export class OfferCreatorComponent {
                         this.offerForm?.get('carModel')?.value!
                     );
 
+                    const gearboxType = this.utilityService.capitalizeEveryWord(
+                        this.offerForm?.get('gearboxType')?.value!
+                    );
+
+                    const fuelType = this.utilityService.capitalizeEveryWord(
+                        this.offerForm?.get('fuelType')?.value!
+                    );
+
                     const newOffer: Offer = {
                         offerId: offerId,
                         sellerUsername: user.username,
@@ -243,9 +251,8 @@ export class OfferCreatorComponent {
                                 +this.offerForm?.get('productionYear')?.value!,
                             seats: this.offerForm?.get('availableSeats')
                                 ?.value!,
-                            gearboxType:
-                                this.offerForm?.get('gearboxType')?.value!,
-                            fuelType: this.offerForm?.get('fuelType')?.value!,
+                            gearboxType,
+                            fuelType,
                             engineCapacity:
                                 +this.offerForm?.get('engineCapacity')?.value!,
                             mileage: +this.offerForm?.get('mileage')?.value!,
