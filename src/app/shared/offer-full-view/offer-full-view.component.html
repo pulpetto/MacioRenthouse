@@ -324,7 +324,9 @@
                                 alt=""
                             />
                         </div>
-                        <div class="text-2xl font-medium">User</div>
+                        <div class="text-2xl font-medium">
+                            {{ offer.sellerUsername }}
+                        </div>
                         <div class="w-4 h-4">
                             <img
                                 src="assets/svgs/dot-small-svgrepo-com.svg"
@@ -336,11 +338,12 @@
                     </div>
 
                     <div class="flex flex-col items-center">
-                        <button
+                        <a
+                            [routerLink]="'/user/' + offer.sellerUsername"
                             class="text-lg font-medium transition-colors duration-300 hover:text-indigo-600"
                         >
                             see profile
-                        </button>
+                        </a>
                         <div class="mb-2 text-lg font-light opacity-80">or</div>
                         <button
                             class="flex items-center gap-1 px-6 py-3 text-xl font-semibold transition-colors duration-300 bg-indigo-700 rounded-md cursor-pointer hover:bg-indigo-600"
