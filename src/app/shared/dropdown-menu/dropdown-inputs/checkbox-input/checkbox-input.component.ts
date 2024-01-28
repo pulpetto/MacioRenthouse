@@ -134,7 +134,10 @@ export class CheckboxInputComponent implements OnInit {
             const checkedOptions: string[] = [];
 
             this.dropdownOptionsConverted.forEach((option) => {
-                if (option.checked) checkedOptions.push(option.name);
+                if (option.checked)
+                    checkedOptions.push(
+                        this.utilityService.capitalizeEveryWord(option.name)
+                    );
             });
 
             const filtersState = this.searchingService.getCurrentFiltersState();
