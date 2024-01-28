@@ -125,6 +125,7 @@ export class RangeInputComponent implements OnInit {
             this.lastlyAppliedRangeInputValue = this.maxVal;
             this.lastlyAppliedNumberInputValue = this.maxVal.toString();
             this.rangeInputValueChangeEvent.emit(this.maxVal);
+            this.applyInputValues();
         }
 
         if (this.minOrMax === 'min') {
@@ -132,6 +133,7 @@ export class RangeInputComponent implements OnInit {
             this.lastlyAppliedRangeInputValue = this.minVal;
             this.lastlyAppliedNumberInputValue = this.minVal.toString();
             this.rangeInputValueChangeEvent.emit(this.minVal);
+            this.applyInputValues();
         }
     }
 }
