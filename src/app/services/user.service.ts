@@ -142,7 +142,9 @@ export class UserService {
                                     offer.car.gearboxType
                                 )) ||
                             (seatsAmount.length > 0 &&
-                                !seatsAmount.includes(offer.car.seats))
+                                !seatsAmount.includes(
+                                    offer.car.seats.toString()
+                                ))
                         ) {
                             return false;
                         }
