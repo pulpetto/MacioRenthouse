@@ -2,7 +2,7 @@
     *ngIf="user$ | async as user; else loading"
     class="h-full pt-6 pb-24"
     [ngClass]="{
-        'h-screen': user.offers.length === 0,
+        'h-screen': user.offers.length < 3,
     }"
 >
     <div
