@@ -9,7 +9,6 @@ export class VisibilityService {
     private isHeaderAndFooterVisible = new BehaviorSubject<boolean>(true);
     private isHeaderSearchBarVisible = new BehaviorSubject<boolean>(false);
     private isHeaderSearchBarFocused = new BehaviorSubject<boolean>(false);
-    private isBreadcrumbVisible = new BehaviorSubject<boolean>(true);
 
     setHeaderAndFooterVisibility(visibility: boolean) {
         this.isHeaderAndFooterVisible.next(visibility);
@@ -23,10 +22,6 @@ export class VisibilityService {
         this.isHeaderSearchBarFocused.next(isFocused);
     }
 
-    setBreadcrumbVisibility(isFocused: boolean) {
-        this.isBreadcrumbVisible.next(isFocused);
-    }
-
     getHeaderAndFooterVisibility(): Observable<boolean> {
         return this.isHeaderAndFooterVisible.asObservable();
     }
@@ -37,9 +32,5 @@ export class VisibilityService {
 
     getHeaderSearchBarFocusState(): Observable<boolean> {
         return this.isHeaderSearchBarFocused.asObservable();
-    }
-
-    getBreadcrumbVisibility(): Observable<boolean> {
-        return this.isBreadcrumbVisible.asObservable();
     }
 }

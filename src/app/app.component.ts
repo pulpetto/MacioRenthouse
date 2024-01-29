@@ -52,10 +52,8 @@ export class AppComponent {
                 }
 
                 if (routePath === 'home') {
-                    this.visibilityService.setBreadcrumbVisibility(false);
                     this.visibilityService.setHeaderSearchBarVisibility(false);
                 } else {
-                    this.visibilityService.setBreadcrumbVisibility(true);
                     this.visibilityService.setHeaderSearchBarVisibility(true);
                 }
             });

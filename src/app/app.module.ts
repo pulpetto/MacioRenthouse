@@ -58,7 +58,6 @@ import { OffersPreviewComponent } from './pages/user/offers-preview/offers-previ
 import { DropdownMenuComponent } from './shared/dropdown-menu/dropdown-menu.component';
 import { FormsModule } from '@angular/forms';
 import { SearchBarComponent } from './shared/search-bar/search-bar.component';
-import { BreadcrumbComponent } from './header/breadcrumb/breadcrumb.component';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 import { CheckboxInputComponent } from './shared/dropdown-menu/dropdown-inputs/checkbox-input/checkbox-input.component';
 import { RangeInputComponent } from './shared/dropdown-menu/dropdown-inputs/range-input/range-input.component';
@@ -89,7 +88,6 @@ import { RangeInputComponent } from './shared/dropdown-menu/dropdown-inputs/rang
         OffersPreviewComponent,
         DropdownMenuComponent,
         SearchBarComponent,
-        BreadcrumbComponent,
         CheckboxInputComponent,
         RangeInputComponent,
     ],

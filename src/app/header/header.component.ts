@@ -13,12 +13,10 @@ export class HeaderComponent implements OnInit {
     userFirstName$!: Observable<string | null>;
     searchBarVisibility$!: Observable<boolean>;
     isSearchBarFocused$!: Observable<boolean>;
-    breadcrumbVisibility$!: Observable<boolean>;
 
     constructor(
         private userService: UserService,
-        private visibilityService: VisibilityService,
-        private searchingService: SearchingService
+        private visibilityService: VisibilityService
     ) {}
 
     ngOnInit() {
@@ -31,9 +29,6 @@ export class HeaderComponent implements OnInit {
 
         this.isSearchBarFocused$ =
             this.visibilityService.getHeaderSearchBarFocusState();
-
-        this.breadcrumbVisibility$ =
-            this.visibilityService.getBreadcrumbVisibility();
     }
 
     setFocusState(state: boolean) {
