@@ -1,4 +1,6 @@
-<div class="flex items-center w-full gap-2 mx-auto mt-28 max-w-7xl top-20">
+<div
+    class="flex items-center w-full gap-2 mx-auto text-lg mt-28 max-w-7xl top-20"
+>
     <a routerLink="/home" class="w-8 h-8">
         <svg
             class="w-8 h-8 duration-150 cursor-pointer fill-white hover:fill-indigo-700"
@@ -12,7 +14,7 @@
         </svg>
     </a>
 
-    <ng-container *ngFor="let breadcrumb of breadcrumbs">
+    <ng-container *ngFor="let breadcrumb of breadcrumbs; let i = index">
         <a class="w-8 h-8">
             <img
                 src="assets/svgs/right-arrow-svgrepo-com.svg"
@@ -22,10 +24,15 @@
         </a>
 
         <a
+            *ngIf="i + 1 !== breadcrumbs.length; else currentPageName"
             [routerLink]="breadcrumb.url"
-            class="text-lg transition-colors duration-150 cursor-pointer hover:text-indigo-600"
+            class="transition-colors duration-150 cursor-pointer hover:text-indigo-600"
         >
             {{ breadcrumb.label }}
         </a>
+
+        <ng-template #currentPageName>
+            <div>{{ breadcrumb.label }}</div>
+        </ng-template>
     </ng-container>
 </div>
