@@ -1,6 +1,6 @@
 <div
     *ngIf="user$ | async as user; else loading"
-    class="h-full pb-24 pt-36"
+    class="h-full pt-6 pb-24"
     [ngClass]="{
         'h-screen': user.offers.length === 0,
     }"
