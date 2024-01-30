@@ -19,11 +19,45 @@ import { FilterModel } from '../interfaces/filter-model';
 export class UserService {
     private userSubject = new BehaviorSubject<User | null>(null);
 
+    private filtersState$ = new BehaviorSubject<FilterModel>({
+        multiOptionsFilters: {
+            carBrands: [],
+            carModels: [],
+            fuelTypes: [],
+            gearboxTypes: [],
+            seatsAmount: [],
+        },
+        rangeFilters: {
+            priceFrom: 0,
+            priceTo: 0,
+            horsePowerFrom: 0,
+            horsePowerTo: 0,
+            engineSizeFrom: 0,
+            engineSizeTo: 0,
+            productionYearFrom: 0,
+            productionYearTo: 0,
+            mileageFrom: 0,
+            mileageTo: 0,
+        },
+    });
+
     constructor(
         private angularFireDatabase: AngularFireDatabase,
         private angularFireAuth: AngularFireAuth,
         private router: Router
     ) {}
+
+    getCurrentFiltersState(): FilterModel {
+        return this.filtersState$.value;
+    }
+
+    getFiltersState$(): Observable<FilterModel> {
+        return this.filtersState$.asObservable();
+    }
+
+    updateFiltersState(newState: FilterModel) {
+        this.filtersState$.next(newState);
+    }
 
     getOfferById(offerId: string): Observable<Offer | null> {
         return this.angularFireDatabase

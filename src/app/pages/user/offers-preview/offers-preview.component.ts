@@ -88,7 +88,7 @@ export class OffersPreviewComponent implements OnInit {
                 this.searchTerm = searchTerm;
             });
 
-        this.searchingService
+        this.userService
             .getFiltersState$()
             .pipe(takeUntilDestroyed(this.destroyRef))
             .subscribe((filtersState) => {

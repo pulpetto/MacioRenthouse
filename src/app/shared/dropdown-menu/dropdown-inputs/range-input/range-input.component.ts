@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { RangeFilters } from 'src/app/interfaces/range-filters';
-import { SearchingService } from 'src/app/services/searching.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
     selector: 'app-range-input',
@@ -26,7 +26,7 @@ export class RangeInputComponent implements OnInit {
     currentRangeInputValue!: number;
     lastlyAppliedRangeInputValue!: number;
 
-    constructor(private searchingService: SearchingService) {}
+    constructor(private userService: UserService) {}
 
     ngOnInit() {
         if (this.minOrMax === 'max') {
@@ -101,10 +101,10 @@ export class RangeInputComponent implements OnInit {
         this.lastlyAppliedNumberInputValue = this.currentNumberInputValue;
 
         if (this.connectedToFilter) {
-            const filtersState = this.searchingService.getCurrentFiltersState();
+            const filtersState = this.userService.getCurrentFiltersState();
             filtersState.rangeFilters[this.connectedToFilter] =
                 this.currentRangeInputValue;
-            this.searchingService.updateFiltersState(filtersState);
+            this.userService.updateFiltersState(filtersState);
         }
 
         this.applyButtonDisabled = true;
@@ -112,9 +112,9 @@ export class RangeInputComponent implements OnInit {
 
     clearInputValues() {
         if (this.connectedToFilter) {
-            const filtersState = this.searchingService.getCurrentFiltersState();
+            const filtersState = this.userService.getCurrentFiltersState();
             filtersState.rangeFilters[this.connectedToFilter] = this.minVal;
-            this.searchingService.updateFiltersState(filtersState);
+            this.userService.updateFiltersState(filtersState);
         }
 
         this.clearButtonDisabled = true;

@@ -9,7 +9,7 @@ import {
 import { UtilityService } from 'src/app/services/utility.service';
 import { FormControl } from '@angular/forms';
 import { MultiOptionFilters } from 'src/app/interfaces/multi-option-filters';
-import { SearchingService } from 'src/app/services/searching.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
     selector: 'app-checkbox-input',
@@ -48,7 +48,7 @@ export class CheckboxInputComponent implements OnInit {
     clearButtonDisabled: boolean = true;
 
     constructor(
-        private searchingService: SearchingService,
+        private userService: UserService,
         private utilityService: UtilityService,
         private cdr: ChangeDetectorRef
     ) {}
@@ -140,10 +140,10 @@ export class CheckboxInputComponent implements OnInit {
                     );
             });
 
-            const filtersState = this.searchingService.getCurrentFiltersState();
+            const filtersState = this.userService.getCurrentFiltersState();
             filtersState.multiOptionsFilters[this.connectedToFilter] =
                 checkedOptions;
-            this.searchingService.updateFiltersState(filtersState);
+            this.userService.updateFiltersState(filtersState);
         }
 
         this.applyButtonDisabled = true;
@@ -151,9 +151,9 @@ export class CheckboxInputComponent implements OnInit {
 
     clearAllOptions() {
         if (this.connectedToFilter) {
-            const filtersState = this.searchingService.getCurrentFiltersState();
+            const filtersState = this.userService.getCurrentFiltersState();
             filtersState.multiOptionsFilters[this.connectedToFilter] = [];
-            this.searchingService.updateFiltersState(filtersState);
+            this.userService.updateFiltersState(filtersState);
         }
 
         this.applyButtonDisabled = false;
