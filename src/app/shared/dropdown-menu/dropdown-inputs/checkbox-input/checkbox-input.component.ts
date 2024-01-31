@@ -141,9 +141,11 @@ export class CheckboxInputComponent implements OnInit {
             });
 
             const filtersState = this.userService.getCurrentFiltersState();
-            filtersState.multiOptionsFilters[this.connectedToFilter] =
-                checkedOptions;
-            this.userService.updateFiltersState(filtersState);
+            if (filtersState) {
+                filtersState.multiOptionsFilters[this.connectedToFilter] =
+                    checkedOptions;
+                this.userService.updateFiltersState(filtersState);
+            }
         }
 
         this.applyButtonDisabled = true;
@@ -152,8 +154,10 @@ export class CheckboxInputComponent implements OnInit {
     clearAllOptions() {
         if (this.connectedToFilter) {
             const filtersState = this.userService.getCurrentFiltersState();
-            filtersState.multiOptionsFilters[this.connectedToFilter] = [];
-            this.userService.updateFiltersState(filtersState);
+            if (filtersState) {
+                filtersState.multiOptionsFilters[this.connectedToFilter] = [];
+                this.userService.updateFiltersState(filtersState);
+            }
         }
 
         this.applyButtonDisabled = false;

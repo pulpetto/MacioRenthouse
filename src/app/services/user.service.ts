@@ -19,27 +19,10 @@ import { FilterModel } from '../interfaces/filter-model';
 export class UserService {
     private userSubject = new BehaviorSubject<User | null>(null);
 
-    private filtersState$ = new BehaviorSubject<FilterModel>({
-        multiOptionsFilters: {
-            carBrands: [],
-            carModels: [],
-            fuelTypes: [],
-            gearboxTypes: [],
-            seatsAmount: [],
-        },
-        rangeFilters: {
-            priceFrom: 0,
-            priceTo: 0,
-            horsePowerFrom: 0,
-            horsePowerTo: 0,
-            engineSizeFrom: 0,
-            engineSizeTo: 0,
-            productionYearFrom: 0,
-            productionYearTo: 0,
-            mileageFrom: 0,
-            mileageTo: 0,
-        },
-    });
+    private filtersState$ = new BehaviorSubject<FilterModel | null>(null);
+    private availableFiltersValues$ = new BehaviorSubject<FilterModel | null>(
+        null
+    );
 
     constructor(
         private angularFireDatabase: AngularFireDatabase,
@@ -47,11 +30,11 @@ export class UserService {
         private router: Router
     ) {}
 
-    getCurrentFiltersState(): FilterModel {
+    getCurrentFiltersState(): FilterModel | null {
         return this.filtersState$.value;
     }
 
-    getFiltersState$(): Observable<FilterModel> {
+    getFiltersState$(): Observable<FilterModel | null> {
         return this.filtersState$.asObservable();
     }
 
@@ -128,8 +111,7 @@ export class UserService {
         sortBy: string = 'unixPublishDate',
         arrayStartIndex: number = 0,
         maxItemsPerPage: number = 10,
-        sortingByCarProperties: boolean = false,
-        filters: FilterModel
+        sortingByCarProperties: boolean = false
     ): Observable<{
         offers: Offer[];
         offersAmount: number;
@@ -154,81 +136,154 @@ export class UserService {
 
         return query.valueChanges().pipe(
             map((offers) => {
-                offers = offers.filter((offer) => {
-                    if (filters.multiOptionsFilters) {
-                        const {
-                            carBrands,
-                            carModels,
-                            fuelTypes,
-                            gearboxTypes,
-                            seatsAmount,
-                        } = filters.multiOptionsFilters;
+                if (this.filtersState$.value !== null)
+                    offers = offers.filter((offer) => {
+                        if (
+                            this.filtersState$.value &&
+                            this.filtersState$.value.multiOptionsFilters
+                        ) {
+                            const {
+                                carBrands,
+                                carModels,
+                                fuelTypes,
+                                gearboxTypes,
+                                seatsAmount,
+                            } = this.filtersState$.value.multiOptionsFilters;
+
+                            if (
+                                (carBrands.length > 0 &&
+                                    !carBrands.includes(offer.car.carBrand)) ||
+                                // (carModels.length >= 0 &&
+                                //     !carModels.includes(
+                                //         offer.car.brandModel
+                                //     )) ||
+                                (fuelTypes.length > 0 &&
+                                    !fuelTypes.includes(offer.car.fuelType)) ||
+                                (gearboxTypes.length > 0 &&
+                                    !gearboxTypes.includes(
+                                        offer.car.gearboxType
+                                    )) ||
+                                (seatsAmount.length > 0 &&
+                                    !seatsAmount.includes(
+                                        offer.car.seats.toString()
+                                    ))
+                            ) {
+                                return false;
+                            }
+                        }
 
                         if (
-                            (carBrands.length > 0 &&
-                                !carBrands.includes(offer.car.carBrand)) ||
-                            (carModels.length > 0 &&
-                                !carModels.includes(offer.car.brandModel)) ||
-                            (fuelTypes.length > 0 &&
-                                !fuelTypes.includes(offer.car.fuelType)) ||
-                            (gearboxTypes.length > 0 &&
-                                !gearboxTypes.includes(
-                                    offer.car.gearboxType
-                                )) ||
-                            (seatsAmount.length > 0 &&
-                                !seatsAmount.includes(
-                                    offer.car.seats.toString()
-                                ))
+                            this.filtersState$.value &&
+                            this.filtersState$.value.rangeFilters
                         ) {
-                            return false;
+                            const {
+                                priceFrom,
+                                priceTo,
+                                horsePowerFrom,
+                                horsePowerTo,
+                                engineSizeFrom,
+                                engineSizeTo,
+                                productionYearFrom,
+                                productionYearTo,
+                                mileageFrom,
+                                mileageTo,
+                            } = this.filtersState$.value.rangeFilters;
+
+                            if (
+                                (priceFrom > 0 && offer.price < priceFrom) ||
+                                (priceTo > 0 && offer.price > priceTo) ||
+                                (horsePowerFrom > 0 &&
+                                    offer.car.horsePower < horsePowerFrom) ||
+                                (horsePowerTo > 0 &&
+                                    offer.car.horsePower > horsePowerTo) ||
+                                (engineSizeFrom > 0 &&
+                                    offer.car.engineCapacity <
+                                        engineSizeFrom) ||
+                                (engineSizeTo > 0 &&
+                                    offer.car.engineCapacity > engineSizeTo) ||
+                                (productionYearFrom > 0 &&
+                                    offer.car.productionYear <
+                                        productionYearFrom) ||
+                                (productionYearTo > 0 &&
+                                    offer.car.productionYear >
+                                        productionYearTo) ||
+                                (mileageFrom > 0 &&
+                                    offer.car.mileage < mileageFrom) ||
+                                (mileageTo > 0 && offer.car.mileage > mileageTo)
+                            ) {
+                                return false;
+                            }
                         }
-                    }
 
-                    if (filters.rangeFilters) {
-                        const {
-                            priceFrom,
-                            priceTo,
-                            horsePowerFrom,
-                            horsePowerTo,
-                            engineSizeFrom,
-                            engineSizeTo,
-                            productionYearFrom,
-                            productionYearTo,
-                            mileageFrom,
-                            mileageTo,
-                        } = filters.rangeFilters;
-
-                        if (
-                            (priceFrom > 0 && offer.price < priceFrom) ||
-                            (priceTo > 0 && offer.price > priceTo) ||
-                            (horsePowerFrom > 0 &&
-                                offer.car.horsePower < horsePowerFrom) ||
-                            (horsePowerTo > 0 &&
-                                offer.car.horsePower > horsePowerTo) ||
-                            (engineSizeFrom > 0 &&
-                                offer.car.engineCapacity < engineSizeFrom) ||
-                            (engineSizeTo > 0 &&
-                                offer.car.engineCapacity > engineSizeTo) ||
-                            (productionYearFrom > 0 &&
-                                offer.car.productionYear <
-                                    productionYearFrom) ||
-                            (productionYearTo > 0 &&
-                                offer.car.productionYear > productionYearTo) ||
-                            (mileageFrom > 0 &&
-                                offer.car.mileage < mileageFrom) ||
-                            (mileageTo > 0 && offer.car.mileage > mileageTo)
-                        ) {
-                            return false;
-                        }
-                    }
-
-                    return true;
-                });
+                        return true;
+                    });
 
                 const offersAmount = offers.length;
                 const pagesAmount = Math.ceil(offers.length / maxItemsPerPage);
 
                 if (!offers) return null;
+
+                const availableFiltersValues: FilterModel = {
+                    multiOptionsFilters: {
+                        carBrands: Array.from(
+                            new Set(offers.map((offer) => offer.car.carBrand))
+                        ),
+                        carModels: [],
+                        fuelTypes: Array.from(
+                            new Set(offers.map((offer) => offer.car.fuelType))
+                        ),
+                        gearboxTypes: Array.from(
+                            new Set(
+                                offers.map((offer) => offer.car.gearboxType)
+                            )
+                        ),
+                        seatsAmount: Array.from(
+                            new Set(
+                                offers.map((offer) =>
+                                    offer.car.seats.toString()
+                                )
+                            )
+                        ),
+                    },
+                    rangeFilters: {
+                        priceFrom: Math.min(
+                            ...offers.map((offer) => offer.price)
+                        ),
+                        priceTo: Math.max(
+                            ...offers.map((offer) => offer.price)
+                        ),
+                        horsePowerFrom: Math.min(
+                            ...offers.map((offer) => offer.car.horsePower)
+                        ),
+                        horsePowerTo: Math.max(
+                            ...offers.map((offer) => offer.car.horsePower)
+                        ),
+                        engineSizeFrom: Math.min(
+                            ...offers.map((offer) => offer.car.engineCapacity)
+                        ),
+                        engineSizeTo: Math.max(
+                            ...offers.map((offer) => offer.car.engineCapacity)
+                        ),
+                        productionYearFrom: Math.min(
+                            ...offers.map((offer) => offer.car.productionYear)
+                        ),
+                        productionYearTo: Math.max(
+                            ...offers.map((offer) => offer.car.productionYear)
+                        ),
+                        mileageFrom: Math.min(
+                            ...offers.map((offer) => offer.car.mileage)
+                        ),
+                        mileageTo: Math.max(
+                            ...offers.map((offer) => offer.car.mileage)
+                        ),
+                    },
+                };
+
+                if (this.filtersState$.value === null) {
+                    this.filtersState$.next(availableFiltersValues);
+                }
+
+                this.availableFiltersValues$.next(availableFiltersValues);
 
                 if (orderBy === 'ascending') {
                     offers = offers.slice(

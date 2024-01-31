@@ -38,8 +38,6 @@ export class OffersPreviewComponent implements OnInit {
     searchTerm: string | null = null;
     sliceFiltersTo: number = 10;
 
-    filtersState!: FilterModel;
-
     constructor(
         private userService: UserService,
         private route: ActivatedRoute,
@@ -91,8 +89,7 @@ export class OffersPreviewComponent implements OnInit {
         this.userService
             .getFiltersState$()
             .pipe(takeUntilDestroyed(this.destroyRef))
-            .subscribe((filtersState) => {
-                this.filtersState = filtersState;
+            .subscribe(() => {
                 this.refreshData();
             });
     }
@@ -105,8 +102,7 @@ export class OffersPreviewComponent implements OnInit {
             this.sortingBy,
             this.startIndex,
             this.maxItemsPerPage,
-            this.sortingByCarProperties,
-            this.filtersState
+            this.sortingByCarProperties
         );
     }
 

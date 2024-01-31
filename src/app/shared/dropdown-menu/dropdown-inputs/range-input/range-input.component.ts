@@ -102,9 +102,11 @@ export class RangeInputComponent implements OnInit {
 
         if (this.connectedToFilter) {
             const filtersState = this.userService.getCurrentFiltersState();
-            filtersState.rangeFilters[this.connectedToFilter] =
-                this.currentRangeInputValue;
-            this.userService.updateFiltersState(filtersState);
+            if (filtersState) {
+                filtersState.rangeFilters[this.connectedToFilter] =
+                    this.currentRangeInputValue;
+                this.userService.updateFiltersState(filtersState);
+            }
         }
 
         this.applyButtonDisabled = true;
@@ -113,8 +115,10 @@ export class RangeInputComponent implements OnInit {
     clearInputValues() {
         if (this.connectedToFilter) {
             const filtersState = this.userService.getCurrentFiltersState();
-            filtersState.rangeFilters[this.connectedToFilter] = this.minVal;
-            this.userService.updateFiltersState(filtersState);
+            if (filtersState) {
+                filtersState.rangeFilters[this.connectedToFilter] = this.minVal;
+                this.userService.updateFiltersState(filtersState);
+            }
         }
 
         this.clearButtonDisabled = true;
