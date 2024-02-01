@@ -29,6 +29,7 @@ export class CheckboxInputComponent implements OnInit {
     @Output() maxOffersPerPageChangeEvent = new EventEmitter<string>();
     @Output() calculateHeightEvent = new EventEmitter<void>();
     @Output() checkedOptionsChangeEvent = new EventEmitter<number>();
+    @Output() dropdownCloseEvent = new EventEmitter<void>();
 
     dropdownOptionsConverted: {
         id: string;
@@ -148,6 +149,7 @@ export class CheckboxInputComponent implements OnInit {
             }
         }
 
+        this.dropdownCloseEvent.emit();
         this.applyButtonDisabled = true;
     }
 

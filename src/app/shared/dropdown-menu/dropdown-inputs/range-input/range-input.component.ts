@@ -16,6 +16,7 @@ export class RangeInputComponent implements OnInit {
     @Input() ngxMask!: string;
     @Input() connectedToFilter: RangeFilters | undefined;
     @Output() rangeInputValueChangeEvent = new EventEmitter<number>();
+    @Output() dropdownCloseEvent = new EventEmitter<void>();
 
     applyButtonDisabled: boolean = true;
     clearButtonDisabled: boolean = true;
@@ -109,6 +110,7 @@ export class RangeInputComponent implements OnInit {
             }
         }
 
+        this.dropdownCloseEvent.emit();
         this.applyButtonDisabled = true;
     }
 

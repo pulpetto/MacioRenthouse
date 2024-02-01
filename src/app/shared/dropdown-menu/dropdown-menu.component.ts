@@ -77,6 +77,13 @@ export class DropdownMenuComponent implements AfterViewInit {
                 .subscribe((data: number) => {
                     this.checkedOptionsCount = data;
                 });
+
+            this.checkboxInput.dropdownCloseEvent
+                .pipe(takeUntilDestroyed(this.destroyRef))
+                .subscribe(() => {
+                    this.list.nativeElement.style.height = '0px';
+                    this.arrowRotated = false;
+                });
         }
 
         if (this.rangeInput) {
@@ -84,6 +91,13 @@ export class DropdownMenuComponent implements AfterViewInit {
                 .pipe(takeUntilDestroyed(this.destroyRef))
                 .subscribe((data) => {
                     this.rangeInputValue = data;
+                });
+
+            this.rangeInput.dropdownCloseEvent
+                .pipe(takeUntilDestroyed(this.destroyRef))
+                .subscribe(() => {
+                    this.list.nativeElement.style.height = '0px';
+                    this.arrowRotated = false;
                 });
 
             this.rangeInputMask = this.rangeInput.ngxMask;
