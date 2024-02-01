@@ -9,4 +9,6 @@ export interface RangeSelect {
     minOrMax: 'min' | 'max';
     mask?: string;
     filteringOption?: RangeFilters;
+    minValName?: string;
+    maxValName?: string;
 }

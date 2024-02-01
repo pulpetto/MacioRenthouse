@@ -341,6 +341,8 @@ export class OffersPreviewComponent implements OnInit {
                 minimalValChange: 1000,
                 minOrMax: 'min',
                 filteringOption: 'priceFrom',
+                minValName: 'priceFrom',
+                maxValName: 'priceTo',
             },
         },
         {
@@ -353,6 +355,8 @@ export class OffersPreviewComponent implements OnInit {
                 minimalValChange: 1000,
                 minOrMax: 'max',
                 filteringOption: 'priceTo',
+                minValName: 'priceFrom',
+                maxValName: 'priceTo',
             },
         },
         {
@@ -365,6 +369,8 @@ export class OffersPreviewComponent implements OnInit {
                 minimalValChange: 10,
                 minOrMax: 'min',
                 filteringOption: 'horsePowerFrom',
+                minValName: 'horsePowerFrom',
+                maxValName: 'horsePowerTo',
             },
         },
         {
@@ -377,6 +383,8 @@ export class OffersPreviewComponent implements OnInit {
                 minimalValChange: 10,
                 minOrMax: 'max',
                 filteringOption: 'horsePowerTo',
+                minValName: 'horsePowerFrom',
+                maxValName: 'horsePowerTo',
             },
         },
         {
@@ -389,6 +397,8 @@ export class OffersPreviewComponent implements OnInit {
                 minimalValChange: 10,
                 minOrMax: 'min',
                 filteringOption: 'engineSizeFrom',
+                minValName: 'engineSizeFrom',
+                maxValName: 'engineSizeTo',
             },
         },
         {
@@ -401,6 +411,8 @@ export class OffersPreviewComponent implements OnInit {
                 minimalValChange: 10,
                 minOrMax: 'max',
                 filteringOption: 'engineSizeTo',
+                minValName: 'engineSizeFrom',
+                maxValName: 'engineSizeTo',
             },
         },
         {
@@ -414,6 +426,8 @@ export class OffersPreviewComponent implements OnInit {
                 minOrMax: 'min',
                 mask: '0000',
                 filteringOption: 'productionYearFrom',
+                minValName: 'productionYearFrom',
+                maxValName: 'productionYearTo',
             },
         },
         {
@@ -427,6 +441,8 @@ export class OffersPreviewComponent implements OnInit {
                 minOrMax: 'max',
                 mask: '0000',
                 filteringOption: 'productionYearTo',
+                minValName: 'productionYearFrom',
+                maxValName: 'productionYearTo',
             },
         },
         {
@@ -439,6 +455,8 @@ export class OffersPreviewComponent implements OnInit {
                 minimalValChange: 1000,
                 minOrMax: 'min',
                 filteringOption: 'mileageFrom',
+                minValName: 'mileageFrom',
+                maxValName: 'mileageTo',
             },
         },
         {
@@ -451,6 +469,8 @@ export class OffersPreviewComponent implements OnInit {
                 minimalValChange: 1000,
                 minOrMax: 'max',
                 filteringOption: 'mileageTo',
+                minValName: 'mileageFrom',
+                maxValName: 'mileageTo',
             },
         },
         {
