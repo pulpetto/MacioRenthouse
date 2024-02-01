@@ -42,6 +42,14 @@ export class UserService {
         this.filtersState$.next(newState);
     }
 
+    getAvailableFiltersValues$(): Observable<FilterModel | null> {
+        return this.availableFiltersValues$.asObservable();
+    }
+
+    updateAvailableFiltersValues(newState: FilterModel) {
+        this.availableFiltersValues$.next(newState);
+    }
+
     getOfferById(offerId: string): Observable<Offer | null> {
         return this.angularFireDatabase
             .list<Offer>('offers', (ref) =>
