@@ -44,7 +44,12 @@ export class OffersPreviewComponent implements OnInit {
         private searchingService: SearchingService
     ) {}
 
+    availablefiltersValues$!: Observable<FilterModel | null>;
+
     ngOnInit() {
+        this.availablefiltersValues$ =
+            this.userService.getAvailableFiltersValues$();
+
         window.scroll({
             top: 0,
             behavior: 'smooth',
