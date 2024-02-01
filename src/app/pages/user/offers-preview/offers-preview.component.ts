@@ -47,13 +47,13 @@ export class OffersPreviewComponent implements OnInit {
     availablefiltersValues$!: Observable<FilterModel | null>;
 
     ngOnInit() {
-        this.availablefiltersValues$ =
-            this.userService.getAvailableFiltersValues$();
-
         window.scroll({
             top: 0,
             behavior: 'smooth',
         });
+
+        this.availablefiltersValues$ =
+            this.userService.getAvailableFiltersValues$();
 
         this.route.paramMap
             .pipe(takeUntilDestroyed(this.destroyRef))
