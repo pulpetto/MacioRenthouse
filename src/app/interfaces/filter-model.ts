@@ -7,6 +7,7 @@ export interface FilterModel {
         seatsAmount: string[];
     };
     rangeFilters: {
+        [key: string]: number;
         priceFrom: number;
         priceTo: number;
         horsePowerFrom: number;
