@@ -61,6 +61,7 @@ import { SearchBarComponent } from './shared/search-bar/search-bar.component';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 import { CheckboxInputComponent } from './shared/dropdown-menu/dropdown-inputs/checkbox-input/checkbox-input.component';
 import { RangeInputComponent } from './shared/dropdown-menu/dropdown-inputs/range-input/range-input.component';
+import { CamelcaseToNormalCapitalizedPipe } from './pipes/camelcase-to-normal-capitalized.pipe';
 
 @NgModule({
     declarations: [
@@ -90,6 +91,7 @@ import { RangeInputComponent } from './shared/dropdown-menu/dropdown-inputs/rang
         SearchBarComponent,
         CheckboxInputComponent,
         RangeInputComponent,
+        CamelcaseToNormalCapitalizedPipe,
     ],
     imports: [
         A11yModule,
