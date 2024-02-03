@@ -115,6 +115,70 @@
                 ></div>
             </div>
 
+            <div class="flex flex-wrap gap-4 mt-2" *ngIf="currentFilterValues">
+                <div
+                    *ngFor="
+                        let multiOptionsfilter of multiOptionsFiltersConverted
+                    "
+                >
+                    <ng-container *ngIf="multiOptionsfilter.length > 1">
+                        <button
+                            class="mr-1.5 font-medium transition-colors duration-300 hover:text-red-600 text-neutral-500"
+                        >
+                            {{
+                                multiOptionsfilter[0]
+                                    | camelcaseToNormalCapitalized
+                            }}:
+                        </button>
+                        <span>
+                            <ng-container
+                                *ngFor="
+                                    let filterOption of multiOptionsfilter.slice(
+                                        1
+                                    );
+                                    let i = index
+                                "
+                            >
+                                <button
+                                    class="transition-colors duration-300 hover:text-red-600"
+                                >
+                                    {{ filterOption | titlecase }}
+                                </button>
+                                <span
+                                    *ngIf="i + 2 !== multiOptionsfilter.length"
+                                    class="mr-1 select-none"
+                                    >,</span
+                                >
+                            </ng-container>
+                        </span>
+                    </ng-container>
+                </div>
+
+                <div *ngFor="let rangeFilter of rangeFiltersConverted">
+                    <button
+                        class="mr-1.5 transition-colors duration-300 hover:text-red-600 font-medium text-neutral-500"
+                    >
+                        {{
+                            rangeFilter[0].toString()
+                                | camelcaseToNormalCapitalized
+                        }}:
+                    </button>
+                    <span>
+                        <button
+                            class="transition-colors duration-300 hover:text-red-600"
+                        >
+                            {{ rangeFilter[2] }} {{ rangeFilter[1] }}
+                        </button>
+                        <span class="mx-1 select-none">-</span>
+                        <button
+                            class="transition-colors duration-300 hover:text-red-600"
+                        >
+                            {{ rangeFilter[3] }} {{ rangeFilter[1] }}
+                        </button>
+                    </span>
+                </div>
+            </div>
+
             <div class="flex flex-col items-start gap-2">
                 <div class="grid w-full grid-cols-5 mx-auto mt-4">
                     <app-dropdown-menu

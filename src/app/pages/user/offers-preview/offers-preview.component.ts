@@ -45,6 +45,9 @@ export class OffersPreviewComponent implements OnInit {
     ) {}
 
     availablefiltersValues$!: Observable<FilterModel | null>;
+    currentFilterValues!: FilterModel | null;
+    multiOptionsFiltersConverted: [string, ...string[]][] = [];
+    rangeFiltersConverted: (string | number)[][] = [];
 
     ngOnInit() {
         window.scroll({
@@ -94,7 +97,35 @@ export class OffersPreviewComponent implements OnInit {
         this.userService
             .getFiltersState$()
             .pipe(takeUntilDestroyed(this.destroyRef))
-            .subscribe(() => {
+            .subscribe((data) => {
+                this.currentFilterValues = data;
+                if (data) {
+                    this.multiOptionsFiltersConverted = Object.entries(
+                        data?.multiOptionsFilters
+                    ).map(([name, values]) => [name, ...values]);
+
+                    this.rangeFiltersConverted = Object.entries(
+                        data.rangeFilters
+                    ).map(([name, values]) => {
+                        let suffix = '';
+                        if (name === 'price') {
+                            suffix = 'zł';
+                        } else if (name === 'horsePower') {
+                            suffix = 'hp';
+                        } else if (name === 'engineSize') {
+                            suffix = 'cm³';
+                        } else if (name === 'mileage') {
+                            suffix = 'km';
+                        }
+
+                        return [
+                            name,
+                            suffix,
+                            values[`${name}From`],
+                            values[`${name}To`],
+                        ];
+                    });
+                }
                 this.refreshData();
             });
     }
