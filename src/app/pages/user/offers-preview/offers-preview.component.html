@@ -118,11 +118,14 @@
             <div class="flex flex-wrap gap-4 mt-2" *ngIf="currentFilterValues">
                 <div
                     *ngFor="
-                        let multiOptionsfilter of multiOptionsFiltersConverted
+                        let multiOptionsfilter of multiOptionsFiltersConverted;
+                        let i = index
                     "
                 >
                     <ng-container *ngIf="multiOptionsfilter.length > 1">
                         <button
+                            (mouseover)="isHoveredMultiselect[i] = true"
+                            (mouseout)="isHoveredMultiselect[i] = false"
                             class="mr-1.5 font-medium transition-colors duration-300 hover:text-red-600 text-neutral-500"
                         >
                             {{
@@ -130,14 +133,17 @@
                                     | camelcaseToNormalCapitalized
                             }}:
                         </button>
-                        <span>
-                            <ng-container
-                                *ngFor="
-                                    let filterOption of multiOptionsfilter.slice(
-                                        1
-                                    );
-                                    let i = index
-                                "
+
+                        <ng-container
+                            *ngFor="
+                                let filterOption of multiOptionsfilter.slice(1);
+                                let innerIndex = index
+                            "
+                        >
+                            <span
+                                [ngClass]="{
+                                    'text-red-600': isHoveredMultiselect[i]
+                                }"
                             >
                                 <button
                                     class="transition-colors duration-300 hover:text-red-600"
@@ -145,17 +151,28 @@
                                     {{ filterOption | titlecase }}
                                 </button>
                                 <span
-                                    *ngIf="i + 2 !== multiOptionsfilter.length"
-                                    class="mr-1 select-none"
-                                    >,</span
+                                    *ngIf="
+                                        innerIndex + 2 !==
+                                        multiOptionsfilter.length
+                                    "
+                                    class="transition-colors duration-300 select-none"
                                 >
-                            </ng-container>
-                        </span>
+                                    ,
+                                </span>
+                            </span>
+                        </ng-container>
                     </ng-container>
                 </div>
 
-                <div *ngFor="let rangeFilter of rangeFiltersConverted">
+                <div
+                    *ngFor="
+                        let rangeFilter of rangeFiltersConverted;
+                        let i = index
+                    "
+                >
                     <button
+                        (mouseover)="isHoveredRange[i] = true"
+                        (mouseout)="isHoveredRange[i] = false"
                         class="mr-1.5 transition-colors duration-300 hover:text-red-600 font-medium text-neutral-500"
                     >
                         {{
@@ -163,13 +180,20 @@
                                 | camelcaseToNormalCapitalized
                         }}:
                     </button>
-                    <span>
+                    <span
+                        [ngClass]="{
+                            'text-red-600': isHoveredRange[i]
+                        }"
+                    >
                         <button
                             class="transition-colors duration-300 hover:text-red-600"
                         >
                             {{ rangeFilter[2] }} {{ rangeFilter[1] }}
                         </button>
-                        <span class="mx-1 select-none">-</span>
+                        <span
+                            class="mx-1 transition-colors duration-300 select-none"
+                            >-</span
+                        >
                         <button
                             class="transition-colors duration-300 hover:text-red-600"
                         >

@@ -49,6 +49,9 @@ export class OffersPreviewComponent implements OnInit {
     multiOptionsFiltersConverted: [string, ...string[]][] = [];
     rangeFiltersConverted: (string | number)[][] = [];
 
+    isHoveredMultiselect: boolean[] = [];
+    isHoveredRange: boolean[] = [];
+
     ngOnInit() {
         window.scroll({
             top: 0,
@@ -104,6 +107,10 @@ export class OffersPreviewComponent implements OnInit {
                         data?.multiOptionsFilters
                     ).map(([name, values]) => [name, ...values]);
 
+                    this.multiOptionsFiltersConverted.forEach(() => {
+                        this.isHoveredMultiselect.push(false);
+                    });
+
                     this.rangeFiltersConverted = Object.entries(
                         data.rangeFilters
                     ).map(([name, values]) => {
@@ -124,6 +131,10 @@ export class OffersPreviewComponent implements OnInit {
                             values[`${name}From`],
                             values[`${name}To`],
                         ];
+                    });
+
+                    this.rangeFiltersConverted.forEach(() => {
+                        this.isHoveredRange.push(false);
                     });
                 }
                 this.refreshData();
