@@ -233,23 +233,23 @@ export class UserService {
                     multiOptionsFilters: {
                         carBrands: Array.from(
                             new Set(offers.map((offer) => offer.car.carBrand))
-                        ),
+                        ).sort((a, b) => a.localeCompare(b)),
                         carModels: [],
                         fuelTypes: Array.from(
                             new Set(offers.map((offer) => offer.car.fuelType))
-                        ),
+                        ).sort((a, b) => a.localeCompare(b)),
                         gearboxTypes: Array.from(
                             new Set(
                                 offers.map((offer) => offer.car.gearboxType)
                             )
-                        ),
+                        ).sort((a, b) => a.localeCompare(b)),
                         seatsAmount: Array.from(
                             new Set(
                                 offers.map((offer) =>
                                     offer.car.seats.toString()
                                 )
                             )
-                        ),
+                        ).sort((a, b) => a.localeCompare(b)),
                     },
                     rangeFilters: {
                         price: {
