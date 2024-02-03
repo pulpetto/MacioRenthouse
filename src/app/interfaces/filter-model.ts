@@ -7,16 +7,56 @@ export interface FilterModel {
         seatsAmount: string[];
     };
     rangeFilters: {
-        [key: string]: number;
-        priceFrom: number;
-        priceTo: number;
-        horsePowerFrom: number;
-        horsePowerTo: number;
-        engineSizeFrom: number;
-        engineSizeTo: number;
-        productionYearFrom: number;
-        productionYearTo: number;
-        mileageFrom: number;
-        mileageTo: number;
+        [key: string]:
+            | {
+                  [key: string]: number;
+                  priceFrom: number;
+                  priceTo: number;
+              }
+            | {
+                  [key: string]: number;
+                  horsePowerFrom: number;
+                  horsePowerTo: number;
+              }
+            | {
+                  [key: string]: number;
+                  engineSizeFrom: number;
+                  engineSizeTo: number;
+              }
+            | {
+                  [key: string]: number;
+                  productionYearFrom: number;
+                  productionYearTo: number;
+              }
+            | {
+                  [key: string]: number;
+                  mileageFrom: number;
+                  mileageTo: number;
+              };
+        price: {
+            [key: string]: number;
+            priceFrom: number;
+            priceTo: number;
+        };
+        horsePower: {
+            [key: string]: number;
+            horsePowerFrom: number;
+            horsePowerTo: number;
+        };
+        engineSize: {
+            [key: string]: number;
+            engineSizeFrom: number;
+            engineSizeTo: number;
+        };
+        productionYear: {
+            [key: string]: number;
+            productionYearFrom: number;
+            productionYearTo: number;
+        };
+        mileage: {
+            [key: string]: number;
+            mileageFrom: number;
+            mileageTo: number;
+        };
     };
 }

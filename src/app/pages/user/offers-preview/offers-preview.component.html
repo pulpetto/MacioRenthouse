@@ -42,13 +42,13 @@
                         *ngIf="dropdown.inputTypeProperties.type === 'range'"
                         [minVal]="
                             availablefiltersValues.rangeFilters[
-                                dropdown.inputTypeProperties.name + 'From'
-                            ]
+                                dropdown.inputTypeProperties.name!
+                            ][dropdown.inputTypeProperties.name + 'From']
                         "
                         [maxVal]="
                             availablefiltersValues.rangeFilters[
-                                dropdown.inputTypeProperties.name + 'To'
-                            ]
+                                dropdown.inputTypeProperties.name!
+                            ][dropdown.inputTypeProperties.name + 'To']
                         "
                         [minimalValChange]="
                             dropdown.inputTypeProperties.minimalValChange
@@ -60,6 +60,7 @@
                                 ? dropdown.inputTypeProperties.mask
                                 : 'separator'
                         "
+                        [filterGeneralName]="dropdown.inputTypeProperties.name!"
                         [connectedToFilter]="
                             dropdown.inputTypeProperties.filteringOption
                         "

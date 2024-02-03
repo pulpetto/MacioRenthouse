@@ -14,6 +14,7 @@ export class RangeInputComponent implements OnInit {
     @Input() minimalValChange!: number;
     @Input() minOrMax!: 'min' | 'max';
     @Input() ngxMask!: string;
+    @Input() filterGeneralName!: string;
     @Input() connectedToFilter: RangeFilters | undefined;
     @Output() rangeInputValueChangeEvent = new EventEmitter<number>();
     @Output() dropdownCloseEvent = new EventEmitter<void>();
@@ -104,8 +105,9 @@ export class RangeInputComponent implements OnInit {
         if (this.connectedToFilter) {
             const filtersState = this.userService.getCurrentFiltersState();
             if (filtersState) {
-                filtersState.rangeFilters[this.connectedToFilter] =
-                    this.currentRangeInputValue;
+                filtersState.rangeFilters[this.filterGeneralName][
+                    this.connectedToFilter
+                ] = this.currentRangeInputValue;
                 this.userService.updateFiltersState(filtersState);
             }
         }
@@ -118,7 +120,9 @@ export class RangeInputComponent implements OnInit {
         if (this.connectedToFilter) {
             const filtersState = this.userService.getCurrentFiltersState();
             if (filtersState) {
-                filtersState.rangeFilters[this.connectedToFilter] = this.minVal;
+                filtersState.rangeFilters[this.filterGeneralName][
+                    this.connectedToFilter
+                ] = this.minVal;
                 this.userService.updateFiltersState(filtersState);
             }
         }

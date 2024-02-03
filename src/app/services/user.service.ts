@@ -185,16 +185,14 @@ export class UserService {
                             this.filtersState$.value.rangeFilters
                         ) {
                             const {
-                                priceFrom,
-                                priceTo,
-                                horsePowerFrom,
-                                horsePowerTo,
-                                engineSizeFrom,
-                                engineSizeTo,
-                                productionYearFrom,
-                                productionYearTo,
-                                mileageFrom,
-                                mileageTo,
+                                price: { priceFrom, priceTo },
+                                horsePower: { horsePowerFrom, horsePowerTo },
+                                engineSize: { engineSizeFrom, engineSizeTo },
+                                productionYear: {
+                                    productionYearFrom,
+                                    productionYearTo,
+                                },
+                                mileage: { mileageFrom, mileageTo },
                             } = this.filtersState$.value.rangeFilters;
 
                             if (
@@ -254,36 +252,54 @@ export class UserService {
                         ),
                     },
                     rangeFilters: {
-                        priceFrom: Math.min(
-                            ...offers.map((offer) => offer.price)
-                        ),
-                        priceTo: Math.max(
-                            ...offers.map((offer) => offer.price)
-                        ),
-                        horsePowerFrom: Math.min(
-                            ...offers.map((offer) => offer.car.horsePower)
-                        ),
-                        horsePowerTo: Math.max(
-                            ...offers.map((offer) => offer.car.horsePower)
-                        ),
-                        engineSizeFrom: Math.min(
-                            ...offers.map((offer) => offer.car.engineCapacity)
-                        ),
-                        engineSizeTo: Math.max(
-                            ...offers.map((offer) => offer.car.engineCapacity)
-                        ),
-                        productionYearFrom: Math.min(
-                            ...offers.map((offer) => offer.car.productionYear)
-                        ),
-                        productionYearTo: Math.max(
-                            ...offers.map((offer) => offer.car.productionYear)
-                        ),
-                        mileageFrom: Math.min(
-                            ...offers.map((offer) => offer.car.mileage)
-                        ),
-                        mileageTo: Math.max(
-                            ...offers.map((offer) => offer.car.mileage)
-                        ),
+                        price: {
+                            priceFrom: Math.min(
+                                ...offers.map((offer) => offer.price)
+                            ),
+                            priceTo: Math.max(
+                                ...offers.map((offer) => offer.price)
+                            ),
+                        },
+                        horsePower: {
+                            horsePowerFrom: Math.min(
+                                ...offers.map((offer) => offer.car.horsePower)
+                            ),
+                            horsePowerTo: Math.max(
+                                ...offers.map((offer) => offer.car.horsePower)
+                            ),
+                        },
+                        engineSize: {
+                            engineSizeFrom: Math.min(
+                                ...offers.map(
+                                    (offer) => offer.car.engineCapacity
+                                )
+                            ),
+                            engineSizeTo: Math.max(
+                                ...offers.map(
+                                    (offer) => offer.car.engineCapacity
+                                )
+                            ),
+                        },
+                        productionYear: {
+                            productionYearFrom: Math.min(
+                                ...offers.map(
+                                    (offer) => offer.car.productionYear
+                                )
+                            ),
+                            productionYearTo: Math.max(
+                                ...offers.map(
+                                    (offer) => offer.car.productionYear
+                                )
+                            ),
+                        },
+                        mileage: {
+                            mileageFrom: Math.min(
+                                ...offers.map((offer) => offer.car.mileage)
+                            ),
+                            mileageTo: Math.max(
+                                ...offers.map((offer) => offer.car.mileage)
+                            ),
+                        },
                     },
                 };
 
