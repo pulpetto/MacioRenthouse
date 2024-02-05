@@ -20,6 +20,7 @@ export class UserService {
     private userSubject = new BehaviorSubject<User | null>(null);
 
     private filtersState$ = new BehaviorSubject<FilterModel | null>(null);
+    private baseFiltersValues$ = new BehaviorSubject<FilterModel | null>(null);
     private availableFiltersValues$ = new BehaviorSubject<FilterModel | null>(
         null
     );
@@ -48,6 +49,10 @@ export class UserService {
 
     updateAvailableFiltersValues(newState: FilterModel) {
         this.availableFiltersValues$.next(newState);
+    }
+
+    getBaseFiltersValues$(): Observable<FilterModel | null> {
+        return this.baseFiltersValues$.asObservable();
     }
 
     getOfferById(offerId: string): Observable<Offer | null> {
@@ -305,6 +310,9 @@ export class UserService {
 
                 if (this.filtersState$.value === null) {
                     this.filtersState$.next(availableFiltersValues);
+                    this.baseFiltersValues$.next(
+                        JSON.parse(JSON.stringify(availableFiltersValues))
+                    );
                 }
 
                 this.availableFiltersValues$.next(availableFiltersValues);

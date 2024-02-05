@@ -1,5 +1,6 @@
 export interface FilterModel {
     multiOptionsFilters: {
+        [key: number | string]: string[];
         carBrands: string[];
         carModels: string[];
         fuelTypes: string[];
