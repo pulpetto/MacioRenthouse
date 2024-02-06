@@ -3,8 +3,10 @@ import {
     Component,
     EventEmitter,
     Input,
+    OnChanges,
     OnInit,
     Output,
+    SimpleChanges,
 } from '@angular/core';
 import { UtilityService } from 'src/app/services/utility.service';
 import { FormControl } from '@angular/forms';
@@ -16,7 +18,7 @@ import { UserService } from 'src/app/services/user.service';
     templateUrl: './checkbox-input.component.html',
     styleUrls: ['./checkbox-input.component.css'],
 })
-export class CheckboxInputComponent implements OnInit {
+export class CheckboxInputComponent implements OnInit, OnChanges {
     searchTerm: string = '';
 
     @Input() dropdownOptions!: string[];
@@ -55,6 +57,22 @@ export class CheckboxInputComponent implements OnInit {
     ) {}
 
     ngOnInit() {
+        this.convertDropdowns();
+
+        this.dropdownOptionsConvertedCopy = this.dropdownOptionsConverted;
+
+        this.dropdownOptionsConvertedCopy.forEach(
+            (option) => (option.name = option.name.toLowerCase())
+        );
+    }
+
+    ngOnChanges(changes: SimpleChanges) {
+        if ('dropdownOptions' in changes) {
+            this.convertDropdowns();
+        }
+    }
+
+    convertDropdowns() {
         this.dropdownOptionsConverted = this.dropdownOptions.map(
             (optionName, index) => ({
                 id: this.utilityService.generateRandomString(10),
@@ -64,12 +82,6 @@ export class CheckboxInputComponent implements OnInit {
                         ? true
                         : false,
             })
-        );
-
-        this.dropdownOptionsConvertedCopy = this.dropdownOptionsConverted;
-
-        this.dropdownOptionsConvertedCopy.forEach(
-            (option) => (option.name = option.name.toLowerCase())
         );
     }
 
