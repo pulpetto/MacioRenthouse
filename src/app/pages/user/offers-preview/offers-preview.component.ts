@@ -161,6 +161,20 @@ export class OffersPreviewComponent implements OnInit {
         }
     }
 
+    clearMultiselectFilterOption(filterName: string, optionName: string) {
+        if (this.currentFilterValues) {
+            const items: string[] =
+                this.currentFilterValues.multiOptionsFilters[filterName];
+
+            const filtered = items.filter(
+                (item) => item !== optionName.toLowerCase()
+            );
+
+            this.currentFilterValues.multiOptionsFilters[filterName] = filtered;
+            this.userService.updateFiltersState(this.currentFilterValues);
+        }
+    }
+
     deepEqual(obj1: any, obj2: any): boolean {
         if (obj1 === obj2) {
             return true;

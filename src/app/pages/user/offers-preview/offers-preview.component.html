@@ -51,6 +51,12 @@
                                     }"
                                 >
                                     <button
+                                        (click)="
+                                            clearMultiselectFilterOption(
+                                                multiOptionsfilter[0],
+                                                filterOption
+                                            )
+                                        "
                                         class="transition-colors duration-300 hover:text-red-600"
                                     >
                                         {{ filterOption | titlecase }}
