@@ -96,6 +96,11 @@
                             <button
                                 (mouseover)="isHoveredRange[i] = true"
                                 (mouseout)="isHoveredRange[i] = false"
+                                (click)="
+                                    clearMinMaxFilters(
+                                        rangeFilter[0].toString()
+                                    )
+                                "
                                 class="mr-1.5 transition-colors duration-300 hover:text-red-600 font-medium text-neutral-500"
                             >
                                 {{
