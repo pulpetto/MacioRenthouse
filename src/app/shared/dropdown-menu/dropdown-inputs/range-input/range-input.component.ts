@@ -89,6 +89,9 @@ export class RangeInputComponent implements OnInit {
         }
 
         if (this.minimalValChange) {
+            if (this.currentRangeInputValue > 1000000)
+                this.minimalValChange = 100000;
+
             this.currentNumberInputValue = (
                 Math.round(
                     this.currentRangeInputValue / this.minimalValChange
