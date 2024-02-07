@@ -121,7 +121,8 @@
                                     "
                                     class="transition-colors duration-300 hover:text-red-600"
                                 >
-                                    {{ rangeFilter[2] }} {{ rangeFilter[1] }}
+                                    {{ rangeFilter[2] | mask : "separator" }}
+                                    {{ rangeFilter[1] }}
                                 </button>
                                 <span
                                     class="mx-1 transition-colors duration-300 select-none"
@@ -135,7 +136,8 @@
                                     "
                                     class="transition-colors duration-300 hover:text-red-600"
                                 >
-                                    {{ rangeFilter[3] }} {{ rangeFilter[1] }}
+                                    {{ rangeFilter[3] | mask : "separator" }}
+                                    {{ rangeFilter[1] }}
                                 </button>
                             </span>
                         </ng-container>
