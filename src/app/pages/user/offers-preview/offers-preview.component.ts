@@ -184,6 +184,21 @@ export class OffersPreviewComponent implements OnInit {
         }
     }
 
+    clearMinFilter(filterName: string) {
+        if (this.currentFilterValues) {
+            console.log(filterName);
+
+            this.currentFilterValues.rangeFilters[filterName][
+                filterName + 'From'
+            ] =
+                this.baseFilterValues.rangeFilters[filterName][
+                    filterName + 'From'
+                ];
+
+            this.userService.updateFiltersState(this.currentFilterValues);
+        }
+    }
+
     deepEqual(obj1: any, obj2: any): boolean {
         if (obj1 === obj2) {
             return true;
