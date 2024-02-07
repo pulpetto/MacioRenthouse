@@ -88,18 +88,21 @@ export class RangeInputComponent implements OnInit {
             this.clearButtonDisabled = false;
         }
 
-        if (this.minimalValChange)
+        if (this.minimalValChange) {
             this.currentNumberInputValue = (
                 Math.round(
                     this.currentRangeInputValue / this.minimalValChange
                 ) * this.minimalValChange
             ).toString();
 
+            this.currentRangeInputValue = +this.currentNumberInputValue;
+        }
+
         this.rangeInputValueChangeEvent.emit(+this.currentNumberInputValue);
     }
 
     applyInputValues() {
-        this.lastlyAppliedRangeInputValue = this.currentRangeInputValue;
+        this.lastlyAppliedRangeInputValue = +this.currentNumberInputValue;
         this.lastlyAppliedNumberInputValue = this.currentNumberInputValue;
 
         if (this.connectedToFilter) {
@@ -107,7 +110,7 @@ export class RangeInputComponent implements OnInit {
             if (filtersState) {
                 filtersState.rangeFilters[this.filterGeneralName][
                     this.connectedToFilter
-                ] = this.currentRangeInputValue;
+                ] = +this.currentNumberInputValue;
                 this.userService.updateFiltersState(filtersState);
             }
         }
