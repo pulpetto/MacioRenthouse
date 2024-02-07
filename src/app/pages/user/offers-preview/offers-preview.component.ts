@@ -186,8 +186,6 @@ export class OffersPreviewComponent implements OnInit {
 
     clearMinFilter(filterName: string) {
         if (this.currentFilterValues) {
-            console.log(filterName);
-
             this.currentFilterValues.rangeFilters[filterName][
                 filterName + 'From'
             ] =
