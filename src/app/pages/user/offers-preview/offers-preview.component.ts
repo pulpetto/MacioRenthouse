@@ -199,6 +199,19 @@ export class OffersPreviewComponent implements OnInit {
         }
     }
 
+    clearMaxFilter(filterName: string) {
+        if (this.currentFilterValues) {
+            this.currentFilterValues.rangeFilters[filterName][
+                filterName + 'To'
+            ] =
+                this.baseFilterValues.rangeFilters[filterName][
+                    filterName + 'To'
+                ];
+
+            this.userService.updateFiltersState(this.currentFilterValues);
+        }
+    }
+
     deepEqual(obj1: any, obj2: any): boolean {
         if (obj1 === obj2) {
             return true;

@@ -128,6 +128,11 @@
                                     >-</span
                                 >
                                 <button
+                                    (click)="
+                                        clearMaxFilter(
+                                            rangeFilter[0].toString()
+                                        )
+                                    "
                                     class="transition-colors duration-300 hover:text-red-600"
                                 >
                                     {{ rangeFilter[3] }} {{ rangeFilter[1] }}
