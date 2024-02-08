@@ -12,6 +12,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { BehaviorSubject, combineLatest, map, retry } from 'rxjs';
 import { Offer } from '../interfaces/offer';
 import { FilterModel } from '../interfaces/filter-model';
+import { UtilityService } from './utility.service';
 
 @Injectable({
     providedIn: 'root',
@@ -28,6 +29,7 @@ export class UserService {
     constructor(
         private angularFireDatabase: AngularFireDatabase,
         private angularFireAuth: AngularFireAuth,
+        private utilityService: UtilityService,
         private router: Router
     ) {}
 
@@ -164,8 +166,16 @@ export class UserService {
                             } = this.filtersState$.value.multiOptionsFilters;
 
                             if (
+                                // FIX LATER - so that all created offers will have every property in lowercase // remove capitalization here
                                 (carBrands.length > 0 &&
-                                    !carBrands.includes(offer.car.carBrand)) ||
+                                    !carBrands.includes(
+                                        this.utilityService.capitalizeEveryWord(
+                                            offer.car.carBrand
+                                        )
+                                    ) &&
+                                    !carBrands.includes(
+                                        offer.car.carBrand.toLowerCase()
+                                    )) ||
                                 // (carModels.length >= 0 &&
                                 //     !carModels.includes(
                                 //         offer.car.brandModel
