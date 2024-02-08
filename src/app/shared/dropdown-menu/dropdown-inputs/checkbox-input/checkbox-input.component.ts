@@ -69,6 +69,9 @@ export class CheckboxInputComponent implements OnInit, OnChanges {
     ngOnChanges(changes: SimpleChanges) {
         if ('dropdownOptions' in changes) {
             this.convertDropdowns();
+
+            if (this.dropdownOptionsConverted.length === 1)
+                this.dropdownOptionsConverted[0].checked = true;
         }
     }
 
