@@ -83,14 +83,16 @@
                     >
                         <ng-container
                             *ngIf="
-                                rangeFilter[2] !==
+                                (rangeFilter[2] !==
                                     baseFilterValues.rangeFilters[
                                         rangeFilter[0]
                                     ][rangeFilter[0] + 'From'] ||
-                                rangeFilter[3] !==
-                                    baseFilterValues.rangeFilters[
-                                        rangeFilter[0]
-                                    ][rangeFilter[0] + 'To']
+                                    rangeFilter[3] !==
+                                        baseFilterValues.rangeFilters[
+                                            rangeFilter[0]
+                                        ][rangeFilter[0] + 'To']) &&
+                                rangeFilter[2] !== 0 &&
+                                rangeFilter[3] !== 0
                             "
                         >
                             <button
