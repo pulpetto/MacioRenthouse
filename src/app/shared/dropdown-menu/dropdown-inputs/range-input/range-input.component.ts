@@ -129,9 +129,16 @@ export class RangeInputComponent implements OnInit {
         if (this.connectedToFilter) {
             const filtersState = this.userService.getCurrentFiltersState();
             if (filtersState) {
-                filtersState.rangeFilters[this.filterGeneralName][
-                    this.connectedToFilter
-                ] = this.minVal;
+                if (this.minOrMax === 'min')
+                    filtersState.rangeFilters[this.filterGeneralName][
+                        this.connectedToFilter
+                    ] = this.minVal;
+
+                if (this.minOrMax === 'max')
+                    filtersState.rangeFilters[this.filterGeneralName][
+                        this.connectedToFilter
+                    ] = this.maxVal;
+
                 this.userService.updateFiltersState(filtersState);
             }
         }
