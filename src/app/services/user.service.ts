@@ -57,6 +57,10 @@ export class UserService {
         return this.baseFiltersValues$.asObservable();
     }
 
+    getBaseFiltersValues(): FilterModel | null {
+        return this.baseFiltersValues$.value;
+    }
+
     getOfferById(offerId: string): Observable<Offer | null> {
         return this.angularFireDatabase
             .list<Offer>('offers', (ref) =>
