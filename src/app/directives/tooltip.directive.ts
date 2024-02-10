@@ -74,6 +74,7 @@ export class TooltipDirective implements OnDestroy {
 
         const tailwindClasses = [
             'absolute',
+            'max-w-52',
             'fixed',
             'z-50',
             'px-4',
