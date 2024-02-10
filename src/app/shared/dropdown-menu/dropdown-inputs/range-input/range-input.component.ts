@@ -165,6 +165,7 @@ export class RangeInputComponent implements OnInit {
 
     resetRangeValue() {
         if (this.minOrMax === 'min' || this.minOrMax === 'max') {
+            this.clearButtonDisabled = true;
             const value = this.minOrMax === 'min' ? this.minVal : this.maxVal;
             this.currentRangeInputValue = value;
             this.currentNumberInputValue = String(value);
