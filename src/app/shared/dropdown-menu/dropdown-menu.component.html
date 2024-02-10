@@ -11,38 +11,24 @@
             <div class="text-lg">{{ dropdownName }}</div>
 
             <ng-container *ngIf="checkboxInput">
-                <div
-                    *ngIf="checkedOptionsCount === 0; else closeIcon"
-                    class="w-8 h-8"
-                >
-                    <img
-                        src="assets/svgs/down-arrow-5-svgrepo-com.svg"
-                        class="w-full h-full transition-transform duration-300"
-                        [ngClass]="{
-                            'rotate-180': arrowRotated,
-                        }"
-                        alt="arrow icon"
-                    />
-                </div>
-
-                <ng-template #closeIcon>
-                    <div class="flex items-center">
-                        <div class="font-semibold">
-                            ({{ checkedOptionsCount }})
-                        </div>
-                        <button
-                            type="button"
-                            (click)="onOptionsReset($event)"
-                            class="mt-1 cursor-pointer w-7 h-7"
-                        >
-                            <img
-                                src="assets/svgs/cross-svgrepo-com(1).svg"
-                                class="w-full h-full"
-                                alt="close icon"
-                            />
-                        </button>
+                <div class="flex items-center">
+                    <div
+                        class="font-semibold"
+                        *ngIf="checkedOptionsCount !== 0"
+                    >
+                        ({{ checkedOptionsCount }})
                     </div>
-                </ng-template>
+                    <div class="w-8 h-8">
+                        <img
+                            src="assets/svgs/down-arrow-5-svgrepo-com.svg"
+                            class="w-full h-full transition-transform duration-300"
+                            [ngClass]="{
+                                'rotate-180': arrowRotated,
+                            }"
+                            alt="arrow icon"
+                        />
+                    </div>
+                </div>
             </ng-container>
 
             <ng-container *ngIf="rangeInput">
@@ -73,57 +59,16 @@
                         </ng-container>
                     </ng-container>
 
-                    <ng-container
-                        *ngIf="
-                            (rangeInputType === 'max' &&
-                                rangeInputValue === maxVal) ||
-                            (rangeInputType === 'min' &&
-                                rangeInputValue === minVal)
-                        "
-                    >
-                        <div class="w-8 h-8">
-                            <img
-                                src="assets/svgs/down-arrow-5-svgrepo-com.svg"
-                                class="w-full h-full transition-transform duration-300"
-                                [ngClass]="{
+                    <div class="w-8 h-8">
+                        <img
+                            src="assets/svgs/down-arrow-5-svgrepo-com.svg"
+                            class="w-full h-full transition-transform duration-300"
+                            [ngClass]="{
                                     'rotate-180': arrowRotated,
                                 }"
-                                alt="arrow icon"
-                            />
-                        </div>
-                    </ng-container>
-
-                    <ng-container>
-                        <ng-container
-                            *ngIf="
-                                !(
-                                    rangeInputType === 'max' &&
-                                    rangeInputValue === maxVal
-                                )
-                            "
-                        >
-                            <ng-container
-                                *ngIf="
-                                    !(
-                                        rangeInputType === 'min' &&
-                                        rangeInputValue === minVal
-                                    )
-                                "
-                            >
-                                <button
-                                    type="button"
-                                    (click)="onOptionsReset($event)"
-                                    class="mt-1 cursor-pointer w-7 h-7"
-                                >
-                                    <img
-                                        src="assets/svgs/cross-svgrepo-com(1).svg"
-                                        class="w-full h-full"
-                                        alt="close icon"
-                                    />
-                                </button>
-                            </ng-container>
-                        </ng-container>
-                    </ng-container>
+                            alt="arrow icon"
+                        />
+                    </div>
                 </div>
             </ng-container>
         </button>
