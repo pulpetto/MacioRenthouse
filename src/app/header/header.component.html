@@ -36,6 +36,8 @@
         </div>
 
         <button
+            tooltip="Your account dashboard"
+            placement="bottom"
             *ngIf="userFirstName$ | async as userFirstName"
             (click)="navigateToDashboard()"
             class="flex items-center gap-2"
