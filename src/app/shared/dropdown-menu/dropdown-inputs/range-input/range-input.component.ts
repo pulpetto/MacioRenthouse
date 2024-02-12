@@ -1,4 +1,12 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+    Component,
+    EventEmitter,
+    Input,
+    OnChanges,
+    OnInit,
+    Output,
+    SimpleChanges,
+} from '@angular/core';
 import { RangeFilters } from 'src/app/interfaces/range-filters';
 import { UserService } from 'src/app/services/user.service';
 
@@ -7,7 +15,7 @@ import { UserService } from 'src/app/services/user.service';
     templateUrl: './range-input.component.html',
     styleUrls: ['./range-input.component.css'],
 })
-export class RangeInputComponent implements OnInit {
+export class RangeInputComponent implements OnInit, OnChanges {
     @Input() minVal!: number;
     @Input() maxVal!: number;
     @Input() suffix: string = '';
@@ -22,7 +30,7 @@ export class RangeInputComponent implements OnInit {
     applyButtonDisabled: boolean = true;
     clearButtonDisabled: boolean = true;
 
-    currentNumberInputValue: string = '';
+    currentNumberInputValue!: string;
     lastlyAppliedNumberInputValue!: string;
 
     currentRangeInputValue!: number;
@@ -42,6 +50,26 @@ export class RangeInputComponent implements OnInit {
             this.lastlyAppliedRangeInputValue = this.minVal;
             this.lastlyAppliedNumberInputValue = this.minVal.toString();
         }
+    }
+
+    ngOnChanges(changes: SimpleChanges) {
+        if (
+            ('minVal' in changes && this.minOrMax === 'min') ||
+            ('maxVal' in changes && this.minOrMax === 'max')
+        ) {
+            const value = this.minOrMax === 'min' ? this.minVal : this.maxVal;
+            this.currentRangeInputValue = value;
+            this.currentNumberInputValue = String(value);
+            this.rangeInputValueChangeEvent.emit(value);
+        }
+
+        if (
+            (this.currentRangeInputValue === this.minVal &&
+                this.minOrMax === 'min') ||
+            (this.currentRangeInputValue === this.maxVal &&
+                this.minOrMax === 'max')
+        )
+            this.currentNumberInputValue = '';
     }
 
     onNumberInput() {
