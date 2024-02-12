@@ -155,9 +155,6 @@ export class OffersPreviewComponent implements OnInit {
                 this.baseFilterValues.multiOptionsFilters[filterName];
 
             this.userService.updateFiltersState(this.currentFilterValues);
-            this.isHoveredMultiselect.forEach((state) => {
-                state = false;
-            });
         }
     }
 
