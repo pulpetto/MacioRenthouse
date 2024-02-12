@@ -155,6 +155,7 @@ export class RangeInputComponent implements OnInit, OnChanges {
 
         this.dropdownCloseEvent.emit();
         this.applyButtonDisabled = true;
+        this.clearButtonDisabled = true;
     }
 
     clearInputValues() {
