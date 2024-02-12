@@ -252,12 +252,12 @@
                     <app-range-input
                         *ngIf="dropdown.inputTypeProperties.type === 'range'"
                         [minVal]="
-                            availablefiltersValues.rangeFilters[
+                            currentFilterValues!.rangeFilters[
                                 dropdown.inputTypeProperties.name!
                             ][dropdown.inputTypeProperties.name + 'From']
                         "
                         [maxVal]="
-                            availablefiltersValues.rangeFilters[
+                            currentFilterValues!.rangeFilters[
                                 dropdown.inputTypeProperties.name!
                             ][dropdown.inputTypeProperties.name + 'To']
                         "
