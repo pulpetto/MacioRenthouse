@@ -119,8 +119,12 @@ export class RangeInputComponent implements OnInit, OnChanges {
         if (this.minimalValChange) {
             if (this.currentRangeInputValue > 1000000) {
                 this.minimalValChange = 100000;
-            } else {
+            } else if (this.currentRangeInputValue > 10000) {
                 this.minimalValChange = 1000;
+            } else if (this.currentRangeInputValue > 1000) {
+                this.minimalValChange = 100;
+            } else {
+                this.minimalValChange = 10;
             }
 
             this.currentNumberInputValue = (
