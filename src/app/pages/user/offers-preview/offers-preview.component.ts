@@ -177,8 +177,19 @@ export class OffersPreviewComponent implements OnInit {
 
     clearMinMaxFilters(filterName: string) {
         if (this.currentFilterValues) {
-            this.currentFilterValues.rangeFilters[filterName] =
-                this.baseFilterValues.rangeFilters[filterName];
+            this.currentFilterValues.rangeFilters[filterName][
+                filterName + 'From'
+            ] =
+                this.baseFilterValues.rangeFilters[filterName][
+                    filterName + 'From'
+                ];
+
+            this.currentFilterValues.rangeFilters[filterName][
+                filterName + 'To'
+            ] =
+                this.baseFilterValues.rangeFilters[filterName][
+                    filterName + 'To'
+                ];
 
             this.userService.updateFiltersState(this.currentFilterValues);
         }
