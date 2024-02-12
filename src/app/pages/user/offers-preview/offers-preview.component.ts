@@ -218,6 +218,36 @@ export class OffersPreviewComponent implements OnInit {
         }
     }
 
+    clearAllFilters() {
+        this.multiOptionsFiltersConverted.forEach((filter) => {
+            if (this.currentFilterValues) {
+                this.currentFilterValues.multiOptionsFilters[filter[0]] =
+                    this.baseFilterValues.multiOptionsFilters[filter[0]];
+            }
+        });
+
+        this.rangeFiltersConverted.forEach((filter) => {
+            if (this.currentFilterValues) {
+                this.currentFilterValues.rangeFilters[filter[0]][
+                    filter[0] + 'From'
+                ] =
+                    this.baseFilterValues.rangeFilters[filter[0]][
+                        filter[0] + 'From'
+                    ];
+
+                this.currentFilterValues.rangeFilters[filter[0]][
+                    filter[0] + 'To'
+                ] =
+                    this.baseFilterValues.rangeFilters[filter[0]][
+                        filter[0] + 'To'
+                    ];
+            }
+        });
+
+        if (this.currentFilterValues)
+            this.userService.updateFiltersState(this.currentFilterValues);
+    }
+
     deepEqual(obj1: any, obj2: any): boolean {
         if (obj1 === obj2) {
             return true;
