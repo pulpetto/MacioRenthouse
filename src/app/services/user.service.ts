@@ -13,6 +13,7 @@ import { BehaviorSubject, combineLatest, map, retry } from 'rxjs';
 import { Offer } from '../interfaces/offer';
 import { FilterModel } from '../interfaces/filter-model';
 import { UtilityService } from './utility.service';
+import { MultiselectDropdownOption } from '../interfaces/multiselect-dropdown-option';
 
 @Injectable({
     providedIn: 'root',
@@ -26,12 +27,23 @@ export class UserService {
         null
     );
 
+    // prettier-ignore
+    private multiselectDropdownsOptionsWithCount$ = new BehaviorSubject<{
+        [key: string]: Map<string, MultiselectDropdownOption>;
+    } | null>(null);
+
     constructor(
         private angularFireDatabase: AngularFireDatabase,
         private angularFireAuth: AngularFireAuth,
         private utilityService: UtilityService,
         private router: Router
     ) {}
+
+    getMultiselectDropdownsOptionsWithCount$(): Observable<{
+        [key: string]: Map<string, MultiselectDropdownOption>;
+    } | null> {
+        return this.multiselectDropdownsOptionsWithCount$;
+    }
 
     getCurrentFiltersState(): FilterModel | null {
         return this.filtersState$.value;
@@ -247,6 +259,66 @@ export class UserService {
                 const pagesAmount = Math.ceil(offers.length / maxItemsPerPage);
 
                 if (!offers) return null;
+
+                const propertyCounts: {
+                    [key: string]: Map<string, MultiselectDropdownOption>;
+                } = {
+                    carBrands: new Map<
+                        string,
+                        { count: number; id: string; checked: boolean }
+                    >(),
+                    carModels: new Map<
+                        string,
+                        { count: number; id: string; checked: boolean }
+                    >(),
+                    fuelTypes: new Map<
+                        string,
+                        { count: number; id: string; checked: boolean }
+                    >(),
+                    gearboxTypes: new Map<
+                        string,
+                        { count: number; id: string; checked: boolean }
+                    >(),
+                    seatsAmount: new Map<
+                        string,
+                        { count: number; id: string; checked: boolean }
+                    >(),
+                };
+
+                offers.forEach((offer) => {
+                    propertyCounts['carBrands'].set(offer.car.carBrand, {
+                        count:
+                            (propertyCounts['carBrands'].get(offer.car.carBrand)
+                                ?.count || 0) + 1,
+                        id: this.utilityService.generateRandomString(10),
+                        checked: false,
+                    });
+                    propertyCounts['fuelTypes'].set(offer.car.fuelType, {
+                        count:
+                            (propertyCounts['fuelTypes'].get(offer.car.fuelType)
+                                ?.count || 0) + 1,
+                        id: this.utilityService.generateRandomString(10),
+                        checked: false,
+                    });
+                    propertyCounts['gearboxTypes'].set(offer.car.gearboxType, {
+                        count:
+                            (propertyCounts['gearboxTypes'].get(
+                                offer.car.gearboxType
+                            )?.count || 0) + 1,
+                        id: this.utilityService.generateRandomString(10),
+                        checked: false,
+                    });
+                    const seatsKey = offer.car.seats.toString();
+                    propertyCounts['seatsAmount'].set(seatsKey, {
+                        count:
+                            (propertyCounts['seatsAmount'].get(seatsKey)
+                                ?.count || 0) + 1,
+                        id: this.utilityService.generateRandomString(10),
+                        checked: false,
+                    });
+                });
+
+                this.multiselectDropdownsOptionsWithCount$.next(propertyCounts);
 
                 const availableFiltersValues: FilterModel = {
                     multiOptionsFilters: {
