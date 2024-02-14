@@ -1,6 +1,5 @@
 export interface MultiselectDropdownOption {
-    id: number;
-    name: string;
+    id: string;
     count: number;
     checked: boolean;
 }
