@@ -1,6 +1,6 @@
 export interface MultiselectDropdownOption {
-    count: number;
-    carBrand: string;
-    checked: boolean;
     id: number;
+    name: string;
+    count: number;
+    checked: boolean;
 }
