@@ -27,6 +27,10 @@ export class UserService {
         null
     );
 
+    private baseMultiselectDropdownOptions$ = new BehaviorSubject<{
+        [key: string]: Map<string, MultiselectDropdownOption>;
+    } | null>(null);
+
     private currentMultiselectDropdownOptions$ = new BehaviorSubject<{
         [key: string]: Map<string, MultiselectDropdownOption>;
     } | null>(null);
@@ -37,6 +41,12 @@ export class UserService {
         private utilityService: UtilityService,
         private router: Router
     ) {}
+
+    getBaseMultiselectDropdownOptions(): {
+        [key: string]: Map<string, MultiselectDropdownOption>;
+    } | null {
+        return this.baseMultiselectDropdownOptions$.value;
+    }
 
     getMultiselectDropdownsOptionsWithCount$(): Observable<{
         [key: string]: Map<string, MultiselectDropdownOption>;
@@ -398,6 +408,7 @@ export class UserService {
                     this.baseFiltersValues$.next(
                         JSON.parse(JSON.stringify(availableFiltersValues))
                     );
+                    this.baseMultiselectDropdownOptions$.next(propertyCounts);
                 }
 
                 this.availableFiltersValues$.next(availableFiltersValues);
