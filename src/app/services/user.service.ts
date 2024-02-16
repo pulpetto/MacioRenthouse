@@ -27,8 +27,7 @@ export class UserService {
         null
     );
 
-    // prettier-ignore
-    private multiselectDropdownsOptionsWithCount$ = new BehaviorSubject<{
+    private currentMultiselectDropdownOptions$ = new BehaviorSubject<{
         [key: string]: Map<string, MultiselectDropdownOption>;
     } | null>(null);
 
@@ -42,7 +41,7 @@ export class UserService {
     getMultiselectDropdownsOptionsWithCount$(): Observable<{
         [key: string]: Map<string, MultiselectDropdownOption>;
     } | null> {
-        return this.multiselectDropdownsOptionsWithCount$;
+        return this.currentMultiselectDropdownOptions$;
     }
 
     getCurrentFiltersState(): FilterModel | null {
@@ -318,7 +317,7 @@ export class UserService {
                     });
                 });
 
-                this.multiselectDropdownsOptionsWithCount$.next(propertyCounts);
+                this.currentMultiselectDropdownOptions$.next(propertyCounts);
 
                 const availableFiltersValues: FilterModel = {
                     multiOptionsFilters: {
