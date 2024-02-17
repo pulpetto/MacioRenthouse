@@ -48,7 +48,7 @@ export class UserService {
         return this.baseMultiselectDropdownOptions$.value;
     }
 
-    getMultiselectDropdownsOptionsWithCount$(): Observable<{
+    getMultiselectDropdownsOptions$(): Observable<{
         [key: string]: Map<string, MultiselectDropdownOption>;
     } | null> {
         return this.currentMultiselectDropdownOptions$;
