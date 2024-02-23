@@ -2,14 +2,8 @@ import { Injectable } from '@angular/core';
 import { User } from '../interfaces/user';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
-import {
-    AngularFireDatabase,
-    AngularFireList,
-    AngularFireObject,
-} from '@angular/fire/compat/database';
-import { getDatabase, ref, set } from '@angular/fire/database';
 import { Observable } from 'rxjs/internal/Observable';
-import { BehaviorSubject, combineLatest, map, retry } from 'rxjs';
+import { BehaviorSubject, combineLatest, map } from 'rxjs';
 import { Offer } from '../interfaces/offer';
 import { FilterModel } from '../interfaces/filter-model';
 import { UtilityService } from './utility.service';
