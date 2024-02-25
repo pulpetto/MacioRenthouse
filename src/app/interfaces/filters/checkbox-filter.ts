@@ -1,3 +1,5 @@
+import { CheckboxOption } from './checkbox-option';
+
 export interface CheckboxFilter {
     staticProperties: {
         name: string;
@@ -5,18 +7,8 @@ export interface CheckboxFilter {
         isMultiSelect: boolean;
     };
     dynamicProperties: {
-        checkedOptions: {
-            name: string;
-            id: string;
-            count: number;
-            isChecked: boolean;
-        }[];
-        availableOptions: {
-            name: string;
-            id: string;
-            count: number;
-            isChecked: boolean;
-        }[];
+        checkedOptions: CheckboxOption[];
+        availableOptions: CheckboxOption[];
         unavailableOptions: string[];
     };
 }
