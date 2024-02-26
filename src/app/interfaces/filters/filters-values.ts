@@ -3,6 +3,7 @@ import { RangeFilter } from './range-filter';
 
 export interface FiltersValues {
     checkboxFilters: {
+        [key: string]: CheckboxFilter;
         carBrands: CheckboxFilter;
         carModels: CheckboxFilter;
         fuelTypes: CheckboxFilter;
