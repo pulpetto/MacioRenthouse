@@ -16,19 +16,19 @@ export interface FiltersValues {
         };
         horsePower: {
             horsePowerFrom: RangeFilter;
-            horsePowerTo: RangeFilter;
+            horsePowerUpTo: RangeFilter;
         };
         engineSize: {
             engineSizeFrom: RangeFilter;
-            engineSizeTo: RangeFilter;
+            engineSizeUpTo: RangeFilter;
         };
         productionYear: {
             productionYearFrom: RangeFilter;
-            productionYearTo: RangeFilter;
+            productionYearUpTo: RangeFilter;
         };
         mileage: {
             mileageFrom: RangeFilter;
-            mileageTo: RangeFilter;
+            mileageUpTo: RangeFilter;
         };
     };
 }
