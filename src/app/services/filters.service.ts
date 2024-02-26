@@ -14,7 +14,7 @@ export class FiltersService {
 
     constructor(private utilityService: UtilityService) {}
 
-    assignStaticValues(offers: Offer[]) {
+    assignInitialValues(offers: Offer[]) {
         const initialFiltersValues: FiltersValues = {
             checkboxFilters: {
                 carBrands: {
@@ -278,11 +278,20 @@ export class FiltersService {
             },
         };
 
+        this.filtersState.next(
+            this.calculateOptionsCount(initialFiltersValues, offers)
+        );
+    }
+
+    calculateOptionsCount(
+        filtersValues: FiltersValues,
+        offers: Offer[]
+    ): FiltersValues {
         offers.forEach((offer, i) => {
             for (const [key, value] of Object.entries(
-                initialFiltersValues.checkboxFilters
+                filtersValues.checkboxFilters
             )) {
-                const existingOption = initialFiltersValues.checkboxFilters[
+                const existingOption = filtersValues.checkboxFilters[
                     key
                 ].dynamicProperties.availableOptions.find(
                     (option: CheckboxOption) =>
@@ -293,7 +302,7 @@ export class FiltersService {
                 if (existingOption) {
                     existingOption.count++;
                 } else {
-                    initialFiltersValues.checkboxFilters[
+                    filtersValues.checkboxFilters[
                         key
                     ].dynamicProperties.availableOptions.push({
                         optionName: String(
@@ -307,6 +316,6 @@ export class FiltersService {
             }
         });
 
-        this.filtersState.next(initialFiltersValues);
+        return filtersValues;
     }
 }
