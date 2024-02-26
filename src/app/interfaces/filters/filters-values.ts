@@ -8,7 +8,7 @@ export interface FiltersValues {
         carModels: CheckboxFilter;
         fuelTypes: CheckboxFilter;
         gearboxTypes: CheckboxFilter;
-        seatsAmount: CheckboxFilter;
+        seats: CheckboxFilter;
     };
     rangeFilters: {
         price: {
