@@ -6,6 +6,7 @@ export interface Offer {
     offerDescription: string;
     images: string[];
     car: {
+        [key: string]: string | number;
         carBrand: string;
         brandModel: string;
         fullCarName: string;
