@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Offer } from '../interfaces/offer';
 import { FiltersValues } from '../interfaces/filters/filters-values';
-import { BehaviorSubject, of } from 'rxjs';
-import { CheckboxFilter } from '../interfaces/filters/checkbox-filter';
+import { BehaviorSubject } from 'rxjs';
 import { UtilityService } from './utility.service';
 import { CheckboxOption } from '../interfaces/filters/checkbox-option';
 
