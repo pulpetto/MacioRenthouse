@@ -309,7 +309,8 @@ export class FiltersService {
                         ),
                         id: this.utilityService.generateRandomString(10),
                         count: 1,
-                        isChecked: false,
+                        isChecked:
+                            this.filtersState.value === null ? true : false,
                     });
                 }
             }
