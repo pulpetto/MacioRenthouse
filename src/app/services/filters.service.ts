@@ -9,7 +9,7 @@ import { CheckboxOption } from '../interfaces/filters/checkbox-option';
     providedIn: 'root',
 })
 export class FiltersService {
-    filtersState = new BehaviorSubject<FiltersValues | null>(null);
+    private filtersState = new BehaviorSubject<FiltersValues | null>(null);
 
     constructor(private utilityService: UtilityService) {}
 
