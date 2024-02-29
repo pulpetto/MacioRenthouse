@@ -1,1 +1,12 @@
-<p>offers-filters works!</p>
+<div *ngIf="filtersState$ | async as filtersState; else filtersLoading"></div>
+<ng-template #filtersLoading>
+    <div class="grid h-32 grid-cols-5">
+        <div
+            *ngFor="let x of [].constructor(10)"
+            data-placeholder
+            class="relative p-3 mb-2 overflow-hidden text-lg rounded-md text-neutral-900 w-62 bg-neutral-900"
+        >
+            loading placeholder
+        </div>
+    </div>
+</ng-template>
