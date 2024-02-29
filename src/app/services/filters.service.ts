@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Offer } from '../interfaces/offer';
 import { FiltersValues } from '../interfaces/filters/filters-values';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { UtilityService } from './utility.service';
 import { CheckboxOption } from '../interfaces/filters/checkbox-option';
 
@@ -12,6 +12,10 @@ export class FiltersService {
     private filtersState = new BehaviorSubject<FiltersValues | null>(null);
 
     constructor(private utilityService: UtilityService) {}
+
+    getFiltersState(): Observable<FiltersValues | null> {
+        return this.filtersState.asObservable();
+    }
 
     assignInitialValues(offers: Offer[]) {
         const initialFiltersValues: FiltersValues = {
