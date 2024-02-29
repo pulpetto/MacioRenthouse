@@ -1,10 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { FiltersValues } from 'src/app/interfaces/filters/filters-values';
+import { FiltersService } from 'src/app/services/filters.service';
 
 @Component({
-  selector: 'app-offers-filters',
-  templateUrl: './offers-filters.component.html',
-  styleUrls: ['./offers-filters.component.css']
+    selector: 'app-offers-filters',
+    templateUrl: './offers-filters.component.html',
+    styleUrls: ['./offers-filters.component.css'],
 })
-export class OffersFiltersComponent {
+export class OffersFiltersComponent implements OnInit {
+    filtersState$!: Observable<FiltersValues | null>;
 
+    constructor(private filtersService: FiltersService) {}
+
+    ngOnInit() {
+        this.filtersState$ = this.filtersService.getFiltersState();
+    }
 }
