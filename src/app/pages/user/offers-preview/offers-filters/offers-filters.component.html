@@ -1,4 +1,27 @@
-<div *ngIf="filtersState$ | async as filtersState; else filtersLoading"></div>
+<ng-container
+    *ngIf="filtersState$ | async as filtersState; else filtersLoading"
+>
+    <div class="grid h-48 grid-cols-5">
+        <app-dropdown-menu
+            *ngFor="
+                let checkboxDropdown of filtersState.checkboxFilters | keyvalue
+            "
+            [dropdownName]="
+                checkboxDropdown.value.staticProperties.displayedLabel
+            "
+            [dropdownWidth]="62"
+        >
+            <app-checkbox-input></app-checkbox-input>
+        </app-dropdown-menu>
+        <app-dropdown-menu
+            *ngFor="let rangeDropdown of filtersState.rangeFilters | keyvalue"
+            [dropdownName]="rangeDropdown.value.staticProperties.displayedLabel"
+            [dropdownWidth]="62"
+        >
+            <app-range-input></app-range-input>
+        </app-dropdown-menu>
+    </div>
+</ng-container>
 <ng-template #filtersLoading>
     <div class="grid h-32 grid-cols-5">
         <div
