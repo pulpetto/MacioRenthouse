@@ -11,25 +11,19 @@ export interface FiltersValues {
         seats: CheckboxFilter;
     };
     rangeFilters: {
-        price: {
-            priceFrom: RangeFilter;
-            priceTo: RangeFilter;
-        };
-        horsePower: {
-            horsePowerFrom: RangeFilter;
-            horsePowerUpTo: RangeFilter;
-        };
-        engineSize: {
-            engineSizeFrom: RangeFilter;
-            engineSizeUpTo: RangeFilter;
-        };
-        productionYear: {
-            productionYearFrom: RangeFilter;
-            productionYearUpTo: RangeFilter;
-        };
-        mileage: {
-            mileageFrom: RangeFilter;
-            mileageUpTo: RangeFilter;
-        };
+        priceFrom: RangeFilter;
+        priceTo: RangeFilter;
+
+        horsePowerFrom: RangeFilter;
+        horsePowerUpTo: RangeFilter;
+
+        engineSizeFrom: RangeFilter;
+        engineSizeUpTo: RangeFilter;
+
+        productionYearFrom: RangeFilter;
+        productionYearUpTo: RangeFilter;
+
+        mileageFrom: RangeFilter;
+        mileageUpTo: RangeFilter;
     };
 }
