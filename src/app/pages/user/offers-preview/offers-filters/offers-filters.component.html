@@ -6,12 +6,15 @@
             *ngFor="
                 let checkboxDropdown of filtersState.checkboxFilters | keyvalue
             "
-            [dropdownName]="
-                checkboxDropdown.value.staticProperties.displayedLabel
-            "
+            [dropdownName]="checkboxDropdown.value.displayedLabel"
             [dropdownWidth]="62"
+            class="z-50"
         >
-            <app-checkbox-input></app-checkbox-input>
+            <app-checkbox-input
+                [name]="checkboxDropdown.value.name"
+                [isMultiSelect]="checkboxDropdown.value.isMultiSelect"
+                [options]="checkboxDropdown.value.options"
+            ></app-checkbox-input>
         </app-dropdown-menu>
         <app-dropdown-menu
             *ngFor="let rangeDropdown of filtersState.rangeFilters | keyvalue"

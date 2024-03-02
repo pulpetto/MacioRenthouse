@@ -1,4 +1,4 @@
-<div *ngIf="dropdownOptions.length > 10">
+<div *ngIf="options.length > 10">
     <input
         type="text"
         [(ngModel)]="searchTerm"
@@ -8,51 +8,49 @@
     />
 </div>
 
-<ul class="overflow-y-auto max-h-96">
-    <li
-        *ngFor="let option of dropdownOptionsConverted; let i = index"
-        class="w-full"
-    >
-        <label
-            [for]="option.id"
-            class="flex items-center justify-start w-full gap-4 px-4 py-4 transition-colors duration-300 rounded-md outline-none cursor-pointer hover:bg-neutral-900 focus:bg-neutral-900"
-            [ngClass]="{
-            'rounded-t-none': i === 0,
-        }"
-        >
-            <input
-                #dropdownCheckbox
-                type="checkbox"
-                [(ngModel)]="option.checked"
-                tabindex="-1"
-                [id]="option.id"
-                (click)="onInputClick(option, $event)"
-                (change)="updateAnyOptionsCheckedState()"
-                class="w-4 h-4 bg-white rounded-md cursor-pointer accent-indigo-600 ring-indigo-600"
-            />
-            <div class="select-none">{{ option.name | titlecase }}</div>
-        </label>
-    </li>
-</ul>
-
 <div
-    *ngIf="dropdownOptionsConverted.length === 0"
+    *ngIf="options.length === 0"
     class="p-4 text-center select-none opacity-60"
 >
     No results found.
 </div>
 
-<div
-    class="flex w-full"
-    *ngIf="dropdownMultiselect === true && dropdownOptionsConverted.length > 1"
->
+<ul class="overflow-y-auto max-h-96">
+    <li *ngFor="let checkedOption of options; let i = index" class="w-full">
+        <label
+            [for]="checkedOption.id"
+            class="flex items-center justify-start w-full gap-4 px-4 py-4 transition-colors duration-300 rounded-md outline-none cursor-pointer hover:bg-neutral-900 focus:bg-neutral-900"
+            [ngClass]="{
+                    'rounded-t-none': i === 0,
+                }"
+        >
+            <input
+                #dropdownCheckbox
+                type="checkbox"
+                tabindex="-1"
+                [id]="checkedOption.id"
+                [checked]="true"
+                (click)="onOptionClick(checkedOption, $event)"
+                (change)="updateAnyOptionsCheckedState()"
+                class="w-4 h-4 bg-white rounded-md cursor-pointer accent-indigo-600 ring-indigo-600"
+            />
+            <!-- [(ngModel)]="checkedOption.isChecked" -->
+            <div class="select-none">
+                {{ checkedOption.name | titlecase }}
+                <span class="font-semibold"> ({{ checkedOption.count }}) </span>
+            </div>
+        </label>
+    </li>
+</ul>
+
+<div class="flex w-full" *ngIf="isMultiSelect === true && options.length > 1">
     <button
         class="w-1/2 py-4 text-lg font-semibold transition-transform duration-300"
         [ngClass]="{
-            'opacity-60': applyButtonDisabled,
-            'hover:scale-105': !applyButtonDisabled,
+            'opacity-60': !applyButtonAvailable,
+            'hover:scale-105': applyButtonAvailable,
         }"
-        [disabled]="applyButtonDisabled"
+        [disabled]="!applyButtonAvailable"
         (click)="applyAllOptions()"
     >
         Apply
@@ -60,10 +58,10 @@
     <button
         class="w-1/2 py-4 text-lg font-semibold transition-transform duration-300"
         [ngClass]="{
-            'opacity-60': clearButtonDisabled,
-            'hover:scale-105': !clearButtonDisabled,
+            'opacity-60': !clearButtonAvailable,
+            'hover:scale-105': clearButtonAvailable,
         }"
-        [disabled]="clearButtonDisabled"
+        [disabled]="!clearButtonAvailable"
         (click)="clearAllOptions()"
     >
         Clear

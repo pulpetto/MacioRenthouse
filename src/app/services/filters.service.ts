@@ -17,6 +17,20 @@ export class FiltersService {
         return this.filtersState.asObservable();
     }
 
+    updateFiltersCheckboxOptions(
+        filterName: string,
+        newOptions: CheckboxOption[]
+    ) {
+        let oldOptions = this.filtersState.value;
+        oldOptions!.checkboxFilters[filterName].options = newOptions;
+        this.filtersState.next(oldOptions);
+    }
+
+    resetFiltersCheckboxOptions(filterName: string) {
+        // calculate which options are available and which are not
+        // make checked empty
+    }
+
     assignInitialValues(offers: Offer[]) {
         const initialFiltersValues: FiltersValues = {
             checkboxFilters: {
@@ -26,18 +40,6 @@ export class FiltersService {
                     isMultiSelect: true,
                     options: [],
                 },
-                // carModels: {
-                //     staticProperties: {
-                //         name: 'carModels',
-                //         displayedLabel: 'Car Models',
-                //         isMultiSelect: true,
-                //     },
-                //     dynamicProperties: {
-                //         checkedOptions: [],
-                //         availableOptions: [],
-                //         unavailableOptions: [],
-                //     },
-                // },
                 fuelTypes: {
                     name: 'fuelTypes',
                     displayedLabel: 'Fuel Types',
@@ -358,9 +360,9 @@ export class FiltersService {
             )) {
                 const existingOption = filtersValues.checkboxFilters[
                     key
-                ].dynamicProperties.availableOptions.find(
+                ].options.find(
                     (option: CheckboxOption) =>
-                        option.optionName ===
+                        option.name ===
                         offer.car[key === 'seats' ? key : key.slice(0, -1)]
                 );
 
@@ -369,10 +371,7 @@ export class FiltersService {
                 } else {
                     // if only 1 filter has any option in checked, then allow him to sitll have other options in AVAILABLE[] AND NOT UNAVAILABLE[]
                     // conditional binding for correct options[]
-                    filtersValues.checkboxFilters[
-                        key
-                    ].dynamicProperties.availableOptions.push({
-                        optionName: String(
+                    filtersValues.checkboxFilters[key].options.push({
                         name: String(
                             offer.car[key === 'seats' ? key : key.slice(0, -1)]
                         ),

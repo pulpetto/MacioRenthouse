@@ -12,6 +12,9 @@ import { UtilityService } from 'src/app/services/utility.service';
 import { FormControl } from '@angular/forms';
 import { MultiOptionFilters } from 'src/app/interfaces/multi-option-filters';
 import { UserService } from 'src/app/services/user.service';
+import { MultiselectDropdownOption } from 'src/app/interfaces/multiselect-dropdown-option';
+import { CheckboxOption } from 'src/app/interfaces/filters/checkbox-option';
+import { FiltersService } from 'src/app/services/filters.service';
 
 @Component({
     selector: 'app-checkbox-input',
@@ -19,12 +22,15 @@ import { UserService } from 'src/app/services/user.service';
     styleUrls: ['./checkbox-input.component.css'],
 })
 export class CheckboxInputComponent implements OnInit, OnChanges {
+    @Input() name!: string;
+    @Input() isMultiSelect!: boolean;
+    @Input() options!: CheckboxOption[];
+    allOptionsLength!: number;
+    anyOptionChecked: boolean = false;
+    applyButtonAvailable: boolean = true;
+    clearButtonAvailable: boolean = true;
     searchTerm: string = '';
-
-    @Input() dropdownOptions!: string[];
-    @Input() dropdownMultiselect!: boolean;
     @Input() control?: FormControl | undefined;
-    @Input() connectedToFilter: MultiOptionFilters | undefined;
 
     @Output() orderingChangeEvent = new EventEmitter<string>();
     @Output() sortingChangeEvent = new EventEmitter<string>();
@@ -33,112 +39,58 @@ export class CheckboxInputComponent implements OnInit, OnChanges {
     @Output() checkedOptionsChangeEvent = new EventEmitter<number>();
     @Output() dropdownCloseEvent = new EventEmitter<void>();
 
-    dropdownOptionsConverted: {
-        id: string;
-        name: string;
-        checked: boolean;
-    }[] = [];
-    // for searching purposes
-    dropdownOptionsConvertedCopy: {
-        id: string;
-        name: string;
-        checked: boolean;
-    }[] = [];
-
-    anyOptionChecked: boolean = false;
-
-    applyButtonDisabled: boolean = true;
-    clearButtonDisabled: boolean = true;
-
     constructor(
-        private userService: UserService,
-        private utilityService: UtilityService,
+        private filtersService: FiltersService,
         private cdr: ChangeDetectorRef
     ) {}
 
     ngOnInit() {
-        this.convertDropdowns();
-
-        this.dropdownOptionsConvertedCopy = this.dropdownOptionsConverted;
-
-        this.dropdownOptionsConvertedCopy.forEach(
-            (option) => (option.name = option.name.toLowerCase())
-        );
+        // maybe add copies for searching
     }
 
-    ngOnChanges(changes: SimpleChanges) {
-        if ('dropdownOptions' in changes) {
-            this.convertDropdowns();
-
-            if (this.dropdownOptionsConverted.length === 1)
-                this.dropdownOptionsConverted[0].checked = true;
-        }
-    }
-
-    convertDropdowns() {
-        this.dropdownOptionsConverted = this.dropdownOptions.map(
-            (optionName, index) => ({
-                id: this.utilityService.generateRandomString(10),
-                name: optionName,
-                checked:
-                    index === 0 && this.dropdownMultiselect === false
-                        ? true
-                        : false,
-            })
-        );
-    }
+    ngOnChanges(changes: SimpleChanges) {}
 
     onDropdownPropertySearch() {
-        const filteredOptions = this.dropdownOptionsConvertedCopy.filter(
-            (option) => option.name.startsWith(this.searchTerm.toLowerCase())
+        const filteredOptions = this.options.filter((option) =>
+            option.name.startsWith(this.searchTerm.toLowerCase())
         );
 
-        this.dropdownOptionsConverted = filteredOptions;
+        this.options = filteredOptions;
 
         this.cdr.detectChanges();
         this.calculateHeightEvent.emit();
     }
 
     updateAnyOptionsCheckedState() {
-        this.anyOptionChecked = this.dropdownOptionsConverted.some(
-            (option) => option.checked
+        this.anyOptionChecked = this.options.some(
+            (option) => option.status === 'checked'
         );
 
-        this.clearButtonDisabled = !this.anyOptionChecked;
+        this.clearButtonAvailable = this.anyOptionChecked;
     }
 
-    onInputClick(
-        option: {
-            id: string;
-            name: string;
-            checked: boolean;
-        },
-        $event: Event
-    ) {
+    onOptionClick(option: CheckboxOption, $event: Event) {
         this.updateAnyOptionsCheckedState();
-
-        this.applyButtonDisabled = false;
-
+        this.applyButtonAvailable = true;
         this.control?.setValue(option.name);
 
-        if (!this.dropdownMultiselect) {
-            if (option.checked) $event.preventDefault();
-            if (!option.checked) {
-                this.dropdownOptionsConverted.forEach(
-                    (option) => (option.checked = false)
-                );
-                option.checked = true;
-
-                // emitt to the event with name from input to avoid repeating
-                this.orderingChangeEvent.emit(option.name);
-                this.sortingChangeEvent.emit(option.name);
-                this.maxOffersPerPageChangeEvent.emit(option.name);
-            }
+        if (!this.isMultiSelect) {
+            // if (option.checked) $event.preventDefault();
+            // if (!option.checked) {
+            //     this.dropdownOptionsConverted.forEach(
+            //         (option) => (option.checked = false)
+            //     );
+            //     option.checked = true;
+            //     // emitt to the event with name from input to avoid repeating
+            //     this.orderingChangeEvent.emit(option.name);
+            //     this.sortingChangeEvent.emit(option.name);
+            //     this.maxOffersPerPageChangeEvent.emit(option.name);
+            // }
         } else {
-            let incrementOrDecrement = option.checked ? -1 : 1;
+            let incrementOrDecrement = option.status === 'checked' ? -1 : 1;
 
             const checkedOptionsCount: number =
-                this.dropdownOptionsConverted.filter((option) => option.checked)
+                this.options.filter((option) => option.status === 'checked')
                     .length + incrementOrDecrement;
 
             this.checkedOptionsChangeEvent.emit(checkedOptionsCount);
@@ -146,50 +98,23 @@ export class CheckboxInputComponent implements OnInit, OnChanges {
     }
 
     applyAllOptions() {
-        if (this.connectedToFilter) {
-            const checkedOptions: string[] = [];
-
-            this.dropdownOptionsConverted.forEach((option) => {
-                if (option.checked)
-                    checkedOptions.push(option.name.toLowerCase());
-            });
-
-            const filtersState = this.userService.getCurrentFiltersState();
-            if (filtersState) {
-                filtersState.multiOptionsFilters[this.connectedToFilter] =
-                    checkedOptions;
-                this.userService.updateFiltersState(filtersState);
-            }
-        }
+        this.filtersService.updateFiltersCheckboxOptions(
+            this.name,
+            this.options
+        );
 
         this.dropdownCloseEvent.emit();
-        this.applyButtonDisabled = true;
+        this.applyButtonAvailable = false;
     }
 
     clearAllOptions() {
-        if (this.connectedToFilter) {
-            const filtersState = this.userService.getCurrentFiltersState();
-            if (filtersState) {
-                filtersState.multiOptionsFilters[this.connectedToFilter] = [];
-                this.userService.updateFiltersState(filtersState);
-            }
-        }
+        this.filtersService.resetFiltersCheckboxOptions(this.name);
 
-        this.applyButtonDisabled = false;
-
-        this.dropdownOptionsConvertedCopy.forEach(
-            (option) => (option.checked = false)
-        );
-        this.dropdownOptionsConverted.forEach(
-            (option) => (option.checked = false)
-        );
-
+        this.applyButtonAvailable = false;
         this.updateAnyOptionsCheckedState();
-
-        const checkedOptionsCount: number =
-            this.dropdownOptionsConverted.filter(
-                (option) => option.checked
-            ).length;
+        const checkedOptionsCount: number = this.options.filter(
+            (option) => option.status === 'checked'
+        ).length;
         this.checkedOptionsChangeEvent.emit(checkedOptionsCount);
     }
 }
