@@ -62,6 +62,7 @@ import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 import { CheckboxInputComponent } from './shared/dropdown-menu/dropdown-inputs/checkbox-input/checkbox-input.component';
 import { RangeInputComponent } from './shared/dropdown-menu/dropdown-inputs/range-input/range-input.component';
 import { CamelcaseToNormalCapitalizedPipe } from './pipes/camelcase-to-normal-capitalized.pipe';
+import { OffersFiltersComponent } from './pages/user/offers-preview/offers-filters/offers-filters.component';
 
 @NgModule({
     declarations: [
@@ -92,6 +93,7 @@ import { CamelcaseToNormalCapitalizedPipe } from './pipes/camelcase-to-normal-ca
         CheckboxInputComponent,
         RangeInputComponent,
         CamelcaseToNormalCapitalizedPipe,
+        OffersFiltersComponent,
     ],
     imports: [
         A11yModule,
