@@ -16,9 +16,9 @@
 </div>
 
 <ul class="overflow-y-auto max-h-96">
-    <li *ngFor="let checkedOption of options; let i = index" class="w-full">
+    <li *ngFor="let option of options; let i = index" class="w-full">
         <label
-            [for]="checkedOption.id"
+            [for]="option.id"
             class="flex items-center justify-start w-full gap-4 px-4 py-4 transition-colors duration-300 rounded-md outline-none cursor-pointer hover:bg-neutral-900 focus:bg-neutral-900"
             [ngClass]="{
                     'rounded-t-none': i === 0,
@@ -28,16 +28,16 @@
                 #dropdownCheckbox
                 type="checkbox"
                 tabindex="-1"
-                [id]="checkedOption.id"
+                [id]="option.id"
                 [checked]="true"
-                (click)="onOptionClick(checkedOption, $event)"
+                (click)="onOptionClick(option, $event)"
                 (change)="updateAnyOptionsCheckedState()"
                 class="w-4 h-4 bg-white rounded-md cursor-pointer accent-indigo-600 ring-indigo-600"
             />
             <!-- [(ngModel)]="checkedOption.isChecked" -->
             <div class="select-none">
-                {{ checkedOption.name | titlecase }}
-                <span class="font-semibold"> ({{ checkedOption.count }}) </span>
+                {{ option.name | titlecase }}
+                <span class="font-semibold"> ({{ option.count }}) </span>
             </div>
         </label>
     </li>
