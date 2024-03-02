@@ -21,16 +21,10 @@ export class FiltersService {
         const initialFiltersValues: FiltersValues = {
             checkboxFilters: {
                 carBrands: {
-                    staticProperties: {
-                        name: 'carBrands',
-                        displayedLabel: 'Car Brands',
-                        isMultiSelect: true,
-                    },
-                    dynamicProperties: {
-                        checkedOptions: [],
-                        availableOptions: [],
-                        unavailableOptions: [],
-                    },
+                    name: 'carBrands',
+                    displayedLabel: 'Car Brands',
+                    isMultiSelect: true,
+                    options: [],
                 },
                 // carModels: {
                 //     staticProperties: {
@@ -45,40 +39,22 @@ export class FiltersService {
                 //     },
                 // },
                 fuelTypes: {
-                    staticProperties: {
-                        name: 'fuelTypes',
-                        displayedLabel: 'Fuel Types',
-                        isMultiSelect: true,
-                    },
-                    dynamicProperties: {
-                        checkedOptions: [],
-                        availableOptions: [],
-                        unavailableOptions: [],
-                    },
+                    name: 'fuelTypes',
+                    displayedLabel: 'Fuel Types',
+                    isMultiSelect: true,
+                    options: [],
                 },
                 gearboxTypes: {
-                    staticProperties: {
-                        name: 'gearboxTypes',
-                        displayedLabel: 'Gearbox Types',
-                        isMultiSelect: true,
-                    },
-                    dynamicProperties: {
-                        checkedOptions: [],
-                        availableOptions: [],
-                        unavailableOptions: [],
-                    },
+                    name: 'gearboxTypes',
+                    displayedLabel: 'Gearbox Types',
+                    isMultiSelect: true,
+                    options: [],
                 },
                 seats: {
-                    staticProperties: {
-                        name: 'seatsAmount',
-                        displayedLabel: 'Seats Amount',
-                        isMultiSelect: true,
-                    },
-                    dynamicProperties: {
-                        checkedOptions: [],
-                        availableOptions: [],
-                        unavailableOptions: [],
-                    },
+                    name: 'seatsAmount',
+                    displayedLabel: 'Seats Amount',
+                    isMultiSelect: true,
+                    options: [],
                 },
             },
             rangeFilters: {
@@ -270,53 +246,37 @@ export class FiltersService {
     filterOffers(filtersValues: FiltersValues, offers: Offer[]): Offer[] {
         offers = offers.filter((offer) => {
             const {
-                carBrands: {
-                    dynamicProperties: {
-                        checkedOptions: carBrandCheckedOptions,
-                    },
-                },
-                fuelTypes: {
-                    dynamicProperties: {
-                        checkedOptions: fuelTypeCheckedOptions,
-                    },
-                },
-                gearboxTypes: {
-                    dynamicProperties: {
-                        checkedOptions: gearboxTypeCheckedOptions,
-                    },
-                },
-                seats: {
-                    dynamicProperties: { checkedOptions: seatsCheckedOptions },
-                },
+                carBrands: { options: carBrandOptions },
+                fuelTypes: { options: fuelTypesOptions },
+                gearboxTypes: { options: gearboxTypesOptions },
+                seats: { options: seatsOptions },
             } = filtersValues.checkboxFilters;
 
             if (
                 // FIX LATER - so that all created offers will have every property in lowercase // remove capitalization here
-                (carBrandCheckedOptions.length > 0 &&
-                    !carBrandCheckedOptions.some(
+                (carBrandOptions.length > 0 &&
+                    !carBrandOptions.some(
                         (option) =>
-                            option.optionName ===
+                            option.name ===
                             this.utilityService.capitalizeEveryWord(
                                 offer.car.carBrand
                             )
                     ) &&
-                    !carBrandCheckedOptions.some(
+                    !carBrandOptions.some(
                         (option) =>
-                            option.optionName ===
-                            offer.car.carBrand.toLowerCase()
+                            option.name === offer.car.carBrand.toLowerCase()
                     )) ||
-                (fuelTypeCheckedOptions.length > 0 &&
-                    !fuelTypeCheckedOptions.some(
-                        (option) => option.optionName === offer.car.fuelType
+                (fuelTypesOptions.length > 0 &&
+                    !fuelTypesOptions.some(
+                        (option) => option.name === offer.car.fuelType
                     )) ||
-                (gearboxTypeCheckedOptions.length > 0 &&
-                    !gearboxTypeCheckedOptions.some(
-                        (option) => option.optionName === offer.car.gearboxType
+                (gearboxTypesOptions.length > 0 &&
+                    !gearboxTypesOptions.some(
+                        (option) => option.name === offer.car.gearboxType
                     )) ||
-                (seatsCheckedOptions.length > 0 &&
-                    !seatsCheckedOptions.some(
-                        (option) =>
-                            option.optionName === String(offer.car.seats)
+                (seatsOptions.length > 0 &&
+                    !seatsOptions.some(
+                        (option) => option.name === String(offer.car.seats)
                     ))
             ) {
                 return false;
@@ -413,12 +373,14 @@ export class FiltersService {
                         key
                     ].dynamicProperties.availableOptions.push({
                         optionName: String(
+                        name: String(
                             offer.car[key === 'seats' ? key : key.slice(0, -1)]
                         ),
                         id: this.utilityService.generateRandomString(10),
                         count: 1,
-                        isChecked:
-                            this.filtersState.value === null ? true : false,
+                        status: 'checked',
+                        // isChecked:
+                        // this.filtersState.value === null ? true : false,
                     });
                 }
             }
@@ -435,3 +397,5 @@ export class FiltersService {
 
 // 2
 //
+//     this.checkedOptionsChangeEvent.emit(checkedOptionsCount);
+// }

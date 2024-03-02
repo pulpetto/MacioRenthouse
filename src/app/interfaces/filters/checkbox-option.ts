@@ -1,6 +1,6 @@
 export interface CheckboxOption {
-    optionName: string;
+    name: string;
+    status: 'checked' | 'available' | 'unavailable';
     id: string;
     count: number;
-    isChecked: boolean;
 }
