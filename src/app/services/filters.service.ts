@@ -13,7 +13,7 @@ export class FiltersService {
 
     constructor(private utilityService: UtilityService) {}
 
-    getFiltersState(): Observable<FiltersValues | null> {
+    getFiltersState$(): Observable<FiltersValues | null> {
         return this.filtersState.asObservable();
     }
 

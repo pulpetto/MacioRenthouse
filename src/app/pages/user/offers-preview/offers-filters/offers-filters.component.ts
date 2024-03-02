@@ -14,6 +14,6 @@ export class OffersFiltersComponent implements OnInit {
     constructor(private filtersService: FiltersService) {}
 
     ngOnInit() {
-        this.filtersState$ = this.filtersService.getFiltersState();
+        this.filtersState$ = this.filtersService.getFiltersState$();
     }
 }
