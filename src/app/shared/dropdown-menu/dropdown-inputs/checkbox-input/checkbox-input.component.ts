@@ -74,10 +74,6 @@ export class CheckboxInputComponent implements OnInit, OnChanges {
     }
 
     onOptionClick(option: CheckboxOption, $event: Event) {
-        this.updateAnyOptionsCheckedState();
-        this.applyButtonAvailable = true;
-        this.control?.setValue(option.name);
-
         if (!this.isMultiSelect) {
             // if (option.checked) $event.preventDefault();
             // if (!option.checked) {
@@ -91,6 +87,9 @@ export class CheckboxInputComponent implements OnInit, OnChanges {
             //     this.maxOffersPerPageChangeEvent.emit(option.name);
             // }
         } else {
+            this.updateAnyOptionsCheckedState();
+            this.applyButtonAvailable = true;
+            this.control?.setValue(option.name);
             let incrementOrDecrement = option.status === 'checked' ? -1 : 1;
 
             const checkedOptionsCount: number =
