@@ -27,6 +27,7 @@ export class CheckboxInputComponent implements OnInit, OnChanges {
     @Input() isMultiSelect!: boolean;
     // Single-Select
     @Input() singleSelectOptions!: string[];
+    singleSelectOptionsConverted!: { name: string; checked: boolean }[];
     // Multi-Select
     @Input() options!: CheckboxOption[];
     allOptionsLength!: number;
@@ -49,7 +50,13 @@ export class CheckboxInputComponent implements OnInit, OnChanges {
     ) {}
 
     ngOnInit() {
-        // maybe add copies for searching
+        if (!this.isMultiSelect)
+            this.singleSelectOptions.forEach((option, i) => {
+                this.singleSelectOptionsConverted.push({
+                    name: option,
+                    checked: i === 0 ? true : false,
+                });
+            });
     }
 
     ngOnChanges(changes: SimpleChanges) {}
@@ -73,30 +80,33 @@ export class CheckboxInputComponent implements OnInit, OnChanges {
         this.clearButtonAvailable = this.anyOptionChecked;
     }
 
-    onOptionClick(option: CheckboxOption, $event: Event) {
-        if (!this.isMultiSelect) {
-            // if (option.checked) $event.preventDefault();
-            // if (!option.checked) {
-            //     this.dropdownOptionsConverted.forEach(
-            //         (option) => (option.checked = false)
-            //     );
-            //     option.checked = true;
-            //     // emitt to the event with name from input to avoid repeating
-            //     this.orderingChangeEvent.emit(option.name);
-            //     this.sortingChangeEvent.emit(option.name);
-            //     this.maxOffersPerPageChangeEvent.emit(option.name);
-            // }
-        } else {
-            this.updateAnyOptionsCheckedState();
-            this.applyButtonAvailable = true;
-            this.control?.setValue(option.name);
-            let incrementOrDecrement = option.status === 'checked' ? -1 : 1;
+    onMultiSelectOptionClick(option: CheckboxOption) {
+        this.updateAnyOptionsCheckedState();
+        this.applyButtonAvailable = true;
+        this.control?.setValue(option.name);
+        let incrementOrDecrement = option.status === 'checked' ? -1 : 1;
 
-            const checkedOptionsCount: number =
-                this.options.filter((option) => option.status === 'checked')
-                    .length + incrementOrDecrement;
+        const checkedOptionsCount: number =
+            this.options.filter((option) => option.status === 'checked')
+                .length + incrementOrDecrement;
 
-            this.checkedOptionsChangeEvent.emit(checkedOptionsCount);
+        this.checkedOptionsChangeEvent.emit(checkedOptionsCount);
+    }
+
+    onSingleSelectOptionClick(
+        option: { name: string; checked: boolean },
+        $event: Event
+    ) {
+        if (option.checked) $event.preventDefault();
+        if (!option.checked) {
+            this.singleSelectOptionsConverted.forEach(
+                (option) => (option.checked = false)
+            );
+            option.checked = true;
+
+            this.orderingChangeEvent.emit(option.name);
+            this.sortingChangeEvent.emit(option.name);
+            this.maxOffersPerPageChangeEvent.emit(option.name);
         }
     }
 
