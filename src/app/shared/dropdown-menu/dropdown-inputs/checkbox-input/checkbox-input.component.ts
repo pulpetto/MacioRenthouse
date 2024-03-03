@@ -91,6 +91,12 @@ export class CheckboxInputComponent implements OnInit, OnChanges {
                 .length + incrementOrDecrement;
 
         this.checkedOptionsChangeEvent.emit(checkedOptionsCount);
+
+        if (option.status === 'available') {
+            option.status = 'checked';
+        } else if (option.status === 'checked') {
+            option.status = 'available';
+        }
     }
 
     onSingleSelectOptionClick(
