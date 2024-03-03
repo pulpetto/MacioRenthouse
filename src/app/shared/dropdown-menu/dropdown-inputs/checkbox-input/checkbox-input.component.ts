@@ -22,8 +22,12 @@ import { FiltersService } from 'src/app/services/filters.service';
     styleUrls: ['./checkbox-input.component.css'],
 })
 export class CheckboxInputComponent implements OnInit, OnChanges {
+    // All
     @Input() name!: string;
     @Input() isMultiSelect!: boolean;
+    // Single-Select
+    @Input() singleSelectOptions!: string[];
+    // Multi-Select
     @Input() options!: CheckboxOption[];
     allOptionsLength!: number;
     anyOptionChecked: boolean = false;
