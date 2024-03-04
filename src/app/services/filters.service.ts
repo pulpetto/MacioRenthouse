@@ -384,7 +384,6 @@ export class FiltersService {
                     existingOption.count++;
                 } else {
                     // if only 1 filter has any option in checked, then allow him to sitll have other options in AVAILABLE[] AND NOT UNAVAILABLE[]
-                    // conditional binding for correct options[]
                     filtersValues.checkboxFilters[key].options.push({
                         name: String(
                             offer.car[key === 'seats' ? key : key.slice(0, -1)]
@@ -392,8 +391,6 @@ export class FiltersService {
                         id: this.utilityService.generateRandomString(10),
                         count: 1,
                         status: 'checked',
-                        // isChecked:
-                        // this.filtersState.value === null ? true : false,
                     });
                 }
             }
