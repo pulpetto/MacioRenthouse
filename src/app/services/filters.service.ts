@@ -255,31 +255,45 @@ export class FiltersService {
             } = filtersValues.checkboxFilters;
 
             if (
-                // FIX LATER - so that all created offers will have every property in lowercase // remove capitalization here
                 (carBrandOptions.length > 0 &&
-                    !carBrandOptions.some(
-                        (option) =>
-                            option.name ===
-                            this.utilityService.capitalizeEveryWord(
-                                offer.car.carBrand
-                            )
-                    ) &&
-                    !carBrandOptions.some(
-                        (option) =>
-                            option.name === offer.car.carBrand.toLowerCase()
-                    )) ||
+                    !carBrandOptions.some((option) => {
+                        if (option.status === 'checked') {
+                            return (
+                                option.name ===
+                                    offer.car.carBrand.toLowerCase() ||
+                                option.name ===
+                                    this.utilityService.capitalizeEveryWord(
+                                        offer.car.carBrand
+                                    )
+                            );
+                        } else {
+                            return false;
+                        }
+                    })) ||
                 (fuelTypesOptions.length > 0 &&
-                    !fuelTypesOptions.some(
-                        (option) => option.name === offer.car.fuelType
-                    )) ||
+                    !fuelTypesOptions.some((option) => {
+                        if (option.status === 'checked') {
+                            return option.name === offer.car.fuelType;
+                        } else {
+                            return false;
+                        }
+                    })) ||
                 (gearboxTypesOptions.length > 0 &&
-                    !gearboxTypesOptions.some(
-                        (option) => option.name === offer.car.gearboxType
-                    )) ||
+                    !gearboxTypesOptions.some((option) => {
+                        if (option.status === 'checked') {
+                            return option.name === offer.car.gearboxType;
+                        } else {
+                            return false;
+                        }
+                    })) ||
                 (seatsOptions.length > 0 &&
-                    !seatsOptions.some(
-                        (option) => option.name === String(offer.car.seats)
-                    ))
+                    !seatsOptions.some((option) => {
+                        if (option.status === 'checked') {
+                            return option.name === String(offer.car.seats);
+                        } else {
+                            return false;
+                        }
+                    }))
             ) {
                 return false;
             }
