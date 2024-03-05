@@ -377,7 +377,9 @@ export class FiltersService {
                 ].options.find(
                     (option: CheckboxOption) =>
                         option.name ===
-                        offer.car[key === 'seats' ? key : key.slice(0, -1)]
+                        String(
+                            offer.car[key === 'seats' ? key : key.slice(0, -1)]
+                        )
                 );
 
                 if (existingOption) {
