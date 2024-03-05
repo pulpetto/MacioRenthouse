@@ -385,7 +385,6 @@ export class FiltersService {
                 if (existingOption) {
                     existingOption.count++;
                 } else {
-                    // if only 1 filter has any option in checked, then allow him to sitll have other options in AVAILABLE[] AND NOT UNAVAILABLE[]
                     filtersValues.checkboxFilters[key].options.push({
                         name: String(
                             offer.car[key === 'seats' ? key : key.slice(0, -1)]
@@ -402,12 +401,5 @@ export class FiltersService {
     }
 }
 
-// APPROACHES:
 
-// 1
-// Everything goes to checked array, and in checkbox component if checked array is the only one with options, they wont have checkbox checked
 
-// 2
-//
-//     this.checkedOptionsChangeEvent.emit(checkedOptionsCount);
-// }
