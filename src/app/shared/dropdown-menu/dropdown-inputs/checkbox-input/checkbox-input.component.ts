@@ -27,7 +27,7 @@ export class CheckboxInputComponent implements OnInit, OnChanges {
     @Input() isMultiSelect!: boolean;
     // Single-Select
     @Input() singleSelectOptions!: string[];
-    singleSelectOptionsConverted!: { name: string; checked: boolean }[];
+    singleSelectOptionsConverted: { name: string; checked: boolean }[] = [];
     // Multi-Select
     @Input() options!: CheckboxOption[];
     allOptionsLength!: number;
@@ -50,7 +50,7 @@ export class CheckboxInputComponent implements OnInit, OnChanges {
     ) {}
 
     ngOnInit() {
-        if (!this.isMultiSelect)
+        if (!this.isMultiSelect && this.singleSelectOptions)
             this.singleSelectOptions.forEach((option, i) => {
                 this.singleSelectOptionsConverted.push({
                     name: option,
