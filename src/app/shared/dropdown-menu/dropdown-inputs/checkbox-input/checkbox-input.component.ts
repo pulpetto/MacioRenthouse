@@ -103,8 +103,9 @@ export class CheckboxInputComponent implements OnInit, OnChanges {
         option: { name: string; checked: boolean },
         $event: Event
     ) {
-        if (option.checked) $event.preventDefault();
-        if (!option.checked) {
+        if (option.checked === true) {
+            $event.preventDefault();
+        } else {
             this.singleSelectOptionsConverted.forEach(
                 (option) => (option.checked = false)
             );
