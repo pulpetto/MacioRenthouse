@@ -9,21 +9,21 @@ import { CheckboxOption } from '../interfaces/filters/checkbox-option';
     providedIn: 'root',
 })
 export class FiltersService {
-    private filtersState = new BehaviorSubject<FiltersValues | null>(null);
+    private filtersState$ = new BehaviorSubject<FiltersValues | null>(null);
 
     constructor(private utilityService: UtilityService) {}
 
     getFiltersState$(): Observable<FiltersValues | null> {
-        return this.filtersState.asObservable();
+        return this.filtersState$.asObservable();
     }
 
     updateFiltersCheckboxOptions(
         filterName: string,
         newOptions: CheckboxOption[]
     ) {
-        let oldOptions = this.filtersState.value;
+        let oldOptions = this.filtersState$.value;
         oldOptions!.checkboxFilters[filterName].options = newOptions;
-        this.filtersState.next(oldOptions);
+        this.filtersState$.next(oldOptions);
     }
 
     resetFiltersCheckboxOptions(filterName: string) {
@@ -237,7 +237,7 @@ export class FiltersService {
             },
         };
 
-        this.filtersState.next(
+        this.filtersState$.next(
             this.calculateOptionsCount(initialFiltersValues, offers)
         );
 
