@@ -391,7 +391,7 @@ export class FiltersService {
                         ),
                         id: this.utilityService.generateRandomString(10),
                         count: 1,
-                        status: 'checked',
+                        status: 'available',
                     });
                 }
             }
