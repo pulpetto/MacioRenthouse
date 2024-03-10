@@ -240,9 +240,6 @@ export class FiltersService {
         this.filtersState$.next(
             this.calculateOptionsCount(initialFiltersValues, offers)
         );
-
-        // make everything checked here, then in checkbox component just check if everything is checked, if yes then don't show it as checked
-        // if all available options are not checked, make them checked undere the hood
     }
 
     filterOffers(filtersValues: FiltersValues, offers: Offer[]): Offer[] {
