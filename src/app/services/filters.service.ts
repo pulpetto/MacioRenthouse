@@ -247,6 +247,28 @@ export class FiltersService {
 
     filterOffers(filtersValues: FiltersValues, offers: Offer[]): Offer[] {
         offers = offers.filter((offer) => {
+            let allOptionsAvailable: { [key: string]: boolean } = {
+                carBrands: false,
+                fuelTypes: false,
+                gearboxTypes: false,
+                seats: false,
+            };
+
+            for (const [key, value] of Object.entries(
+                filtersValues.checkboxFilters
+            )) {
+                if (
+                    value.options.every(
+                        (option: CheckboxOption) =>
+                            option.status === 'available'
+                    )
+                ) {
+                    allOptionsAvailable[key] = true;
+                } else {
+                    allOptionsAvailable[key] = false;
+                }
+            }
+
             const {
                 carBrands: { options: carBrandOptions },
                 fuelTypes: { options: fuelTypesOptions },
@@ -257,7 +279,11 @@ export class FiltersService {
             if (
                 (carBrandOptions.length > 0 &&
                     !carBrandOptions.some((option) => {
-                        if (option.status === 'checked') {
+                        if (
+                            option.status === 'checked' ||
+                            (allOptionsAvailable['carBrands'] === true &&
+                                option.status === 'available')
+                        ) {
                             return (
                                 option.name ===
                                     offer.car.carBrand.toLowerCase() ||
@@ -272,7 +298,11 @@ export class FiltersService {
                     })) ||
                 (fuelTypesOptions.length > 0 &&
                     !fuelTypesOptions.some((option) => {
-                        if (option.status === 'checked') {
+                        if (
+                            option.status === 'checked' ||
+                            (allOptionsAvailable['fuelTypes'] === true &&
+                                option.status === 'available')
+                        ) {
                             return option.name === offer.car.fuelType;
                         } else {
                             return false;
@@ -280,7 +310,11 @@ export class FiltersService {
                     })) ||
                 (gearboxTypesOptions.length > 0 &&
                     !gearboxTypesOptions.some((option) => {
-                        if (option.status === 'checked') {
+                        if (
+                            option.status === 'checked' ||
+                            (allOptionsAvailable['gearboxTypes'] === true &&
+                                option.status === 'available')
+                        ) {
                             return option.name === offer.car.gearboxType;
                         } else {
                             return false;
@@ -288,7 +322,11 @@ export class FiltersService {
                     })) ||
                 (seatsOptions.length > 0 &&
                     !seatsOptions.some((option) => {
-                        if (option.status === 'checked') {
+                        if (
+                            option.status === 'checked' ||
+                            (allOptionsAvailable['seats'] === true &&
+                                option.status === 'available')
+                        ) {
                             return option.name === String(offer.car.seats);
                         } else {
                             return false;
