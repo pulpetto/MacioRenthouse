@@ -10,6 +10,7 @@ import { CheckboxOption } from '../interfaces/filters/checkbox-option';
 })
 export class FiltersService {
     private filtersState$ = new BehaviorSubject<FiltersValues | null>(null);
+    checkedDropdownsSequence: string[] = [];
 
     constructor(private utilityService: UtilityService) {}
 
@@ -24,6 +25,19 @@ export class FiltersService {
         let oldOptions = this.filtersState$.value;
         oldOptions!.checkboxFilters[filterName].options = newOptions;
         this.filtersState$.next(oldOptions);
+
+        if (
+            this.checkedDropdownsSequence.find(
+                (option) => option === filterName
+            )
+        ) {
+            this.checkedDropdownsSequence =
+                this.checkedDropdownsSequence.filter(
+                    (option) => option !== filterName
+                );
+        } else {
+            this.checkedDropdownsSequence.push(filterName);
+        }
     }
 
     resetFiltersCheckboxOptions(filterName: string) {
