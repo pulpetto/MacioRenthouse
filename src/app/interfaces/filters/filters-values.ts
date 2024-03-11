@@ -5,7 +5,6 @@ export interface FiltersValues {
     checkboxFilters: {
         [key: string]: CheckboxFilter;
         carBrands: CheckboxFilter;
-        // carModels: CheckboxFilter;
         fuelTypes: CheckboxFilter;
         gearboxTypes: CheckboxFilter;
         seats: CheckboxFilter;
