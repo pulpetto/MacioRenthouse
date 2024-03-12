@@ -22,6 +22,8 @@ export class FiltersService {
         filterName: string,
         newOptions: CheckboxOption[]
     ) {
+        if (filterName === 'seatsAmount') filterName = 'seats';
+
         let oldOptions = this.filtersState$.value;
         oldOptions!.checkboxFilters[filterName].options = newOptions;
         this.filtersState$.next(oldOptions);
