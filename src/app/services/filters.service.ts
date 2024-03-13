@@ -33,6 +33,8 @@ export class FiltersService {
                 (option) => option === filterName
             )
         ) {
+            if (newOptions.length !== 0) return;
+
             this.checkedDropdownsSequence =
                 this.checkedDropdownsSequence.filter(
                     (option) => option !== filterName
