@@ -33,7 +33,7 @@ export class CheckboxInputComponent implements OnInit, OnChanges {
     allOptionsLength!: number;
     anyOptionChecked: boolean = false;
     applyButtonAvailable: boolean = true;
-    clearButtonAvailable: boolean = true;
+    clearButtonAvailable: boolean = false;
     searchTerm: string = '';
     @Input() control?: FormControl | undefined;
 
@@ -128,13 +128,15 @@ export class CheckboxInputComponent implements OnInit, OnChanges {
     }
 
     clearAllOptions() {
-        this.filtersService.resetFiltersCheckboxOptions(this.name);
-
-        this.applyButtonAvailable = false;
+        this.applyButtonAvailable = true;
         this.updateAnyOptionsCheckedState();
+        this.options.forEach((option) => {
+            if (option.status !== 'unavailable') option.status = 'available';
+        });
         const checkedOptionsCount: number = this.options.filter(
             (option) => option.status === 'checked'
         ).length;
         this.checkedOptionsChangeEvent.emit(checkedOptionsCount);
+        this.clearButtonAvailable = false;
     }
 }
