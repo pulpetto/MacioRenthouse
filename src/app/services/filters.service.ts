@@ -10,6 +10,7 @@ import { CheckboxOption } from '../interfaces/filters/checkbox-option';
 })
 export class FiltersService {
     private filtersState$ = new BehaviorSubject<FiltersValues | null>(null);
+    baseFiltersState!: FiltersValues;
     checkedDropdownsSequence: string[] = [];
 
     constructor(private utilityService: UtilityService) {}
@@ -255,9 +256,12 @@ export class FiltersService {
             },
         };
 
-        this.filtersState$.next(
-            this.calculateOptionsCount(initialFiltersValues, offers)
+        this.baseFiltersState = this.calculateOptionsCount(
+            initialFiltersValues,
+            offers
         );
+
+        this.filtersState$.next(this.baseFiltersState);
     }
 
     filterOffers(filtersValues: FiltersValues, offers: Offer[]): Offer[] {
