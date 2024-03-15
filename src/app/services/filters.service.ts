@@ -12,6 +12,7 @@ export class FiltersService {
     private filtersState$ = new BehaviorSubject<FiltersValues | null>(null);
     baseFiltersState!: FiltersValues;
     checkedDropdownsSequence: string[] = [];
+    doneCount = 0;
 
     constructor(private utilityService: UtilityService) {}
 
@@ -257,12 +258,13 @@ export class FiltersService {
             },
         };
 
-        this.baseFiltersState = this.calculateOptionsCount(
-            initialFiltersValues,
-            offers
+        this.baseFiltersState = structuredClone(
+            this.calculateOptionsCount(initialFiltersValues, offers)
         );
 
-        this.filtersState$.next(this.baseFiltersState);
+        this.filtersState$.next(
+            this.calculateOptionsCount(initialFiltersValues, offers)
+        );
     }
 
     filterOffers(filtersValues: FiltersValues, offers: Offer[]): Offer[] {
@@ -417,7 +419,27 @@ export class FiltersService {
             return true;
         });
 
-        this.calculateOptionsCount(filtersValues, offers);
+        this.doneCount++;
+
+        if (this.doneCount <= 2) {
+            for (const [key, value] of Object.entries(
+                filtersValues.checkboxFilters
+            )) {
+                value.options.forEach((option) => (option.count = 0));
+            }
+            this.calculateOptionsCount(filtersValues, offers);
+        }
+
+        if (this.doneCount > 2) {
+            for (const [key, value] of Object.entries(
+                filtersValues.checkboxFilters
+            )) {
+                if (key !== this.checkedDropdownsSequence.at(-1))
+                    value.options.forEach((option) => (option.count = 0));
+            }
+
+            this.calculateFiltersStatuses(filtersValues, offers);
+        }
 
         return offers;
     }
@@ -457,7 +479,49 @@ export class FiltersService {
 
         return filtersValues;
     }
+
+    calculateFiltersStatuses(
+        filtersValues: FiltersValues,
+        offers: Offer[]
+    ): FiltersValues {
+        offers.forEach((offer, i) => {
+            for (const [key, value] of Object.entries(
+                filtersValues.checkboxFilters
+            )) {
+                if (key !== this.checkedDropdownsSequence.at(-1)) {
+                    const existingOption = filtersValues.checkboxFilters[
+                        key
+                    ].options.find(
+                        (option: CheckboxOption) =>
+                            option.name ===
+                            String(
+                                offer.car[
+                                    key === 'seats' ? key : key.slice(0, -1)
+                                ]
+                            )
+                    );
+
+                    if (existingOption) {
+                        existingOption.count++;
+                    }
+                }
+
+                if (
+                    key === this.checkedDropdownsSequence[0] &&
+                    this.checkedDropdownsSequence.length === 1
+                ) {
+                    filtersValues.checkboxFilters[key].options.forEach(
+                        (option, i) => {
+                            option.count =
+                                this.baseFiltersState.checkboxFilters[
+                                    key
+                                ].options[i].count;
+                        }
+                    );
+                }
+            }
+        });
+
+        return filtersValues;
+    }
 }
-
-
-
