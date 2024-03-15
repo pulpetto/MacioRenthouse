@@ -31,7 +31,7 @@ export class CheckboxInputComponent implements OnInit, OnChanges {
     // Multi-Select
     @Input() options!: CheckboxOption[];
     anyOptionChecked: boolean = false;
-    applyButtonAvailable: boolean = true;
+    applyButtonAvailable: boolean = false;
     clearButtonAvailable: boolean = false;
     searchTerm: string = '';
     @Input() control?: FormControl | undefined;
