@@ -43,9 +43,9 @@
                         [disabled]="option.status === 'unavailable'"
                         (click)="onMultiSelectOptionClick(option)"
                         (change)="updateAnyOptionsCheckedState()"
-                        class="w-4 h-4 bg-white rounded-md cursor-pointer accent-indigo-600 ring-indigo-600"
+                        [(ngModel)]="option.checked"
+                        class="w-4 h-4 bg-white rounded-md accent-indigo-600 ring-indigo-600"
                     />
-                    <!-- [(ngModel)]="checkedOption.isChecked" -->
                     <div class="select-none">
                         {{ option.name | titlecase }}
                         <span class="font-semibold">
