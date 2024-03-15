@@ -30,7 +30,6 @@ export class CheckboxInputComponent implements OnInit, OnChanges {
     singleSelectOptionsConverted: { name: string; checked: boolean }[] = [];
     // Multi-Select
     @Input() options!: CheckboxOption[];
-    allOptionsLength!: number;
     anyOptionChecked: boolean = false;
     applyButtonAvailable: boolean = true;
     clearButtonAvailable: boolean = false;
