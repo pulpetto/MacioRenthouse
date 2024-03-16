@@ -27,8 +27,8 @@ export class RangeInputComponent implements OnInit, OnChanges {
     @Output() rangeInputValueChangeEvent = new EventEmitter<number>();
     @Output() dropdownCloseEvent = new EventEmitter<void>();
 
-    applyButtonDisabled: boolean = true;
-    clearButtonDisabled: boolean = true;
+    applyButtonAvailable: boolean = true;
+    clearButtonAvailable: boolean = true;
 
     currentNumberInputValue!: string;
     lastlyAppliedNumberInputValue!: string;
@@ -77,9 +77,9 @@ export class RangeInputComponent implements OnInit, OnChanges {
             +this.currentNumberInputValue ===
             +this.lastlyAppliedNumberInputValue
         ) {
-            this.applyButtonDisabled = true;
+            this.applyButtonAvailable = true;
         } else {
-            this.applyButtonDisabled = false;
+            this.applyButtonAvailable = false;
         }
 
         if (
@@ -88,9 +88,9 @@ export class RangeInputComponent implements OnInit, OnChanges {
             (+this.currentNumberInputValue === this.maxVal &&
                 this.minOrMax === 'max')
         ) {
-            this.clearButtonDisabled = true;
+            this.clearButtonAvailable = true;
         } else {
-            this.clearButtonDisabled = false;
+            this.clearButtonAvailable = false;
         }
 
         this.currentRangeInputValue = +this.currentNumberInputValue;
@@ -100,9 +100,9 @@ export class RangeInputComponent implements OnInit, OnChanges {
 
     onRangeInput() {
         if (this.currentRangeInputValue === this.lastlyAppliedRangeInputValue) {
-            this.applyButtonDisabled = true;
+            this.applyButtonAvailable = true;
         } else {
-            this.applyButtonDisabled = false;
+            this.applyButtonAvailable = false;
         }
 
         if (
@@ -111,9 +111,9 @@ export class RangeInputComponent implements OnInit, OnChanges {
             (this.currentRangeInputValue === this.maxVal &&
                 this.minOrMax === 'max')
         ) {
-            this.clearButtonDisabled = true;
+            this.clearButtonAvailable = true;
         } else {
-            this.clearButtonDisabled = false;
+            this.clearButtonAvailable = false;
         }
 
         if (
@@ -158,8 +158,8 @@ export class RangeInputComponent implements OnInit, OnChanges {
         }
 
         this.dropdownCloseEvent.emit();
-        this.applyButtonDisabled = true;
-        this.clearButtonDisabled = true;
+        this.applyButtonAvailable = true;
+        this.clearButtonAvailable = true;
     }
 
     clearInputValues() {
@@ -180,7 +180,7 @@ export class RangeInputComponent implements OnInit, OnChanges {
             }
         }
 
-        this.clearButtonDisabled = true;
+        this.clearButtonAvailable = true;
         this.currentNumberInputValue = '';
 
         if (this.minOrMax === 'max') {
@@ -202,7 +202,7 @@ export class RangeInputComponent implements OnInit, OnChanges {
 
     resetRangeValue() {
         if (this.minOrMax === 'min' || this.minOrMax === 'max') {
-            this.clearButtonDisabled = true;
+            this.clearButtonAvailable = true;
             const value = this.minOrMax === 'min' ? this.minVal : this.maxVal;
             this.currentRangeInputValue = value;
             this.currentNumberInputValue = String(value);

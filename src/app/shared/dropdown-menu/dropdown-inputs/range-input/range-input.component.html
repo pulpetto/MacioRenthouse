@@ -34,10 +34,10 @@
         (click)="applyInputValues()"
         class="w-1/2 py-4 text-lg font-semibold transition-transform duration-300"
         [ngClass]="{
-            'opacity-60': applyButtonDisabled,
-            'hover:scale-105': !applyButtonDisabled,
+            'opacity-60': applyButtonAvailable,
+            'hover:scale-105': !applyButtonAvailable,
         }"
-        [disabled]="applyButtonDisabled"
+        [disabled]="applyButtonAvailable"
     >
         Apply
     </button>
@@ -45,10 +45,10 @@
         (click)="resetRangeValue()"
         class="w-1/2 py-4 text-lg font-semibold transition-transform duration-300"
         [ngClass]="{
-            'opacity-60': clearButtonDisabled,
-            'hover:scale-105': !clearButtonDisabled,
+            'opacity-60': clearButtonAvailable,
+            'hover:scale-105': !clearButtonAvailable,
         }"
-        [disabled]="clearButtonDisabled"
+        [disabled]="clearButtonAvailable"
     >
         Clear
     </button>

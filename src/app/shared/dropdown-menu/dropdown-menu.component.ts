@@ -49,7 +49,7 @@ export class DropdownMenuComponent implements AfterViewInit {
                 this.checkboxInput.applyAllOptions();
             }
 
-            if (this.rangeInput && !this.rangeInput.applyButtonDisabled) {
+            if (this.rangeInput && !this.rangeInput.applyButtonAvailable) {
                 this.rangeInput.applyInputValues();
             }
         }
