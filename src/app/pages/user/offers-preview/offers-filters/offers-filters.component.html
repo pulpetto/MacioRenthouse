@@ -4,11 +4,12 @@
     <div class="grid h-48 grid-cols-5">
         <app-dropdown-menu
             *ngFor="
-                let checkboxDropdown of filtersState.checkboxFilters | keyvalue
+                let checkboxDropdown of filtersState.checkboxFilters | keyvalue;
+                let i = index
             "
             [dropdownName]="checkboxDropdown.value.displayedLabel"
             [dropdownWidth]="62"
-            class="z-50"
+            [ngClass]="'z-' + (4 - Math.floor(i / 5)) * 10"
         >
             <app-checkbox-input
                 [name]="checkboxDropdown.value.name"
@@ -17,9 +18,13 @@
             ></app-checkbox-input>
         </app-dropdown-menu>
         <app-dropdown-menu
-            *ngFor="let rangeDropdown of filtersState.rangeFilters | keyvalue"
+            *ngFor="
+                let rangeDropdown of filtersState.rangeFilters | keyvalue;
+                let i = index
+            "
             [dropdownName]="rangeDropdown.value.staticProperties.displayedLabel"
             [dropdownWidth]="62"
+            [ngClass]="'z-' + (4 - Math.floor((i + 4) / 5)) * 10"
         >
             <app-range-input></app-range-input>
         </app-dropdown-menu>
