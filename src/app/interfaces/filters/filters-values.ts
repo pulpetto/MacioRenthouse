@@ -10,6 +10,8 @@ export interface FiltersValues {
         seats: CheckboxFilter;
     };
     rangeFilters: {
+        [key: string]: RangeFilter;
+
         priceFrom: RangeFilter;
         priceTo: RangeFilter;
 
