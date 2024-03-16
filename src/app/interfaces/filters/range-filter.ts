@@ -7,6 +7,7 @@ export interface RangeFilter {
         mask: 'separator' | '0000';
     };
     dynamicProperties: {
+        [key: string]: number;
         minValue: number;
         maxValue: number;
     };
