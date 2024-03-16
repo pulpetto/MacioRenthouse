@@ -239,7 +239,6 @@ export class OfferCreatorComponent {
                         offerId: offerId,
                         sellerUsername: user.username,
                         unixPublishDate: new Date().valueOf(),
-                        price: +this.offerForm?.get('price')?.value!,
                         offerDescription:
                             this.offerForm?.get('description')?.value!,
                         images: this.imagesUrls,
@@ -249,6 +248,7 @@ export class OfferCreatorComponent {
                             fullCarName: `${carBrand} ${carModel}`,
                             productionYear:
                                 +this.offerForm?.get('productionYear')?.value!,
+                            price: +this.offerForm?.get('price')?.value!,
                             seats: this.offerForm?.get('availableSeats')
                                 ?.value!,
                             gearboxType,

@@ -2,7 +2,6 @@ export interface Offer {
     offerId: string;
     sellerUsername: string;
     unixPublishDate: number;
-    price: number;
     offerDescription: string;
     images: string[];
     car: {
@@ -11,6 +10,7 @@ export interface Offer {
         brandModel: string;
         fullCarName: string;
         productionYear: number;
+        price: number;
         seats: string;
         gearboxType: string;
         fuelType: string;

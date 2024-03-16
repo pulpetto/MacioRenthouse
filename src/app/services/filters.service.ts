@@ -109,10 +109,10 @@ export class FiltersService {
                     },
                     dynamicProperties: {
                         minValue: Math.min(
-                            ...offers.map((offer) => offer.price)
+                            ...offers.map((offer) => offer.car.price)
                         ),
                         maxValue: Math.max(
-                            ...offers.map((offer) => offer.price)
+                            ...offers.map((offer) => offer.car.price)
                         ),
                     },
                 },
@@ -127,10 +127,10 @@ export class FiltersService {
                     },
                     dynamicProperties: {
                         minValue: Math.min(
-                            ...offers.map((offer) => offer.price)
+                            ...offers.map((offer) => offer.car.price)
                         ),
                         maxValue: Math.max(
-                            ...offers.map((offer) => offer.price)
+                            ...offers.map((offer) => offer.car.price)
                         ),
                     },
                 },
@@ -423,8 +423,8 @@ export class FiltersService {
             } = filtersValues.rangeFilters;
 
             if (
-                (priceMinValue > 0 && offer.price < priceMinValue) ||
-                (priceMaxValue > 0 && offer.price > priceMaxValue) ||
+                (priceMinValue > 0 && offer.car.price < priceMinValue) ||
+                (priceMaxValue > 0 && offer.car.price > priceMaxValue) ||
                 (horsePowerMinValue > 0 &&
                     offer.car.horsePower < horsePowerMinValue) ||
                 (horsePowerMaxValue > 0 &&
