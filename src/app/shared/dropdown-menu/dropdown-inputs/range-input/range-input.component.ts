@@ -152,15 +152,11 @@ export class RangeInputComponent implements OnInit, OnChanges {
         this.lastlyAppliedRangeInputValue = +this.currentNumberInputValue;
         this.lastlyAppliedNumberInputValue = this.currentNumberInputValue;
 
-        if (this.connectedToFilter) {
-            const filtersState = this.userService.getCurrentFiltersState();
-            if (filtersState) {
-                filtersState.rangeFilters[this.filterGeneralName][
-                    this.connectedToFilter
-                ] = +this.currentNumberInputValue;
-                this.userService.updateFiltersState(filtersState);
-            }
-        }
+        this.filtersService.updateFiltersRangeOptions(
+            this.generalFilterName,
+            this.minOrMax,
+            +this.currentNumberInputValue
+        );
 
         this.dropdownCloseEvent.emit();
         this.applyButtonAvailable = true;
