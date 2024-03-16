@@ -1,6 +1,7 @@
 export interface RangeFilter {
     staticProperties: {
         name: string;
+        generalName: string;
         displayedLabel: string;
         suffix: string;
         minOrMax: 'min' | 'max';

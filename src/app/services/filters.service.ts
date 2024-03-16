@@ -84,6 +84,7 @@ export class FiltersService {
                 priceFrom: {
                     staticProperties: {
                         name: 'priceFrom',
+                        generalName: 'price',
                         displayedLabel: 'Price From',
                         suffix: 'zł',
                         minOrMax: 'min',
@@ -101,6 +102,7 @@ export class FiltersService {
                 priceTo: {
                     staticProperties: {
                         name: 'priceUpTo',
+                        generalName: 'price',
                         displayedLabel: 'Price Up To',
                         suffix: 'zł',
                         minOrMax: 'max',
@@ -119,6 +121,7 @@ export class FiltersService {
                 horsePowerFrom: {
                     staticProperties: {
                         name: 'horsePowerFrom',
+                        generalName: 'horsePower',
                         displayedLabel: 'HP From',
                         suffix: 'hp',
                         minOrMax: 'min',
@@ -136,6 +139,7 @@ export class FiltersService {
                 horsePowerUpTo: {
                     staticProperties: {
                         name: 'horsePowerUpTo',
+                        generalName: 'horsePower',
                         displayedLabel: 'HP Up To',
                         suffix: 'hp',
                         minOrMax: 'max',
@@ -154,6 +158,7 @@ export class FiltersService {
                 engineSizeFrom: {
                     staticProperties: {
                         name: 'engineSizeFrom',
+                        generalName: 'engineSize',
                         displayedLabel: 'Engine Size From',
                         suffix: 'cm³',
                         minOrMax: 'min',
@@ -171,6 +176,7 @@ export class FiltersService {
                 engineSizeUpTo: {
                     staticProperties: {
                         name: 'engineSizeUpTo',
+                        generalName: 'engineSize',
                         displayedLabel: 'Engine Size Up To',
                         suffix: 'cm³',
                         minOrMax: 'max',
@@ -189,6 +195,7 @@ export class FiltersService {
                 productionYearFrom: {
                     staticProperties: {
                         name: 'productionYearFrom',
+                        generalName: 'productionYear',
                         displayedLabel: 'Year From',
                         suffix: '',
                         minOrMax: 'min',
@@ -206,6 +213,7 @@ export class FiltersService {
                 productionYearUpTo: {
                     staticProperties: {
                         name: 'productionYearUpTo',
+                        generalName: 'productionYear',
                         displayedLabel: 'Year Up To',
                         suffix: '',
                         minOrMax: 'max',
@@ -224,6 +232,7 @@ export class FiltersService {
                 mileageFrom: {
                     staticProperties: {
                         name: 'mileageFrom',
+                        generalName: 'mileage',
                         displayedLabel: 'Mileage From',
                         suffix: 'km',
                         minOrMax: 'min',
@@ -241,6 +250,7 @@ export class FiltersService {
                 mileageUpTo: {
                     staticProperties: {
                         name: 'mileageUpTo',
+                        generalName: 'mileage',
                         displayedLabel: 'Mileage Up To',
                         suffix: 'km',
                         minOrMax: 'max',
