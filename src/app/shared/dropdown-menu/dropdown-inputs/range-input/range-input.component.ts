@@ -116,7 +116,12 @@ export class RangeInputComponent implements OnInit, OnChanges {
             this.clearButtonDisabled = false;
         }
 
-        if (this.minimalValChange) {
+        if (
+            this.filterGeneralName === 'productionYearFrom' ||
+            this.filterGeneralName === 'productionYearUpTo'
+        ) {
+            this.minimalValChange = 1;
+        } else {
             if (this.currentRangeInputValue > 1000000) {
                 this.minimalValChange = 100000;
             } else if (this.currentRangeInputValue > 10000) {
@@ -126,17 +131,16 @@ export class RangeInputComponent implements OnInit, OnChanges {
             } else {
                 this.minimalValChange = 10;
             }
-
-            this.currentNumberInputValue = (
-                Math.round(
-                    this.currentRangeInputValue / this.minimalValChange
-                ) * this.minimalValChange
-            ).toString();
-
-            this.currentRangeInputValue = +this.currentNumberInputValue;
         }
 
-        this.rangeInputValueChangeEvent.emit(+this.currentNumberInputValue);
+        this.currentNumberInputValue = (
+            Math.round(this.currentRangeInputValue / this.minimalValChange) *
+            this.minimalValChange
+        ).toString();
+
+        this.currentRangeInputValue = +this.currentNumberInputValue;
+
+        this.rangeInputValueChangeEvent.emit(this.currentRangeInputValue);
     }
 
     applyInputValues() {
