@@ -8,6 +8,7 @@ import {
     SimpleChanges,
 } from '@angular/core';
 import { RangeFilters } from 'src/app/interfaces/range-filters';
+import { FiltersService } from 'src/app/services/filters.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -36,7 +37,10 @@ export class RangeInputComponent implements OnInit, OnChanges {
     currentRangeInputValue!: number;
     lastlyAppliedRangeInputValue!: number;
 
-    constructor(private userService: UserService) {}
+    constructor(
+        private userService: UserService,
+        private filtersService: FiltersService
+    ) {}
 
     ngOnInit() {
         if (this.minOrMax === 'max') {
