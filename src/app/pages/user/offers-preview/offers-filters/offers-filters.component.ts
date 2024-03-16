@@ -9,6 +9,7 @@ import { FiltersService } from 'src/app/services/filters.service';
     styleUrls: ['./offers-filters.component.css'],
 })
 export class OffersFiltersComponent implements OnInit {
+    Math: Math = Math;
     filtersState$!: Observable<FiltersValues | null>;
 
     constructor(private filtersService: FiltersService) {}
