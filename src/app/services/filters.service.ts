@@ -216,7 +216,7 @@ export class FiltersService {
                         displayedLabel: 'Year From',
                         suffix: '',
                         minOrMax: 'min',
-                        mask: 'separator',
+                        mask: '0000',
                     },
                     dynamicProperties: {
                         minValue: Math.min(
@@ -234,7 +234,7 @@ export class FiltersService {
                         displayedLabel: 'Year Up To',
                         suffix: '',
                         minOrMax: 'max',
-                        mask: 'separator',
+                        mask: '0000',
                     },
                     dynamicProperties: {
                         minValue: Math.min(
