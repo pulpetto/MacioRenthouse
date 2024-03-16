@@ -47,6 +47,23 @@ export class FiltersService {
         }
     }
 
+    updateFiltersRangeOptions(
+        generalfilterName: string,
+        minOrMax: 'min' | 'max',
+        value: number
+    ) {
+        let oldOptions = this.filtersState$.value;
+
+        oldOptions!.rangeFilters[generalfilterName + 'From'].dynamicProperties[
+            minOrMax + 'Value'
+        ] = value;
+        oldOptions!.rangeFilters[generalfilterName + 'UpTo'].dynamicProperties[
+            minOrMax + 'Value'
+        ] = value;
+
+        this.filtersState$.next(oldOptions);
+    }
+
     resetFiltersCheckboxOptions(filterName: string) {
         // calculate which options are available and which are not
         // make checked empty
