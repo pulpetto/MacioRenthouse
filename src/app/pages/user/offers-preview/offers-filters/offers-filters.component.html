@@ -26,7 +26,14 @@
             [dropdownWidth]="62"
             [ngClass]="'z-' + (4 - Math.floor((i + 4) / 5)) * 10"
         >
-            <app-range-input></app-range-input>
+            <app-range-input
+                [minVal]="rangeDropdown.value.dynamicProperties.minValue"
+                [maxVal]="rangeDropdown.value.dynamicProperties.maxValue"
+                [minOrMax]="rangeDropdown.value.staticProperties.minOrMax"
+                [ngxMask]="rangeDropdown.value.staticProperties.mask"
+                [suffix]="rangeDropdown.value.staticProperties.suffix"
+                [filterGeneralName]="rangeDropdown.value.staticProperties.name"
+            ></app-range-input>
         </app-dropdown-menu>
     </div>
 </ng-container>
