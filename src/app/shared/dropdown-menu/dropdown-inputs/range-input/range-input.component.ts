@@ -23,7 +23,8 @@ export class RangeInputComponent implements OnInit, OnChanges {
     @Input() minimalValChange!: number;
     @Input() minOrMax!: 'min' | 'max';
     @Input() ngxMask!: string;
-    @Input() filterGeneralName!: string;
+    @Input() filterName!: string;
+    @Input() generalFilterName!: string;
     @Input() connectedToFilter: RangeFilters | undefined;
     @Output() rangeInputValueChangeEvent = new EventEmitter<number>();
     @Output() dropdownCloseEvent = new EventEmitter<void>();
@@ -121,8 +122,8 @@ export class RangeInputComponent implements OnInit, OnChanges {
         }
 
         if (
-            this.filterGeneralName === 'productionYearFrom' ||
-            this.filterGeneralName === 'productionYearUpTo'
+            this.filterName === 'productionYearFrom' ||
+            this.filterName === 'productionYearUpTo'
         ) {
             this.minimalValChange = 1;
         } else {
