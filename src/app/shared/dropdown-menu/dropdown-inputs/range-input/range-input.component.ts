@@ -29,8 +29,8 @@ export class RangeInputComponent implements OnInit, OnChanges {
     @Output() rangeInputValueChangeEvent = new EventEmitter<number>();
     @Output() dropdownCloseEvent = new EventEmitter<void>();
 
-    applyButtonAvailable: boolean = true;
-    clearButtonAvailable: boolean = true;
+    applyButtonAvailable: boolean = false;
+    clearButtonAvailable: boolean = false;
 
     currentNumberInputValue!: string;
     lastlyAppliedNumberInputValue!: string;
