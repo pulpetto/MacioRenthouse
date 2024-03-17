@@ -2,6 +2,10 @@
     <div
         class="absolute flex flex-col items-center overflow-hidden transition-all duration-300 rounded-md bg-neutral-900 bg-clip-padding backdrop-filter backdrop-blur-3xl bg-opacity-60 hover:shadow-2xl hover:shadow-black"
         [class]="'w-' + dropdownWidth"
+        [ngClass]="{
+            'shadow-2xl': arrowRotated,
+            'shadow-black': arrowRotated,
+        }"
     >
         <button
             type="button"
