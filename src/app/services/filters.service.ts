@@ -12,6 +12,7 @@ export class FiltersService {
     private filtersState$ = new BehaviorSubject<FiltersValues | null>(null);
     baseFiltersState!: FiltersValues;
     checkedDropdownsSequence: string[] = [];
+    rangeDropdownsSequence: string[] = [];
     doneCount = 0;
 
     constructor(private utilityService: UtilityService) {}
@@ -48,11 +49,21 @@ export class FiltersService {
     }
 
     updateFiltersRangeOptions(
+        filterName: string,
         generalfilterName: string,
         minOrMax: 'min' | 'max',
         value: number
     ) {
         let oldOptions = this.filtersState$.value;
+
+        if (
+            !this.rangeDropdownsSequence.find((option) => option === filterName)
+        ) {
+            this.rangeDropdownsSequence.push(filterName);
+            oldOptions!.rangeFilters[
+                filterName
+            ].dynamicProperties.canShowValue = true;
+        }
 
         oldOptions!.rangeFilters[generalfilterName + 'From'].dynamicProperties[
             minOrMax + 'Value'
