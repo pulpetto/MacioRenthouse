@@ -153,6 +153,7 @@ export class RangeInputComponent implements OnInit, OnChanges {
         this.lastlyAppliedNumberInputValue = this.currentNumberInputValue;
 
         this.filtersService.updateFiltersRangeOptions(
+            this.filterName,
             this.generalFilterName,
             this.minOrMax,
             +this.currentNumberInputValue
