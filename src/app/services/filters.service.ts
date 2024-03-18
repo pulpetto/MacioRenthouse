@@ -108,6 +108,7 @@ export class FiltersService {
                         mask: 'separator',
                     },
                     dynamicProperties: {
+                        canShowValue: false,
                         minValue: Math.min(
                             ...offers.map((offer) => offer.car.price)
                         ),
@@ -126,6 +127,7 @@ export class FiltersService {
                         mask: 'separator',
                     },
                     dynamicProperties: {
+                        canShowValue: false,
                         minValue: Math.min(
                             ...offers.map((offer) => offer.car.price)
                         ),
@@ -145,6 +147,7 @@ export class FiltersService {
                         mask: 'separator',
                     },
                     dynamicProperties: {
+                        canShowValue: false,
                         minValue: Math.min(
                             ...offers.map((offer) => offer.car.horsePower)
                         ),
@@ -163,6 +166,7 @@ export class FiltersService {
                         mask: 'separator',
                     },
                     dynamicProperties: {
+                        canShowValue: false,
                         minValue: Math.min(
                             ...offers.map((offer) => offer.car.horsePower)
                         ),
@@ -182,6 +186,7 @@ export class FiltersService {
                         mask: 'separator',
                     },
                     dynamicProperties: {
+                        canShowValue: false,
                         minValue: Math.min(
                             ...offers.map((offer) => offer.car.engineCapacity)
                         ),
@@ -200,6 +205,7 @@ export class FiltersService {
                         mask: 'separator',
                     },
                     dynamicProperties: {
+                        canShowValue: false,
                         minValue: Math.min(
                             ...offers.map((offer) => offer.car.engineCapacity)
                         ),
@@ -219,6 +225,7 @@ export class FiltersService {
                         mask: '0000',
                     },
                     dynamicProperties: {
+                        canShowValue: false,
                         minValue: Math.min(
                             ...offers.map((offer) => offer.car.productionYear)
                         ),
@@ -237,6 +244,7 @@ export class FiltersService {
                         mask: '0000',
                     },
                     dynamicProperties: {
+                        canShowValue: false,
                         minValue: Math.min(
                             ...offers.map((offer) => offer.car.productionYear)
                         ),
@@ -256,6 +264,7 @@ export class FiltersService {
                         mask: 'separator',
                     },
                     dynamicProperties: {
+                        canShowValue: false,
                         minValue: Math.min(
                             ...offers.map((offer) => offer.car.mileage)
                         ),
@@ -274,6 +283,7 @@ export class FiltersService {
                         mask: 'separator',
                     },
                     dynamicProperties: {
+                        canShowValue: false,
                         minValue: Math.min(
                             ...offers.map((offer) => offer.car.mileage)
                         ),

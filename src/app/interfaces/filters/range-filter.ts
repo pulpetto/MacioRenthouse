@@ -8,7 +8,8 @@ export interface RangeFilter {
         mask: 'separator' | '0000';
     };
     dynamicProperties: {
-        [key: string]: number;
+        [key: string]: number | boolean;
+        canShowValue: boolean;
         minValue: number;
         maxValue: number;
     };
