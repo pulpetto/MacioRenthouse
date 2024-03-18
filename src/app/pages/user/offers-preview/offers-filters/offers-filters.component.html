@@ -22,6 +22,7 @@
                 let rangeDropdown of filtersState.rangeFilters | keyvalue;
                 let i = index
             "
+            [canShowValue]="rangeDropdown.value.dynamicProperties.canShowValue"
             [dropdownName]="rangeDropdown.value.staticProperties.displayedLabel"
             [dropdownWidth]="62"
             [ngClass]="'z-' + (4 - Math.floor((i + 4) / 5)) * 10"

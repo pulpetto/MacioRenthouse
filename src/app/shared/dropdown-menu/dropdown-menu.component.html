@@ -37,24 +37,28 @@
 
             <ng-container *ngIf="rangeInput">
                 <div class="flex items-center text-lg font-semibold">
-                    <ng-container *ngIf="rangeInputValue !== undefined">
-                        <ng-container
-                            *ngIf="
-                                !(
-                                    rangeInputType === 'max' &&
-                                    rangeInputValue === maxVal
-                                )
-                            "
-                        >
+                    <ng-container *ngIf="canShowValue">
+                        <ng-container *ngIf="rangeInputValue !== undefined">
                             <ng-container
                                 *ngIf="
                                     !(
-                                        rangeInputType === 'min' &&
-                                        rangeInputValue === minVal
+                                        rangeInputType === 'max' &&
+                                        rangeInputValue === maxVal
                                     )
                                 "
                             >
-                                ({{ rangeInputValue | mask : rangeInputMask }})
+                                <ng-container
+                                    *ngIf="
+                                        !(
+                                            rangeInputType === 'min' &&
+                                            rangeInputValue === minVal
+                                        )
+                                    "
+                                >
+                                    ({{
+                                        rangeInputValue | mask : rangeInputMask
+                                    }})
+                                </ng-container>
                             </ng-container>
                         </ng-container>
                     </ng-container>

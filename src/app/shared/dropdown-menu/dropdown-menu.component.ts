@@ -20,6 +20,7 @@ import { RangeInputComponent } from './dropdown-inputs/range-input/range-input.c
     styleUrls: ['./dropdown-menu.component.css'],
 })
 export class DropdownMenuComponent implements AfterViewInit {
+    @Input() canShowValue: boolean = false;
     @Input() dropdownName!: string;
     @Input() dropdownWidth: number | string = 'full';
     searchTerm: string = '';
