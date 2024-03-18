@@ -33,10 +33,7 @@ export class RangeInputComponent implements OnInit, OnChanges {
     clearButtonAvailable: boolean = false;
 
     currentNumberInputValue!: string;
-    lastlyAppliedNumberInputValue!: string;
-
     currentRangeInputValue!: number;
-    lastlyAppliedRangeInputValue!: number;
 
     constructor(
         private userService: UserService,
@@ -46,14 +43,10 @@ export class RangeInputComponent implements OnInit, OnChanges {
     ngOnInit() {
         if (this.minOrMax === 'max') {
             this.currentRangeInputValue = this.maxVal;
-            this.lastlyAppliedRangeInputValue = this.maxVal;
-            this.lastlyAppliedNumberInputValue = this.maxVal.toString();
         }
 
         if (this.minOrMax === 'min') {
             this.currentRangeInputValue = this.minVal;
-            this.lastlyAppliedRangeInputValue = this.minVal;
-            this.lastlyAppliedNumberInputValue = this.minVal.toString();
         }
     }
 
@@ -79,15 +72,6 @@ export class RangeInputComponent implements OnInit, OnChanges {
 
     onNumberInput() {
         if (
-            +this.currentNumberInputValue ===
-            +this.lastlyAppliedNumberInputValue
-        ) {
-            this.applyButtonAvailable = true;
-        } else {
-            this.applyButtonAvailable = false;
-        }
-
-        if (
             (+this.currentNumberInputValue === this.minVal &&
                 this.minOrMax === 'min') ||
             (+this.currentNumberInputValue === this.maxVal &&
@@ -104,11 +88,7 @@ export class RangeInputComponent implements OnInit, OnChanges {
     }
 
     onRangeInput() {
-        if (this.currentRangeInputValue === this.lastlyAppliedRangeInputValue) {
-            this.applyButtonAvailable = true;
-        } else {
-            this.applyButtonAvailable = false;
-        }
+        this.applyButtonAvailable = true;
 
         if (
             (this.currentRangeInputValue === this.minVal &&
@@ -149,9 +129,6 @@ export class RangeInputComponent implements OnInit, OnChanges {
     }
 
     applyInputValues() {
-        this.lastlyAppliedRangeInputValue = +this.currentNumberInputValue;
-        this.lastlyAppliedNumberInputValue = this.currentNumberInputValue;
-
         this.filtersService.updateFiltersRangeOptions(
             this.filterName,
             this.generalFilterName,
