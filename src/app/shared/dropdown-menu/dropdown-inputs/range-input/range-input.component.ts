@@ -93,9 +93,9 @@ export class RangeInputComponent implements OnInit, OnChanges {
             (+this.currentNumberInputValue === this.maxVal &&
                 this.minOrMax === 'max')
         ) {
-            this.clearButtonAvailable = true;
-        } else {
             this.clearButtonAvailable = false;
+        } else {
+            this.clearButtonAvailable = true;
         }
 
         this.currentRangeInputValue = +this.currentNumberInputValue;
@@ -116,9 +116,9 @@ export class RangeInputComponent implements OnInit, OnChanges {
             (this.currentRangeInputValue === this.maxVal &&
                 this.minOrMax === 'max')
         ) {
-            this.clearButtonAvailable = true;
-        } else {
             this.clearButtonAvailable = false;
+        } else {
+            this.clearButtonAvailable = true;
         }
 
         if (
@@ -160,54 +160,16 @@ export class RangeInputComponent implements OnInit, OnChanges {
         );
 
         this.dropdownCloseEvent.emit();
-        this.applyButtonAvailable = true;
-        this.clearButtonAvailable = true;
-    }
-
-    clearInputValues() {
-        if (this.connectedToFilter) {
-            const filtersState = this.userService.getCurrentFiltersState();
-            if (filtersState) {
-                if (this.minOrMax === 'min')
-                    filtersState.rangeFilters[this.filterGeneralName][
-                        this.connectedToFilter
-                    ] = this.minVal;
-
-                if (this.minOrMax === 'max')
-                    filtersState.rangeFilters[this.filterGeneralName][
-                        this.connectedToFilter
-                    ] = this.maxVal;
-
-                this.userService.updateFiltersState(filtersState);
-            }
-        }
-
-        this.clearButtonAvailable = true;
-        this.currentNumberInputValue = '';
-
-        if (this.minOrMax === 'max') {
-            this.currentRangeInputValue = this.maxVal;
-            this.lastlyAppliedRangeInputValue = this.maxVal;
-            this.lastlyAppliedNumberInputValue = this.maxVal.toString();
-            this.rangeInputValueChangeEvent.emit(this.maxVal);
-            this.applyInputValues();
-        }
-
-        if (this.minOrMax === 'min') {
-            this.currentRangeInputValue = this.minVal;
-            this.lastlyAppliedRangeInputValue = this.minVal;
-            this.lastlyAppliedNumberInputValue = this.minVal.toString();
-            this.rangeInputValueChangeEvent.emit(this.minVal);
-            this.applyInputValues();
-        }
+        this.applyButtonAvailable = false;
+        this.clearButtonAvailable = false;
     }
 
     resetRangeValue() {
         if (this.minOrMax === 'min' || this.minOrMax === 'max') {
-            this.clearButtonAvailable = true;
+            this.clearButtonAvailable = false;
             const value = this.minOrMax === 'min' ? this.minVal : this.maxVal;
             this.currentRangeInputValue = value;
-            this.currentNumberInputValue = String(value);
+            this.currentNumberInputValue = '';
             this.rangeInputValueChangeEvent.emit(value);
         }
     }
