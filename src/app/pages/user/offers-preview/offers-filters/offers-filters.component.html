@@ -3,8 +3,7 @@
 >
     <div class="absolute w-64 -translate-x-full -left-4">
         <div class="flex flex-col gap-2 mb-8">
-            <button
-                type="button"
+            <div
                 *ngFor="
                     let checkboxDropdown of filtersState.checkboxFilters
                         | keyvalue;
@@ -41,7 +40,7 @@
                         ,
                     </div>
                 </button>
-            </button>
+            </div>
         </div>
 
         <div class="flex flex-col gap-2 mb-4">
