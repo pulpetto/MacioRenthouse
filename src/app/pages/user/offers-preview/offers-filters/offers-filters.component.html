@@ -1,6 +1,55 @@
 <ng-container
     *ngIf="filtersState$ | async as filtersState; else filtersLoading"
 >
+    <div class="absolute w-64 -translate-x-full -left-4">
+        <div class="flex flex-col gap-2 mb-8">
+            <button
+                type="button"
+                *ngFor="
+                    let checkboxDropdown of filtersState.checkboxFilters
+                        | keyvalue
+                "
+                class="flex flex-wrap gap-1"
+            >
+                <span class="opacity-60">
+                    {{ checkboxDropdown.value.displayedLabel }}:
+                </span>
+
+                <button
+                    type="button"
+                    *ngFor="
+                        let option of checkboxDropdown.value.options;
+                        let i = index
+                    "
+                    class="flex"
+                >
+                    {{ option.name }}
+                    <div
+                        *ngIf="i !== checkboxDropdown.value.options.length - 1"
+                    >
+                        ,
+                    </div>
+                </button>
+            </button>
+        </div>
+
+        <div class="flex flex-col gap-2 mb-4">
+            <div
+                *ngFor="let rangeFilter of filtersState.rangeFilters | keyvalue"
+            >
+                <button class="mr-1 opacity-60">
+                    {{ rangeFilter.value.staticProperties.displayedLabel }}:
+                </button>
+                <button>
+                    {{ rangeFilter.value.dynamicProperties.minValue }}
+                </button>
+                -
+                <button>
+                    {{ rangeFilter.value.dynamicProperties.maxValue }}
+                </button>
+            </div>
+        </div>
+    </div>
     <div class="grid h-48 grid-cols-5">
         <app-dropdown-menu
             *ngFor="
