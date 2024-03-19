@@ -21,7 +21,10 @@
                         let option of checkboxDropdown.value.options;
                         let i = index
                     "
-                    class="flex"
+                    class="flex transition-colors hover:text-red-600"
+                    [ngClass]="{
+                        'text-red-600': checkboxFiltersHoverStates[higherIndex] === true,
+                    }"
                 >
                     {{ option.name }}
                     <div
@@ -39,38 +42,30 @@
                     let rangeFilter of filtersState.rangeFilters | keyvalue;
                     let i = index
                 "
+                class="flex gap-1"
             >
                 <button
-                    class="mr-1 transition-all opacity-60 hover:text-red-600 hover:opacity-100 group"
+                    class="transition-all opacity-60 hover:text-red-600 hover:opacity-100"
                     (mouseover)="rangeFiltersHoverStates[i] = true"
                     (mouseleave)="rangeFiltersHoverStates[i] = false"
                 >
                     {{ rangeFilter.value.staticProperties.displayedLabel }}:
                 </button>
-                <button
-                    class="transition-colors hover:text-red-600"
+                <div
                     [ngClass]="{
                         'text-red-600': rangeFiltersHoverStates[i] === true,
                     }"
                 >
-                    {{ rangeFilter.value.dynamicProperties.minValue }}
-                </button>
-                <span
-                    class="transition-colors hover:text-red-600"
-                    [ngClass]="{
-                        'text-red-600': rangeFiltersHoverStates[i] === true,
-                    }"
-                >
-                    -
-                </span>
-                <button
-                    class="transition-colors hover:text-red-600"
-                    [ngClass]="{
-                        'text-red-600': rangeFiltersHoverStates[i] === true,
-                    }"
-                >
-                    {{ rangeFilter.value.dynamicProperties.maxValue }}
-                </button>
+                    <button class="transition-colors hover:text-red-600">
+                        {{ rangeFilter.value.dynamicProperties.minValue }}
+                    </button>
+                    <span class="transition-colors hover:text-red-600">
+                        -
+                    </span>
+                    <button class="transition-colors hover:text-red-600">
+                        {{ rangeFilter.value.dynamicProperties.maxValue }}
+                    </button>
+                </div>
             </div>
         </div>
     </div>
