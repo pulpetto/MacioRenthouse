@@ -14,7 +14,7 @@
             >
                 <button
                     type="button"
-                    class="transition-colors opacity-60 hover:text-red-600"
+                    class="transition-all hover:opacity-100 opacity-60 hover:text-red-600"
                     (mouseover)="checkboxFiltersHoverStates[higherIndex] = true"
                     (mouseleave)="
                         checkboxFiltersHoverStates[higherIndex] = false
@@ -34,7 +34,7 @@
                         'text-red-600': checkboxFiltersHoverStates[higherIndex] === true,
                     }"
                 >
-                    {{ option.name }}
+                    {{ option.name | titlecase }}
                     <div
                         *ngIf="i !== checkboxDropdown.value.options.length - 1"
                     >
