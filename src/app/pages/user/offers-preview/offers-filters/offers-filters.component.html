@@ -7,13 +7,21 @@
                 type="button"
                 *ngFor="
                     let checkboxDropdown of filtersState.checkboxFilters
-                        | keyvalue
+                        | keyvalue;
+                    let higherIndex = index
                 "
                 class="flex flex-wrap gap-1"
             >
-                <span class="opacity-60">
+                <button
+                    type="button"
+                    class="transition-colors opacity-60 hover:text-red-600"
+                    (mouseover)="checkboxFiltersHoverStates[higherIndex] = true"
+                    (mouseleave)="
+                        checkboxFiltersHoverStates[higherIndex] = false
+                    "
+                >
                     {{ checkboxDropdown.value.displayedLabel }}:
-                </span>
+                </button>
 
                 <button
                     type="button"
