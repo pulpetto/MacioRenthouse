@@ -10,6 +10,7 @@ import { FiltersService } from 'src/app/services/filters.service';
 })
 export class OffersFiltersComponent implements OnInit {
     Math: Math = Math;
+    rangeFiltersHoverStates: boolean[] = [];
     filtersState$!: Observable<FiltersValues | null>;
 
     constructor(private filtersService: FiltersService) {}

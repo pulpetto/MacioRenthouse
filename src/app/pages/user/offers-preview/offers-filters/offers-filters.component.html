@@ -35,16 +35,40 @@
 
         <div class="flex flex-col gap-2 mb-4">
             <div
-                *ngFor="let rangeFilter of filtersState.rangeFilters | keyvalue"
+                *ngFor="
+                    let rangeFilter of filtersState.rangeFilters | keyvalue;
+                    let i = index
+                "
             >
-                <button class="mr-1 opacity-60">
+                <button
+                    class="mr-1 transition-all opacity-60 hover:text-red-600 hover:opacity-100 group"
+                    (mouseover)="rangeFiltersHoverStates[i] = true"
+                    (mouseleave)="rangeFiltersHoverStates[i] = false"
+                >
                     {{ rangeFilter.value.staticProperties.displayedLabel }}:
                 </button>
-                <button>
+                <button
+                    class="transition-colors hover:text-red-600"
+                    [ngClass]="{
+                        'text-red-600': rangeFiltersHoverStates[i] === true,
+                    }"
+                >
                     {{ rangeFilter.value.dynamicProperties.minValue }}
                 </button>
-                -
-                <button>
+                <span
+                    class="transition-colors hover:text-red-600"
+                    [ngClass]="{
+                        'text-red-600': rangeFiltersHoverStates[i] === true,
+                    }"
+                >
+                    -
+                </span>
+                <button
+                    class="transition-colors hover:text-red-600"
+                    [ngClass]="{
+                        'text-red-600': rangeFiltersHoverStates[i] === true,
+                    }"
+                >
                     {{ rangeFilter.value.dynamicProperties.maxValue }}
                 </button>
             </div>
