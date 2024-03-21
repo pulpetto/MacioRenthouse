@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { FiltersValues } from 'src/app/interfaces/filters/filters-values';
 import { FiltersService } from 'src/app/services/filters.service';
 
@@ -18,5 +18,18 @@ export class OffersFiltersComponent implements OnInit {
 
     ngOnInit() {
         this.filtersState$ = this.filtersService.getFiltersState$();
+    }
+
+    hasCheckedOption(accessKey: string): Observable<boolean> {
+        if (accessKey === 'seatsAmount') accessKey = 'seats';
+
+        return this.filtersState$.pipe(
+            map(
+                (filters) =>
+                    !!filters?.checkboxFilters[accessKey].options.find(
+                        (option) => option.status === 'checked'
+                    )
+            )
+        );
     }
 }
