@@ -11,35 +11,54 @@
                 "
                 class="flex flex-wrap gap-1"
             >
-                <button
-                    type="button"
-                    class="transition-all hover:opacity-100 opacity-60 hover:text-red-600"
-                    (mouseover)="checkboxFiltersHoverStates[higherIndex] = true"
-                    (mouseleave)="
-                        checkboxFiltersHoverStates[higherIndex] = false
+                <ng-container
+                    *ngIf="
+                        hasCheckedOption(checkboxDropdown.value.name) | async
                     "
                 >
-                    {{ checkboxDropdown.value.displayedLabel }}:
-                </button>
+                    <button
+                        type="button"
+                        class="transition-all hover:opacity-100 opacity-60 hover:text-red-600"
+                        (mouseover)="
+                            checkboxFiltersHoverStates[higherIndex] = true
+                        "
+                        (mouseleave)="
+                            checkboxFiltersHoverStates[higherIndex] = false
+                        "
+                        (click)="
+                            clearCheckboxFilterOptions(
+                                checkboxDropdown.value.name
+                            );
+                            checkboxFiltersHoverStates[higherIndex] = false
+                        "
+                    >
+                        {{ checkboxDropdown.value.displayedLabel }}:
+                    </button>
 
-                <button
-                    type="button"
-                    *ngFor="
-                        let option of checkboxDropdown.value.options;
-                        let i = index
-                    "
-                    class="flex transition-colors hover:text-red-600"
-                    [ngClass]="{
+                    <button
+                        type="button"
+                        *ngFor="
+                            let option of checkboxDropdown.value.options;
+                            let i = index
+                        "
+                        class="flex transition-colors hover:text-red-600"
+                        [ngClass]="{
                         'text-red-600': checkboxFiltersHoverStates[higherIndex] === true,
                     }"
-                >
-                    {{ option.name | titlecase }}
-                    <div
-                        *ngIf="i !== checkboxDropdown.value.options.length - 1"
                     >
-                        ,
-                    </div>
-                </button>
+                        <ng-container *ngIf="option.status === 'checked'">
+                            {{ option.name | titlecase }}
+                            <div
+                                *ngIf="
+                                    i !==
+                                    checkboxDropdown.value.options.length - 1
+                                "
+                            >
+                                ,
+                            </div>
+                        </ng-container>
+                    </button>
+                </ng-container>
             </div>
         </div>
 
