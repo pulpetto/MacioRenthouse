@@ -32,4 +32,12 @@ export class OffersFiltersComponent implements OnInit {
             )
         );
     }
+
+    clearAllCheckboxFilterOptions(filterName: string) {
+        this.filtersService.clearAllCheckboxFilterOptions(filterName);
+    }
+
+    clearSingleCheckboxFilterOption(filterName: string, index: number) {
+        this.filtersService.clearSingleCheckboxFilterOption(filterName, index);
+    }
 }

@@ -75,9 +75,23 @@ export class FiltersService {
         this.filtersState$.next(oldOptions);
     }
 
-    resetFiltersCheckboxOptions(filterName: string) {
-        // calculate which options are available and which are not
-        // make checked empty
+    clearAllCheckboxFilterOptions(filterName: string) {
+        let oldOptions = this.filtersState$.value;
+
+        oldOptions?.checkboxFilters[filterName].options.forEach((option) => {
+            if (option.status === 'checked') option.status = 'available';
+        });
+
+        this.filtersState$.next(oldOptions);
+    }
+
+    clearSingleCheckboxFilterOption(filterName: string, index: number) {
+        let oldOptions = this.filtersState$.value;
+
+        oldOptions!.checkboxFilters[filterName].options.at(index)!.status =
+            'available';
+
+        this.filtersState$.next(oldOptions);
     }
 
     assignInitialValues(offers: Offer[]) {
