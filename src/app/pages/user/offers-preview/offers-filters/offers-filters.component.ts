@@ -13,11 +13,13 @@ export class OffersFiltersComponent implements OnInit {
     checkboxFiltersHoverStates: boolean[] = [];
     rangeFiltersHoverStates: boolean[] = [];
     filtersState$!: Observable<FiltersValues | null>;
+    baseFiltersState$!: Observable<FiltersValues | null>;
 
     constructor(private filtersService: FiltersService) {}
 
     ngOnInit() {
         this.filtersState$ = this.filtersService.getFiltersState$();
+        this.baseFiltersState$ = this.filtersService.getBaseFiltersState$();
     }
 
     hasCheckedOption(accessKey: string): Observable<boolean> {
