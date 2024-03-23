@@ -1,152 +1,198 @@
 <ng-container
-    *ngIf="filtersState$ | async as filtersState; else filtersLoading"
+    *ngIf="baseFiltersState$ | async as baseFiltersState; else filtersLoading"
 >
-    <div class="absolute flex flex-col w-64 gap-8 -translate-x-full -left-4">
-        <div class="flex flex-col gap-2">
-            <ng-container
+    <ng-container
+        *ngIf="filtersState$ | async as filtersState; else filtersLoading"
+    >
+        <div
+            class="absolute flex flex-col w-64 gap-8 -translate-x-full -left-4"
+        >
+            <div class="flex flex-col gap-2">
+                <ng-container
+                    *ngFor="
+                        let checkboxDropdown of filtersState.checkboxFilters
+                            | keyvalue;
+                        let higherIndex = index
+                    "
+                >
+                    <ng-container
+                        *ngIf="
+                            hasCheckedOption(checkboxDropdown.value.name)
+                                | async
+                        "
+                    >
+                        <div class="flex flex-wrap gap-1">
+                            <button
+                                type="button"
+                                class="transition-all hover:opacity-100 opacity-60 hover:text-red-600"
+                                (mouseover)="
+                                    checkboxFiltersHoverStates[
+                                        higherIndex
+                                    ] = true
+                                "
+                                (mouseleave)="
+                                    checkboxFiltersHoverStates[
+                                        higherIndex
+                                    ] = false
+                                "
+                                (click)="
+                                    clearAllCheckboxFilterOptions(
+                                        checkboxDropdown.value.name
+                                    );
+                                    checkboxFiltersHoverStates[
+                                        higherIndex
+                                    ] = false
+                                "
+                            >
+                                {{ checkboxDropdown.value.displayedLabel }}:
+                            </button>
+
+                            <ng-container
+                                *ngFor="
+                                    let option of checkboxDropdown.value
+                                        .options;
+                                    let i = index
+                                "
+                            >
+                                <ng-container
+                                    *ngIf="option.status === 'checked'"
+                                >
+                                    <button
+                                        type="button"
+                                        (click)="
+                                            clearSingleCheckboxFilterOption(
+                                                checkboxDropdown.value.name,
+                                                i
+                                            )
+                                        "
+                                        class="flex transition-colors hover:text-red-600"
+                                        [ngClass]="{
+                                        'text-red-600': checkboxFiltersHoverStates[higherIndex] === true,
+                                    }"
+                                    >
+                                        {{ option.name | titlecase }}
+                                        <div
+                                            *ngIf="
+                                                i !==
+                                                checkboxDropdown.value.options
+                                                    .length -
+                                                    1
+                                            "
+                                        >
+                                            ,
+                                        </div>
+                                    </button>
+                                </ng-container>
+                            </ng-container>
+                        </div>
+                    </ng-container>
+                </ng-container>
+            </div>
+
+            <div class="flex flex-col gap-2 mb-4">
+                <ng-container
+                    *ngFor="
+                        let rangeFilter of filtersState.rangeFilters | keyvalue;
+                        let i = index
+                    "
+                >
+                    <ng-container>
+                        <div class="flex gap-1">
+                            <button
+                                class="transition-all opacity-60 hover:text-red-600 hover:opacity-100"
+                                (mouseover)="rangeFiltersHoverStates[i] = true"
+                                (mouseleave)="
+                                    rangeFiltersHoverStates[i] = false
+                                "
+                            >
+                                {{
+                                    rangeFilter.value.staticProperties
+                                        .displayedLabel
+                                }}:
+                            </button>
+                            <div
+                                [ngClass]="{
+                        'text-red-600': rangeFiltersHoverStates[i] === true,
+                    }"
+                            >
+                                <button
+                                    class="transition-colors hover:text-red-600"
+                                >
+                                    {{
+                                        rangeFilter.value.dynamicProperties
+                                            .minValue
+                                    }}
+                                </button>
+                                <span
+                                    class="transition-colors hover:text-red-600"
+                                >
+                                    -
+                                </span>
+                                <button
+                                    class="transition-colors hover:text-red-600"
+                                >
+                                    {{
+                                        rangeFilter.value.dynamicProperties
+                                            .maxValue
+                                    }}
+                                </button>
+                            </div>
+                        </div>
+                    </ng-container>
+                </ng-container>
+            </div>
+        </div>
+        <div class="grid h-48 grid-cols-5">
+            <app-dropdown-menu
                 *ngFor="
                     let checkboxDropdown of filtersState.checkboxFilters
                         | keyvalue;
-                    let higherIndex = index
-                "
-            >
-                <ng-container
-                    *ngIf="
-                        hasCheckedOption(checkboxDropdown.value.name) | async
-                    "
-                >
-                    <div class="flex flex-wrap gap-1">
-                        <button
-                            type="button"
-                            class="transition-all hover:opacity-100 opacity-60 hover:text-red-600"
-                            (mouseover)="
-                                checkboxFiltersHoverStates[higherIndex] = true
-                            "
-                            (mouseleave)="
-                                checkboxFiltersHoverStates[higherIndex] = false
-                            "
-                            (click)="
-                                clearAllCheckboxFilterOptions(
-                                    checkboxDropdown.value.name
-                                );
-                                checkboxFiltersHoverStates[higherIndex] = false
-                            "
-                        >
-                            {{ checkboxDropdown.value.displayedLabel }}:
-                        </button>
-
-                        <ng-container
-                            *ngFor="
-                                let option of checkboxDropdown.value.options;
-                                let i = index
-                            "
-                        >
-                            <ng-container *ngIf="option.status === 'checked'">
-                                <button
-                                    type="button"
-                                    (click)="
-                                        clearSingleCheckboxFilterOption(
-                                            checkboxDropdown.value.name,
-                                            i
-                                        )
-                                    "
-                                    class="flex transition-colors hover:text-red-600"
-                                    [ngClass]="{
-                                        'text-red-600': checkboxFiltersHoverStates[higherIndex] === true,
-                                    }"
-                                >
-                                    {{ option.name | titlecase }}
-                                    <div
-                                        *ngIf="
-                                            i !==
-                                            checkboxDropdown.value.options
-                                                .length -
-                                                1
-                                        "
-                                    >
-                                        ,
-                                    </div>
-                                </button>
-                            </ng-container>
-                        </ng-container>
-                    </div>
-                </ng-container>
-            </ng-container>
-        </div>
-
-        <div class="flex flex-col gap-2 mb-4">
-            <div
-                *ngFor="
-                    let rangeFilter of filtersState.rangeFilters | keyvalue;
                     let i = index
                 "
-                class="flex gap-1"
+                [dropdownName]="checkboxDropdown.value.displayedLabel"
+                [dropdownWidth]="62"
+                [ngClass]="'z-' + (4 - Math.floor(i / 5)) * 10"
             >
-                <button
-                    class="transition-all opacity-60 hover:text-red-600 hover:opacity-100"
-                    (mouseover)="rangeFiltersHoverStates[i] = true"
-                    (mouseleave)="rangeFiltersHoverStates[i] = false"
-                >
-                    {{ rangeFilter.value.staticProperties.displayedLabel }}:
-                </button>
-                <div
-                    [ngClass]="{
-                        'text-red-600': rangeFiltersHoverStates[i] === true,
-                    }"
-                >
-                    <button class="transition-colors hover:text-red-600">
-                        {{ rangeFilter.value.dynamicProperties.minValue }}
-                    </button>
-                    <span class="transition-colors hover:text-red-600">
-                        -
-                    </span>
-                    <button class="transition-colors hover:text-red-600">
-                        {{ rangeFilter.value.dynamicProperties.maxValue }}
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="grid h-48 grid-cols-5">
-        <app-dropdown-menu
-            *ngFor="
-                let checkboxDropdown of filtersState.checkboxFilters | keyvalue;
-                let i = index
-            "
-            [dropdownName]="checkboxDropdown.value.displayedLabel"
-            [dropdownWidth]="62"
-            [ngClass]="'z-' + (4 - Math.floor(i / 5)) * 10"
-        >
-            <app-checkbox-input
-                [name]="checkboxDropdown.value.name"
-                [isMultiSelect]="checkboxDropdown.value.isMultiSelect"
-                [options]="checkboxDropdown.value.options"
-            ></app-checkbox-input>
-        </app-dropdown-menu>
-        <app-dropdown-menu
-            *ngFor="
-                let rangeDropdown of filtersState.rangeFilters | keyvalue;
-                let i = index
-            "
-            [canShowValue]="rangeDropdown.value.dynamicProperties.canShowValue"
-            [dropdownName]="rangeDropdown.value.staticProperties.displayedLabel"
-            [dropdownWidth]="62"
-            [ngClass]="'z-' + (4 - Math.floor((i + 4) / 5)) * 10"
-        >
-            <app-range-input
-                [minVal]="rangeDropdown.value.dynamicProperties.minValue"
-                [maxVal]="rangeDropdown.value.dynamicProperties.maxValue"
-                [minOrMax]="rangeDropdown.value.staticProperties.minOrMax"
-                [ngxMask]="rangeDropdown.value.staticProperties.mask"
-                [suffix]="rangeDropdown.value.staticProperties.suffix"
-                [filterName]="rangeDropdown.value.staticProperties.name"
-                [generalFilterName]="
-                    rangeDropdown.value.staticProperties.generalName
+                <app-checkbox-input
+                    [name]="checkboxDropdown.value.name"
+                    [isMultiSelect]="checkboxDropdown.value.isMultiSelect"
+                    [options]="checkboxDropdown.value.options"
+                ></app-checkbox-input>
+            </app-dropdown-menu>
+            <app-dropdown-menu
+                *ngFor="
+                    let rangeDropdown of filtersState.rangeFilters | keyvalue;
+                    let i = index
                 "
-            ></app-range-input>
-        </app-dropdown-menu>
-    </div>
+                [canShowValue]="
+                    rangeDropdown.value.dynamicProperties.canShowValue
+                "
+                [dropdownName]="
+                    rangeDropdown.value.staticProperties.displayedLabel
+                "
+                [dropdownWidth]="62"
+                [ngClass]="'z-' + (4 - Math.floor((i + 4) / 5)) * 10"
+            >
+                <app-range-input
+                    *ngIf="
+                        rangeDropdown.value.staticProperties.generalName !==
+                        'price'
+                    "
+                    [minVal]="rangeDropdown.value.dynamicProperties.minValue"
+                    [maxVal]="rangeDropdown.value.dynamicProperties.maxValue"
+                    [minOrMax]="rangeDropdown.value.staticProperties.minOrMax"
+                    [ngxMask]="rangeDropdown.value.staticProperties.mask"
+                    [suffix]="rangeDropdown.value.staticProperties.suffix"
+                    [filterName]="rangeDropdown.value.staticProperties.name"
+                    [generalFilterName]="
+                        rangeDropdown.value.staticProperties.generalName
+                    "
+                ></app-range-input>
+            </app-dropdown-menu>
+        </div>
+    </ng-container>
 </ng-container>
+
 <ng-template #filtersLoading>
     <div class="grid h-32 grid-cols-5">
         <div
