@@ -46,4 +46,12 @@ export class OffersFiltersComponent implements OnInit {
     clearAllRangeFilterValues(generalFilterName: string) {
         this.filtersService.clearAllRangeFilterValues(generalFilterName);
     }
+
+    clearMinRangeFilterValue(generalFilterName: string) {
+        this.filtersService.clearMinRangeFilterValue(generalFilterName);
+    }
+
+    clearMaxRangeFilterValue(generalFilterName: string) {
+        this.filtersService.clearMaxRangeFilterValue(generalFilterName);
+    }
 }

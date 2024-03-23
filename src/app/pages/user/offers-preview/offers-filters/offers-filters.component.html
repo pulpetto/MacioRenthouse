@@ -137,6 +137,13 @@
                                     }"
                                 >
                                     <button
+                                        (click)="
+                                            clearMinRangeFilterValue(
+                                                rangeFilter.value
+                                                    .staticProperties
+                                                    .generalName
+                                            )
+                                        "
                                         class="transition-colors hover:text-red-600"
                                     >
                                         {{
@@ -150,6 +157,13 @@
                                         -
                                     </span>
                                     <button
+                                        (click)="
+                                            clearMaxRangeFilterValue(
+                                                rangeFilter.value
+                                                    .staticProperties
+                                                    .generalName
+                                            )
+                                        "
                                         class="transition-colors hover:text-red-600"
                                     >
                                         {{
