@@ -99,6 +99,40 @@ export class FiltersService {
         this.filtersState$.next(oldOptions);
     }
 
+    clearAllRangeFilterValues(generalFilterName: string) {
+        let oldOptions = this.filtersState$.value;
+
+        oldOptions!.rangeFilters[
+            generalFilterName + 'From'
+        ].dynamicProperties.minValue =
+            this.baseFiltersState.rangeFilters[
+                generalFilterName + 'From'
+            ].dynamicProperties.minValue;
+
+        oldOptions!.rangeFilters[
+            generalFilterName + 'From'
+        ].dynamicProperties.maxValue =
+            this.baseFiltersState.rangeFilters[
+                generalFilterName + 'From'
+            ].dynamicProperties.maxValue;
+
+        oldOptions!.rangeFilters[
+            generalFilterName + 'UpTo'
+        ].dynamicProperties.minValue =
+            this.baseFiltersState.rangeFilters[
+                generalFilterName + 'UpTo'
+            ].dynamicProperties.minValue;
+
+        oldOptions!.rangeFilters[
+            generalFilterName + 'UpTo'
+        ].dynamicProperties.maxValue =
+            this.baseFiltersState.rangeFilters[
+                generalFilterName + 'UpTo'
+            ].dynamicProperties.maxValue;
+
+        this.filtersState$.next(oldOptions);
+    }
+
     assignInitialValues(offers: Offer[]) {
         const initialFiltersValues: FiltersValues = {
             checkboxFilters: {

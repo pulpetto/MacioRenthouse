@@ -42,4 +42,8 @@ export class OffersFiltersComponent implements OnInit {
     clearSingleCheckboxFilterOption(filterName: string, index: number) {
         this.filtersService.clearSingleCheckboxFilterOption(filterName, index);
     }
+
+    clearAllRangeFilterValues(generalFilterName: string) {
+        this.filtersService.clearAllRangeFilterValues(generalFilterName);
+    }
 }

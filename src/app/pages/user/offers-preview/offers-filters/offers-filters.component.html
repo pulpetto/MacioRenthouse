@@ -118,6 +118,12 @@
                                     (mouseleave)="
                                         rangeFiltersHoverStates[i] = false
                                     "
+                                    (click)="
+                                        clearAllRangeFilterValues(
+                                            rangeFilter.value.staticProperties
+                                                .generalName
+                                        )
+                                    "
                                 >
                                     {{
                                         rangeFilter.value.staticProperties
