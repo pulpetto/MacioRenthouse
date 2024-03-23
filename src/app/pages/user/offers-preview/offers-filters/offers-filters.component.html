@@ -96,48 +96,64 @@
                         let i = index
                     "
                 >
-                    <ng-container>
-                        <div class="flex gap-1">
-                            <button
-                                class="transition-all opacity-60 hover:text-red-600 hover:opacity-100"
-                                (mouseover)="rangeFiltersHoverStates[i] = true"
-                                (mouseleave)="
-                                    rangeFiltersHoverStates[i] = false
-                                "
-                            >
-                                {{
-                                    rangeFilter.value.staticProperties
-                                        .displayedLabel
-                                }}:
-                            </button>
-                            <div
-                                [ngClass]="{
-                        'text-red-600': rangeFiltersHoverStates[i] === true,
-                    }"
-                            >
+                    <ng-container *ngIf="i % 2 === 0">
+                        <ng-container
+                            *ngIf="
+                                rangeFilter.value.dynamicProperties.minValue !==
+                                    baseFiltersState.rangeFilters[
+                                        rangeFilter.key
+                                    ].dynamicProperties.minValue ||
+                                rangeFilter.value.dynamicProperties.maxValue !==
+                                    baseFiltersState.rangeFilters[
+                                        rangeFilter.key
+                                    ].dynamicProperties.maxValue
+                            "
+                        >
+                            <div class="flex gap-1">
                                 <button
-                                    class="transition-colors hover:text-red-600"
+                                    class="transition-all opacity-60 hover:text-red-600 hover:opacity-100"
+                                    (mouseover)="
+                                        rangeFiltersHoverStates[i] = true
+                                    "
+                                    (mouseleave)="
+                                        rangeFiltersHoverStates[i] = false
+                                    "
                                 >
                                     {{
-                                        rangeFilter.value.dynamicProperties
-                                            .minValue
-                                    }}
+                                        rangeFilter.value.staticProperties
+                                            .generalName
+                                            | camelcaseToNormalCapitalized
+                                    }}:
                                 </button>
-                                <span
-                                    class="transition-colors hover:text-red-600"
+                                <div
+                                    [ngClass]="{
+                                        'text-red-600': rangeFiltersHoverStates[i] === true,
+                                    }"
                                 >
-                                    -
-                                </span>
-                                <button
-                                    class="transition-colors hover:text-red-600"
-                                >
-                                    {{
-                                        rangeFilter.value.dynamicProperties
-                                            .maxValue
-                                    }}
-                                </button>
+                                    <button
+                                        class="transition-colors hover:text-red-600"
+                                    >
+                                        {{
+                                            rangeFilter.value.dynamicProperties
+                                                .minValue
+                                        }}
+                                    </button>
+                                    <span
+                                        class="transition-colors hover:text-red-600"
+                                    >
+                                        -
+                                    </span>
+                                    <button
+                                        class="transition-colors hover:text-red-600"
+                                    >
+                                        {{
+                                            rangeFilter.value.dynamicProperties
+                                                .maxValue
+                                        }}
+                                    </button>
+                                </div>
                             </div>
-                        </div>
+                        </ng-container>
                     </ng-container>
                 </ng-container>
             </div>
