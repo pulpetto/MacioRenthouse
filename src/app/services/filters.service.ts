@@ -10,6 +10,7 @@ import { CheckboxOption } from '../interfaces/filters/checkbox-option';
 })
 export class FiltersService {
     private filtersState$ = new BehaviorSubject<FiltersValues | null>(null);
+    private baseFiltersState$ = new BehaviorSubject<FiltersValues | null>(null);
     baseFiltersState!: FiltersValues;
     checkedDropdownsSequence: string[] = [];
     rangeDropdownsSequence: string[] = [];
@@ -19,6 +20,10 @@ export class FiltersService {
 
     getFiltersState$(): Observable<FiltersValues | null> {
         return this.filtersState$.asObservable();
+    }
+
+    getBaseFiltersState$(): Observable<FiltersValues | null> {
+        return this.baseFiltersState$.asObservable();
     }
 
     updateFiltersCheckboxOptions(
@@ -323,6 +328,7 @@ export class FiltersService {
         this.baseFiltersState = structuredClone(
             this.calculateOptionsCount(initialFiltersValues, offers)
         );
+        this.baseFiltersState$.next(this.baseFiltersState);
 
         this.filtersState$.next(
             this.calculateOptionsCount(initialFiltersValues, offers)
