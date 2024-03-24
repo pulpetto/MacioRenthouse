@@ -99,14 +99,18 @@
                     <ng-container *ngIf="i % 2 === 0">
                         <ng-container
                             *ngIf="
-                                rangeFilter.value.dynamicProperties.minValue !==
+                                (rangeFilter.value.dynamicProperties
+                                    .minValue !==
                                     baseFiltersState.rangeFilters[
                                         rangeFilter.key
                                     ].dynamicProperties.minValue ||
-                                rangeFilter.value.dynamicProperties.maxValue !==
-                                    baseFiltersState.rangeFilters[
-                                        rangeFilter.key
-                                    ].dynamicProperties.maxValue
+                                    rangeFilter.value.dynamicProperties
+                                        .maxValue !==
+                                        baseFiltersState.rangeFilters[
+                                            rangeFilter.key
+                                        ].dynamicProperties.maxValue) &&
+                                rangeFilter.value.dynamicProperties
+                                    .canShowValue === true
                             "
                         >
                             <div class="flex gap-1">
