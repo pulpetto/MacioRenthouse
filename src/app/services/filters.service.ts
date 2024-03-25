@@ -221,7 +221,7 @@ export class FiltersService {
                         ),
                     },
                 },
-                priceTo: {
+                priceUpTo: {
                     staticProperties: {
                         name: 'priceUpTo',
                         generalName: 'price',
@@ -504,7 +504,7 @@ export class FiltersService {
                 priceFrom: {
                     dynamicProperties: { minValue: priceMinValue },
                 },
-                priceTo: {
+                priceUpTo: {
                     dynamicProperties: { maxValue: priceMaxValue },
                 },
 

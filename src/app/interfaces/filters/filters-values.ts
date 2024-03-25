@@ -13,7 +13,7 @@ export interface FiltersValues {
         [key: string]: RangeFilter;
 
         priceFrom: RangeFilter;
-        priceTo: RangeFilter;
+        priceUpTo: RangeFilter;
 
         horsePowerFrom: RangeFilter;
         horsePowerUpTo: RangeFilter;
