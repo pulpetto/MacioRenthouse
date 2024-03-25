@@ -109,8 +109,14 @@
                                         baseFiltersState.rangeFilters[
                                             rangeFilter.key
                                         ].dynamicProperties.maxValue) &&
-                                rangeFilter.value.dynamicProperties
-                                    .canShowValue === true
+                                (filtersState.rangeFilters[
+                                    rangeFilter.value.staticProperties
+                                        .generalName + 'From'
+                                ].dynamicProperties.canShowValue === true ||
+                                    filtersState.rangeFilters[
+                                        rangeFilter.value.staticProperties
+                                            .generalName + 'UpTo'
+                                    ].dynamicProperties.canShowValue === true)
                             "
                         >
                             <div class="flex gap-1">

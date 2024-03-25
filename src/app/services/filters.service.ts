@@ -440,6 +440,38 @@ export class FiltersService {
                 seats: { options: seatsOptions },
             } = filtersValues.checkboxFilters;
 
+            for (const [key, value] of Object.entries(
+                filtersValues.rangeFilters
+            )) {
+                if (
+                    this.rangeDropdownsSequence.find(
+                        (dropdownName) => dropdownName === key
+                    )
+                ) {
+                    if (value.staticProperties.minOrMax === 'min')
+                        value.dynamicProperties.maxValue =
+                            this.baseFiltersState.rangeFilters[
+                                key
+                            ].dynamicProperties.maxValue;
+
+                    if (value.staticProperties.minOrMax === 'max')
+                        value.dynamicProperties.minValue =
+                            this.baseFiltersState.rangeFilters[
+                                key
+                            ].dynamicProperties.minValue;
+                } else {
+                    value.dynamicProperties.minValue =
+                        this.baseFiltersState.rangeFilters[
+                            key
+                        ].dynamicProperties.minValue;
+
+                    value.dynamicProperties.maxValue =
+                        this.baseFiltersState.rangeFilters[
+                            key
+                        ].dynamicProperties.maxValue;
+                }
+            }
+
             if (
                 (carBrandOptions.length > 0 &&
                     !carBrandOptions.some((option) => {
@@ -664,6 +696,20 @@ export class FiltersService {
                 }
             }
         });
+
+        for (const [key, value] of Object.entries(filtersValues.rangeFilters)) {
+            let carPropertyAccessKey = value.staticProperties.generalName;
+            if (carPropertyAccessKey === 'engineSize')
+                carPropertyAccessKey = 'engineCapacity';
+
+            value.dynamicProperties.minValue = Math.min(
+                ...offers.map((offer) => +offer.car[carPropertyAccessKey])
+            );
+
+            value.dynamicProperties.maxValue = Math.max(
+                ...offers.map((offer) => +offer.car[carPropertyAccessKey])
+            );
+        }
 
         return filtersValues;
     }
