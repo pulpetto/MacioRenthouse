@@ -27,6 +27,7 @@ export class DropdownMenuComponent implements AfterViewInit {
     arrowRotated: boolean = false;
     checkedOptionsCount: number = 0;
     rangeInputValue!: number;
+    numberInputValue!: string;
     rangeInputMask!: string;
     rangeInputType!: 'min' | 'max';
     minVal!: number;
@@ -104,6 +105,7 @@ export class DropdownMenuComponent implements AfterViewInit {
             this.rangeInputMask = this.rangeInput.ngxMask;
             this.rangeInputType = this.rangeInput.minOrMax;
             this.rangeInputValue = this.rangeInput.currentRangeInputValue;
+            this.numberInputValue = this.rangeInput.currentNumberInputValue;
             this.minVal = this.rangeInput.minVal;
             this.maxVal = this.rangeInput.maxVal;
             this.cdr.detectChanges();
