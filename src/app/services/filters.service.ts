@@ -11,6 +11,10 @@ import { CheckboxOption } from '../interfaces/filters/checkbox-option';
 export class FiltersService {
     private filtersState$ = new BehaviorSubject<FiltersValues | null>(null);
     private baseFiltersState$ = new BehaviorSubject<FiltersValues | null>(null);
+    // prettier-ignore
+    private latestModifiedCheckboxDropdownName$ =
+        new BehaviorSubject<string | null>(null);
+
     baseFiltersState!: FiltersValues;
     checkedDropdownsSequence: string[] = [];
     rangeDropdownsSequence: string[] = [];
@@ -87,6 +91,7 @@ export class FiltersService {
             if (option.status === 'checked') option.status = 'available';
         });
 
+        this.latestModifiedCheckboxDropdownName$.next(filterName);
         this.filtersState$.next(oldOptions);
     }
 
@@ -96,7 +101,12 @@ export class FiltersService {
         oldOptions!.checkboxFilters[filterName].options.at(index)!.status =
             'available';
 
+        this.latestModifiedCheckboxDropdownName$.next(filterName);
         this.filtersState$.next(oldOptions);
+    }
+
+    getLatestModifiedCheckboxDropdownName(): Observable<string | null> {
+        return this.latestModifiedCheckboxDropdownName$.asObservable();
     }
 
     clearAllRangeFilterValues(generalFilterName: string) {

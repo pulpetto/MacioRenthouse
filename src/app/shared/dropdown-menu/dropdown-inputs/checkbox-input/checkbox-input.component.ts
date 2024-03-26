@@ -56,6 +56,22 @@ export class CheckboxInputComponent implements OnInit, OnChanges {
                     checked: i === 0 ? true : false,
                 });
             });
+
+        if (this.isMultiSelect)
+            this.filtersService
+                .getLatestModifiedCheckboxDropdownName()
+                .subscribe((data) => {
+                    if (data === this.name) {
+                        this.checkedOptionsChangeEvent.emit(
+                            this.options.filter(
+                                (option) => option.status === 'checked'
+                            ).length
+                        );
+
+                        this.applyButtonAvailable = false;
+                        this.clearButtonAvailable = false;
+                    }
+                });
     }
 
     ngOnChanges(changes: SimpleChanges) {}
