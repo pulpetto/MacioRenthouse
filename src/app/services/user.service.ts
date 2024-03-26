@@ -7,9 +7,8 @@ import { ref, set } from '@angular/fire/database';
 import { Observable } from 'rxjs/internal/Observable';
 import { BehaviorSubject, combineLatest, map } from 'rxjs';
 import { Offer } from '../interfaces/offer';
-import { FilterModel } from '../interfaces/filter-model';
-import { UtilityService } from './utility.service';
-import { MultiselectDropdownOption } from '../interfaces/multiselect-dropdown-option';
+import { FiltersService } from './filters.service';
+import { FiltersValues } from '../interfaces/filters/filters-values';
 
 @Injectable({
     providedIn: 'root',
@@ -17,65 +16,98 @@ import { MultiselectDropdownOption } from '../interfaces/multiselect-dropdown-op
 export class UserService {
     private userSubject = new BehaviorSubject<User | null>(null);
 
-    private filtersState$ = new BehaviorSubject<FilterModel | null>(null);
-    private baseFiltersValues$ = new BehaviorSubject<FilterModel | null>(null);
-    private availableFiltersValues$ = new BehaviorSubject<FilterModel | null>(
-        null
-    );
-
-    private baseMultiselectDropdownOptions$ = new BehaviorSubject<{
-        [key: string]: Map<string, MultiselectDropdownOption>;
-    } | null>(null);
-
-    private currentMultiselectDropdownOptions$ = new BehaviorSubject<{
-        [key: string]: Map<string, MultiselectDropdownOption>;
-    } | null>(null);
-
     constructor(
         private angularFireDatabase: AngularFireDatabase,
         private angularFireAuth: AngularFireAuth,
-        private utilityService: UtilityService,
-        private router: Router
+        private router: Router,
+        private filtersService: FiltersService
     ) {}
 
-    getBaseMultiselectDropdownOptions(): {
-        [key: string]: Map<string, MultiselectDropdownOption>;
-    } | null {
-        return this.baseMultiselectDropdownOptions$.value;
-    }
-
-    getMultiselectDropdownsOptions$(): Observable<{
-        [key: string]: Map<string, MultiselectDropdownOption>;
+    getOffers2(
+        username: string | null,
+        searchTerm: string | null,
+        orderBy: string = 'ascending',
+        sortBy: string = 'unixPublishDate',
+        arrayStartIndex: number = 0,
+        maxItemsPerPage: number = 10,
+        sortingByCarProperties: boolean = false,
+        filtersState: FiltersValues | null
+    ): Observable<{
+        offers: Offer[];
+        offersAmount: number;
+        pagesAmount: number;
     } | null> {
-        return this.currentMultiselectDropdownOptions$;
-    }
+        let query;
+        const offersPath = username ? `users/${username}/offers` : 'offers';
+        const sortingBy = sortingByCarProperties ? `car/${sortBy}` : sortBy;
 
-    getCurrentFiltersState(): FilterModel | null {
-        return this.filtersState$.value;
-    }
+        if (searchTerm === null) {
+            query = this.angularFireDatabase.list<Offer>(offersPath, (ref) =>
+                ref.orderByChild(sortingBy)
+            );
+        } else {
+            query = this.angularFireDatabase.list<Offer>(offersPath, (ref) =>
+                ref
+                    .orderByChild('car/fullCarName')
+                    .startAt(searchTerm)
+                    .endAt(searchTerm + '\uf8ff')
+            );
+        }
 
-    getFiltersState$(): Observable<FilterModel | null> {
-        return this.filtersState$.asObservable();
-    }
+        return query.valueChanges().pipe(
+            map((offers) => {
+                if (!filtersState) {
+                    this.filtersService.assignInitialValues(offers);
+                }
 
-    updateFiltersState(newState: FilterModel) {
-        this.filtersState$.next(newState);
-    }
+                if (filtersState) {
+                    offers = this.filtersService.filterOffers(
+                        filtersState,
+                        offers
+                    );
+                }
 
-    getAvailableFiltersValues$(): Observable<FilterModel | null> {
-        return this.availableFiltersValues$.asObservable();
-    }
+                const offersAmount = offers.length;
+                const pagesAmount = Math.ceil(offers.length / maxItemsPerPage);
 
-    updateAvailableFiltersValues(newState: FilterModel) {
-        this.availableFiltersValues$.next(newState);
-    }
+                // or access value directly from subject
+                // this.NEWgetFiltersState().subscribe((data) => {
+                //     if (data !== null) {
+                //         this.filtersService.filterOffers(data, offers);
+                //     }
 
-    getBaseFiltersValues$(): Observable<FilterModel | null> {
-        return this.baseFiltersValues$.asObservable();
-    }
+                //     if (data === null) {
+                //         this.filtersService.assignInitialValues(offers);
+                //     }
+                // });
 
-    getBaseFiltersValues(): FilterModel | null {
-        return this.baseFiltersValues$.value;
+                if (!offers) return null;
+
+                if (orderBy === 'ascending') {
+                    offers = offers.slice(
+                        arrayStartIndex,
+                        arrayStartIndex + maxItemsPerPage
+                    );
+                }
+
+                if (orderBy === 'descending') {
+                    offers = offers
+                        .reverse()
+                        .slice(
+                            arrayStartIndex,
+                            arrayStartIndex + maxItemsPerPage
+                        );
+                }
+
+                const returnObj = {
+                    offers: offers,
+                    offersAmount,
+                    pagesAmount,
+                };
+
+                return returnObj;
+            })
+        );
     }
 
     getOfferById(offerId: string): Observable<Offer | null> {
@@ -136,302 +168,6 @@ export class UserService {
                     user.offers = offersArray as Offer[];
                 }
                 return user;
-            })
-        );
-    }
-
-    getOffers(
-        username: string | null,
-        searchTerm: string | null,
-        orderBy: string = 'ascending',
-        sortBy: string = 'unixPublishDate',
-        arrayStartIndex: number = 0,
-        maxItemsPerPage: number = 10,
-        sortingByCarProperties: boolean = false
-    ): Observable<{
-        offers: Offer[];
-        offersAmount: number;
-        pagesAmount: number;
-    } | null> {
-        let query;
-        const offersPath = username ? `users/${username}/offers` : 'offers';
-        const sortingBy = sortingByCarProperties ? `car/${sortBy}` : sortBy;
-
-        if (searchTerm === null) {
-            query = this.angularFireDatabase.list<Offer>(offersPath, (ref) =>
-                ref.orderByChild(sortingBy)
-            );
-        } else {
-            query = this.angularFireDatabase.list<Offer>(offersPath, (ref) =>
-                ref
-                    .orderByChild('car/fullCarName')
-                    .startAt(searchTerm)
-                    .endAt(searchTerm + '\uf8ff')
-            );
-        }
-
-        return query.valueChanges().pipe(
-            map((offers) => {
-                if (this.filtersState$.value !== null)
-                    offers = offers.filter((offer) => {
-                        if (
-                            this.filtersState$.value &&
-                            this.filtersState$.value.multiOptionsFilters
-                        ) {
-                            const {
-                                carBrands,
-                                carModels,
-                                fuelTypes,
-                                gearboxTypes,
-                                seatsAmount,
-                            } = this.filtersState$.value.multiOptionsFilters;
-
-                            if (
-                                // FIX LATER - so that all created offers will have every property in lowercase // remove capitalization here
-                                (carBrands.length > 0 &&
-                                    !carBrands.includes(
-                                        this.utilityService.capitalizeEveryWord(
-                                            offer.car.carBrand
-                                        )
-                                    ) &&
-                                    !carBrands.includes(
-                                        offer.car.carBrand.toLowerCase()
-                                    )) ||
-                                // (carModels.length >= 0 &&
-                                //     !carModels.includes(
-                                //         offer.car.brandModel
-                                //     )) ||
-                                (fuelTypes.length > 0 &&
-                                    !fuelTypes.includes(offer.car.fuelType)) ||
-                                (gearboxTypes.length > 0 &&
-                                    !gearboxTypes.includes(
-                                        offer.car.gearboxType
-                                    )) ||
-                                (seatsAmount.length > 0 &&
-                                    !seatsAmount.includes(
-                                        offer.car.seats.toString()
-                                    ))
-                            ) {
-                                return false;
-                            }
-                        }
-
-                        if (
-                            this.filtersState$.value &&
-                            this.filtersState$.value.rangeFilters
-                        ) {
-                            const {
-                                price: { priceFrom, priceTo },
-                                horsePower: { horsePowerFrom, horsePowerTo },
-                                engineSize: { engineSizeFrom, engineSizeTo },
-                                productionYear: {
-                                    productionYearFrom,
-                                    productionYearTo,
-                                },
-                                mileage: { mileageFrom, mileageTo },
-                            } = this.filtersState$.value.rangeFilters;
-
-                            if (
-                                (priceFrom > 0 && offer.price < priceFrom) ||
-                                (priceTo > 0 && offer.price > priceTo) ||
-                                (horsePowerFrom > 0 &&
-                                    offer.car.horsePower < horsePowerFrom) ||
-                                (horsePowerTo > 0 &&
-                                    offer.car.horsePower > horsePowerTo) ||
-                                (engineSizeFrom > 0 &&
-                                    offer.car.engineCapacity <
-                                        engineSizeFrom) ||
-                                (engineSizeTo > 0 &&
-                                    offer.car.engineCapacity > engineSizeTo) ||
-                                (productionYearFrom > 0 &&
-                                    offer.car.productionYear <
-                                        productionYearFrom) ||
-                                (productionYearTo > 0 &&
-                                    offer.car.productionYear >
-                                        productionYearTo) ||
-                                (mileageFrom > 0 &&
-                                    offer.car.mileage < mileageFrom) ||
-                                (mileageTo > 0 && offer.car.mileage > mileageTo)
-                            ) {
-                                return false;
-                            }
-                        }
-
-                        return true;
-                    });
-
-                const offersAmount = offers.length;
-                const pagesAmount = Math.ceil(offers.length / maxItemsPerPage);
-
-                if (!offers) return null;
-
-                const propertyCounts: {
-                    [key: string]: Map<string, MultiselectDropdownOption>;
-                } = {
-                    carBrands: new Map<
-                        string,
-                        { count: number; id: string; checked: boolean }
-                    >(),
-                    carModels: new Map<
-                        string,
-                        { count: number; id: string; checked: boolean }
-                    >(),
-                    fuelTypes: new Map<
-                        string,
-                        { count: number; id: string; checked: boolean }
-                    >(),
-                    gearboxTypes: new Map<
-                        string,
-                        { count: number; id: string; checked: boolean }
-                    >(),
-                    seatsAmount: new Map<
-                        string,
-                        { count: number; id: string; checked: boolean }
-                    >(),
-                };
-
-                offers.forEach((offer) => {
-                    propertyCounts['carBrands'].set(offer.car.carBrand, {
-                        count:
-                            (propertyCounts['carBrands'].get(offer.car.carBrand)
-                                ?.count || 0) + 1,
-                        id: this.utilityService.generateRandomString(10),
-                        checked: false,
-                    });
-                    propertyCounts['fuelTypes'].set(offer.car.fuelType, {
-                        count:
-                            (propertyCounts['fuelTypes'].get(offer.car.fuelType)
-                                ?.count || 0) + 1,
-                        id: this.utilityService.generateRandomString(10),
-                        checked: false,
-                    });
-                    propertyCounts['gearboxTypes'].set(offer.car.gearboxType, {
-                        count:
-                            (propertyCounts['gearboxTypes'].get(
-                                offer.car.gearboxType
-                            )?.count || 0) + 1,
-                        id: this.utilityService.generateRandomString(10),
-                        checked: false,
-                    });
-                    const seatsKey = offer.car.seats.toString();
-                    propertyCounts['seatsAmount'].set(seatsKey, {
-                        count:
-                            (propertyCounts['seatsAmount'].get(seatsKey)
-                                ?.count || 0) + 1,
-                        id: this.utilityService.generateRandomString(10),
-                        checked: false,
-                    });
-                });
-
-                this.currentMultiselectDropdownOptions$.next(propertyCounts);
-
-                const availableFiltersValues: FilterModel = {
-                    multiOptionsFilters: {
-                        carBrands: Array.from(
-                            new Set(offers.map((offer) => offer.car.carBrand))
-                        ).sort((a, b) => a.localeCompare(b)),
-                        carModels: [],
-                        fuelTypes: Array.from(
-                            new Set(offers.map((offer) => offer.car.fuelType))
-                        ).sort((a, b) => a.localeCompare(b)),
-                        gearboxTypes: Array.from(
-                            new Set(
-                                offers.map((offer) => offer.car.gearboxType)
-                            )
-                        ).sort((a, b) => a.localeCompare(b)),
-                        seatsAmount: Array.from(
-                            new Set(
-                                offers.map((offer) =>
-                                    offer.car.seats.toString()
-                                )
-                            )
-                        ).sort((a, b) => a.localeCompare(b)),
-                    },
-                    rangeFilters: {
-                        price: {
-                            priceFrom: Math.min(
-                                ...offers.map((offer) => offer.price)
-                            ),
-                            priceTo: Math.max(
-                                ...offers.map((offer) => offer.price)
-                            ),
-                        },
-                        horsePower: {
-                            horsePowerFrom: Math.min(
-                                ...offers.map((offer) => offer.car.horsePower)
-                            ),
-                            horsePowerTo: Math.max(
-                                ...offers.map((offer) => offer.car.horsePower)
-                            ),
-                        },
-                        engineSize: {
-                            engineSizeFrom: Math.min(
-                                ...offers.map(
-                                    (offer) => offer.car.engineCapacity
-                                )
-                            ),
-                            engineSizeTo: Math.max(
-                                ...offers.map(
-                                    (offer) => offer.car.engineCapacity
-                                )
-                            ),
-                        },
-                        productionYear: {
-                            productionYearFrom: Math.min(
-                                ...offers.map(
-                                    (offer) => offer.car.productionYear
-                                )
-                            ),
-                            productionYearTo: Math.max(
-                                ...offers.map(
-                                    (offer) => offer.car.productionYear
-                                )
-                            ),
-                        },
-                        mileage: {
-                            mileageFrom: Math.min(
-                                ...offers.map((offer) => offer.car.mileage)
-                            ),
-                            mileageTo: Math.max(
-                                ...offers.map((offer) => offer.car.mileage)
-                            ),
-                        },
-                    },
-                };
-
-                if (this.filtersState$.value === null) {
-                    this.filtersState$.next(availableFiltersValues);
-                    this.baseFiltersValues$.next(
-                        JSON.parse(JSON.stringify(availableFiltersValues))
-                    );
-                    this.baseMultiselectDropdownOptions$.next(propertyCounts);
-                }
-
-                this.availableFiltersValues$.next(availableFiltersValues);
-
-                if (orderBy === 'ascending') {
-                    offers = offers.slice(
-                        arrayStartIndex,
-                        arrayStartIndex + maxItemsPerPage
-                    );
-                }
-
-                if (orderBy === 'descending') {
-                    offers = offers
-                        .reverse()
-                        .slice(
-                            arrayStartIndex,
-                            arrayStartIndex + maxItemsPerPage
-                        );
-                }
-
-                const returnObj = {
-                    offers: offers,
-                    offersAmount,
-                    pagesAmount,
-                };
-
-                return returnObj;
             })
         );
     }
