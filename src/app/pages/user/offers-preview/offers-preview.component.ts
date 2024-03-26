@@ -99,7 +99,7 @@ export class OffersPreviewComponent implements OnInit {
     }
 
     refreshData() {
-        this.offersData$ = this.userService.getOffers2(
+        this.offersData$ = this.userService.getOffers(
             this.username,
             this.searchTerm,
             this.orderingBy,

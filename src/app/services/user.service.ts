@@ -23,7 +23,7 @@ export class UserService {
         private filtersService: FiltersService
     ) {}
 
-    getOffers2(
+    getOffers(
         username: string | null,
         searchTerm: string | null,
         orderBy: string = 'ascending',
