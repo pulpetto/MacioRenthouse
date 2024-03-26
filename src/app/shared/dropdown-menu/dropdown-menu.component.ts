@@ -128,17 +128,4 @@ export class DropdownMenuComponent implements AfterViewInit {
             element.style.height = '0px';
         }
     }
-
-    onOptionsReset($event: Event) {
-        $event.stopPropagation();
-
-        if (this.checkboxInput) {
-            this.checkedOptionsCount = 0;
-            this.checkboxInput.clearAllOptions();
-        }
-
-        if (this.rangeInput) {
-            this.rangeInput.clearInputValues();
-        }
-    }
 }
