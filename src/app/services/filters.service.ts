@@ -140,6 +140,20 @@ export class FiltersService {
                 generalFilterName + 'UpTo'
             ].dynamicProperties.maxValue;
 
+        oldOptions!.rangeFilters[
+            generalFilterName + 'UpTo'
+        ].dynamicProperties.canShowValue = false;
+
+        oldOptions!.rangeFilters[
+            generalFilterName + 'From'
+        ].dynamicProperties.canShowValue = false;
+
+        this.rangeDropdownsSequence = this.rangeDropdownsSequence.filter(
+            (dropdownName) =>
+                dropdownName !== generalFilterName + 'From' &&
+                dropdownName !== generalFilterName + 'UpTo'
+        );
+
         this.filtersState$.next(oldOptions);
     }
 
@@ -160,6 +174,14 @@ export class FiltersService {
                 generalFilterName + 'UpTo'
             ].dynamicProperties.minValue;
 
+        oldOptions!.rangeFilters[
+            generalFilterName + 'From'
+        ].dynamicProperties.canShowValue = false;
+
+        this.rangeDropdownsSequence = this.rangeDropdownsSequence.filter(
+            (dropdownName) => dropdownName !== generalFilterName + 'From'
+        );
+
         this.filtersState$.next(oldOptions);
     }
 
@@ -179,6 +201,14 @@ export class FiltersService {
             this.baseFiltersState.rangeFilters[
                 generalFilterName + 'UpTo'
             ].dynamicProperties.maxValue;
+
+        oldOptions!.rangeFilters[
+            generalFilterName + 'UpTo'
+        ].dynamicProperties.canShowValue = false;
+
+        this.rangeDropdownsSequence = this.rangeDropdownsSequence.filter(
+            (dropdownName) => dropdownName !== generalFilterName + 'UpTo'
+        );
 
         this.filtersState$.next(oldOptions);
     }
