@@ -88,16 +88,16 @@ export class RangeInputComponent implements OnInit, OnChanges {
     }
 
     onRangeInput() {
-        this.applyButtonAvailable = true;
-
         if (
             (this.currentRangeInputValue === this.minVal &&
                 this.minOrMax === 'min') ||
             (this.currentRangeInputValue === this.maxVal &&
                 this.minOrMax === 'max')
         ) {
+            this.applyButtonAvailable = false;
             this.clearButtonAvailable = false;
         } else {
+            this.applyButtonAvailable = true;
             this.clearButtonAvailable = true;
         }
 
