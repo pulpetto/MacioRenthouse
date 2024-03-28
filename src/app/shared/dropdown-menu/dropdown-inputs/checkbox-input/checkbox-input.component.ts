@@ -8,11 +8,7 @@ import {
     Output,
     SimpleChanges,
 } from '@angular/core';
-import { UtilityService } from 'src/app/services/utility.service';
 import { FormControl } from '@angular/forms';
-import { MultiOptionFilters } from 'src/app/interfaces/multi-option-filters';
-import { UserService } from 'src/app/services/user.service';
-import { MultiselectDropdownOption } from 'src/app/interfaces/multiselect-dropdown-option';
 import { CheckboxOption } from 'src/app/interfaces/filters/checkbox-option';
 import { FiltersService } from 'src/app/services/filters.service';
 
