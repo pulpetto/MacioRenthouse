@@ -222,7 +222,7 @@
                     class="w-full col-start-1 col-end-2"
                 >
                     <app-checkbox-input
-                        [dropdownOptions]="[
+                        [singleSelectOptions]="[
                             'Abarth',
                             'Alfa Romeo',
                             'Aston Martin',
@@ -288,17 +288,17 @@
                             'Volkswagen',
                             'Volvo'
                         ]"
-                        [dropdownMultiselect]="false"
+                        [isMultiSelect]="false"
                         [control]="offerForm.controls.carBrand"
                     ></app-checkbox-input>
                 </app-dropdown-menu>
-                <app-dropdown-menu
+                <!-- <app-dropdown-menu
                     [dropdownName]="'Car Brand'"
                     [dropdownWidth]="'full'"
                     class="col-start-2"
                 >
                     <app-checkbox-input
-                        [dropdownOptions]="[
+                        [singleSelectOptions]="[
                             'Opt 1',
                             'Opt 2',
                             'Opt 3',
@@ -308,7 +308,7 @@
                         [dropdownMultiselect]="false"
                         [control]="offerForm.controls.carModel"
                     ></app-checkbox-input>
-                </app-dropdown-menu>
+                </app-dropdown-menu> -->
             </div>
 
             <div class="z-20 grid w-full grid-cols-2 gap-2 mb-14">
@@ -318,7 +318,7 @@
                     class="w-full col-start-1 col-end-2"
                 >
                     <app-checkbox-input
-                        [dropdownOptions]="[
+                        [singleSelectOptions]="[
                             'Petrol',
                             'Diesel',
                             'Hydrogen',
@@ -327,7 +327,7 @@
                             'LPG',
                             'Hybrid'
                         ]"
-                        [dropdownMultiselect]="false"
+                        [isMultiSelect]="false"
                         [control]="offerForm.controls.fuelType"
                     ></app-checkbox-input>
                 </app-dropdown-menu>
@@ -337,8 +337,8 @@
                     class="col-start-2"
                 >
                     <app-checkbox-input
-                        [dropdownOptions]="['Manual', 'Automatic']"
-                        [dropdownMultiselect]="false"
+                        [singleSelectOptions]="['Manual', 'Automatic']"
+                        [isMultiSelect]="false"
                         [control]="offerForm.controls.gearboxType"
                     ></app-checkbox-input>
                 </app-dropdown-menu>
