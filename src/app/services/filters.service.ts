@@ -653,7 +653,6 @@ export class FiltersService {
             }
 
             this.calculateFiltersStatuses(filtersValues, offers);
-            this.calculateRangeFiltersValues(filtersValues, offers);
         }
 
         return offers;
@@ -752,21 +751,5 @@ export class FiltersService {
         }
 
         return filtersValues;
-    }
-
-    calculateRangeFiltersValues(filtersValues: FiltersValues, offers: Offer[]) {
-        for (const [key, value] of Object.entries(filtersValues.rangeFilters)) {
-            let carPropertyAccessKey = value.staticProperties.generalName;
-            if (carPropertyAccessKey === 'engineSize')
-                carPropertyAccessKey = 'engineCapacity';
-
-            value.dynamicProperties.minValue = Math.min(
-                ...offers.map((offer) => +offer.car[carPropertyAccessKey])
-            );
-
-            value.dynamicProperties.maxValue = Math.max(
-                ...offers.map((offer) => +offer.car[carPropertyAccessKey])
-            );
-        }
     }
 }
