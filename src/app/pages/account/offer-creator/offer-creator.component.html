@@ -18,13 +18,9 @@
     [cdkTrapFocusAutoCapture]="true"
     [formGroup]="offerForm"
     (ngSubmit)="onOfferSubmit()"
-    [ngClass]="{
-            'w-full': creatorFullscreenState,
-            'h-full': creatorFullscreenState,
-        }"
-    class="grid w-3/4 grid-cols-4 grid-rows-5 gap-8 px-8 pt-16 pb-8 text-center transition-all duration-500 ease-out rounded-xl h-5/6 backdrop-blur-3xl bg-clip-padding backdrop-filter bg-neutral-950"
+    class="grid w-full h-full max-h-screen grid-cols-4 grid-rows-5 gap-8 p-8 text-center"
 >
-    <div
+    <!-- <div
         class="absolute flex items-center justify-between w-full pl-6 pr-7 top-2"
     >
         <div class="flex">
@@ -64,7 +60,7 @@
                 alt="fullscreen icon"
             />
         </button>
-    </div>
+    </div> -->
 
     <div class="grid grid-cols-4 col-span-3 grid-rows-3 row-span-3 gap-2">
         <label
@@ -106,7 +102,7 @@
 
         <div
             *ngIf="imagesUrls.length > 0"
-            class="w-full h-full col-span-3 rounded-md shadow-md row-span-full drop-shadow-md shadow-black backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter"
+            class="w-full h-full col-span-3 rounded-md shadow-md row-span-full shadow-black"
         >
             <div class="relative flex justify-center w-full h-full">
                 <img [src]="imagesUrls[0]" class="h-full rounded-md" alt="" />
@@ -126,7 +122,7 @@
 
         <div
             *ngFor="let uploadedImage of imagesUrls | slice : 1; let i = index"
-            class="relative w-full col-start-4 drop-shadow-2xl shadow-black backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter"
+            class="relative w-full col-start-4 rounded-md shadow-md shadow-black"
             [class]="'row-start-' + i"
             [class]="'row-end-' + (i + 1)"
         >
@@ -135,7 +131,7 @@
                 <button
                     type="button"
                     (click)="onImageRemove(i)"
-                    class="absolute w-6 h-6 transition-all rounded-full shadow-2xl top-1 right-1 drop-shadow-2xl shadow-black backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter hover:scale-105"
+                    class="absolute w-6 h-6 transition-all bg-black rounded-full shadow-2xl top-1 right-1 drop-shadow-2xl shadow-black backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter hover:scale-105"
                 >
                     <img
                         src="assets/svgs/cross-svgrepo-com(1).svg"
@@ -149,7 +145,7 @@
         <label
             *ngIf="imagesUrls.length > 0 && imagesUrls.length < 4"
             for="dropzone-file-2"
-            class="flex flex-col items-center justify-center w-full h-full col-start-4 row-span-1 transition-all duration-300 ease-out rounded-md shadow-md cursor-pointer drop-shadow-md shadow-black backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter"
+            class="flex flex-col items-center justify-center w-full h-full col-start-4 row-span-1 rounded-md shadow-md cursor-pointer shadow-black"
         >
             <div
                 class="flex justify-center w-16 h-16 transition-all hover:scale-105"
@@ -173,7 +169,7 @@
 
         <div
             *ngFor="let placeholder of placeholdersAmount"
-            class="w-full h-full col-start-4 row-span-1 transition-all rounded-md shadow-md drop-shadow-md shadow-black backdrop-blur-3xl bg-clip-padding backdrop-filter"
+            class="w-full h-full col-start-4 row-span-1 rounded-md shadow-md shadow-black"
         ></div>
     </div>
 
@@ -214,7 +210,7 @@
                 <app-dropdown-menu
                     [dropdownName]="'Car Brand'"
                     [dropdownWidth]="'full'"
-                    class="w-full col-start-1 col-end-2"
+                    class="w-full col-start-1 col-end-3"
                 >
                     <app-checkbox-input
                         [singleSelectOptions]="[
