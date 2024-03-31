@@ -16,6 +16,7 @@ import { userExistsGuard } from './guards/user-exists.guard';
 import { UserComponent } from './pages/user/user.component';
 import { OffersPreviewComponent } from './pages/user/offers-preview/offers-preview.component';
 import { hasMinimumOffersGuard } from './guards/has-minimum-offers.guard';
+import { OfferCreatorComponent } from './pages/account/offer-creator/offer-creator.component';
 
 const routes: Routes = [
     {
@@ -71,6 +72,7 @@ const routes: Routes = [
                 pathMatch: 'full',
             },
             { path: 'offers', component: OffersComponent },
+            { path: 'creator', component: OfferCreatorComponent },
             { path: 'settings', component: SettingsComponent },
             { path: 'favourites', component: FavouritesComponent },
         ],
