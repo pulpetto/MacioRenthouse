@@ -3,10 +3,8 @@ import {
     Component,
     EventEmitter,
     Input,
-    OnChanges,
     OnInit,
     Output,
-    SimpleChanges,
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { CheckboxOption } from 'src/app/interfaces/filters/checkbox-option';
@@ -17,7 +15,7 @@ import { FiltersService } from 'src/app/services/filters.service';
     templateUrl: './checkbox-input.component.html',
     styleUrls: ['./checkbox-input.component.css'],
 })
-export class CheckboxInputComponent implements OnInit, OnChanges {
+export class CheckboxInputComponent implements OnInit {
     // All
     @Input() name!: string;
     @Input() isMultiSelect!: boolean;
@@ -69,8 +67,6 @@ export class CheckboxInputComponent implements OnInit, OnChanges {
                     }
                 });
     }
-
-    ngOnChanges(changes: SimpleChanges) {}
 
     onDropdownPropertySearch() {
         const filteredOptions = this.options.filter((option) =>
