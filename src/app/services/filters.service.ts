@@ -652,7 +652,7 @@ export class FiltersService {
                     value.options.forEach((option) => (option.count = 0));
             }
 
-            this.calculateFiltersStatuses(filtersValues, offers);
+            this.calculateFiltersValues(filtersValues, offers);
         }
 
         return offers;
@@ -694,7 +694,7 @@ export class FiltersService {
         return filtersValues;
     }
 
-    calculateFiltersStatuses(
+    calculateFiltersValues(
         filtersValues: FiltersValues,
         offers: Offer[]
     ): FiltersValues {
