@@ -174,116 +174,124 @@
 
     <div class="flex flex-col justify-between h-full col-start-4 row-span-full">
         <div class="flex flex-col gap-8 justify-self-start">
-            <div class="z-30 grid w-full grid-cols-2 gap-2 mb-14">
-                <app-dropdown-menu
-                    [dropdownName]="'Car Brand'"
-                    [dropdownWidth]="'full'"
-                    class="w-full col-start-1 col-end-3"
-                >
-                    <app-checkbox-input
-                        [singleSelectOptions]="[
-                            'Abarth',
-                            'Alfa Romeo',
-                            'Aston Martin',
-                            'Audi',
-                            'Bentley',
-                            'BMW',
-                            'Bugatti',
-                            'Cadillac',
-                            'Chevrolet',
-                            'Chrysler',
-                            'Citroën',
-                            'Dacia',
-                            'Daewoo',
-                            'Daihatsu',
-                            'Dodge',
-                            'Donkervoort',
-                            'DS',
-                            'Ferrari',
-                            'Fiat',
-                            'Fisker',
-                            'Ford',
-                            'Honda',
-                            'Hummer',
-                            'Hyundai',
-                            'Infiniti',
-                            'Iveco',
-                            'Jaguar',
-                            'Jeep',
-                            'Kia',
-                            'KTM',
-                            'Lada',
-                            'Lamborghini',
-                            'Lancia',
-                            'Land Rover',
-                            'Landwind',
-                            'Lexus',
-                            'Lotus',
-                            'Maserati',
-                            'Maybach',
-                            'Mazda',
-                            'McLaren',
-                            'Mercedes-Benz',
-                            'MG',
-                            'Mini',
-                            'Mitsubishi',
-                            'Morgan',
-                            'Nissan',
-                            'Opel',
-                            'Peugeot',
-                            'Porsche',
-                            'Renault',
-                            'Rolls-Royce',
-                            'Rover',
-                            'Saab',
-                            'Seat',
-                            'Skoda',
-                            'Smart',
-                            'SsangYong',
-                            'Subaru',
-                            'Suzuki',
-                            'Tesla',
-                            'Toyota',
-                            'Volkswagen',
-                            'Volvo'
-                        ]"
-                        [isMultiSelect]="false"
-                        [control]="offerForm.controls.carBrand"
-                    ></app-checkbox-input>
-                </app-dropdown-menu>
-            </div>
+            <div class="flex flex-col gap-4 justify-self-start">
+                <div class="z-30 grid w-full grid-cols-2 gap-2 mb-14">
+                    <app-dropdown-menu
+                        [dropdownName]="'Car Brand'"
+                        [dropdownWidth]="'full'"
+                        class="w-full col-start-1 col-end-3"
+                    >
+                        <app-checkbox-input
+                            [singleSelectOptions]="[
+                                'Abarth',
+                                'Alfa Romeo',
+                                'Aston Martin',
+                                'Audi',
+                                'Bentley',
+                                'BMW',
+                                'Bugatti',
+                                'Cadillac',
+                                'Chevrolet',
+                                'Chrysler',
+                                'Citroën',
+                                'Dacia',
+                                'Daewoo',
+                                'Daihatsu',
+                                'Dodge',
+                                'Donkervoort',
+                                'DS',
+                                'Ferrari',
+                                'Fiat',
+                                'Fisker',
+                                'Ford',
+                                'Honda',
+                                'Hummer',
+                                'Hyundai',
+                                'Infiniti',
+                                'Iveco',
+                                'Jaguar',
+                                'Jeep',
+                                'Kia',
+                                'KTM',
+                                'Lada',
+                                'Lamborghini',
+                                'Lancia',
+                                'Land Rover',
+                                'Landwind',
+                                'Lexus',
+                                'Lotus',
+                                'Maserati',
+                                'Maybach',
+                                'Mazda',
+                                'McLaren',
+                                'Mercedes-Benz',
+                                'MG',
+                                'Mini',
+                                'Mitsubishi',
+                                'Morgan',
+                                'Nissan',
+                                'Opel',
+                                'Peugeot',
+                                'Porsche',
+                                'Renault',
+                                'Rolls-Royce',
+                                'Rover',
+                                'Saab',
+                                'Seat',
+                                'Skoda',
+                                'Smart',
+                                'SsangYong',
+                                'Subaru',
+                                'Suzuki',
+                                'Tesla',
+                                'Toyota',
+                                'Volkswagen',
+                                'Volvo'
+                            ]"
+                            [isMultiSelect]="false"
+                            [control]="offerForm.controls.carBrand"
+                        ></app-checkbox-input>
+                    </app-dropdown-menu>
+                </div>
 
-            <div class="z-20 grid w-full grid-cols-2 gap-2 mb-14">
-                <app-dropdown-menu
-                    [dropdownName]="'Fuel type'"
-                    [dropdownWidth]="'full'"
-                    class="w-full col-start-1 col-end-2"
-                >
-                    <app-checkbox-input
-                        [singleSelectOptions]="[
-                            'Petrol',
-                            'Diesel',
-                            'Hydrogen',
-                            'Electric',
-                            'Ethanol',
-                            'LPG',
-                            'Hybrid'
-                        ]"
-                        [isMultiSelect]="false"
-                        [control]="offerForm.controls.fuelType"
-                    ></app-checkbox-input>
-                </app-dropdown-menu>
-                <app-dropdown-menu
-                    [dropdownName]="'Gearbox type'"
-                    [dropdownWidth]="'full'"
-                    class="col-start-2"
-                >
-                    <app-checkbox-input
-                        [singleSelectOptions]="['Manual', 'Automatic']"
-                        [isMultiSelect]="false"
-                        [control]="offerForm.controls.gearboxType"
-                    ></app-checkbox-input>
-                </app-dropdown-menu>
+                <app-input
+                    label="Car Model"
+                    type="text"
+                    [control]="offerForm.controls.carModel"
+                ></app-input>
+
+                <div class="z-20 grid w-full grid-cols-2 gap-2 mb-14">
+                    <app-dropdown-menu
+                        [dropdownName]="'Fuel type'"
+                        [dropdownWidth]="'full'"
+                        class="w-full col-start-1 col-end-2"
+                    >
+                        <app-checkbox-input
+                            [singleSelectOptions]="[
+                                'Petrol',
+                                'Diesel',
+                                'Hydrogen',
+                                'Electric',
+                                'Ethanol',
+                                'LPG',
+                                'Hybrid'
+                            ]"
+                            [isMultiSelect]="false"
+                            [control]="offerForm.controls.fuelType"
+                        ></app-checkbox-input>
+                    </app-dropdown-menu>
+                    <app-dropdown-menu
+                        [dropdownName]="'Gearbox type'"
+                        [dropdownWidth]="'full'"
+                        class="col-start-2"
+                    >
+                        <app-checkbox-input
+                            [singleSelectOptions]="['Manual', 'Automatic']"
+                            [isMultiSelect]="false"
+                            [control]="offerForm.controls.gearboxType"
+                        ></app-checkbox-input>
+                    </app-dropdown-menu>
+                </div>
             </div>
 
             <div class="flex flex-col gap-2">
