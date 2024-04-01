@@ -47,7 +47,7 @@ export class CheckboxInputComponent implements OnInit {
             this.singleSelectOptions.forEach((option, i) => {
                 this.singleSelectOptionsConverted.push({
                     name: option,
-                    checked: i === 0 ? true : false,
+                    checked: false,
                 });
             });
 
