@@ -1,6 +1,6 @@
 # Macio Wearhouse
 
-A service where you can sell, or buy a car.
+A service where you can sell, or buy a car. Use Google Chrome for the best experience.
 
 ## Features
 
