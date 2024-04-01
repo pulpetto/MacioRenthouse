@@ -118,6 +118,7 @@ export class CheckboxInputComponent implements OnInit {
             );
             option.checked = true;
 
+            this.control?.setValue(option.name);
             this.orderingChangeEvent.emit(option.name);
             this.sortingChangeEvent.emit(option.name);
             this.maxOffersPerPageChangeEvent.emit(option.name);
