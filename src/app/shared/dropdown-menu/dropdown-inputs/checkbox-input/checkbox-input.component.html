@@ -89,6 +89,21 @@
 </ng-container>
 
 <ng-template #singleSelect>
+    <div *ngIf="singleSelectOptions.length > 10">
+        <input
+            type="text"
+            [(ngModel)]="searchTerm"
+            (ngModelChange)="onSingleSelectDropdownPropertySearch()"
+            placeholder="Search for property..."
+            class="w-full h-16 pl-4 text-white bg-transparent outline-none"
+        />
+    </div>
+    <div
+        *ngIf="singleSelectOptionsConverted.length === 0"
+        class="p-4 text-center select-none opacity-60"
+    >
+        No results found.
+    </div>
     <ul class="overflow-y-auto max-h-96">
         <ng-container
             *ngFor="let option of singleSelectOptionsConverted; let i = index"

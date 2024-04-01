@@ -22,6 +22,7 @@ export class CheckboxInputComponent implements OnInit {
     // Single-Select
     @Input() singleSelectOptions!: string[];
     singleSelectOptionsConverted: { name: string; checked: boolean }[] = [];
+    singleSelectOptionsConvertedCopy: { name: string; checked: boolean }[] = [];
     // Multi-Select
     @Input() options!: CheckboxOption[];
     anyOptionChecked: boolean = false;
@@ -43,13 +44,17 @@ export class CheckboxInputComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        if (!this.isMultiSelect && this.singleSelectOptions)
+        if (!this.isMultiSelect && this.singleSelectOptions) {
             this.singleSelectOptions.forEach((option, i) => {
                 this.singleSelectOptionsConverted.push({
                     name: option,
                     checked: false,
                 });
             });
+
+            this.singleSelectOptionsConvertedCopy =
+                this.singleSelectOptionsConverted;
+        }
 
         if (this.isMultiSelect)
             this.filtersService
@@ -74,6 +79,20 @@ export class CheckboxInputComponent implements OnInit {
         );
 
         this.options = filteredOptions;
+
+        this.cdr.detectChanges();
+        this.calculateHeightEvent.emit();
+    }
+
+    onSingleSelectDropdownPropertySearch() {
+        const filteredOptions = this.singleSelectOptionsConvertedCopy.filter(
+            (option) =>
+                option.name
+                    .toLowerCase()
+                    .startsWith(this.searchTerm.toLowerCase())
+        );
+
+        this.singleSelectOptionsConverted = filteredOptions;
 
         this.cdr.detectChanges();
         this.calculateHeightEvent.emit();
