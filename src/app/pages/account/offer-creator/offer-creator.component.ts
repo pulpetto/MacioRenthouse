@@ -27,14 +27,9 @@ export class OfferCreatorComponent {
         if (event.key === 'Escape') {
             this.openModalByName('creatorLeave');
         }
-
-        if (event.key === 'f') {
-            this.creatorFullscreenState = !this.creatorFullscreenState;
-        }
     }
 
     @Output() creatorState = new EventEmitter<void>();
-    creatorFullscreenState = false;
     fullscreenImageSrc = 'assets/svgs/expand-svgrepo-com.svg';
     noImagesAnimation: boolean = false;
 
@@ -145,15 +140,6 @@ export class OfferCreatorComponent {
         ]),
         description: new FormControl('', [Validators.required]),
     });
-
-    onToggleCreatorFullscreen() {
-        this.creatorFullscreenState = !this.creatorFullscreenState;
-        if (this.fullscreenImageSrc === 'assets/svgs/expand-svgrepo-com.svg') {
-            this.fullscreenImageSrc = 'assets/svgs/compress-2-svgrepo-com.svg';
-        } else {
-            this.fullscreenImageSrc = 'assets/svgs/expand-svgrepo-com.svg';
-        }
-    }
 
     placeholdersAmount = new Array(3);
 
