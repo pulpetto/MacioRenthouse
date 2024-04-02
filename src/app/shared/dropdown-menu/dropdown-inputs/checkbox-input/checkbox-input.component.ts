@@ -131,6 +131,7 @@ export class CheckboxInputComponent implements OnInit {
     ) {
         if (option.checked === true) {
             $event.preventDefault();
+            this.dropdownCloseEvent.emit();
         } else {
             this.singleSelectOptionsConverted.forEach(
                 (option) => (option.checked = false)
@@ -141,6 +142,7 @@ export class CheckboxInputComponent implements OnInit {
             this.orderingChangeEvent.emit(option.name);
             this.sortingChangeEvent.emit(option.name);
             this.maxOffersPerPageChangeEvent.emit(option.name);
+            this.dropdownCloseEvent.emit();
         }
     }
 
