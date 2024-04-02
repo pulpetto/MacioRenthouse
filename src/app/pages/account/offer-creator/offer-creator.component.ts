@@ -7,6 +7,7 @@ import {
 } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 import { Modal } from 'src/app/interfaces/modal';
 import { Offer } from 'src/app/interfaces/offer';
@@ -78,7 +79,8 @@ export class OfferCreatorComponent {
         private userService: UserService,
         private utilityService: UtilityService,
         private angularFireStorage: AngularFireStorage,
-        private renderer: Renderer2
+        private renderer: Renderer2,
+        private router: Router
     ) {}
 
     closeModalByIndex($event: number | boolean) {
@@ -287,5 +289,7 @@ export class OfferCreatorComponent {
         this.imagesFiles = [];
         this.offerForm.reset();
         this.creatorState.emit();
+        let currentUrl = this.router.url;
+        this.router.navigateByUrl(currentUrl.replace('/creator', '/offers'));
     }
 }
