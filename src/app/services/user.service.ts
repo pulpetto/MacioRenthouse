@@ -70,17 +70,6 @@ export class UserService {
                 const offersAmount = offers.length;
                 const pagesAmount = Math.ceil(offers.length / maxItemsPerPage);
 
-                // or access value directly from subject
-                // this.NEWgetFiltersState().subscribe((data) => {
-                //     if (data !== null) {
-                //         this.filtersService.filterOffers(data, offers);
-                //     }
-
-                //     if (data === null) {
-                //         this.filtersService.assignInitialValues(offers);
-                //     }
-                // });
-
                 if (!offers) return null;
 
                 if (orderBy === 'ascending') {
