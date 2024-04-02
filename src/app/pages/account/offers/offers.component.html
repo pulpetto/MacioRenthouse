@@ -1,12 +1,12 @@
 <div
     *ngIf="offers$ | async as offers; else loading"
-    class="flex flex-col items-center w-full gap-6 mt-12"
+    class="relative flex flex-col items-center w-full gap-6 mx-auto mt-12 max-w-7xl"
 >
     <ng-container *ngIf="offers.length > 0; else noOffers">
         <app-offer
             *ngFor="let offer of offers"
             [offerData]="offer"
-            class="w-5/6 max-w-7xl"
+            class="w-full"
         ></app-offer>
     </ng-container>
     <ng-template #noOffers>
