@@ -204,6 +204,13 @@ export class UserService {
             .valueChanges();
     }
 
+    getUserFavouriteOffers(): Observable<Offer[]> {
+        return this.angularFireDatabase
+            .list(`users/${this.userSubject.value?.username}/favouriteOffers`)
+            .valueChanges()
+            .pipe(map((offers) => offers as Offer[]));
+    }
+
     isLoggedIn(): Observable<boolean> {
         return this.userSubject
             .asObservable()
