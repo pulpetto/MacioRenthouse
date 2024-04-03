@@ -1,5 +1,5 @@
 import { Component, DestroyRef, inject } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Observable } from 'rxjs';
 import { Offer } from 'src/app/interfaces/offer';
 import { UserService } from 'src/app/services/user.service';
 
@@ -10,16 +10,11 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class FavouritesComponent {
     destroyRef = inject(DestroyRef);
-    userFavouriteOffers: Offer[] | undefined;
+    favouriteOffers$!: Observable<Offer[] | null>;
 
     constructor(private userService: UserService) {}
 
     ngOnInit() {
-        this.userService
-            .getUser()
-            .pipe(takeUntilDestroyed(this.destroyRef))
-            .subscribe((user) => {
-                this.userFavouriteOffers = user?.favouriteOffers;
-            });
+        this.favouriteOffers$ = this.userService.getUserFavouriteOffers();
     }
 }
