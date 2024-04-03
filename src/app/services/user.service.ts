@@ -3,7 +3,7 @@ import { User } from '../interfaces/user';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
-import { ref, set } from '@angular/fire/database';
+import { ref, remove, set } from '@angular/fire/database';
 import { Observable } from 'rxjs/internal/Observable';
 import { BehaviorSubject, combineLatest, map } from 'rxjs';
 import { Offer } from '../interfaces/offer';
@@ -172,6 +172,22 @@ export class UserService {
 
     setUser(user: User) {
         this.userSubject.next(user);
+    }
+
+    addOrRemoveOfferFromFavourites(clickedOffer: Offer, isBookmared: boolean) {
+        const offerRef = ref(
+            this.angularFireDatabase.database,
+            'users/' +
+                this.userSubject.value?.username +
+                '/favouriteOffers/' +
+                clickedOffer.offerId
+        );
+
+        if (isBookmared) {
+            set(offerRef, clickedOffer);
+        } else {
+            remove(offerRef);
+        }
     }
 
     getUser(): Observable<User | null> {
