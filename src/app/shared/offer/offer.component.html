@@ -167,6 +167,12 @@
 
         <button
             type="button"
+            [tooltip]="
+                isBookmared
+                    ? 'Remove offer from favoruites'
+                    : 'Add offer to favoruites'
+            "
+            placement="right"
             (click)="addOrRemoveOfferFromFavourites($event, offerData)"
             class="absolute bottom-0 right-0 w-8 h-8 transition-opacity translate-x-2 opacity-0"
             [ngClass]="{
