@@ -64,6 +64,7 @@ import { RangeInputComponent } from './shared/dropdown-menu/dropdown-inputs/rang
 import { CamelcaseToNormalCapitalizedPipe } from './pipes/camelcase-to-normal-capitalized.pipe';
 import { OffersFiltersComponent } from './pages/user/offers-preview/offers-filters/offers-filters.component';
 import { CheckboxOptionsSortingPipe } from './pipes/checkbox-options-sorting.pipe';
+import { ToastComponent } from './shared/toast/toast.component';
 
 @NgModule({
     declarations: [
@@ -96,6 +97,7 @@ import { CheckboxOptionsSortingPipe } from './pipes/checkbox-options-sorting.pip
         CamelcaseToNormalCapitalizedPipe,
         OffersFiltersComponent,
         CheckboxOptionsSortingPipe,
+        ToastComponent,
     ],
     imports: [
         A11yModule,
