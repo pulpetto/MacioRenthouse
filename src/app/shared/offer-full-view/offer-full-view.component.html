@@ -491,19 +491,7 @@
                     {{ offer.offerDescription }}
                 </ng-container>
             </div>
-            <div class="flex items-center justify-between w-full gap-4">
-                <div
-                    class="w-full mt-1 border border-white border-solid rounded-md"
-                ></div>
-                <div
-                    class="text-3xl font-semibold text-center whitespace-nowrap"
-                >
-                    Others
-                </div>
-                <div
-                    class="w-full mt-1 border border-white border-solid rounded-md"
-                ></div>
-            </div>
+
             <div class="flex w-full gap-4">
                 <ng-container *ngIf="loading">
                     <div
@@ -541,51 +529,6 @@
                             ></div>
                         </div>
                     </div>
-                </ng-container>
-
-                <ng-container *ngIf="!loading">
-                    <a
-                        routerLink=""
-                        *ngFor="let image of images2"
-                        class="flex flex-col transition-all duration-500 rounded-md bg-neutral-950 backdrop-blur-3xl bg-opacity-90 bg-clip-padding backdrop-filter hover:-translate-y-2 hover:scale-105 hover:shadow-2xl hover:shadow-black"
-                    >
-                        <div>
-                            <img
-                                src="https://www.bmw-m.com/content/dam/bmw/marketBMW_M/common/topics/magazine-article-pool/2018/bmw-m2-coupe-edition-black-shadow/bmw-m2-coup%C3%A9-black-shadow-stage-teaser-si.jpg"
-                                class="w-full h-full rounded-md"
-                                alt=""
-                            />
-                        </div>
-                        <div class="flex flex-col p-2">
-                            <div class="flex justify-between">
-                                <div class="flex gap-1 text-lg">
-                                    <div>BMW</div>
-                                    <div>Alpina</div>
-                                </div>
-                            </div>
-                            <div
-                                class="flex items-end gap-1 mb-4 text-sm opacity-80"
-                            >
-                                <div>2018</div>
-                                <div class="w-4 h-4">
-                                    <img
-                                        src="assets/svgs/dot-small-svgrepo-com.svg"
-                                        class="w-full h-full"
-                                        alt=""
-                                    />
-                                </div>
-                                <div>298 000 km</div>
-                            </div>
-                            <div class="flex gap-1">
-                                <div class="text-2xl font-semibold">
-                                    300 000
-                                </div>
-                                <div class="flex flex-col items-start mt-1">
-                                    <div class="text-xs">ZŁ</div>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
                 </ng-container>
             </div>
         </div>
