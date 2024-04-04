@@ -29,7 +29,6 @@ export class ToastComponent implements OnInit {
     }
 
     hideToast() {
-        console.log('s');
         this.toastService.hideToast();
     }
 }
