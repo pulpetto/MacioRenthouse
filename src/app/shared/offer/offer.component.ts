@@ -1,6 +1,7 @@
 import { Component, DestroyRef, inject, Input, OnInit } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Offer } from 'src/app/interfaces/offer';
+import { ToastService } from 'src/app/services/toast.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -14,7 +15,10 @@ export class OfferComponent implements OnInit {
     bookmarVisibility: boolean = false;
     isBookmared: boolean = false;
 
-    constructor(private userService: UserService) {}
+    constructor(
+        private userService: UserService,
+        private toastService: ToastService
+    ) {}
 
     ngOnInit() {
         this.userService
@@ -37,6 +41,13 @@ export class OfferComponent implements OnInit {
         $event.preventDefault();
 
         this.isBookmared = !this.isBookmared;
+
+        if (this.isBookmared) {
+            this.toastService.showToast('Bookmarked offer');
+        } else {
+            this.toastService.showToast('Removed offer from favourites');
+        }
+
         this.userService.addOrRemoveOfferFromFavourites(
             offer,
             this.isBookmared
