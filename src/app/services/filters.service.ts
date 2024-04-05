@@ -84,6 +84,22 @@ export class FiltersService {
         this.filtersState$.next(oldOptions);
     }
 
+    clearAllCheckboxFiltersOptions() {
+        let oldOptions = this.filtersState$.value;
+
+        for (const [key, value] of Object.entries(
+            oldOptions!.checkboxFilters
+        )) {
+            value.options.forEach((option) => {
+                if (option.status === 'checked') option.status = 'available';
+            });
+
+            this.latestModifiedCheckboxDropdownName$.next(key);
+        }
+
+        this.filtersState$.next(oldOptions);
+    }
+
     clearAllCheckboxFilterOptions(filterName: string) {
         let oldOptions = this.filtersState$.value;
 

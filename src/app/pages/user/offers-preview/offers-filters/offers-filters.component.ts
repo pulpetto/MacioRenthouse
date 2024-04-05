@@ -35,6 +35,10 @@ export class OffersFiltersComponent implements OnInit {
         );
     }
 
+    clearAllCheckboxFiltersOptions() {
+        this.filtersService.clearAllCheckboxFiltersOptions();
+    }
+
     clearAllCheckboxFilterOptions(filterName: string) {
         this.filtersService.clearAllCheckboxFilterOptions(filterName);
     }
