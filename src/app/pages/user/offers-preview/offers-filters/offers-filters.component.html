@@ -7,6 +7,65 @@
         <div
             class="absolute flex flex-col w-64 gap-2 -translate-x-full -left-4"
         >
+            <div
+                class="flex items-center self-center justify-center w-full gap-4"
+            >
+                <div
+                    class="w-full mt-1 border border-white border-solid rounded-md"
+                ></div>
+
+                <div class="flex gap-1">
+                    <button
+                        type="button"
+                        (click)="
+                            clearAllCheckboxFiltersOptions();
+                            clearAllRangeFiltersValues()
+                        "
+                        class="flex items-center text-lg font-semibold transition-colors duration-300 whitespace-nowrap hover:text-red-600"
+                    >
+                        Clear all filters
+                    </button>
+                    <div
+                        tooltip="Click any specific filter, or it's values to clear it."
+                        placement="bottom"
+                        class="w-8 h-8 mt-1 transition-transform duration-300 group"
+                    >
+                        <svg
+                            viewBox="0 -0.5 25 25"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <path
+                                class="transition-colors duration-300 stroke-white group-hover:stroke-indigo-600"
+                                fill-rule="evenodd"
+                                clip-rule="evenodd"
+                                d="M5.5 11V13C5.5 16.3137 8.18629 19 11.5 19H13.5C16.8137 19 19.5 16.3137 19.5 13V11C19.5 7.68629 16.8137 5 13.5 5H11.5C8.18629 5 5.5 7.68629 5.5 11Z"
+                                stroke-width="1.5"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            />
+                            <path
+                                class="transition-colors duration-300 stroke-white group-hover:stroke-indigo-600"
+                                d="M12.5 12V16"
+                                stroke-width="1.5"
+                                stroke-linecap="round"
+                            />
+                            <path
+                                class="transition-colors duration-300 stroke-white group-hover:stroke-indigo-600"
+                                d="M12.5 9.5C12.2243 9.5 12 9.2757 12 9C12 8.7243 12.2243 8.5 12.5 8.5C12.7757 8.5 13 8.7243 13 9C13 9.2757 12.7757 9.5 12.5 9.5Z"
+                            />
+                            <path
+                                class="transition-colors duration-300 stroke-white group-hover:stroke-indigo-600"
+                                d="M12.5 8C13.0523 8 13.5 8.44772 13.5 9C13.5 9.55228 13.0523 10 12.5 10C11.9477 10 11.5 9.55228 11.5 9C11.5 8.44772 11.9477 8 12.5 8Z"
+                            />
+                        </svg>
+                    </div>
+                </div>
+
+                <div
+                    class="w-full mt-1 border border-white border-solid rounded-md"
+                ></div>
+            </div>
+
             <div class="flex flex-col gap-2">
                 <ng-container
                     *ngFor="
