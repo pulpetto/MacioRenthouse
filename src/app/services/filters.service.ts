@@ -125,6 +125,28 @@ export class FiltersService {
         return this.latestModifiedCheckboxDropdownName$.asObservable();
     }
 
+    clearAllRangeFiltersValues() {
+        let oldOptions = this.filtersState$.value;
+
+        for (const [key, value] of Object.entries(oldOptions!.rangeFilters)) {
+            value.dynamicProperties.minValue =
+                this.baseFiltersState.rangeFilters[
+                    key
+                ].dynamicProperties.minValue;
+
+            value.dynamicProperties.maxValue =
+                this.baseFiltersState.rangeFilters[
+                    key
+                ].dynamicProperties.maxValue;
+
+            value.dynamicProperties.canShowValue = false;
+
+            this.rangeDropdownsSequence = [];
+        }
+
+        this.filtersState$.next(oldOptions);
+    }
+
     clearAllRangeFilterValues(generalFilterName: string) {
         let oldOptions = this.filtersState$.value;
 
